@@ -1,0 +1,178 @@
+[
+  {
+    "unidad_organizativa": "REGISTRACIONES",
+    "jerarquia": "5 – Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "24/04/2025",
+    "mision": "Supervisar la centralización de la contabilidad de Casa Central y Sucursales en pesos y moneda extranjera, la conciliación de las cuentas corrientes abiertas en el BCRA, y la aplicación de la capacidad de préstamos.",
+    "funciones": [
+      {"descripcion": "Controlar la centralización de la información contable de Casa Central y Sucursales del país en pesos y moneda extranjera y, las registraciones y razonabilidad de los asientos a ser ingresados en la contabilidad general.", "producto_final": "Balance del país", "porcentaje_dedicacion": 40},
+      {"descripcion": "Controlar la conciliación de los movimientos de las cuentas corrientes abiertas en el B.C.R.A.", "producto_final": "Conciliación", "porcentaje_dedicacion": 30},
+      {"descripcion": "Controlar la registración de operaciones en pesos de Casa Central.", "producto_final": "Balance Diario", "porcentaje_dedicacion": 30}
+    ]
+  },
+  {
+    "unidad_organizativa": "ACTIVOS PROPIOS Y GASTOS PRESUPUESTARIOS",
+    "jerarquia": "5- Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "18/11/2021",
+    "mision": "Supervisar la registración y verificación de la ejecución del presupuesto de gastos e inversiones de Propiedad Planta y Equipo, Bienes Diversos e Intangibles y el cumplimiento de las disposiciones sobre activos propios.",
+    "funciones": [
+      {"descripcion": "Intervenir en el análisis de las normas legales y en la emisión de instrucciones sobre el tratamiento de activos propios", "producto_final": "Instrucciones", "porcentaje_dedicacion": 10},
+      {"descripcion": "Controlar el cumplimiento de las informaciones con destino a Organismos Externos, la Dirección del Banco y Áreas de la Administración Central", "producto_final": "Informes", "porcentaje_dedicacion": 10},
+      {"descripcion": "Controlar la registración de las inversiones de Bienes de Uso, Diversos e Intangibles, conforme a normas internacionales y ajuste por inflación", "producto_final": "Contabilidad Patrimonial", "porcentaje_dedicacion": 40},
+      {"descripcion": "Controlar la correcta imputación contable presupuestaria de gastos e inversiones", "producto_final": "Contabilidad Presupuestaria", "porcentaje_dedicacion": 30},
+      {"descripcion": "Controlar la ejecución del presupuesto", "producto_final": "Ejecución Presupuestaria", "porcentaje_dedicacion": 10}
+    ]
+  },
+  {
+    "unidad_organizativa": "NORMAS CONTABLES",
+    "jerarquia": "5- Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "18/11/2021",
+    "mision": "Supervisar la adecuada aplicación técnica de las normas contables",
+    "funciones": [
+      {"descripcion": "Intervenir en la atención de consultas vinculadas a la normativa contable", "producto_final": "Instrucciones", "porcentaje_dedicacion": 15},
+      {"descripcion": "Controlar el cumplimiento de las normas contables vigentes", "producto_final": "Instrucciones", "porcentaje_dedicacion": 15},
+      {"descripcion": "Intervenir en la emisión de instrucciones a las sucursales relacionadas con el Plan de Cuentas y la integración de registraciones contables", "producto_final": "Instrucciones", "porcentaje_dedicacion": 20},
+      {"descripcion": "Intervenir en la interpretación de normas contables y disposiciones establecidas por el Banco Central de la República Argentina vinculadas a aspectos contables", "producto_final": "Informes", "porcentaje_dedicacion": 50}
+    ]
+  },
+  {
+    "unidad_organizativa": "ESTADOS CONTABLES",
+    "jerarquia": "4- Subgerente Departamental",
+    "nivel_reporte": 3,
+    "fecha_aprobacion": "18/11/2021",
+    "mision": "Coordinar la labor de emisión íntegra y oportuna de los estados financieros consolidados con apego a las normas contables vigentes",
+    "funciones": [
+      {"descripcion": "Gestionar la emisión de información sobre los Estados Financieros, para la Dirección del Banco, Organismos Externos y Áreas de la Administración Central", "producto_final": "Informes", "porcentaje_dedicacion": 25},
+      {"descripcion": "Intervenir en la interpretación de las normas del B.C.R.A. referidas a aspectos contables", "producto_final": "Comunicaciones", "porcentaje_dedicacion": 25},
+      {"descripcion": "Conducir las tareas de análisis de la información que surge de los aplicativos especiales que se le asignen", "producto_final": "Control Aplicativos Especiales", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir las actividades de análisis de las previsiones Impositivas y Pasivas determinadas por otras áreas del Banco", "producto_final": "Control de Previsiones", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir las tareas de control referentes a la confección de los estados financieros consolidados, y relaciones técnicas que se le asignen", "producto_final": "Estados Financieros/Relaciones Técnicas", "porcentaje_dedicacion": 30}
+    ]
+  },
+  {
+    "unidad_organizativa": "ESTADOS CONSOLIDADOS",
+    "jerarquia": "5 - Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "18/11/2021",
+    "mision": "Supervisar el cumplimiento de actividades vinculadas con la elaboración de los estados financieros consolidados y de las relaciones técnicas que se le asignen",
+    "funciones": [
+      {"descripcion": "Controlar la emisión de los Estados Financieros y la razonabilidad de los mismos", "producto_final": "Balances", "porcentaje_dedicacion": 60},
+      {"descripcion": "Controlar la confección de las relaciones técnicas que se le asignen y la razonabilidad de las mismas", "producto_final": "Relaciones Técnicas", "porcentaje_dedicacion": 20},
+      {"descripcion": "Controlar la adecuada integración de las informaciones a suministrar a Organismos Externos, la Dirección del Banco, Inspecciones del BCRA y Áreas de la Administración Central", "producto_final": "Información y Control", "porcentaje_dedicacion": 20}
+    ]
+  },
+  {
+    "unidad_organizativa": "REGÍMENES INFORMATIVOS",
+    "jerarquia": "4 – Subgerente Departamental",
+    "nivel_reporte": 3,
+    "fecha_aprobacion": "05/05/2025",
+    "mision": "Coordinar las actividades inherentes a la gestión de la provisión de información a los Entes Externos, exigidas y reguladas tanto por el BCRA como por otros Organismos que se encuentren en condiciones de exigir su cumplimiento. Comprendiendo todas las informaciones que el Banco se encuentre obligado a proveer con cierta frecuencia consecutiva.",
+    "funciones": [
+      {"descripcion": "Gestionar la provisión de información que brindan las áreas responsables de los datos, su consolidación cuando éstos sean provistos por varias unidades, e intervenir en la determinación mediante el análisis, brindando las interpretaciones normativas correspondientes, en pos de cumplimentar un único requerimiento de información.", "producto_final": "Provisión de Información", "porcentaje_dedicacion": 30},
+      {"descripcion": "Controlar las tareas de análisis e interpretación de los requerimientos externos de información y las de elaboración detallada de los requerimientos a las distintas Unidades del Banco responsables por la provisión de la información, independientemente de que los mismos sean de origen sistémico u operativo.", "producto_final": "Análisis e Interpretación / Solicitud de Requerimientos", "porcentaje_dedicacion": 20},
+      {"descripcion": "Controlar el cumplimiento, en tiempo y forma, del suministro de información requerida tanto por el BCRA como por otros Organismos Externos, ya sean o no de contralor, y que el Banco se encuentra obligado a suministrar regularmente.", "producto_final": "Control de Cumplimiento", "porcentaje_dedicacion": 15},
+      {"descripcion": "Gestionar el cumplimiento de los requerimientos de información, ya sea tanto en su carácter de 'emisor' de la presentación a los distintos Organismos, como a través de la correcta planificación de estos regímenes, garantizando que como Institución se cumplimenten adecuadamente.", "producto_final": "Cumplimiento", "porcentaje_dedicacion": 15},
+      {"descripcion": "Intervenir como nexo coordinador entre el Banco y los distintos Organismos Externos requirentes de información.", "producto_final": "Coordinación", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir y planificar una correcta gestión de provisión de información que es requerida al Banco.", "producto_final": "Planificación", "porcentaje_dedicacion": 5},
+      {"descripcion": "Controlar y asesorar en las actividades relacionadas con la atención de lo atinente a reclamos y consultas por información relacionada a la normativa vigente sobre requerimientos de información.", "producto_final": "Atención de Consultas y Reclamos", "porcentaje_dedicacion": 5}
+    ]
+  },
+  {
+    "unidad_organizativa": "ANÁLISIS DE REGÍMENES INFORMATIVOS",
+    "jerarquia": "5- Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "05/05/2025",
+    "mision": "Coordinar las actividades inherentes al análisis de Regímenes y Requerimientos Informativos requeridos por Organismos Externos que requieran cierta frecuencia consecutiva, elaboración de esta información y generación de archivos.",
+    "funciones": [
+      {"descripcion": "Conducir el análisis y el seguimiento Normativo, a fin de detectar modificaciones o incorporaciones de nuevos Regímenes o Requerimientos de Información, e intervenir en la elaboración y/o actualización de los marcos normativos.", "producto_final": "Seguimiento y Análisis/Elaboración de Marcos Normativos", "porcentaje_dedicacion": 15},
+      {"descripcion": "Gestionar el análisis e interpretación de los requerimientos de información y elaborar los requerimientos a las distintas Unidades del Banco responsables por la provisión de la información, independientemente de que los mismos sean de origen sistémico u operativo.", "producto_final": "Análisis y elaboración de Requerimientos", "porcentaje_dedicacion": 15},
+      {"descripcion": "Conducir las tareas de elaboración de los nuevos Regímenes o Requerimientos Informativos desde su implementación normativa hasta su sistematización.", "producto_final": "Elaboración de información", "porcentaje_dedicacion": 20},
+      {"descripcion": "Gestionar las actividades relacionadas con la determinación, definiciones y provisión de información que brindan las áreas responsables de los datos como en su consolidación.", "producto_final": "Generación de archivos", "porcentaje_dedicacion": 20},
+      {"descripcion": "Conducir las actividades de atención y asesoramiento en todo lo atinente a reclamos y consultas por información relacionada a la normativa vigente sobre los requerimientos de información de Organismos Externos y corrección de errores de validación a las distintas áreas.", "producto_final": "Asesoramiento", "porcentaje_dedicacion": 15},
+      {"descripcion": "Conducir las tareas relacionadas con la integridad de los datos a informar a distintos organismos, asegurando la concordancia de datos informados.", "producto_final": "Control de la Información", "porcentaje_dedicacion": 15}
+    ]
+  },
+  {
+    "unidad_organizativa": "PRESENTACIÓN DE REGÍMENES INFORMATIVOS",
+    "jerarquia": "5 – Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "05/05/2025",
+    "mision": "Dirigir el cumplimiento y la presentación de los Regímenes y Requerimientos Informativos a todos los Organismos Externos, así como la validación interna de los mismos y su almacenamiento.",
+    "funciones": [
+      {"descripcion": "Determinar la agenda de presentación de todos los requerimientos de información solicitados por los Organismos Externos y garantizar su cumplimiento.", "producto_final": "Agenda de cumplimiento", "porcentaje_dedicacion": 20},
+      {"descripcion": "Conducir las tareas de consultas y requerimientos a los Entes de Contralor y Proveedores Externos, relacionadas con los Regímenes y Requerimientos Informativos sirviendo como nexo con las distintas áreas del banco.", "producto_final": "Vinculación / Representación", "porcentaje_dedicacion": 10},
+      {"descripcion": "Gestionar las validaciones internas de la información a trasmitir.", "producto_final": "Validaciones", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir el correcto almacenamiento y la guarda de la información según las exigencias normativas.", "producto_final": "Almacenamiento/Guarda de Información", "porcentaje_dedicacion": 20},
+      {"descripcion": "Gestionar la disponibilidad de la información solicitada por las Auditorías Internas y Externas, y las distintas áreas de la Administración Central.", "producto_final": "Biblioteca Digital", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir la presentación/transmisión de información a los distintos Organismos Externos.", "producto_final": "Transmisión / Presentación de información", "porcentaje_dedicacion": 30}
+    ]
+  },
+  {
+    "unidad_organizativa": "ASUNTOS TRIBUTARIOS",
+    "jerarquia": "4 – Subgerente Departamental",
+    "nivel_reporte": 3,
+    "fecha_aprobacion": "17/07/2023",
+    "mision": "Dirigir el análisis e interpretación de las normativas que en materia tributaria emanen de los Organismos, Nacional, Provinciales y Municipales, coordinando las actividades tendientes al cumplimiento de las obligaciones fiscales del Banco en el País, las actividades de Asesoramiento Tributario y de Representación del Banco ante los distintos Fiscos",
+    "funciones": [
+      {"descripcion": "Garantizar la liquidación, presentación y pago de tributos nacionales, provinciales y municipales", "producto_final": "Control", "porcentaje_dedicacion": 5},
+      {"descripcion": "Gestionar el análisis e interpretación, de la legislación Impositiva y de las normativas que en materia tributaria emanen de los Organismos, Nacional, Provinciales y Municipales, generando a las áreas las instrucciones pertinentes o requerimientos detallados (por operativa – producto – transacción, sistémicos u operativos) que surjan de dicho análisis.", "producto_final": "Análisis normativo, Instrucciones y Requerimientos", "porcentaje_dedicacion": 25},
+      {"descripcion": "Conducir las actividades de actualización de la normativa en materia tributaria", "producto_final": "Actualización Normativa", "porcentaje_dedicacion": 15},
+      {"descripcion": "Determinar la incidencia tributaria sobre operatoria del Banco en general", "producto_final": "Opinión", "porcentaje_dedicacion": 10},
+      {"descripcion": "Conducir las tareas relacionadas a la actualización de los datos, en los sistemas que requieran el ingreso de parámetros tales como alícuotas, tasas, o similares", "producto_final": "Parámetros", "porcentaje_dedicacion": 10},
+      {"descripcion": "Gestionar el asesoramiento en materia tributaria, por si o a través de las unidades de apoyo tributario, tanto a la Red de Sucursales como a las Unidades de Casa Central que así lo requieran", "producto_final": "Asesoramiento", "porcentaje_dedicacion": 15},
+      {"descripcion": "Intervenir activamente en el desarrollo de los productos de las unidades de Negocios, en cuanto a las definiciones de índole tributarios que corresponda aplicarles e informado de los cambios futuros que se produzcan en la materia y que puedan afectarlos", "producto_final": "Asesoramiento tributario a productos", "porcentaje_dedicacion": 10},
+      {"descripcion": "Intervenir en representación del Banco en materia tributaria y como nexo entre éste y los distintos Organismos Externos (Fiscos) para satisfacer las necesidades de las distintas Unidades en relación a la implementación de requerimientos", "producto_final": "Representación", "porcentaje_dedicacion": 10}
+    ]
+  },
+  {
+    "unidad_organizativa": "TRIBUTOS NACIONALES",
+    "jerarquia": "5– Jefe de Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "17/07/2023",
+    "mision": "Supervisar el cumplimiento de las obligaciones tributarias de índole nacional a cargo del Área y brindar asesoramiento sobre las mismas a las distintas Áreas de la Administración Central y Sucursales del país.",
+    "funciones": [
+      {"descripcion": "Determinar provisiones impositivas de índole nacional a cargo del Área.", "producto_final": "Provisiones", "porcentaje_dedicacion": 10},
+      {"descripcion": "Tramitar la actualización de la normativa y de los parámetros en los sistemas que requieran el ingreso de aquellos tales como alícuotas, tasas, o similares.", "producto_final": "Actualización Normativa/Parámetros", "porcentaje_dedicacion": 15},
+      {"descripcion": "Controlar la liquidación, presentación y pago de tributos nacionales.", "producto_final": "Liquidaciones, Declaraciones Juradas", "porcentaje_dedicacion": 25},
+      {"descripcion": "Tramitar el análisis e interpretación de la legislación de tributos nacionales que afecten al Banco en todas sus formas.", "producto_final": "Dictamen", "porcentaje_dedicacion": 20},
+      {"descripcion": "Informar y asesorar sobre la aplicación de tributos de índole nacional a las áreas de la Administración Central y Sucursales del país y emitir las instrucciones correspondientes para garantizar su implementación.", "producto_final": "Información/Asesoramiento", "porcentaje_dedicacion": 15},
+      {"descripcion": "Intervenir en las definiciones de índole tributaria a nivel nacional que correspondan aplicarse en el desarrollo de productos de las unidades de Negocios, informando de los cambios futuros que puedan afectarlos.", "producto_final": "Asesoramiento", "porcentaje_dedicacion": 10},
+      {"descripcion": "Intervenir en representación del Banco en materia tributaria y como nexo entre éste y los distintos Organismos Externos(Fiscos) para satisfacer las necesidades de las distintas Unidades en relación a la implementación de requerimientos.", "producto_final": "Representación", "porcentaje_dedicacion": 5}
+    ]
+  },
+  {
+    "unidad_organizativa": "TRIBUTOS PROVINCIALES Y MUNICIPALES",
+    "jerarquia": "5 – Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "24/04/2025",
+    "mision": "Supervisar el cumplimiento de las obligaciones tributarias de índole provincial y brindar asesoramiento, en forma conjunta con la Coordinación de Equipos de Apoyo Tributario de los impuestos / tasas de índole municipal.",
+    "funciones": [
+      {"descripcion": "Controlar la liquidación, presentación y pago de tributos provinciales a cargo del Banco.", "producto_final": "Liquidaciones, Declaraciones Juradas", "porcentaje_dedicacion": 20},
+      {"descripcion": "Controlar el análisis e interpretación de la legislación de tributos provinciales que afecten la operativa del Banco en su carácter de sujeto pasivo y agente de retención / percepción y recaudación.", "producto_final": "Dictamen", "porcentaje_dedicacion": 20},
+      {"descripcion": "Informar y Asesorar sobre la aplicación de tributos de índole provincial a las áreas de la Administración Central y Sucursales del país y emitir las instrucciones correspondientes para garantizar su implementación. Intervenir y brindar asistencia en los requerimientos fiscales municipales, judiciales y de otra índole relacionados con tasas cuya liquidación se efectúe en base a impuestos provinciales.", "producto_final": "Información / Asesoramiento / Asistencia", "porcentaje_dedicacion": 20},
+      {"descripcion": "Tramitar la actualización de la normativa y de los parámetros en los sistemas que requieran el ingreso de aquellos tales como alícuotas, tasas, o similares.", "producto_final": "Actualización Normativa / Parámetros", "porcentaje_dedicacion": 10},
+      {"descripcion": "Provisiones", "producto_final": "Provisiones", "porcentaje_dedicacion": 5},
+      {"descripcion": "Intervenir en el desarrollo de productos de las unidades de Negocios, en cuanto a las definiciones de índole tributario a nivel provincial que corresponda aplicarles, informado de los cambios futuros que puedan afectarlos.", "producto_final": "Asesoramiento", "porcentaje_dedicacion": 5},
+      {"descripcion": "Intervenir en representación del Banco en materia tributaria y como nexo entre éste y los distintos Organismos Externos (Fiscos) para satisfacer las necesidades de las distintas Unidades con relación a la implementación de requerimientos, verificaciones y/o emplazamientos.", "producto_final": "Representación", "porcentaje_dedicacion": 5},
+      {"descripcion": "Intervenir en la elaboración de propuestas de mejora de procesos de la gestión impositiva en lo referente a impuestos provinciales.", "producto_final": "Mejoras de Proceso", "porcentaje_dedicacion": 5},
+      {"descripcion": "Controlar la determinación de provisiones impositivas.", "producto_final": "Provisiones", "porcentaje_dedicacion": 10}
+    ]
+  },
+  {
+    "unidad_organizativa": "COORDINACIÓN DE EQUIPOS DE APOYO TRIBUTARIO",
+    "jerarquia": "5 – Jefe Principal de Departamento",
+    "nivel_reporte": 4,
+    "fecha_aprobacion": "24/04/2025",
+    "mision": "Supervisar las actividades de los Analistas de Apoyo Tributario, efectuar el seguimiento de las funciones específicas asignadas y elaborar reportes de gestión.",
+    "funciones": [
+      {"descripcion": "Efectuar el seguimiento de las tareas realizadas por los Analistas de Apoyo Tributario vinculadas con el asesoramiento a las sucursales ubicadas en el ámbito de su jurisdicción, como así también en lo referido a la intervención en casos de requerimientos, emplazamientos, verificaciones, de entes fiscales municipales/judiciales.", "producto_final": "Seguimiento", "porcentaje_dedicacion": 30},
+      {"descripcion": "Elaborar reportes de gestión que expongan eficazmente la situación de los asuntos tributarios en cada una de las jurisdicciones.", "producto_final": "Informes", "porcentaje_dedicacion": 20},
+      {"descripcion": "Controlar el cumplimiento de las liquidaciones, presentaciones y pagos de tasas municipales.", "producto_final": "Control de Cumplimiento", "porcentaje_dedicacion": 25},
+      {"descripcion": "Proponer acciones tendientes a la detección temprana de situaciones en donde pudieran existir cuestiones a exponer en lo relacionado a las cuestiones impositivas.", "producto_final": "Prevención", "porcentaje_dedicacion": 15},
+      {"descripcion": "Intervenir en la elaboración de propuestas de mejora de los procesos de la gestión impositiva.", "producto_final": "Mejora de procesos", "porcentaje_dedicacion": 10}
+    ]
+  }
+] 
