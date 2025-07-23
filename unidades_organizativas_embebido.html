@@ -24,13 +24,1032 @@
     <div id="unidad-content" class="section"></div>
 
     <script>
-    // JSON embebido
-    const unidades = REEMPLAZAR_AQUI_POR_JSON_REAL;
-    // Función para obtener el nombre exacto tal como está en el CSV (con BOM si existe)
+    // JSON embebido generado desde el CSV
+    const unidades = [
+  {
+    "﻿Unidad Organizativa": "Sgp Negocios",
+    "Reporta A": "",
+    "Jerarquía": "Sgp",
+    "Misión": "Conducir la estrategia integral del negocio bancario, asegurando la creación de valor para los clientes y la sostenibilidad del modelo operativo, comercial y digital del Banco.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Liderar el diseño e implementación de la estrategia del negocio, integrando segmentos, canales y productos",
+    "Producto Final": "Lineamientos estratégicos integrados",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Sgp Negocios",
+    "Reporta A": "",
+    "Jerarquía": "Sgp",
+    "Misión": "Conducir la estrategia integral del negocio bancario, asegurando la creación de valor para los clientes y la sostenibilidad del modelo operativo, comercial y digital del Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar la elaboración y seguimiento del plan integral de negocios del Banco",
+    "Producto Final": "Plan de Negocio Integrado",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Sgp Negocios",
+    "Reporta A": "",
+    "Jerarquía": "Sgp",
+    "Misión": "Conducir la estrategia integral del negocio bancario, asegurando la creación de valor para los clientes y la sostenibilidad del modelo operativo, comercial y digital del Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Supervisar el cumplimiento de objetivos estratégicos, comerciales y operativos",
+    "Producto Final": "Tablero de Control Estratégico",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Personas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Impulsar el crecimiento rentable de la cartera de personas mediante una propuesta de valor centrada en las necesidades, el comportamiento y la experiencia del cliente.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Supervisar la estrategia comercial y la gestión de resultados del segmento personas",
+    "Producto Final": "Reporte estratégico del segmento",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Personas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Impulsar el crecimiento rentable de la cartera de personas mediante una propuesta de valor centrada en las necesidades, el comportamiento y la experiencia del cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar la estrategia por subsegmento (jóvenes, haberes, jubilados, alta renta, etc.)",
+    "Producto Final": "Planes de acción por subsegmento",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Personas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Impulsar el crecimiento rentable de la cartera de personas mediante una propuesta de valor centrada en las necesidades, el comportamiento y la experiencia del cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar la rentabilidad y penetración de productos claves en el segmento",
+    "Producto Final": "Indicadores de performance y rentabilidad",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Personas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Impulsar el crecimiento rentable de la cartera de personas mediante una propuesta de valor centrada en las necesidades, el comportamiento y la experiencia del cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proponer evoluciones de la propuesta de valor según insights de cliente y mercado",
+    "Producto Final": "Propuesta de Valor Evolutiva",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Empresas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Desarrollar el portafolio de soluciones para empresas, promoviendo la bancarización, el financiamiento y la integración de servicios con foco sectorial y territorial.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Supervisar la estrategia de atención y oferta para empresas segmentadas por tipo",
+    "Producto Final": "Reporte integral del segmento empresas",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Empresas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Desarrollar el portafolio de soluciones para empresas, promoviendo la bancarización, el financiamiento y la integración de servicios con foco sectorial y territorial.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar estrategias sectoriales y territoriales para grandes empresas, agro y MiPyMEs",
+    "Producto Final": "Planes sectoriales y territoriales",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Empresas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Desarrollar el portafolio de soluciones para empresas, promoviendo la bancarización, el financiamiento y la integración de servicios con foco sectorial y territorial.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Articular soluciones integradas con productos y canales para empresas",
+    "Producto Final": "Soluciones Integradas",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Segmento Empresas",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Desarrollar el portafolio de soluciones para empresas, promoviendo la bancarización, el financiamiento y la integración de servicios con foco sectorial y territorial.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear y optimizar la rentabilidad y cobertura del portafolio empresarial",
+    "Producto Final": "Informe de gestión y rentabilidad empresarial",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Canales",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Optimizar la cobertura y calidad de atención mediante la integración de canales físicos y digitales, garantizando consistencia, eficiencia y experiencia centrada en el cliente.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Supervisar la estrategia de integración de canales físicos y digitales",
+    "Producto Final": "Modelo de gobierno omnicanal",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Canales",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Optimizar la cobertura y calidad de atención mediante la integración de canales físicos y digitales, garantizando consistencia, eficiencia y experiencia centrada en el cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Optimizar el modelo de atención multicanal con foco en experiencia cliente",
+    "Producto Final": "Modelo de Atención Integrado",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Canales",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Optimizar la cobertura y calidad de atención mediante la integración de canales físicos y digitales, garantizando consistencia, eficiencia y experiencia centrada en el cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar la performance y operación de la red física",
+    "Producto Final": "Informe de eficiencia operativa",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Canales",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sg",
+    "Misión": "Optimizar la cobertura y calidad de atención mediante la integración de canales físicos y digitales, garantizando consistencia, eficiencia y experiencia centrada en el cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Promover la adopción y uso de canales digitales",
+    "Producto Final": "Campañas de migración y uso digital",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Productos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y gestionar el portafolio de productos financieros para personas y empresas, garantizando competitividad, rentabilidad y adecuación a las necesidades del mercado.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Gestionar el ciclo de vida del portafolio de productos financieros del Banco",
+    "Producto Final": "Roadmap de productos",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Productos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y gestionar el portafolio de productos financieros para personas y empresas, garantizando competitividad, rentabilidad y adecuación a las necesidades del mercado.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Liderar diseño de nuevos productos según comportamiento del cliente y benchmarking",
+    "Producto Final": "Nuevos productos",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Productos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y gestionar el portafolio de productos financieros para personas y empresas, garantizando competitividad, rentabilidad y adecuación a las necesidades del mercado.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Revisar y mejorar productos existentes para alinearse a objetivos comerciales",
+    "Producto Final": "Productos rediseñados",
+    "Porcentaje Dedicación": "35"
+  },
+  {
+    "﻿Unidad Organizativa": "Productos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y gestionar el portafolio de productos financieros para personas y empresas, garantizando competitividad, rentabilidad y adecuación a las necesidades del mercado.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear desempeño y rentabilidad de cada línea de producto",
+    "Producto Final": "Tablero de performance de productos",
+    "Porcentaje Dedicación": "25"
+  },
+  {
+    "﻿Unidad Organizativa": "Medios de Pago",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Administrar, desarrollar y posicionar soluciones de medios de pago para personas y empresas, alineadas a las tendencias del ecosistema financiero y las necesidades de uso diario.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Supervisar la oferta integral de medios de pago y sus alianzas estratégicas.",
+    "Producto Final": "Roadmap de Medios de Pago",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Medios de Pago",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Administrar, desarrollar y posicionar soluciones de medios de pago para personas y empresas, alineadas a las tendencias del ecosistema financiero y las necesidades de uso diario.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar el ciclo completo de productos adquirentes y emisores.",
+    "Producto Final": "Oferta Integral Medios de Pago",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Medios de Pago",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Administrar, desarrollar y posicionar soluciones de medios de pago para personas y empresas, alineadas a las tendencias del ecosistema financiero y las necesidades de uso diario.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Impulsar la adopción y digitalización mediante alianzas, beneficios y campañas.",
+    "Producto Final": "Estrategia de Adopción Digital",
+    "Porcentaje Dedicación": "35"
+  },
+  {
+    "﻿Unidad Organizativa": "Medios de Pago",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Administrar, desarrollar y posicionar soluciones de medios de pago para personas y empresas, alineadas a las tendencias del ecosistema financiero y las necesidades de uso diario.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear y optimizar la performance técnica, operativa y comercial.",
+    "Producto Final": "Informe de Gestión y Performance",
+    "Porcentaje Dedicación": "25"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Internacional",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia internacional del Banco, facilitando operaciones de comercio exterior y relaciones con corresponsales, filiales y organismos internacionales.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Coordinar los vínculos institucionales internacionales y asegurar cumplimiento regulatorio.",
+    "Producto Final": "Estrategia Institucional Internacional",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Internacional",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia internacional del Banco, facilitando operaciones de comercio exterior y relaciones con corresponsales, filiales y organismos internacionales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Desarrollar productos y servicios para comercio exterior.",
+    "Producto Final": "Catálogo de Servicios de Comercio Exterior",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Internacional",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia internacional del Banco, facilitando operaciones de comercio exterior y relaciones con corresponsales, filiales y organismos internacionales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar las relaciones operativas y comerciales con corresponsales bancarios.",
+    "Producto Final": "Acuerdos y Convenios de Corresponsalía",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Internacional",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia internacional del Banco, facilitando operaciones de comercio exterior y relaciones con corresponsales, filiales y organismos internacionales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Supervisar las operaciones de filiales y sucursales en el exterior.",
+    "Producto Final": "Informe de Gestión de Sucursales y Filiales",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Marketing",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar la identidad, visibilidad y posicionamiento del Banco, integrando branding, marketing digital, análisis de comportamiento y alianzas estratégicas para generar valor comercial y reputacional.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Supervisar la estrategia integral de marketing, branding, performance y posicionamiento.",
+    "Producto Final": "Plan Estratégico de Marketing",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Marketing",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar la identidad, visibilidad y posicionamiento del Banco, integrando branding, marketing digital, análisis de comportamiento y alianzas estratégicas para generar valor comercial y reputacional.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y coordinar las campañas de branding y posicionamiento institucional.",
+    "Producto Final": "Campañas Institucionales",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Marketing",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar la identidad, visibilidad y posicionamiento del Banco, integrando branding, marketing digital, análisis de comportamiento y alianzas estratégicas para generar valor comercial y reputacional.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar el marketing digital y de performance de productos y servicios prioritarios.",
+    "Producto Final": "Campañas Digitales y de Performance",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Marketing",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar la identidad, visibilidad y posicionamiento del Banco, integrando branding, marketing digital, análisis de comportamiento y alianzas estratégicas para generar valor comercial y reputacional.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Desarrollar insights de comportamiento y segmentación para campañas y productos.",
+    "Producto Final": "Reportes de Insights y Segmentación",
+    "Porcentaje Dedicación": "25"
+  },
+  {
+    "﻿Unidad Organizativa": "Marketing",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar la identidad, visibilidad y posicionamiento del Banco, integrando branding, marketing digital, análisis de comportamiento y alianzas estratégicas para generar valor comercial y reputacional.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar alianzas estratégicas y patrocinios con impacto en la marca y posicionamiento.",
+    "Producto Final": "Agenda de Alianzas y Patrocinios",
+    "Porcentaje Dedicación": "15"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio y Datos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sgd",
+    "Misión": "Integrar la planificación del negocio con el uso estratégico de los datos, garantizando consistencia, trazabilidad y disponibilidad para la toma de decisiones en todas las unidades.",
+    "Tipo de Función": "Genérica",
+    "Descripción": "Definir lineamientos de gobierno, arquitectura y calidad de datos aplicados al negocio.",
+    "Producto Final": "Política de Gobierno de Datos del Negocio",
+    "Porcentaje Dedicación": "NA"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio y Datos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sgd",
+    "Misión": "Integrar la planificación del negocio con el uso estratégico de los datos, garantizando consistencia, trazabilidad y disponibilidad para la toma de decisiones en todas las unidades.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar la integración de datos de segmentos, canales y productos en un modelo común.",
+    "Producto Final": "Modelo Integrado de Datos de Negocio",
+    "Porcentaje Dedicación": "35"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio y Datos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sgd",
+    "Misión": "Integrar la planificación del negocio con el uso estratégico de los datos, garantizando consistencia, trazabilidad y disponibilidad para la toma de decisiones en todas las unidades.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proveer dashboards e insights de negocio para decisiones tácticas y estratégicas.",
+    "Producto Final": "Tableros de Gestión e Insights",
+    "Porcentaje Dedicación": "35"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio y Datos",
+    "Reporta A": "Sgp Negocio",
+    "Jerarquía": "Sgd",
+    "Misión": "Integrar la planificación del negocio con el uso estratégico de los datos, garantizando consistencia, trazabilidad y disponibilidad para la toma de decisiones en todas las unidades.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Asegurar la calidad, trazabilidad y cumplimiento normativo del dato en el negocio.",
+    "Producto Final": "Informe de Calidad y Cumplimiento",
+    "Porcentaje Dedicación": "30"
+  },
+  {
+    "﻿Unidad Organizativa": "Branding y Comunicaciones",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Posicionar la marca Banco Nación mediante estrategias de identidad visual, comunicación institucional y presencia en medios tradicionales y digitales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y ejecutar las campañas institucionales de comunicación masiva.",
+    "Producto Final": "Campañas de Comunicación Institucional",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Branding y Comunicaciones",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Posicionar la marca Banco Nación mediante estrategias de identidad visual, comunicación institucional y presencia en medios tradicionales y digitales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Definir y custodiar la identidad visual y normativa de marca.",
+    "Producto Final": "Manual de Marca y Aplicaciones",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Digital Marketing & Performance",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Impulsar la adquisición, uso y retención de productos y servicios mediante estrategias digitales, campañas de performance y automatización de marketing.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar campañas de performance para productos financieros digitales.",
+    "Producto Final": "Campañas Digitales Segmentadas",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Digital Marketing & Performance",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Impulsar la adquisición, uso y retención de productos y servicios mediante estrategias digitales, campañas de performance y automatización de marketing.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Optimizar el uso de plataformas digitales de marketing y CRM.",
+    "Producto Final": "Flujos Automatizados de Contacto",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Customer Insights & Analytics",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Proveer análisis de comportamiento, preferencias y experiencias del cliente para el diseño de productos, campañas y propuestas de valor centradas en datos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y ejecutar estudios de mercado, NPS y análisis de comportamiento.",
+    "Producto Final": "Informes de Comportamiento y Satisfacción",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Customer Insights & Analytics",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Proveer análisis de comportamiento, preferencias y experiencias del cliente para el diseño de productos, campañas y propuestas de valor centradas en datos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Elaborar tableros e informes de segmentación para decisiones comerciales.",
+    "Producto Final": "Tableros de Segmentación",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Personas",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar los datos de personas asegurando disponibilidad, integridad y trazabilidad para su análisis, uso comercial y cumplimiento normativo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Modelar datos de personas para análisis de comportamiento, riesgo y valor.",
+    "Producto Final": "Modelo de Datos de Personas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Personas",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar los datos de personas asegurando disponibilidad, integridad y trazabilidad para su análisis, uso comercial y cumplimiento normativo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Asegurar la calidad, protección y disponibilidad de datos de clientes personas.",
+    "Producto Final": "Informe de Calidad de Datos Personas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Estrategia Comercial y Propuesta de Valor (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar, proponer y coordinar la estrategia comercial y la propuesta de valor del segmento Personas, alineando productos, canales y experiencia cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar la propuesta de valor integral para los subsegmentos de clientes personas.",
+    "Producto Final": "Propuesta de Valor por Subsegmento",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Estrategia Comercial y Propuesta de Valor (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar, proponer y coordinar la estrategia comercial y la propuesta de valor del segmento Personas, alineando productos, canales y experiencia cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Elaborar y actualizar el plan comercial del segmento personas.",
+    "Producto Final": "Plan Comercial Segmento Personas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Head de Segmentos (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar los subsegmentos del negocio personas, garantizando foco estratégico, rentabilidad y adecuación de la oferta a sus necesidades específicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar la evolución de cada subsegmento (Jóvenes, Renta Alta, Jubilados, etc).",
+    "Producto Final": "Hoja de Ruta Subsegmentos",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Head de Segmentos (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar los subsegmentos del negocio personas, garantizando foco estratégico, rentabilidad y adecuación de la oferta a sus necesidades específicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear indicadores clave y performance de cada subsegmento.",
+    "Producto Final": "Reportes de Seguimiento Subsegmentos",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Inteligencia Comercial (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Sgd",
+    "Misión": "Analizar el comportamiento, necesidades y oportunidades del segmento personas para alimentar la toma de decisiones comerciales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Elaborar reportes e insights sobre performance, necesidades y evolución del segmento.",
+    "Producto Final": "Informes de Inteligencia Comercial",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Inteligencia Comercial (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Sgd",
+    "Misión": "Analizar el comportamiento, necesidades y oportunidades del segmento personas para alimentar la toma de decisiones comerciales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proveer modelos de análisis predictivo para optimización comercial.",
+    "Producto Final": "Modelos Analíticos de Predicción",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Comunicaciones y Eventos (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Sgd",
+    "Misión": "Coordinar la comunicación directa con clientes y la organización de eventos para fortalecer el vínculo con el segmento personas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y ejecutar campañas de comunicación para el segmento personas.",
+    "Producto Final": "Campañas de Comunicación Segmento Personas",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Comunicaciones y Eventos (Personas)",
+    "Reporta A": "Segmento Personas",
+    "Jerarquía": "Sgd",
+    "Misión": "Coordinar la comunicación directa con clientes y la organización de eventos para fortalecer el vínculo con el segmento personas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Organizar eventos y acciones relacionales para segmentos clave.",
+    "Producto Final": "Agenda de Eventos Comerciales",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Estrategia Comercial y Propuesta de Valor (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia comercial y la propuesta de valor para los distintos tipos de empresas, promoviendo la bancarización, digitalización y financiamiento productivo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar la propuesta de valor específica para MiPyMEs, Agro, Gran Empresa y Sector Público.",
+    "Producto Final": "Propuesta de Valor Segmentada por Tipo de Empresa",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Estrategia Comercial y Propuesta de Valor (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y coordinar la estrategia comercial y la propuesta de valor para los distintos tipos de empresas, promoviendo la bancarización, digitalización y financiamiento productivo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar el plan comercial del segmento, articulando soluciones con productos y canales.",
+    "Producto Final": "Plan Comercial Integrado para Empresas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Head de Segmentos (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar los subsegmentos del negocio empresas, garantizando una oferta de valor adecuada por tipo de empresa y un relacionamiento eficiente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear el desempeño y rentabilidad por subsegmento y tipo de actividad.",
+    "Producto Final": "Dashboard de Gestión Subsegmentos Empresas",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Head de Segmentos (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Gd",
+    "Misión": "Gestionar los subsegmentos del negocio empresas, garantizando una oferta de valor adecuada por tipo de empresa y un relacionamiento eficiente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proponer ajustes a la estrategia y portafolio en función de evolución y necesidades.",
+    "Producto Final": "Recomendaciones Estratégicas Subsegmentos",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Inteligencia Comercial (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Sgd",
+    "Misión": "Generar análisis e insights sobre el comportamiento, potencial y performance del segmento empresas para la toma de decisiones comerciales y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Desarrollar tableros e informes de comportamiento y oportunidad del segmento.",
+    "Producto Final": "Informes de Inteligencia Comercial Empresas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Inteligencia Comercial (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Sgd",
+    "Misión": "Generar análisis e insights sobre el comportamiento, potencial y performance del segmento empresas para la toma de decisiones comerciales y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Generar modelos predictivos para optimizar captación, retención y vinculación.",
+    "Producto Final": "Modelos Analíticos Empresas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Comunicaciones y Eventos (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Sgd",
+    "Misión": "Diseñar y ejecutar estrategias de comunicación y eventos orientados a fortalecer la relación del banco con los distintos tipos de empresas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar campañas de posicionamiento para empresas por sector y tipo.",
+    "Producto Final": "Campañas de Comunicación Empresarial",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Comunicaciones y Eventos (Empresas)",
+    "Reporta A": "Segmento Empresas",
+    "Jerarquía": "Sgd",
+    "Misión": "Diseñar y ejecutar estrategias de comunicación y eventos orientados a fortalecer la relación del banco con los distintos tipos de empresas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Organizar eventos y acciones institucionales con empresas clave y gremios.",
+    "Producto Final": "Agenda Institucional con Empresas",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Experiencia del Cliente y Modelo de Atención",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y evolucionar el modelo de atención del Banco, asegurando una experiencia integrada, accesible y coherente en todos los puntos de contacto.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar e implementar el modelo integral de atención multicanal.",
+    "Producto Final": "Modelo Integral de Atención",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Experiencia del Cliente y Modelo de Atención",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y evolucionar el modelo de atención del Banco, asegurando una experiencia integrada, accesible y coherente en todos los puntos de contacto.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear y mejorar la experiencia cliente en canales físicos y digitales.",
+    "Producto Final": "Informe de Experiencia Omnicanal",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestión Comercial",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Impulsar la ejecución comercial en los distintos canales, alineando objetivos estratégicos, campañas y cumplimiento de metas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar la ejecución de campañas y objetivos comerciales en canales.",
+    "Producto Final": "Plan de Gestión Comercial",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestión Comercial",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Impulsar la ejecución comercial en los distintos canales, alineando objetivos estratégicos, campañas y cumplimiento de metas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear resultados y performance comercial de la red.",
+    "Producto Final": "Reportes de Ejecución Comercial",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestión Operativa de Sucursales",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Supervisar la operación de las sucursales, asegurando eficiencia, cumplimiento normativo y alineación con los modelos de atención definidos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar la operación diaria, dotación, procesos y seguridad en sucursales.",
+    "Producto Final": "Informe Operativo de Sucursales",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestión Operativa de Sucursales",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Supervisar la operación de las sucursales, asegurando eficiencia, cumplimiento normativo y alineación con los modelos de atención definidos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Implementar mejoras operativas y estándares de servicio en la red física.",
+    "Producto Final": "Plan de Optimización Operativa",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Digital",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Desarrollar y evolucionar los canales digitales del Banco, garantizando experiencia fluida, adopción creciente y alineamiento con la estrategia digital.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y optimizar los canales digitales web y mobile.",
+    "Producto Final": "Evolución de Canales Digitales",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Banca Digital",
+    "Reporta A": "Canales",
+    "Jerarquía": "Gd",
+    "Misión": "Desarrollar y evolucionar los canales digitales del Banco, garantizando experiencia fluida, adopción creciente y alineamiento con la estrategia digital.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear indicadores de adopción, uso y experiencia digital.",
+    "Producto Final": "Tablero de Adopción Digital",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "CAC",
+    "Reporta A": "Canales",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar los Centros de Atención al Cliente asegurando calidad, resolución en primer contacto y alineación con la experiencia omnicanal definida por el Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Supervisar la operación de los CAC, incluyendo dotación, formación y estándares de servicio.",
+    "Producto Final": "Informe Operativo de CAC",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "CAC",
+    "Reporta A": "Canales",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar los Centros de Atención al Cliente asegurando calidad, resolución en primer contacto y alineación con la experiencia omnicanal definida por el Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear KPIs de atención, satisfacción y cumplimiento en los CAC.",
+    "Producto Final": "Dashboard de Atención al Cliente",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Regionales",
+    "Reporta A": "Canales",
+    "Jerarquía": "Sgd",
+    "Misión": "Coordinar y monitorear la ejecución comercial y operativa en las regiones del país, asegurando alineación con la estrategia del Banco y particularidades territoriales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Articular la ejecución comercial regional con áreas centrales.",
+    "Producto Final": "Plan de Gestión Comercial Regional",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Regionales",
+    "Reporta A": "Canales",
+    "Jerarquía": "Sgd",
+    "Misión": "Coordinar y monitorear la ejecución comercial y operativa en las regiones del país, asegurando alineación con la estrategia del Banco y particularidades territoriales.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Supervisar indicadores operativos, comerciales y de atención por región.",
+    "Producto Final": "Reporte Regional Integral",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Activos",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Diseñar, gestionar y optimizar los productos de activos del Banco, asegurando su alineación con la estrategia comercial y el cumplimiento normativo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Gestionar la evolución, rentabilidad y riesgo de productos activos.",
+    "Producto Final": "Tablero de Gestión de Activos",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Activos",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Diseñar, gestionar y optimizar los productos de activos del Banco, asegurando su alineación con la estrategia comercial y el cumplimiento normativo.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar nuevos productos crediticios según necesidades de segmentos.",
+    "Producto Final": "Propuesta de Nuevos Productos Activos",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Pasivos",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Administrar el portafolio de productos de pasivos garantizando eficiencia comercial, competitividad y sostenibilidad financiera.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y mejorar productos de captación como cuentas, cajas y plazos fijos.",
+    "Producto Final": "Catálogo de Productos Pasivos",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Pasivos",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Administrar el portafolio de productos de pasivos garantizando eficiencia comercial, competitividad y sostenibilidad financiera.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear el comportamiento y composición del fondeo por canal y segmento.",
+    "Producto Final": "Informe de Performance de Pasivos",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Inversiones",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar y administrar los productos de inversión y ahorro, promoviendo su adopción y contribuyendo a la diversificación de ingresos del Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar productos de inversión (fondos, bonos, seguros de ahorro).",
+    "Producto Final": "Catálogo de Productos de Inversión",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Inversiones",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar y administrar los productos de inversión y ahorro, promoviendo su adopción y contribuyendo a la diversificación de ingresos del Banco.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Realizar seguimiento de colocación, rentabilidad y satisfacción cliente.",
+    "Producto Final": "Dashboard de Gestión de Inversiones",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Seguros",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar la oferta de seguros del Banco, promoviendo su integración a la propuesta de valor, cumplimiento normativo y rentabilidad del negocio.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Desarrollar productos de seguros asociados a otras líneas de negocio.",
+    "Producto Final": "Portfolio Integrado de Seguros",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Seguros",
+    "Reporta A": "Productos",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar la oferta de seguros del Banco, promoviendo su integración a la propuesta de valor, cumplimiento normativo y rentabilidad del negocio.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar con compañías aseguradoras campañas y objetivos comerciales.",
+    "Producto Final": "Plan de Gestión de Seguros",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Mantenimiento y Features",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar el mantenimiento evolutivo de las plataformas y funcionalidades de medios de pago, garantizando disponibilidad, mejoras continuas y experiencia cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Priorizar, diseñar y coordinar la evolución funcional de medios de pago.",
+    "Producto Final": "Backlog de Features Medios de Pago",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Mantenimiento y Features",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar el mantenimiento evolutivo de las plataformas y funcionalidades de medios de pago, garantizando disponibilidad, mejoras continuas y experiencia cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Asegurar el cumplimiento normativo, técnico y operativo de las plataformas.",
+    "Producto Final": "Informe de Cumplimiento y Estabilidad",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Desarrollo",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar nuevas soluciones, servicios y productos vinculados a medios de pago, en colaboración con tecnología, productos y segmentos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y testear nuevos productos y servicios de pago digitales y físicos.",
+    "Producto Final": "Prototipos y Releases de Nuevos Medios de Pago",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Desarrollo",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar nuevas soluciones, servicios y productos vinculados a medios de pago, en colaboración con tecnología, productos y segmentos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Evaluar factibilidad, riesgos y retorno de nuevas soluciones de medios de pago.",
+    "Producto Final": "Evaluaciones y Business Cases",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Adquirencia",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar y gestionar la red de adquirencia del Banco, impulsando la captación de comercios, la digitalización de cobros y la interoperabilidad de soluciones.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Expandir y fidelizar comercios a través de soluciones adquirentes.",
+    "Producto Final": "Plan de Captación y Fidelización de Comercios",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Adquirencia",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Desarrollar y gestionar la red de adquirencia del Banco, impulsando la captación de comercios, la digitalización de cobros y la interoperabilidad de soluciones.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear KPIs de actividad, costo y rentabilidad de la red adquirente.",
+    "Producto Final": "Dashboard de Adquirencia",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Recaudaciones",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar el ecosistema de recaudación para organismos públicos y privados, asegurando integración, disponibilidad y trazabilidad de los fondos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar e implementar soluciones de recaudación adaptadas a cada tipo de cliente institucional.",
+    "Producto Final": "Portafolio de Soluciones de Recaudación",
+    "Porcentaje Dedicación": "60"
+  },
+  {
+    "﻿Unidad Organizativa": "Recaudaciones",
+    "Reporta A": "Medios de Pago",
+    "Jerarquía": "Sgd",
+    "Misión": "Gestionar el ecosistema de recaudación para organismos públicos y privados, asegurando integración, disponibilidad y trazabilidad de los fondos.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear operatividad, calidad y SLA de la red de recaudaciones.",
+    "Producto Final": "Informe de Recaudaciones",
+    "Porcentaje Dedicación": "40"
+  },
+  {
+    "﻿Unidad Organizativa": "Alianzas y Patrocinios",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Identificar, desarrollar y gestionar alianzas institucionales, comerciales y patrocinios que potencien el posicionamiento del Banco y agreguen valor a la propuesta de marca.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar e implementar acuerdos de patrocinio y alianzas institucionales.",
+    "Producto Final": "Agenda de Alianzas y Patrocinios",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Alianzas y Patrocinios",
+    "Reporta A": "Marketing",
+    "Jerarquía": "Sgd",
+    "Misión": "Identificar, desarrollar y gestionar alianzas institucionales, comerciales y patrocinios que potencien el posicionamiento del Banco y agreguen valor a la propuesta de marca.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear el impacto de las acciones y coordinar activaciones conjuntas.",
+    "Producto Final": "Informe de Resultados y Activaciones",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Coordinar la planificación, seguimiento y alineación táctica del negocio, asegurando coherencia entre objetivos, capacidades y resultados en toda la cadena comercial.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Articular los planes de acción y seguimiento entre unidades comerciales.",
+    "Producto Final": "Planificación Coordinada del Negocio",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Coordinación del Negocio",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Coordinar la planificación, seguimiento y alineación táctica del negocio, asegurando coherencia entre objetivos, capacidades y resultados en toda la cadena comercial.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proveer mecanismos de seguimiento y monitoreo de ejecución comercial.",
+    "Producto Final": "Tablero de Seguimiento del Negocio",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Empresas",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar y modelar los datos del segmento empresas asegurando calidad, integridad y disponibilidad para decisiones comerciales, regulatorias y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar estructuras de datos empresariales para análisis y monitoreo.",
+    "Producto Final": "Modelo de Datos Segmento Empresas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Empresas",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar y modelar los datos del segmento empresas asegurando calidad, integridad y disponibilidad para decisiones comerciales, regulatorias y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Asegurar trazabilidad y consistencia de datos críticos del segmento.",
+    "Producto Final": "Reporte de Calidad de Datos Empresas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Canales",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar la estructura de datos vinculados al uso, performance y eficiencia de los canales del Banco, para soporte de decisiones operativas y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Estructurar y mantener modelos de datos de uso de canales físicos y digitales.",
+    "Producto Final": "Modelo de Datos de Canales",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Canales",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Gestionar la estructura de datos vinculados al uso, performance y eficiencia de los canales del Banco, para soporte de decisiones operativas y estratégicas.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear cobertura, frecuencia y performance de uso por canal y segmento.",
+    "Producto Final": "Dashboard de Gestión de Canales",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Productos, Medios de Pago y Otros",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Centralizar y modelar los datos de productos, medios de pago y otros servicios del Banco, asegurando disponibilidad para monitoreo, control y optimización.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar modelos de datos de producto, uso, rentabilidad y adopción.",
+    "Producto Final": "Estructura de Datos por Línea de Producto",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Data Productos, Medios de Pago y Otros",
+    "Reporta A": "Coordinación del Negocio y Datos",
+    "Jerarquía": "Jpd",
+    "Misión": "Centralizar y modelar los datos de productos, medios de pago y otros servicios del Banco, asegurando disponibilidad para monitoreo, control y optimización.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Proveer información analítica para decisiones comerciales y regulatorias.",
+    "Producto Final": "Informes Integrados de Producto",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Riesgo Crediticio Personas",
+    "Reporta A": "SG Riesgo Crediticio",
+    "Jerarquía": "Gd",
+    "Misión": "Evaluar y gestionar el riesgo crediticio del segmento personas, definiendo políticas, límites y herramientas que aseguren una cartera equilibrada y sostenible.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Diseñar y mantener las políticas y matrices de riesgo crediticio para personas.",
+    "Producto Final": "Política de Riesgo Crediticio Personas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Riesgo Crediticio Personas",
+    "Reporta A": "SG Riesgo Crediticio",
+    "Jerarquía": "Gd",
+    "Misión": "Evaluar y gestionar el riesgo crediticio del segmento personas, definiendo políticas, límites y herramientas que aseguren una cartera equilibrada y sostenible.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear indicadores, alertas y segmentaciones de riesgo de personas.",
+    "Producto Final": "Informe de Exposición y Alertas de Riesgo",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestion de Cobranzas",
+    "Reporta A": "SG Riesgo Crediticio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y ejecutar la estrategia de cobranzas para el segmento personas, priorizando eficiencia operativa, reducción de mora y experiencia del cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Coordinar las acciones preventivas, administrativas y judiciales de cobro.",
+    "Producto Final": "Plan Integral de Cobranzas",
+    "Porcentaje Dedicación": "50"
+  },
+  {
+    "﻿Unidad Organizativa": "Gestion de Cobranzas",
+    "Reporta A": "SG Riesgo Crediticio",
+    "Jerarquía": "Gd",
+    "Misión": "Diseñar y ejecutar la estrategia de cobranzas para el segmento personas, priorizando eficiencia operativa, reducción de mora y experiencia del cliente.",
+    "Tipo de Función": "Específica",
+    "Descripción": "Monitorear resultados y ajustar estrategias por tipo de mora y perfil cliente.",
+    "Producto Final": "Dashboard de Gestión de Cobranzas",
+    "Porcentaje Dedicación": "50"
+  }
+];
     function getUnidad(u) {
-      return u['﻿Unidad Organizativa'] || u['Unidad Organizativa'] || '';
+      return u['Unidad Organizativa'] || '';
     }
-    // Obtener nombres únicos exactamente como en el CSV, en el orden de aparición
     const nombres = [];
     unidades.forEach(u => {
       const nombre = getUnidad(u);
@@ -42,20 +1061,18 @@
     nombres.forEach(n => {
         const opt = document.createElement('option');
         opt.value = n;
-        opt.textContent = n; // Mostrar el nombre tal cual en el CSV
+        opt.textContent = n;
         select.appendChild(opt);
     });
-
     document.getElementById('unidad-select').addEventListener('change', function() {
         const unidad = this.value;
         const content = document.getElementById('unidad-content');
         if (!unidad) { content.innerHTML = ''; return; }
-        // Filtrar filas de la unidad
         const rows = unidades.filter(u => getUnidad(u) === unidad);
         if (!rows.length) { content.innerHTML = '<b>Unidad no encontrada</b>'; return; }
         let html = '';
         html += `<div class='title'>${unidad}</div>`;
-        html += `<div><b>Misión:</b> ${rows[0]['Misión'] || ''}</div>`;
+        html += `<div><b>Misión:</b> ${rows[0]['Misión'] ? rows[0]['Misión'] : ''}</div>`;
         const gen = rows.filter(r => r['Tipo de Función'] && r['Tipo de Función'].toLowerCase() === 'genérica');
         if (gen.length) {
             html += `<div class='subtitle'>Funciones Genéricas</div><table><tr><th>Descripción</th><th>Producto Final</th></tr>`;
@@ -76,4 +1093,4 @@
     });
     </script>
 </body>
-</html> 
+</html>
