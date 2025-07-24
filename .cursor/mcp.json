@@ -3,32 +3,10 @@
       "playwright": {
         "command": "npx",
         "args": ["@automatalabs/mcp-server-playwright"],
-        "cwd": "stacks/automation/services/mcp-server",
+        "cwd": ".",
         "env": {
           "NODE_ENV": "development"
         }
-      },
-      "git": {
-        "command": "node",
-        "args": ["stacks/automation/services/git-mcp-server/index.js"],
-        "cwd": "stacks/automation/services/git-mcp-server"
-      },
-      "postgres": {
-        "command": "npx",
-        "args": ["@modelcontextprotocol/server-postgres"]
-      },
-      "redis": {
-        "command": "npx",
-        "args": ["@modelcontextprotocol/server-redis"]
-      },
-      "filesystem": {
-        "command": "npx",
-        "args": ["@modelcontextprotocol/server-filesystem"]
-      },
-      "http": {
-        "command": "node",
-        "args": ["stacks/automation/services/http-mcp-server/index.js"],
-        "cwd": "stacks/automation/services/http-mcp-server"
       }
     }
-  } 
+} 

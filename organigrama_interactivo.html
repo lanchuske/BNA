@@ -86,6 +86,14 @@
       const actual = rows.join('\n');
       datosModificados = (actual !== originalCSV);
       marcarAdminCambios(datosModificados);
+      
+        // Guardar automáticamente en localStorage si hay cambios
+  if (datosModificados && editMode) {
+    localStorage.setItem('csvData', actual);
+    console.log('Cambios guardados automáticamente en localStorage');
+    // Mostrar mensaje sutil de guardado automático
+    mostrarAlerta('Cambios guardados automáticamente', 1500, '#27ae60');
+  }
     }
 
     function parseCSV(text) {
@@ -185,6 +193,7 @@
             treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
             renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, newKey);
             selectUnidad(newKey);
+            compararCSVActualConOriginal && compararCSVActualConOriginal();
           };
           li.appendChild(addBtn);
           if (node.parent) {
@@ -199,6 +208,7 @@
               treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
               renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, '');
               document.getElementById('unidad-content').innerHTML = '';
+              compararCSVActualConOriginal && compararCSVActualConOriginal();
             };
             li.appendChild(delBtn);
           }
@@ -438,6 +448,7 @@
         unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Específica', 'Descripción': '', 'Producto Final': '', 'Porcentaje Dedicación': '' });
       }
       showUnidad(unidadesMap[lastSelected]);
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
     };
     window.deleteFuncRow = function(type, idx) {
       let arr = unidadesMap[lastSelected];
@@ -447,6 +458,7 @@
       });
       unidadesMap[lastSelected] = filtered;
       showUnidad(unidadesMap[lastSelected]);
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
     };
     // Exportar CSV
     function exportCSV() {
@@ -567,6 +579,29 @@
       };
       reader.readAsText(file);
     });
+
+    // Función para mostrar mensajes de alerta visuales
+    function mostrarAlerta(mensaje, duracion, color) {
+      let alerta = document.getElementById('alerta-csv-cargado');
+      if (!alerta) {
+        alerta = document.createElement('div');
+        alerta.id = 'alerta-csv-cargado';
+        alerta.style.position = 'fixed';
+        alerta.style.top = '30px';
+        alerta.style.right = '30px';
+        alerta.style.color = '#fff';
+        alerta.style.padding = '1em 2em';
+        alerta.style.borderRadius = '8px';
+        alerta.style.fontSize = '1.1em';
+        alerta.style.zIndex = 9999;
+        alerta.style.boxShadow = '0 2px 8px #0002';
+        document.body.appendChild(alerta);
+      }
+      alerta.style.background = color || '#2ecc71';
+      alerta.textContent = mensaje;
+      alerta.style.display = 'block';
+      setTimeout(() => { alerta.style.display = 'none'; }, duracion || 2000);
+    }
     // Admin menu toggle
     document.getElementById('adminBtn').addEventListener('click', function(e) {
       e.stopPropagation();
