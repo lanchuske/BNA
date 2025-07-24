@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidades Organizativas BNA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .section { margin-top: 2em; }
+        .title { font-size: 2em; font-weight: bold; margin-bottom: 0.2em; }
+        .info-line { margin-bottom: 0.2em; }
+        .info-label { font-weight: bold; }
+        .mission-label { font-weight: bold; margin-top: 1em; }
+        .mission-box { margin-bottom: 1.5em; }
+        .func-table { border-collapse: collapse; width: 100%; margin-top: 1em; margin-bottom: 1.5em; }
+        .func-table th, .func-table td { border: 1px solid #bfc9d1; padding: 0.6em 0.5em; }
+        .func-table th { background: #e0eaf3; font-weight: bold; }
+        .func-table tr:nth-child(even) { background: #f8f9fa; }
+        .func-section-title { font-weight: bold; font-size: 1.1em; margin-top: 1.5em; margin-bottom: 0.2em; }
+        #fileInput { margin: 20px 0; }
+        .tree { margin-bottom: 2em; }
+        .tree ul { padding-left: 20px; border-left: 1px solid #ccc; margin: 0; }
+        .tree li { list-style-type: none; margin: 0; padding: 0.2em 0 0.2em 1em; position: relative; }
+        .tree li::before { content: ''; position: absolute; left: 0; top: 1.2em; width: 1em; height: 0; border-top: 1px solid #ccc; }
+        .tree span.node { cursor: pointer; display: inline-block; padding: 2px 8px; border-radius: 4px; transition: background 0.2s, color 0.2s; }
+        .tree span.node.selected, .tree span.node:hover { background: #3498db; color: #fff; }
+        .tree .toggle { cursor: pointer; font-size: 13px; color: #3498db; margin-right: 4px; user-select: none; }
+        .linea-reporte { border-top: 3px solid #3498db; margin-top: 2em; padding-top: 0.7em; font-style: italic; color: #222; font-size: 1.05em; }
+    </style>
+</head>
+<body>
+    <h1>Unidades Organizativas BNA</h1>
+    <input type="file" id="fileInput" accept=".csv">
+    <div id="tree-container" class="tree"></div>
+    <div id="unidad-content" class="section"></div>
+    <script>
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      const headers = lines[0].split(';');
+      return lines.slice(1).map(line => {
+        const values = line.split(';');
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = (values[i] || '').trim());
+        return obj;
+      });
+    }
+    function groupByUnidad(data) {
+      const map = {};
+      data.forEach(item => {
+        const key = item['Unidad Organizativa'];
+        if (!map[key]) map[key] = [];
+        map[key].push(item);
+      });
+      return map;
+    }
+    function buildTree(data) {
+      const nodeMap = {};
+      data.forEach(item => {
+        const name = item['Unidad Organizativa'];
+        if (!nodeMap[name]) nodeMap[name] = { name, parent: item['Reporta A'], children: [] };
+        nodeMap[name].parent = item['Reporta A'];
+      });
+      Object.values(nodeMap).forEach(node => {
+        if (node.parent && nodeMap[node.parent]) {
+          nodeMap[node.parent].children.push(node);
+        }
+      });
+      const roots = Object.values(nodeMap).filter(node => !node.parent || !nodeMap[node.parent]);
+      return roots;
+    }
+    let unidadesMap = {};
+    let treeRoots = [];
+    let lastSelected = '';
+    let expandedNodes = {};
+    function renderTree(nodes, parentElem, selectUnidad, selectedName) {
+      if (!nodes.length) return;
+      const ul = document.createElement('ul');
+      nodes.forEach(node => {
+        const li = document.createElement('li');
+        if (node.children.length) {
+          const toggle = document.createElement('span');
+          toggle.className = 'toggle';
+          toggle.textContent = expandedNodes[node.name] ? '[–]' : '[+]';
+          toggle.onclick = function(e) {
+            e.stopPropagation();
+            expandedNodes[node.name] = !expandedNodes[node.name];
+            const treeDiv = document.getElementById('tree-container');
+            treeDiv.innerHTML = '';
+            renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+          };
+          li.appendChild(toggle);
+        } else {
+          const empty = document.createElement('span');
+          empty.className = 'toggle';
+          empty.textContent = '   ';
+          li.appendChild(empty);
+        }
+        const span = document.createElement('span');
+        span.textContent = node.name;
+        span.className = 'node' + (node.name === selectedName ? ' selected' : '');
+        span.onclick = function(e) {
+          e.stopPropagation();
+          selectUnidad(node.name);
+        };
+        li.appendChild(span);
+        if (node.children.length && expandedNodes[node.name]) {
+          renderTree(node.children, li, selectUnidad, selectedName);
+        }
+        ul.appendChild(li);
+      });
+      parentElem.appendChild(ul);
+    }
+    function showUnidad(unidadArr) {
+      if (!unidadArr || !unidadArr.length) {
+        document.getElementById('unidad-content').innerHTML = '';
+        return;
+      }
+      const base = unidadArr[0];
+      const genericas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('gen'));
+      const especificas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('espec'));
+      let html = `<div class="title">${base['Unidad Organizativa']}</div>`;
+      html += `<div class="info-line"><span class="info-label">Reporta a:</span> ${base['Reporta A'] || 'Ninguno'}</div>`;
+      html += `<div class="info-line"><span class="info-label">Jerarquía:</span> ${base['Jerarquía'] || ''}</div>`;
+      html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> ${base['Nivel Jerárquico Calculado'] || ''}</div>`;
+      html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> ${base['Unidades que Reportan Directamente'] || ''}</div>`;
+      html += `<div class="mission-label">Misión:</div><div class="mission-box">${base['Misión'] || ''}</div>`;
+      if (genericas.length) {
+        html += `<div class="func-section-title">Funciones Genéricas</div>`;
+        html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th></tr></thead><tbody>`;
+        genericas.forEach(u => {
+          html += `<tr><td>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+      }
+      if (especificas.length) {
+        html += `<div class="func-section-title">Funciones Específicas</div>`;
+        html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th><th>% Dedicación</th></tr></thead><tbody>`;
+        especificas.forEach(u => {
+          html += `<tr><td>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td><td>${u['Porcentaje Dedicación'] || ''}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+      }
+      document.getElementById('unidad-content').innerHTML = html;
+    }
+    function selectUnidad(nombre) {
+      showUnidad(unidadesMap[nombre]);
+      lastSelected = nombre;
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+    }
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const csvText = evt.target.result;
+        const data = parseCSV(csvText);
+        unidadesMap = groupByUnidad(data);
+        treeRoots = buildTree(data);
+        lastSelected = '';
+        expandedNodes = {};
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        document.getElementById('unidad-content').innerHTML = '';
+      };
+      reader.readAsText(file);
+    });
+    </script>
+</body>
+</html> 
