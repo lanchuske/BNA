@@ -33,6 +33,22 @@
         .add-func { color: #27ae60; cursor: pointer; font-weight: bold; margin-left: 0.5em; }
         input, select, textarea { font-size: 1em; padding: 0.2em; border-radius: 3px; border: 1px solid #bfc9d1; }
         textarea { resize: vertical; }
+        /* Nuevos estilos para el indicador de guardado */
+        .save-indicator { 
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: #2ecc71;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        .save-indicator.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -49,6 +65,7 @@
         </div>
       </div>
     </div>
+    <div id="saveIndicator" class="save-indicator">Cambios guardados</div>
     <div id="tree-container" class="tree"></div>
     <div id="unidad-content" class="section"></div>
     <script>
@@ -63,6 +80,8 @@
     let originalCSV = '';
     let datosModificados = false;
 
+
+
     function marcarAdminCambios(pendiente) {
       const adminBtn = document.getElementById('adminBtn');
       if (pendiente) {
@@ -75,25 +94,47 @@
     }
 
     function compararCSVActualConOriginal() {
-      // Generar CSV actual
-      let rows = [csvHeaders.join(';')];
-      Object.values(unidadesMap).forEach(arr => {
-        arr.forEach(u => {
-          let row = csvHeaders.map(h => (u[h] || ''));
-          rows.push(row.join(';'));
-        });
-      });
-      const actual = rows.join('\n');
-      datosModificados = (actual !== originalCSV);
-      marcarAdminCambios(datosModificados);
+      if (!csvHeaders || csvHeaders.length === 0) {
+        console.warn('csvHeaders no definido, no se pueden guardar cambios');
+        return;
+      }
       
+      try {
+        // Generar CSV actual
+        let rows = [csvHeaders.join(';')];
+        Object.values(unidadesMap).forEach(arr => {
+          arr.forEach(u => {
+            let row = csvHeaders.map(h => (u[h] || '').toString().trim());
+            rows.push(row.join(';'));
+          });
+        });
+        const actual = rows.join('\n');
+        
+        // Verificar si hay cambios
+        datosModificados = (actual !== originalCSV);
+        marcarAdminCambios(datosModificados);
+        
         // Guardar automáticamente en localStorage si hay cambios
-  if (datosModificados && editMode) {
-    localStorage.setItem('csvData', actual);
-    console.log('Cambios guardados automáticamente en localStorage');
-    // Mostrar mensaje sutil de guardado automático
-    mostrarAlerta('Cambios guardados automáticamente', 1500, '#27ae60');
-  }
+        if (datosModificados && editMode) {
+          try {
+            localStorage.setItem('csvData', actual);
+            localStorage.setItem('csvLastSaved', new Date().toISOString());
+            console.log('Cambios guardados automáticamente en localStorage:', new Date().toLocaleString());
+            
+            // Mostrar mensaje sutil de guardado automático
+            mostrarAlerta('Cambios guardados automáticamente', 1000, '#27ae60');
+            
+            // Actualizar originalCSV para futuras comparaciones
+            originalCSV = actual;
+          } catch (e) {
+            console.error('Error al guardar en localStorage:', e);
+            mostrarAlerta('Error al guardar cambios', 2000, '#e74c3c');
+          }
+        }
+      } catch (e) {
+        console.error('Error al comparar/guardar cambios:', e);
+        mostrarAlerta('Error al procesar cambios', 2000, '#e74c3c');
+      }
     }
 
     function parseCSV(text) {
@@ -326,66 +367,101 @@
     }
     function attachEditHandlers(base, genericas, especificas) {
       // Corrección ortográfica y actualización en blur/change
-      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #edit-unidades, #edit-mision').forEach(input => {
+      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #uqrd, #edit-mision').forEach(input => {
+        // Evento input para guardado en tiempo real
+        input.addEventListener('input', function() {
+          const field = this.id.replace('edit-', '');
+          const value = this.value.trim();
+          
+          // Actualizar el valor en todos los objetos de la unidad
+          unidadesMap[lastSelected].forEach(u => {
+            switch(field) {
+              case 'nombre':
+                if (value && value !== base['Unidad Organizativa']) {
+                  const newKey = value + '|' + base['Reporta A'];
+                  unidadesMap[newKey] = unidadesMap[lastSelected];
+                  delete unidadesMap[lastSelected];
+                  base['Unidad Organizativa'] = value;
+                  lastSelected = newKey;
+                  allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+                }
+                break;
+              case 'jerarquia':
+                u['Jerarquía'] = value;
+                break;
+              case 'nivel':
+                u['Nivel Jerárquico Calculado'] = value;
+                break;
+              case 'uqrd':
+                u['Unidades que Reportan Directamente'] = value;
+                break;
+              case 'mision':
+                u['Misión'] = value;
+                break;
+            }
+          });
+          
+          // Guardar cambios
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
+        });
+
+        // Corrección ortográfica en blur
         input.addEventListener('blur', function() {
           this.value = correctSpelling(this.value);
         });
       });
-      // Guardar cambios en campos principales
-      document.getElementById('edit-nombre').addEventListener('change', function() {
-        const nuevo = this.value.trim();
-        if (nuevo && nuevo !== base['Unidad Organizativa']) {
-          // Renombrar en el mapa y actualizar árbol
-          unidadesMap[nuevo + '|' + base['Reporta A']] = unidadesMap[base.key];
-          delete unidadesMap[base.key];
-          base['Unidad Organizativa'] = nuevo;
-          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-        }
-        compararCSVActualConOriginal && compararCSVActualConOriginal();
-      });
+
+      // Manejar cambios en el select de "Reporta a"
       document.getElementById('edit-reporta').addEventListener('change', function() {
         const oldKey = base['Unidad Organizativa'] + '|' + (base['Reporta A'] || '');
         const newReporta = this.value;
-        // Actualizar el valor en el objeto base
         base['Reporta A'] = newReporta;
         const newKey = base['Unidad Organizativa'] + '|' + (newReporta || '');
+        
         if (newKey !== oldKey) {
-          // Copiar el array de la unidad y eliminar la clave antigua
-          const unidadArr = unidadesMap[oldKey];
+          unidadesMap[newKey] = unidadesMap[oldKey];
           delete unidadesMap[oldKey];
-          // Actualizar el campo 'Reporta A' en todos los objetos de la unidad
-          unidadArr.forEach(u => u['Reporta A'] = newReporta);
-          // Asignar a la nueva clave
-          unidadesMap[newKey] = unidadArr;
-          // Reconstruir allUnidades solo con claves actuales
-          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-          // Reconstruir árbol desde cero
-          treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+          unidadesMap[newKey].forEach(u => u['Reporta A'] = newReporta);
           lastSelected = newKey;
+          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+          treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+          
           const treeDiv = document.getElementById('tree-container');
           treeDiv.innerHTML = '';
           renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
           showUnidad(unidadesMap[newKey]);
-          compararCSVActualConOriginal && compararCSVActualConOriginal();
+          
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
         }
       });
-      document.getElementById('edit-jerarquia').addEventListener('change', function() { base['Jerarquía'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
-      document.getElementById('edit-jerarquia').addEventListener('blur', function() { compararCSVActualConOriginal && compararCSVActualConOriginal(); });
-      document.getElementById('edit-nivel').addEventListener('change', function() { base['Nivel Jerárquico Calculado'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
-      document.getElementById('edit-unidades').addEventListener('change', function() { base['Unidades que Reportan Directamente'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
-      document.getElementById('edit-mision').addEventListener('blur', function() { this.value = correctSpelling(this.value); base['Misión'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
-      // Funciones
+
+      // Funciones - Agregar guardado automático
       document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
-        input.addEventListener('blur', function() {
-          this.value = correctSpelling(this.value);
+        input.addEventListener('input', function() {
           const type = this.getAttribute('data-func-type');
           const idx = parseInt(this.getAttribute('data-idx'));
           const field = this.getAttribute('data-field');
-          if (type === 'gen') genericas[idx][field] = this.value;
-          else if (type === 'espec') especificas[idx][field] = this.value;
+          
+          if (type === 'gen') {
+            genericas[idx][field] = this.value;
+          } else if (type === 'espec') {
+            especificas[idx][field] = this.value;
+          }
+          
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
+        });
+        
+        input.addEventListener('blur', function() {
+          this.value = correctSpelling(this.value);
+          compararCSVActualConOriginal();
         });
       });
-      // Los eventos para funciones ya están configurados arriba individualmente
     }
     function autocompletarUnidadesReportan() {
       // Mapear hijos por padre y contar ocurrencias por nombre
@@ -576,25 +652,13 @@
 
     // Función para mostrar mensajes de alerta visuales
     function mostrarAlerta(mensaje, duracion, color) {
-      let alerta = document.getElementById('alerta-csv-cargado');
-      if (!alerta) {
-        alerta = document.createElement('div');
-        alerta.id = 'alerta-csv-cargado';
-        alerta.style.position = 'fixed';
-        alerta.style.top = '30px';
-        alerta.style.right = '30px';
-        alerta.style.color = '#fff';
-        alerta.style.padding = '1em 2em';
-        alerta.style.borderRadius = '8px';
-        alerta.style.fontSize = '1.1em';
-        alerta.style.zIndex = 9999;
-        alerta.style.boxShadow = '0 2px 8px #0002';
-        document.body.appendChild(alerta);
-      }
-      alerta.style.background = color || '#2ecc71';
-      alerta.textContent = mensaje;
-      alerta.style.display = 'block';
-      setTimeout(() => { alerta.style.display = 'none'; }, duracion || 2000);
+      const saveIndicator = document.getElementById('saveIndicator');
+      saveIndicator.textContent = mensaje;
+      saveIndicator.style.background = color || '#2ecc71';
+      saveIndicator.classList.add('show');
+      setTimeout(() => {
+        saveIndicator.classList.remove('show');
+      }, duracion || 2000);
     }
     // Admin menu toggle
     document.getElementById('adminBtn').addEventListener('click', function(e) {
