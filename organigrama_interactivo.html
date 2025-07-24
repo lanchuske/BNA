@@ -24,18 +24,45 @@
         .tree span.node { cursor: pointer; display: inline-block; padding: 2px 8px; border-radius: 4px; transition: background 0.2s, color 0.2s; }
         .tree span.node.selected, .tree span.node:hover { background: #3498db; color: #fff; }
         .tree .toggle { cursor: pointer; font-size: 13px; color: #3498db; margin-right: 4px; user-select: none; }
-        .linea-reporte { border-top: 3px solid #3498db; margin-top: 2em; padding-top: 0.7em; font-style: italic; color: #222; font-size: 1.05em; }
+        .edit-btn, .export-btn { margin: 0 0.5em 1em 0; padding: 0.5em 1.2em; font-size: 1em; border-radius: 4px; border: 1px solid #3498db; background: #e0eaf3; color: #222; cursor: pointer; transition: background 0.2s; }
+        .edit-btn.active { background: #3498db; color: #fff; }
+        .export-btn { border: 1px solid #2ecc71; background: #eafaf1; color: #222; }
+        .export-btn:hover { background: #2ecc71; color: #fff; }
+        .edit-btn:hover { background: #3498db; color: #fff; }
+        .delete-func { color: #c0392b; cursor: pointer; font-weight: bold; margin-left: 0.5em; }
+        .add-func { color: #27ae60; cursor: pointer; font-weight: bold; margin-left: 0.5em; }
+        input, select, textarea { font-size: 1em; padding: 0.2em; border-radius: 3px; border: 1px solid #bfc9d1; }
+        textarea { resize: vertical; }
     </style>
 </head>
 <body>
-    <h1>Unidades Organizativas BNA</h1>
-    <input type="file" id="fileInput" accept=".csv">
+    <h1 style="display:inline-block;">Unidades Organizativas BNA</h1>
+    <div style="position:absolute;top:2em;right:2em;z-index:10;">
+      <div style="position:relative;display:inline-block;">
+        <button id="adminBtn" class="edit-btn" style="background:#3498db;color:#fff;">Admin ▼</button>
+        <div id="adminMenu" style="display:none;position:absolute;right:0;top:2.5em;background:#fff;border:1px solid #bfc9d1;border-radius:6px;box-shadow:0 2px 8px #0001;padding:1em 1.2em;min-width:220px;">
+          <div style="margin-bottom:1em;">
+            <label style="font-weight:bold;">Cargar CSV:<br><input type="file" id="fileInput" accept=".csv"></label>
+          </div>
+          <button id="editModeBtn" class="edit-btn" style="width:100%;margin-bottom:0.7em;">Entrar en modo edición</button>
+          <button id="exportBtn" class="export-btn" style="width:100%;display:none;">Exportar CSV</button>
+        </div>
+      </div>
+    </div>
     <div id="tree-container" class="tree"></div>
     <div id="unidad-content" class="section"></div>
     <script>
+    let unidadesMap = {};
+    let treeRoots = [];
+    let lastSelected = '';
+    let expandedNodes = {};
+    let editMode = false;
+    let allUnidades = [];
+    let csvHeaders = [];
     function parseCSV(text) {
       const lines = text.split(/\r?\n/).filter(Boolean);
       const headers = lines[0].split(';');
+      csvHeaders = headers;
       return lines.slice(1).map(line => {
         const values = line.split(';');
         const obj = {};
@@ -67,15 +94,75 @@
       const roots = Object.values(nodeMap).filter(node => !node.parent || !nodeMap[node.parent]);
       return roots;
     }
-    let unidadesMap = {};
-    let treeRoots = [];
-    let lastSelected = '';
-    let expandedNodes = {};
     function renderTree(nodes, parentElem, selectUnidad, selectedName) {
       if (!nodes.length) return;
       const ul = document.createElement('ul');
       nodes.forEach(node => {
         const li = document.createElement('li');
+        // Botón agregar/eliminar solo en modo edición
+        if (editMode) {
+          const addBtn = document.createElement('span');
+          addBtn.textContent = ' ＋ ';
+          addBtn.className = 'add-func';
+          addBtn.title = 'Agregar subunidad';
+          addBtn.onclick = function(e) {
+            e.stopPropagation();
+            const nombre = prompt('Nombre de la nueva unidad organizativa:');
+            if (!nombre) return;
+            // Validar duplicados exactos (nombre + reporta a)
+            let existeMisma = false;
+            let existeNombreOtroReporta = false;
+            Object.values(unidadesMap).forEach(arr => {
+              arr.forEach(u => {
+                if (u['Unidad Organizativa'] === nombre && u['Reporta A'] === node.name) existeMisma = true;
+                else if (u['Unidad Organizativa'] === nombre && u['Reporta A'] !== node.name) existeNombreOtroReporta = true;
+              });
+            });
+            if (existeMisma) {
+              alert('Ya existe una unidad con ese nombre que reporta a esta área. No se puede duplicar.');
+              return;
+            }
+            if (existeNombreOtroReporta) {
+              if (!confirm('Ya existe una unidad con ese nombre, pero reporta a otra área. ¿Desea crearla igualmente?')) return;
+            }
+            // Crear nueva unidad con valores mínimos
+            const nueva = {
+              'Unidad Organizativa': nombre,
+              'Reporta A': node.name,
+              'Jerarquía': '',
+              'Nivel Jerárquico Calculado': '',
+              'Unidades que Reportan Directamente': '',
+              'Misión': '',
+              'Tipo de Función': 'Genérica',
+              'Descripción': '',
+              'Producto Final': ''
+            };
+            unidadesMap[nombre + '|' + node.name] = [nueva];
+            allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+            treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+            renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, nombre);
+            selectUnidad(nombre);
+          };
+          li.appendChild(addBtn);
+          if (node.parent) {
+            const delBtn = document.createElement('span');
+            delBtn.textContent = '✕';
+            delBtn.className = 'delete-func';
+            delBtn.title = 'Eliminar unidad';
+            delBtn.onclick = function(e) {
+              e.stopPropagation();
+              if (confirm('¿Eliminar la unidad y todas sus funciones?')) {
+                delete unidadesMap[node.name];
+                allUnidades = Object.keys(unidadesMap);
+                // Actualizar árbol y memoria inmediatamente
+                treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+                renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, '');
+                document.getElementById('unidad-content').innerHTML = '';
+              }
+            };
+            li.appendChild(delBtn);
+          }
+        }
         if (node.children.length) {
           const toggle = document.createElement('span');
           toggle.className = 'toggle';
@@ -109,6 +196,12 @@
       });
       parentElem.appendChild(ul);
     }
+    function correctSpelling(text) {
+      // Simple autocorrect: capitalize first letter, trim, and fix double spaces
+      if (!text) return '';
+      let t = text.trim().replace(/\s+/g, ' ');
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    }
     function showUnidad(unidadArr) {
       if (!unidadArr || !unidadArr.length) {
         document.getElementById('unidad-content').innerHTML = '';
@@ -117,30 +210,151 @@
       const base = unidadArr[0];
       const genericas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('gen'));
       const especificas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('espec'));
-      let html = `<div class="title">${base['Unidad Organizativa']}</div>`;
-      html += `<div class="info-line"><span class="info-label">Reporta a:</span> ${base['Reporta A'] || 'Ninguno'}</div>`;
-      html += `<div class="info-line"><span class="info-label">Jerarquía:</span> ${base['Jerarquía'] || ''}</div>`;
-      html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> ${base['Nivel Jerárquico Calculado'] || ''}</div>`;
-      html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> ${base['Unidades que Reportan Directamente'] || ''}</div>`;
-      html += `<div class="mission-label">Misión:</div><div class="mission-box">${base['Misión'] || ''}</div>`;
-      if (genericas.length) {
-        html += `<div class="func-section-title">Funciones Genéricas</div>`;
-        html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th></tr></thead><tbody>`;
-        genericas.forEach(u => {
+      let html = '';
+      if (!editMode) {
+        html += `<div class="title">${base['Unidad Organizativa']}</div>`;
+        html += `<div class="info-line"><span class="info-label">Reporta a:</span> ${base['Reporta A'] || 'Ninguno'}</div>`;
+        html += `<div class="info-line"><span class="info-label">Jerarquía:</span> ${base['Jerarquía'] || ''}</div>`;
+        html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> ${base['Nivel Jerárquico Calculado'] || ''}</div>`;
+        html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> ${base['Unidades que Reportan Directamente'] || ''}</div>`;
+        html += `<div class="mission-label">Misión:</div><div class="mission-box">${base['Misión'] || ''}</div>`;
+      } else {
+        // Edición de campos principales
+        html += `<div class="title"><input id="edit-nombre" value="${base['Unidad Organizativa']}" style="font-size:1.2em;width:60%"></div>`;
+        // Select de áreas posibles para "Reporta a"
+        html += `<div class="info-line"><span class="info-label">Reporta a:</span> <select id="edit-reporta">
+          <option value="">Ninguno</option>`;
+        allUnidades.slice().sort((a, b) => a.localeCompare(b, 'es', {sensitivity:'base'})).forEach(u => {
+          if (u !== base['Unidad Organizativa']) {
+            html += `<option value="${u}"${base['Reporta A'] === u ? ' selected' : ''}>${u}</option>`;
+          }
+        });
+        html += `</select></div>`;
+        html += `<div class="info-line"><span class="info-label">Jerarquía:</span> <input id="edit-jerarquia" value="${base['Jerarquía'] || ''}"></div>`;
+        html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> <input id="edit-nivel" value="${base['Nivel Jerárquico Calculado'] || ''}"></div>`;
+        html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> <input id="edit-unidades" value="${base['Unidades que Reportan Directamente'] || ''}"></div>`;
+        html += `<div class="mission-label">Misión:</div><textarea id="edit-mision" rows="2" style="width:100%">${base['Misión'] || ''}</textarea>`;
+      }
+      // Funciones Genéricas
+      html += `<div class="func-section-title">Funciones Genéricas`;
+      if (editMode) html += `<span class="add-func" onclick="window.addFuncRow('gen')">+ Agregar</span>`;
+      html += `</div>`;
+      html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th>${editMode ? '<th></th>' : ''}</tr></thead><tbody id="gen-func-tbody">`;
+      genericas.forEach((u, idx) => {
+        if (!editMode) {
           html += `<tr><td>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td></tr>`;
-        });
-        html += `</tbody></table>`;
-      }
-      if (especificas.length) {
-        html += `<div class="func-section-title">Funciones Específicas</div>`;
-        html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th><th>% Dedicación</th></tr></thead><tbody>`;
-        especificas.forEach(u => {
+        } else {
+          html += `<tr><td><textarea data-func-type="gen" data-idx="${idx}" data-field="Descripción" rows="2" style="width:98%">${u['Descripción'] || ''}</textarea></td><td><input data-func-type="gen" data-idx="${idx}" data-field="Producto Final" value="${u['Producto Final'] || ''}" style="width:98%"></td><td><span class="delete-func" onclick="window.deleteFuncRow('gen',${idx})">✕</span></td></tr>`;
+        }
+      });
+      html += `</tbody></table>`;
+      // Funciones Específicas
+      html += `<div class="func-section-title">Funciones Específicas`;
+      if (editMode) html += `<span class="add-func" onclick="window.addFuncRow('espec')">+ Agregar</span>`;
+      html += `</div>`;
+      html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th><th>% Dedicación</th>${editMode ? '<th></th>' : ''}</tr></thead><tbody id="espec-func-tbody">`;
+      especificas.forEach((u, idx) => {
+        if (!editMode) {
           html += `<tr><td>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td><td>${u['Porcentaje Dedicación'] || ''}</td></tr>`;
-        });
-        html += `</tbody></table>`;
-      }
+        } else {
+          html += `<tr><td><textarea data-func-type="espec" data-idx="${idx}" data-field="Descripción" rows="2" style="width:98%">${u['Descripción'] || ''}</textarea></td><td><input data-func-type="espec" data-idx="${idx}" data-field="Producto Final" value="${u['Producto Final'] || ''}" style="width:98%"></td><td><input data-func-type="espec" data-idx="${idx}" data-field="Porcentaje Dedicación" value="${u['Porcentaje Dedicación'] || ''}" style="width:90%"></td><td><span class="delete-func" onclick="window.deleteFuncRow('espec',${idx})">✕</span></td></tr>`;
+        }
+      });
+      html += `</tbody></table>`;
       document.getElementById('unidad-content').innerHTML = html;
+      if (editMode) attachEditHandlers(base, genericas, especificas);
     }
+    function attachEditHandlers(base, genericas, especificas) {
+      // Corrección ortográfica y actualización en blur/change
+      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #edit-unidades, #edit-mision').forEach(input => {
+        input.addEventListener('blur', function() {
+          this.value = correctSpelling(this.value);
+        });
+      });
+      // Guardar cambios en campos principales
+      document.getElementById('edit-nombre').addEventListener('change', function() {
+        const nuevo = this.value.trim();
+        if (nuevo && nuevo !== base['Unidad Organizativa']) {
+          // Renombrar en el mapa y actualizar árbol
+          unidadesMap[nuevo] = unidadesMap[base['Unidad Organizativa']];
+          delete unidadesMap[base['Unidad Organizativa']];
+          base['Unidad Organizativa'] = nuevo;
+          allUnidades = Object.keys(unidadesMap);
+        }
+      });
+      document.getElementById('edit-reporta').addEventListener('change', function() {
+        base['Reporta A'] = this.value;
+      });
+      document.getElementById('edit-jerarquia').addEventListener('change', function() { base['Jerarquía'] = this.value; });
+      document.getElementById('edit-nivel').addEventListener('change', function() { base['Nivel Jerárquico Calculado'] = this.value; });
+      document.getElementById('edit-unidades').addEventListener('change', function() { base['Unidades que Reportan Directamente'] = this.value; });
+      document.getElementById('edit-mision').addEventListener('blur', function() { this.value = correctSpelling(this.value); base['Misión'] = this.value; });
+      // Funciones
+      document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
+        input.addEventListener('blur', function() {
+          this.value = correctSpelling(this.value);
+          const type = this.getAttribute('data-func-type');
+          const idx = parseInt(this.getAttribute('data-idx'));
+          const field = this.getAttribute('data-field');
+          if (type === 'gen') genericas[idx][field] = this.value;
+          else if (type === 'espec') especificas[idx][field] = this.value;
+        });
+      });
+    }
+    // Agregar/eliminar funciones
+    window.addFuncRow = function(type) {
+      const base = unidadesMap[lastSelected][0];
+      if (type === 'gen') {
+        unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Genérica', 'Descripción': '', 'Producto Final': '' });
+      } else {
+        unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Específica', 'Descripción': '', 'Producto Final': '', 'Porcentaje Dedicación': '' });
+      }
+      showUnidad(unidadesMap[lastSelected]);
+    };
+    window.deleteFuncRow = function(type, idx) {
+      let arr = unidadesMap[lastSelected];
+      let filtered = arr.filter(u => {
+        if (type === 'gen') return !(u['Tipo de Función'].toLowerCase().includes('gen') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('gen')).indexOf(u) === idx);
+        else return !(u['Tipo de Función'].toLowerCase().includes('espec') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('espec')).indexOf(u) === idx);
+      });
+      unidadesMap[lastSelected] = filtered;
+      showUnidad(unidadesMap[lastSelected]);
+    };
+    // Exportar CSV
+    function exportCSV() {
+      let rows = [csvHeaders.join(';')];
+      Object.values(unidadesMap).forEach(arr => {
+        arr.forEach(u => {
+          let row = csvHeaders.map(h => (u[h] || ''));
+          rows.push(row.join(';'));
+        });
+      });
+      const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'unidades_organizativas_editado.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    // Alternar modo edición
+    document.getElementById('editModeBtn').addEventListener('click', function() {
+      editMode = !editMode;
+      this.classList.toggle('active', editMode);
+      this.textContent = editMode ? 'Salir de edición' : 'Entrar en modo edición';
+      document.getElementById('exportBtn').style.display = editMode ? '' : 'none';
+      showUnidad(unidadesMap[lastSelected]);
+      // Al salir de edición, actualizar el árbol SIEMPRE con la memoria actual
+      if (!editMode) {
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+      }
+    });
+    document.getElementById('exportBtn').addEventListener('click', exportCSV);
     function selectUnidad(nombre) {
       showUnidad(unidadesMap[nombre]);
       lastSelected = nombre;
@@ -156,6 +370,7 @@
         const csvText = evt.target.result;
         const data = parseCSV(csvText);
         unidadesMap = groupByUnidad(data);
+        allUnidades = Object.keys(unidadesMap);
         treeRoots = buildTree(data);
         lastSelected = '';
         expandedNodes = {};
@@ -165,6 +380,18 @@
         document.getElementById('unidad-content').innerHTML = '';
       };
       reader.readAsText(file);
+    });
+    // Admin menu toggle
+    document.getElementById('adminBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      const menu = document.getElementById('adminMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+    document.body.addEventListener('click', function() {
+      document.getElementById('adminMenu').style.display = 'none';
+    });
+    document.getElementById('adminMenu').addEventListener('click', function(e) {
+      e.stopPropagation();
     });
     </script>
 </body>
