@@ -2,83 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Unidades Organizativas BNA - Información Completa</title>
+    <title>Unidades Organizativas BNA</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 2em; 
-            line-height: 1.6;
-        }
-        select { 
-            font-size: 1.1em; 
-            padding: 8px;
-            margin-bottom: 20px;
-            width: 300px;
-        }
-        .section { 
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        select { font-size: 1.1em; }
+        .section { margin-top: 2em; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+        th, td { border: 1px solid #ccc; padding: 0.5em; }
+        th { background: #e0eaf3; }
+        .title { font-size: 1.3em; font-weight: bold; margin-bottom: 0.5em; }
+        .subtitle { font-weight: bold; margin-top: 1em; }
+        .footer { 
             margin-top: 2em; 
-        }
-        .title { 
-            font-size: 1.5em; 
-            font-weight: bold; 
-            margin-bottom: 1em; 
+            padding: 1em; 
+            background: #f8f9fa; 
+            border-top: 2px solid #3498db; 
+            border-radius: 4px;
+            font-style: italic;
             color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-        }
-        .subtitle { 
-            font-weight: bold; 
-            margin-top: 1em; 
-            color: #34495e;
-            background: #ecf0f1;
-            padding: 8px;
-            border-radius: 4px;
-        }
-        .info-section {
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .info-item {
-            background: white;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        .info-value {
-            color: #34495e;
-        }
-        .function-type {
-            background: #e8f5e8;
-            border-left: 4px solid #27ae60;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-        .function-specific {
-            background: #fff3cd;
-            border-left: 4px solid #f39c12;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <h1>Unidades Organizativas BNA - Información Completa</h1>
+    <h1>Unidades Organizativas BNA</h1>
     <label for="unidad-select">Selecciona una Unidad Organizativa:</label>
     <select id="unidad-select">
         <option value="">-- Selecciona --</option>
@@ -3675,104 +3621,53 @@
     "Porcentaje Dedicación": "25"
   }
 ];
-
     function getUnidad(u) {
-        return u['Unidad Organizativa'] || '';
+      return u['Unidad Organizativa'] || u['﻿Unidad Organizativa'] || '';
     }
-
-    function mostrarUnidad(unidadSeleccionada) {
+    const nombres = [];
+    unidades.forEach(u => {
+      const nombre = getUnidad(u);
+      if (nombre && !nombres.includes(nombre)) {
+        nombres.push(nombre);
+      }
+    });
+    const select = document.getElementById('unidad-select');
+    select.innerHTML = '<option value="">-- Selecciona --</option>';
+    nombres.forEach(n => {
+        const opt = document.createElement('option');
+        opt.value = n;
+        opt.textContent = n;
+        select.appendChild(opt);
+    });
+    document.getElementById('unidad-select').addEventListener('change', function() {
+        const unidad = this.value;
         const content = document.getElementById('unidad-content');
-        if (!unidadSeleccionada) {
-            content.innerHTML = '';
-            return;
+        if (!unidad) { content.innerHTML = ''; return; }
+        const rows = unidades.filter(u => getUnidad(u) === unidad);
+        if (!rows.length) { content.innerHTML = '<b>Unidad no encontrada</b>'; return; }
+        let html = '';
+        html += `<div class='title'>${unidad}</div>`;
+        html += `<div><b>Misión:</b> ${rows[0]['Misión'] ? rows[0]['Misión'] : ''}</div>`;
+        const gen = rows.filter(r => r['Tipo de Función'] && r['Tipo de Función'].toLowerCase() === 'genérica');
+        if (gen.length) {
+            html += `<div class='subtitle'>Funciones Genéricas</div><table><tr><th>Descripción</th><th>Producto Final</th></tr>`;
+            gen.forEach(f => {
+                html += `<tr><td>${f['Descripción']}</td><td>${f['Producto Final']}</td></tr>`;
+            });
+            html += '</table>';
         }
-
-        const unidadesFiltradas = unidades.filter(u => getUnidad(u) === unidadSeleccionada);
-        if (unidadesFiltradas.length === 0) {
-            content.innerHTML = '<p>No se encontraron datos para esta unidad.</p>';
-            return;
+        const esp = rows.filter(r => r['Tipo de Función'] && r['Tipo de Función'].toLowerCase() === 'específica');
+        if (esp.length) {
+            html += `<div class='subtitle'>Funciones Específicas</div><table><tr><th>Descripción</th><th>Producto Final</th><th>% Dedicación</th></tr>`;
+            esp.forEach(f => {
+                html += `<tr><td>${f['Descripción']}</td><td>${f['Producto Final']}</td><td>${f['Porcentaje Dedicación']}</td></tr>`;
+            });
+            html += '</table>';
         }
-
-        let html = `<div class="title">${unidadSeleccionada}</div>`;
-        
-        // Información general de la unidad (tomar del primer registro)
-        const primeraUnidad = unidadesFiltradas[0];
-        html += `<div class="info-section">
-            <div class="subtitle">Información General de la Unidad</div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Reporta A:</div>
-                    <div class="info-value">${primeraUnidad['Reporta A'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Jerarquía:</div>
-                    <div class="info-value">${primeraUnidad['Jerarquía'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Línea de Reporte:</div>
-                    <div class="info-value">${primeraUnidad['Línea de Reporte'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Nivel Jerárquico:</div>
-                    <div class="info-value">${primeraUnidad['Nivel Jerárquico Calculado'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Unidades que Reportan:</div>
-                    <div class="info-value">${primeraUnidad['Unidades que Reportan Directamente'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Responsable de Gestión:</div>
-                    <div class="info-value">${primeraUnidad['Responsable de Gestión de Otras'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Nivel Funcional:</div>
-                    <div class="info-value">${primeraUnidad['Nivel Funcional Esperado'] || 'No especificado'}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Misión:</div>
-                    <div class="info-value">${primeraUnidad['Misión'] || 'No especificado'}</div>
-                </div>
-            </div>
-        </div>`;
-
-        // Funciones de la unidad
-        html += `<div class="subtitle">Funciones de la Unidad</div>`;
-        
-        unidadesFiltradas.forEach((unidad, index) => {
-            const tipoFuncion = unidad['Tipo de Función'] || 'No especificado';
-            const descripcion = unidad['Descripción'] || 'No especificado';
-            const productoFinal = unidad['Producto Final'] || 'No especificado';
-            const porcentaje = unidad['Porcentaje Dedicación'] || 'No especificado';
-            
-            const cssClass = tipoFuncion === 'Genérica' ? 'function-type' : 'function-specific';
-            
-            html += `<div class="${cssClass}">
-                <strong>Tipo de Función:</strong> ${tipoFuncion}<br>
-                <strong>Descripción:</strong> ${descripcion}<br>
-                <strong>Producto Final:</strong> ${productoFinal}<br>
-                <strong>Porcentaje de Dedicación:</strong> ${porcentaje}
-            </div>`;
-        });
-
+        // Agregar footer con Línea de Reporte
+        const lineaReporte = rows[0]['Línea de Reporte'] || 'No especificado';
+        html += `<div class='footer'><strong>Línea de Reporte:</strong> ${lineaReporte}</div>`;
         content.innerHTML = html;
-    }
-
-    // Inicializar dropdown
-    document.addEventListener('DOMContentLoaded', function() {
-        const select = document.getElementById('unidad-select');
-        const unidadesUnicas = [...new Set(unidades.map(u => getUnidad(u)))].sort();
-        
-        unidadesUnicas.forEach(unidad => {
-            const option = document.createElement('option');
-            option.value = unidad;
-            option.textContent = unidad;
-            select.appendChild(option);
-        });
-
-        // Event listener para cambio de selección
-        select.addEventListener('change', function() {
-            mostrarUnidad(this.value);
-        });
     });
     </script>
 </body>
