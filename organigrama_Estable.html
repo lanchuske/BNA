@@ -265,38 +265,6 @@
       });
       return roots;
     }
-
-    // Agregar una nueva unidad bajo un padre existente
-    function agregarUnidad(nombre, parentName) {
-      if (!nombre) return;
-      const newKey = nombre + '|' + parentName;
-      if (unidadesMap[newKey]) {
-        alert('Ya existe una unidad con ese nombre bajo este padre');
-        return;
-      }
-      // Obtener registro base del padre (o plantilla vacía)
-      const parentKey = Object.keys(unidadesMap).find(k => k.startsWith(parentName + '|')) || '';
-      const baseParent = parentKey && unidadesMap[parentKey] ? unidadesMap[parentKey][0] : {};
-      const nuevaBase = { ...baseParent };
-      nuevaBase['Unidad Organizativa'] = nombre;
-      nuevaBase['Reporta A'] = parentName;
-      nuevaBase['Misión'] = '';
-      // Limpiar marcadores internos
-      delete nuevaBase['_autocompletado'];
-      delete nuevaBase['_ambiguedad'];
-      // Insertar en mapa
-      unidadesMap[newKey] = [nuevaBase];
-      // Actualizar listas y árbol
-      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-      treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
-      const treeDiv = document.getElementById('tree-container');
-      treeDiv.innerHTML = '';
-      renderTree(treeRoots, treeDiv, selectUnidad, newKey);
-      // Seleccionar la nueva unidad
-      selectUnidad(newKey);
-      // Guardar cambios
-      compararCSVActualConOriginal && compararCSVActualConOriginal();
-    }
     function renderTree(nodes, container, onSelect, selectedNode = '') {
         const ul = document.createElement('ul');
         nodes.forEach(node => {
