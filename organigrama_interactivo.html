@@ -122,6 +122,13 @@
         #loadFileBtn:hover {
             background: #4598d5;
         }
+        .tree span.node-content.selected {
+            background: #3498db;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #3498db33;
+            border: 1.5px solid #217dbb;
+        }
     </style>
 </head>
 <body>
@@ -624,6 +631,49 @@
       showUnidad(unidadesMap[lastSelected]);
       compararCSVActualConOriginal && compararCSVActualConOriginal();
     };
+    // Implementación de eliminarUnidad
+    function eliminarUnidad(nombreUnidad) {
+      // Buscar la clave exacta (nombre + '|' + padre) en el mapa
+      // Puede haber varias unidades con el mismo nombre pero distinto padre, así que buscamos la seleccionada
+      let keyAEliminar = null;
+      // Si hay una selección activa y coincide el nombre, usar esa clave
+      if (lastSelected && unidadesMap[lastSelected] && unidadesMap[lastSelected][0]['Unidad Organizativa'] === nombreUnidad) {
+        keyAEliminar = lastSelected;
+      } else {
+        // Buscar la primera clave que coincida con el nombre
+        keyAEliminar = Object.keys(unidadesMap).find(k => {
+          const arr = unidadesMap[k];
+          return arr && arr[0] && arr[0]['Unidad Organizativa'] === nombreUnidad;
+        });
+      }
+      if (!keyAEliminar) {
+        mostrarAlerta('No se encontró la unidad a eliminar', 2000, '#e74c3c');
+        return;
+      }
+      // Verificar si tiene hijos
+      const hijos = Object.values(unidadesMap).filter(arr => arr[0]['Reporta A'] === nombreUnidad);
+      if (hijos.length > 0) {
+        mostrarAlerta('No se puede eliminar: la unidad tiene áreas hijas', 2500, '#e67e22');
+        return;
+      }
+      // Eliminar del mapa
+      delete unidadesMap[keyAEliminar];
+      // Actualizar lista de unidades y árbol
+      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+      treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+      // Limpiar selección si era la eliminada
+      if (lastSelected === keyAEliminar) {
+        lastSelected = '';
+        document.getElementById('unidad-content').innerHTML = '';
+      }
+      // Volver a renderizar el árbol
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+      // Guardar cambios
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
+      mostrarAlerta('Unidad eliminada', 1500, '#27ae60');
+    }
     // Exportar CSV
     function exportCSV() {
       let rows = [csvHeaders.join(';')];
