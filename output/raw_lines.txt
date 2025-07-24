@@ -1,0 +1,1498 @@
+0001: Unidad Organizativa
+0002: AUDITORÍA GENERAL
+0003: Jerarquía 2 – Subgerente General Nivel de 1 Fecha Aprobación 28/10/2021
+0004: Implícita Reporte
+0005: Misión
+0006: Conducir la evaluación y el monitoreo del control interno de la entidad y de sus empresas
+0007: controladas, promoviendo la mejora de los procesos auditados
+0008: Funciones Genéricas Producto Final
+0009: Proponer el plan de Acción y Presupuestos del Área,
+0010: Plan de Acción y Presupuesto
+0011: garantizando su cumplimiento
+0012: Proponer la fijación de políticas, pautas y prioridades para
+0013: Políticas y Pautas
+0014: la gestión del área
+0015: Evaluar los recursos del área definiendo expectativas de
+0016: performance, monitoreando el desarrollo y controlando la Coordinación
+0017: productividad
+0018: Coordinar la determinación de las pautas de trabajo,
+0019: criterios metodológicos y alcance de los planes, estudios e
+0020: Criterios Metodológicos y Alcance
+0021: informes necesarios para cumplir las misiones de las áreas
+0022: bajo su dependencia
+0023: Proponer y participar, en el diseño de políticas y
+0024: procedimientos que garanticen las condiciones necesarias
+0025: para cumplir la misión del área y, del monitoreo de su Política/Procedimientos/Solución de
+0026: cumplimiento, dando soporte y solución a los problemas problemas
+0027: que surjan y asegurando la mejora continua de los
+0028: procesos
+0029: Funciones Específicas Producto Final % Dedicación
+0030: Evaluar los resultados de los trabajos de auditoría, Programación/
+0031: 60
+0032: coordinar e integrar el Comité de Auditoría Informe
+0033: Proponer las prioridades de los ciclos/procesos/auditorias
+0034: Programación/
+0035: específicas a auditar, conforme los lineamientos de los entes 40
+0036: Planificación
+0037: de contralor, en base a criterios de riesgo y exposición
+0038: Banco Nación MANUAL DE ORGANIZACIÓN
+0039: Unidad Organizativa
+0040: APOYO ADMINISTRATIVO
+0041: Jerarquía Nivel de Fecha 22/09/2023
+0042: Implícita Reporte Aprobación
+0043: Misión
+0044: Planificar los asuntos de índole administrativa, controlando administrativamente al personal de
+0045: la casa y coordinando la provisión de elementos de trabajo (útiles)
+0046: %
+0047: Funciones Específicas Producto Final
+0048: Dedicación
+0049: Intervenir en la actualización del inventario de Bienes de Uso Inventario 5
+0050: Efectuar las acciones de apoyo administrativo solicitadas y/o encuadras
+0051: Servicio 40
+0052: en los procedimientos
+0053: Tramitar la entrada y salida de correspondencia y Comunicaciones al
+0054: Registro 5
+0055: Personal
+0056: Determinar la previsión y provisión de útiles, elementos de trabajo,
+0057: realizar las gestiones complementarias y las relacionadas con la Útiles 10
+0058: tramitación de viáticos
+0059: Controlar los asuntos relacionados con el personal y la administración
+0060: Legajos 35
+0061: de los legajos
+0062: Atender las tareas inherentes al mantenimiento de datos de bienes e Mantenimiento
+0063: 5
+0064: insumos de Artículos
+0065: Banco Nación MANUAL DE ORGANIZACIÓN
+0066: Unidad Organizativa
+0067: AUDITORÍA DE PROCESOS EN SUCURSALES
+0068: Jerarquía 3 – Gerente Departamental Nivel de 2 Fecha Aprobación 28/10/2021
+0069: Implícita Reporte
+0070: Misión
+0071: Administrar las actividades de evaluación y monitoreo del control interno de los procesos en las
+0072: Sucursales y en las Gerencias Zonales, promoviendo la mejora de los procesos auditados
+0073: Funciones Genéricas Producto Final
+0074: Organizar los recursos de acuerdo a las pautas de trabajo,
+0075: Organización
+0076: criterios metodológicos establecidos
+0077: Planificar las tareas realizadas en el área a fin de cumplir con las
+0078: Coordinación
+0079: metas propuestas
+0080: Gestionar el cumplimiento de los objetivos propuestos por el
+0081: Gestión
+0082: área
+0083: Participar en el diseño y monitorear el cumplimiento de
+0084: políticas y procedimientos que garanticen las condiciones
+0085: necesarias para cumplir la misión del área, dando soporte y Solución de problemas
+0086: solución a los problemas que surjan y asegurando la mejora
+0087: continua de los procesos.
+0088: %
+0089: Funciones Específicas Producto Final
+0090: Dedicación
+0091: Gestionar la elaboración de la planificación de las sucursales del
+0092: país y del exterior a auditar, conforme los lineamientos de los Planificación 20
+0093: entes de contralor, en base a criterios de riesgo y exposición
+0094: Gestionar la emisión de información sobre las auditorías
+0095: realizadas, para la Dirección del Banco, Organismos Externos de Informe 25
+0096: contralor y Áreas de la Administración Central
+0097: Coordinar las auditorías en las Sucursales y las Gerencias
+0098: Programación/Informe 25
+0099: Zonales del Banco y el análisis de los resultados
+0100: Coordinar las actividades de auditoría de la operativa de
+0101: Comercio Exterior y Cambios en las Sucursales del país y la
+0102: Programación/Informe 10
+0103: evaluación y monitoreo del control interno en las Sucursales del
+0104: exterior
+0105: Gestionar la verificación del cumplimiento del Plan de Auditoria
+0106: Control 10
+0107: para las Sucursales y Gerencias Zonales a auditar
+0108: Participar en la determinación de las áreas y procesos de mayor
+0109: Programación/Informe 10
+0110: riesgo y exposición en las Sucursales y Gerencias Zonales
+0111: Banco Nación MANUAL DE ORGANIZACIÓN
+0112: Unidad Organizativa
+0113: AUDITOR REGIONAL
+0114: Jerarquía 4 – Subgerente Nivel de 3 Fecha 28/10/2021
+0115: Implícita Departamental Reporte Aprobación
+0116: Misión
+0117: Coordinar las actividades tendientes al cumplimiento del plan de auditoria conforme a los
+0118: programas de trabajo y a las técnicas y procedimientos establecidos
+0119: %
+0120: Funciones Específicas Producto Final
+0121: Dedicación
+0122: Controlar las rendiciones de viáticos, movilidad y otras erogaciones
+0123: Control 5
+0124: de los Auditores a su cargo
+0125: Gestionar las actividades de seguimiento y verificación del
+0126: Informes/Control 20
+0127: cumplimiento de las indicaciones y/u observaciones pendientes
+0128: Proponer la elaboración/actualización de normas internas de
+0129: procedimientos de auditoría y programas de trabajo en base a las Propuesta 5
+0130: auditorías efectuadas
+0131: Controlar los informes con indicaciones y/u observaciones y papeles
+0132: Informe/Control 30
+0133: de trabajo de los Auditores actuantes, confeccionando el informe final
+0134: Controlar la realización de auditorías de procesos en las Sucursales del
+0135: Auditoría 40
+0136: país (excepto Sucursal Plaza de Mayo) y en las Gerencias Zonales
+0137: Banco Nación MANUAL DE ORGANIZACIÓN
+0138: Unidad Organizativa
+0139: AUDITORÍA DE COMERCIO EXTERIOR Y SUCURSALES DEL EXTERIOR
+0140: Jerarquía 4 - Subgerente Departamental Nivel de 3 Fecha 28/10/2021
+0141: Implícita Reporte Aprobación
+0142: Misión
+0143: Dirigir las actividades relacionadas con la evaluación y el monitoreo del control interno en las
+0144: Sucursales del exterior y de la operativa de Comercio Exterior y Cambios en el país, asegurando el
+0145: cumplimiento de las leyes, regulaciones y normas vigentes
+0146: %
+0147: Funciones Específicas Producto Final
+0148: Dedicación
+0149: Gestionar el proceso de planificación anual relacionado con las
+0150: auditorías de procesos de Comercio Exterior y Cambios en el país, y de
+0151: Planificación 10
+0152: las sucursales del exterior, conforme los lineamientos de los entes de
+0153: contralor, en base a criterios de riesgo y exposición
+0154: Conducir las actividades relacionadas con la implementación de las
+0155: recomendaciones efectuadas, en oportunidad de desarrollar cada Aseguramiento 10
+0156: proyecto de auditoría
+0157: Conducir las actividades de evaluación del control contable,
+0158: operacional, crediticio (incluye la evaluación de la calificación de los
+0159: Auditoría 15
+0160: clientes principales) y de gastos en las Sucursales del exterior,
+0161: controlando la información contable remitida a Casa Central
+0162: Conducir las actividades de evaluación de la efectividad y eficiencia de
+0163: los sistemas de control interno y de administración de riesgos de las Auditoría 20
+0164: sucursales del exterior
+0165: Conducir las actividades de auditoría de procesos de Comercio
+0166: Auditoría 15
+0167: Exterior y Cambios en el país
+0168: Conducir las actividades de auditoría de procesos centrales de Filiales
+0169: Auditoría 10
+0170: del Exterior y Banca Corresponsal
+0171: Controlar el cumplimiento de leyes, regulaciones y normas vigentes,
+0172: Evaluación y
+0173: incluyendo requerimientos de los entes de supervisión de las 10
+0174: Control
+0175: sucursales del exterior
+0176: Intervenir y controlar la emisión de informes sobre las auditorías
+0177: realizadas, para la Dirección del Banco, Organismos Externos de Informes 10
+0178: contralor y Áreas de la Administración Central
+0179: Banco Nación MANUAL DE ORGANIZACIÓN
+0180: Unidad Organizativa
+0181: ANÁLISIS Y SEGUIMIENTO DE INFORMACIÓN
+0182: Jerarquía 5- Jefe Principal de Nivel de 3 Fecha 28/10/2021
+0183: Implícita Departamento Reporte Aprobación
+0184: Misión
+0185: Dirigir las actividades relacionadas con el análisis y seguimiento de la información que surge de
+0186: las auditorías de procesos en Sucursales y Gerencias Zonales
+0187: Funciones Específicas Producto Final % Dedicación
+0188: Intervenir en la elaboración de la planificación anual relacionada
+0189: con las auditorías de sucursales del país, conforme los
+0190: Planificación 10
+0191: lineamientos de los entes de contralor en base a criterios de riesgo
+0192: y exposición
+0193: Controlar las propuestas de elaboración / actualización de normas
+0194: Análisis /
+0195: internas de procedimientos de auditoría y programas de trabajo, 10
+0196: Programas
+0197: diligenciando su instrumentación
+0198: Intervenir en la elaboración de información sobre las auditorías
+0199: realizadas, para la Dirección del Banco, Organismos Externos de Informe 20
+0200: contralor y Áreas de la Administración Central
+0201: Conducir las actividades de análisis y seguimiento del
+0202: cumplimiento de indicaciones efectuadas en Sucursales y Aseguramiento 20
+0203: Gerencias Zonales
+0204: Controlar las actividades relacionadas con la revisión de los
+0205: Aseguramiento 40
+0206: informes de auditoría de Sucursales y Gerencias Zonales
+0207: Banco Nación MANUAL DE ORGANIZACIÓN
+0208: Unidad Organizativa
+0209: AUDITORÍA DE PROCESOS CENTRALES
+0210: Jerarquía 3 – Gerente Departamental Nivel de 2 Fecha Aprobación 28/10/2021
+0211: Implícita Reporte
+0212: Misión
+0213: Administrar las actividades de Auditoria Interna relacionadas con los procesos en la
+0214: Administración Central, de la Sucursal Plaza de Mayo y de las empresas del Grupo Nación
+0215: controladas por Banco de la Nación Argentina, promoviendo la mejora de los procesos auditados
+0216: Funciones Genéricas Producto Final
+0217: Organizar los recursos de acuerdo a las pautas de trabajo,
+0218: Organización
+0219: criterios metodológicos establecidos
+0220: Planificar las tareas realizadas en el área a fin de cumplir con las
+0221: Coordinación
+0222: metas propuestas
+0223: Gestionar el cumplimiento de los objetivos propuestos por el
+0224: Gestión
+0225: área
+0226: Participar en el diseño y monitorear el cumplimiento de
+0227: políticas y procedimientos que garanticen las condiciones
+0228: necesarias para cumplir la misión del área, dando soporte y Solución de problemas
+0229: solución a los problemas que surjan y asegurando la mejora
+0230: continua de los procesos.
+0231: %
+0232: Funciones Específicas Producto Final
+0233: Dedicación
+0234: Planificar los procesos a auditar, conforme los lineamientos de
+0235: los entes de contralor, en base a criterios de riesgo y
+0236: exposición de la Administración Central, Sucursal Plaza de Planificación 20
+0237: Mayo y de las Empresas del Grupo Nación cuya auditoria se
+0238: encuentre a cargo del BNA
+0239: Coordinar las actividades de las auditorías Especiales, de
+0240: Sistemas, de Casa Central y Sucursal Plaza de Mayo y de las
+0241: Programación/Informe 40
+0242: Empresas del Grupo Nación y brindar asesoramiento cuando se
+0243: lo requieran
+0244: Gestionar la emisión de informes sobre los trabajos de Auditoria
+0245: realizados, para la Dirección del Banco, Organismos Externos de Informes 20
+0246: contralor y Áreas de la Administración Central
+0247: Gestionar la verificación del cumplimiento del Plan de Auditoria
+0248: para la Administración Central, Sucursal Plaza de Mayo y de las
+0249: Control 20
+0250: Empresas del Grupo Nación cuya auditoria se encuentre a cargo
+0251: del BNA
+0252: Banco Nación MANUAL DE ORGANIZACIÓN
+0253: Unidad Organizativa
+0254: AUDITORÍA DE SISTEMAS
+0255: Jerarquía 4 – Subgerente Departamental Nivel de 3 Fecha 28/10/2021
+0256: Implícita Reporte Aprobación
+0257: Misión
+0258: Dirigir las actividades relacionadas con las auditorías de gestión de la tecnología informática, la
+0259: seguridad de la información y los riesgos asociados, promoviendo la mejora continua de los
+0260: procesos involucrados
+0261: %
+0262: Funciones Específicas Producto Final
+0263: Dedicación
+0264: Gestionar el proceso de planificación anual relacionado con las
+0265: auditorías de sistemas, conforme los lineamientos de los entes de Planificación 10
+0266: contralor, en base a criterios de riesgo y exposición
+0267: Conducir las auditorías de gobierno de TI, gestión de riesgos
+0268: tecnológicos, sistemas aplicativos, infraestructura tecnológica y de
+0269: comunicaciones, y sus procesos asociados, asegurando la integridad de
+0270: Aseguramiento 40
+0271: los datos , el cumplimiento de las normas y procedimientos vigentes y
+0272: la emisión de la información requerida, brindando asesoramiento
+0273: cuando se lo requieran
+0274: Conducir las actividades relacionadas con la auditoría de la seguridad
+0275: Aseguramiento 20
+0276: de la información
+0277: Conducir las actividades relacionadas con la implementación de las
+0278: recomendaciones efectuadas, en oportunidad de desarrollar cada Aseguramiento 5
+0279: proyecto de auditoría
+0280: Controlar la ejecución del plan de trabajo fijado para las unidades de
+0281: Evaluación y
+0282: su dependencia detectando desvíos y proponiendo los cambios 5
+0283: Control
+0284: necesarios
+0285: Conducir las actividades de supervisión de soporte y tecnología
+0286: Control 5
+0287: informática en las restantes unidades de Auditoria General
+0288: Intervenir en la determinación del plan detallado de trabajo y proponer Aseguramiento
+0289: 10
+0290: modificaciones o mejoras en las pruebas aplicables a los proyectos y Control
+0291: Intervenir y controlar la emisión de los informes sobre las actividades
+0292: realizadas y otras tareas de evaluación, para la Dirección del Banco,
+0293: Informes 5
+0294: Organismos Externos de contralor y Áreas de la Administración
+0295: Central
+0296: Banco Nación MANUAL DE ORGANIZACIÓN
+0297: Unidad Organizativa
+0298: AUDITORÍA DE SISTEMAS APLICATIVOS Y PROCESAMIENTO
+0299: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0300: Implícita Departamento Reporte Aprobación
+0301: Misión
+0302: Supervisar las actividades de auditoría relacionadas con el ambiente de control de los procesos de
+0303: TI, los sistemas aplicativos y el procesamiento de datos, promoviendo la mejora de los mismos
+0304: %
+0305: Funciones Específicas Producto Final
+0306: Dedicación
+0307: Intervenir en la planificación anual relacionada con las auditorías de
+0308: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0309: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0310: Determinar el plan detallado de trabajo, diseñar las pruebas Programa de
+0311: 10
+0312: respectivas, y controlar su cumplimiento Trabajo
+0313: Controlar las actividades vinculadas con la auditoría la utilización de
+0314: los sistemas aplicativos del Banco, el procesamiento de los datos, la Aseguramiento 40
+0315: seguridad lógica aplicada y los procesos asociados
+0316: Controlar las actividades relacionadas con la auditoria de gobierno de
+0317: Aseguramiento 20
+0318: TI, gestión de riesgo tecnológico y la seguridad de la información
+0319: Intervenir en las actividades relacionadas con la implementación de las
+0320: Evaluación y
+0321: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0322: Control
+0323: proyecto de auditoría
+0324: Informar y controlar los resultados de las actividades sobre las
+0325: auditorías realizadas y otras tareas de evaluación, para la Dirección del
+0326: Informes 10
+0327: Banco, Organismos Externos de contralor y Áreas de la
+0328: Administración Central
+0329: Banco Nación MANUAL DE ORGANIZACIÓN
+0330: Unidad Organizativa
+0331: AUDITORÍA DE TECNOLOGÍA, SEGURIDAD Y COMUNICACIONES
+0332: Jerarquía 5– Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0333: Implícita Departamento Reporte Aprobación
+0334: Misión
+0335: Supervisar las actividades de auditoría relacionadas con el ambiente de control de la
+0336: infraestructura tecnológica, la seguridad de la información y las comunicaciones que dan soporte
+0337: a los procesos del Banco, promoviendo la mejora de los mismos
+0338: %
+0339: Funciones Específicas Producto Final
+0340: Dedicación
+0341: Intervenir en la planificación anual relacionada con las auditorías de
+0342: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0343: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0344: Determinar el plan detallado de trabajo, diseñar las pruebas Programa de
+0345: 10
+0346: respectivas, y controlar su cumplimiento Trabajo
+0347: Controlar las actividades relacionadas con la auditoría de la gestión y
+0348: utilización del hardware, software de base, redes de comunicaciones, Aseguramiento 40
+0349: base de datos y los procesos asociados
+0350: Controlar las actividades relacionadas con la auditoría de los procesos
+0351: de gestión de riesgo tecnológico, protección de activos de la Aseguramiento 20
+0352: información y la continuidad del procesamiento de datos
+0353: Intervenir en las actividades relacionadas con la implementación de las
+0354: Evaluación y
+0355: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0356: Control
+0357: proyecto de auditoría
+0358: Informar y controlar los resultados de las actividades sobre las
+0359: auditorías realizadas y otras tareas de evaluación, para la Dirección del
+0360: Informes 10
+0361: Banco, Organismos Externos de contralor y Áreas de la Administración
+0362: Central
+0363: Banco Nación MANUAL DE ORGANIZACIÓN
+0364: Unidad Organizativa
+0365: SOPORTE EN TECNOLOGÍA INFORMÁTICA
+0366: Jerarquía 6 – Jefe de Departamento Nivel de 4 Fecha Aprobación 28/10/2021
+0367: Implícita Reporte
+0368: Misión
+0369: Asistir en las actividades de apoyo técnico en tecnología informática a las unidades de la Auditoría
+0370: General, promoviendo la mejora de las mismas
+0371: %
+0372: Funciones Específicas Producto Final
+0373: Dedicación
+0374: Intervenir en las tareas actividades necesarias para brindar
+0375: soporte a todas las unidades dependientes del Área para la
+0376: Apoyo técnico 50
+0377: utilización, a los fines de auditoría, de información
+0378: correspondiente a procesos sistematizados
+0379: Analizar nuevas herramientas informáticas para auditoría Evaluación/Consultoría 20
+0380: Intervenir en el asesoramiento a las unidades del Área sobre los
+0381: aspectos de tecnología informática y tramitar las soluciones Asesoramiento 30
+0382: tecnológicas correspondientes
+0383: Banco Nación MANUAL DE ORGANIZACIÓN
+0384: Unidad Organizativa
+0385: AUDITORÍA DE CASA CENTRAL Y SUC. PLAZA DE MAYO
+0386: Jerarquía 4 - Subgerente Departamental Nivel de 3 Fecha 28/10/2021
+0387: Implícita Reporte Aprobación
+0388: Misión
+0389: Dirigir las actividades relacionadas con las auditorías de procesos de crédito, operativos y
+0390: centralizados y de mercado en la Administración Central y en la Sucursal Plaza de Mayo,
+0391: promoviendo la mejora de los mismos
+0392: %
+0393: Funciones Específicas Producto Final
+0394: Dedicación
+0395: Gestionar el proceso de planificación anual relacionado con las
+0396: auditorias de los procesos de Casa Central y Sucursal Plaza de Mayo,
+0397: Planificación 10
+0398: conforme los lineamientos de los entes de contralor en base a criterios
+0399: de riesgo y exposición
+0400: Intervenir en la determinación del plan detallado de trabajo y proponer Aseguramiento
+0401: 10
+0402: modificaciones o mejoras en las pruebas aplicables a los proyectos y Control
+0403: Conducir las auditorías de los procesos de crédito, operativos y
+0404: centralizados y de mercado en la Administración Central y en la
+0405: Aseguramiento 50
+0406: Sucursal Plaza de Mayo, brindando asesoramiento cuando se lo
+0407: requieran
+0408: Conducir las actividades relacionadas con la implementación de las
+0409: recomendaciones efectuadas, en oportunidad de desarrollar cada Aseguramiento 15
+0410: proyecto de auditoría
+0411: Intervenir y controlar la emisión de los informes sobre las actividades
+0412: realizadas, para la Dirección del Banco, Organismos Externos de Informes 15
+0413: contralor y Áreas de la Administración Central
+0414: Banco Nación MANUAL DE ORGANIZACIÓN
+0415: Unidad Organizativa
+0416: AUDITORÍA DE RIESGO DE CRÉDITO
+0417: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0418: Implícita Departamento Reporte Aprobación
+0419: Misión
+0420: Supervisar las actividades de auditoria relacionadas con los procesos de crédito en la
+0421: Administración Central y en la Sucursal Plaza de Mayo promoviendo la mejora continua de los
+0422: procesos involucrados
+0423: %
+0424: Funciones Específicas Producto Final
+0425: Dedicación
+0426: Intervenir en la planificación anual relacionada con las auditorías de
+0427: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0428: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0429: Determinar del plan detallado de trabajo, diseñar las pruebas Programa de
+0430: 10
+0431: respectivas, y controlar su cumplimiento Trabajo
+0432: Controlar las actividades relacionadas con la auditoría de los procesos
+0433: de evaluación de riesgo crediticio, otorgamiento de crédito y la gestión
+0434: de cobranza, en la Administración Central y en la Sucursal Plaza de Aseguramiento 60
+0435: Mayo asegurando su correcto diligenciamiento y el examen objetivo de
+0436: las evidencias
+0437: Intervenir en las actividades relacionadas con la implementación de las
+0438: Evaluación y
+0439: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0440: Control
+0441: proyecto de auditoría
+0442: Informar y controlar los resultados de las actividades sobre las
+0443: auditorías realizadas y otras tareas de evaluación, para la Dirección del
+0444: Informe 10
+0445: Banco, Organismos Externos de contralor y Áreas de la Administración
+0446: Central
+0447: Banco Nación MANUAL DE ORGANIZACIÓN
+0448: Unidad Organizativa
+0449: AUDITORÍA DE RIESGO OPERATIVO Y PROCESOS CENTRALIZADOS
+0450: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0451: Implícita Departamento Reporte Aprobación
+0452: Misión
+0453: Supervisar las actividades de auditoria relacionadas con los procesos operativos y centralizados
+0454: en la Administración Central y en la Sucursal Plaza de Mayo promoviendo la mejora continua de
+0455: los procesos involucrados
+0456: %
+0457: Funciones Específicas Producto Final
+0458: Dedicación
+0459: Intervenir en la planificación anual relacionada con las auditorías de
+0460: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0461: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0462: Determinar del plan detallado de trabajo, diseñar las pruebas Programa de
+0463: 10
+0464: respectivas, y controlar su cumplimiento Trabajo
+0465: Controlar las actividades relacionadas con la auditoría de los procesos
+0466: operativos y centralizados en la Administración Central y en la
+0467: Aseguramiento 60
+0468: Sucursal Plaza de Mayo, asegurando su correcto diligenciamiento y el
+0469: examen objetivo de las evidencias
+0470: Intervenir en las actividades relacionadas con la implementación de las
+0471: Evaluación y
+0472: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0473: Control
+0474: proyecto de auditoría
+0475: Informar y controlar los resultados de las actividades sobre las
+0476: auditorías realizadas y otras tareas de evaluación, para la Dirección del
+0477: Informes 10
+0478: Banco, Organismos Externos de contralor y Áreas de la
+0479: Administración Central
+0480: Banco Nación MANUAL DE ORGANIZACIÓN
+0481: Unidad Organizativa
+0482: AUDITORIA DE RIESGO DE MERCADO
+0483: Jerarquía 5- Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0484: Implícita Departamento Reporte Aprobación
+0485: Misión
+0486: Supervisar las actividades de auditorías relacionadas con los procesos vinculados a las inversiones
+0487: financieras, actividades fiduciarias y la administración del riesgo de mercado promoviendo el
+0488: aseguramiento y la mejora de los mismos
+0489: %
+0490: Funciones Específicas Producto Final
+0491: Dedicación
+0492: Intervenir en la planificación anual relacionada con las auditorías de
+0493: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0494: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0495: Determinar el plan detallado de trabajo, diseñar las pruebas Programa de
+0496: 10
+0497: respectivas, y controlar su cumplimiento Trabajo
+0498: Controlar las actividades relacionadas con la auditoría de los procesos
+0499: de inversiones financieras, actividades fiduciarias, la administración
+0500: del riesgo de mercado y de negociación en los mercados cambiario, Aseguramiento 60
+0501: monetario de capitales, de futuros, opciones y derivados, asegurando
+0502: su correcto diligenciamiento y el examen objetivo de las evidencias
+0503: Intervenir en las actividades relacionadas con la implementación de las
+0504: Evaluación y
+0505: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0506: Control
+0507: proyecto de auditoría
+0508: Informar y controlar los resultados de las actividades relacionadas con
+0509: las auditorias y otras tareas de evaluación realizadas para la Dirección
+0510: Informe 10/Users/lanchu/Projectos/BNA/output/dump_pdfplumber.txt
+0511: de las Empresas del Grupo Nación, la Dirección del Banco, Organismos
+0512: Externos de contralor y Áreas de la Administración Central
+0513: Banco Nación MANUAL DE ORGANIZACIÓN
+0514: Unidad Organizativa
+0515: AUDITORÍA DE EMPRESAS DEL GRUPO NACIÓN
+0516: Jerarquía 4 – Subgerente Nivel de 3 Fecha Aprobación 28/10/2021
+0517: Implícita Departamental Reporte
+0518: Misión
+0519: Dirigir las actividades relacionadas con las auditorias en las Empresas del Grupo Nación,
+0520: promoviendo la mejora de los procesos
+0521: %
+0522: Funciones Específicas Producto Final
+0523: Dedicación
+0524: Gestionar el proceso de planificación anual de las Empresas
+0525: del Grupo Nación conforme los “Lineamientos SIGEN para
+0526: el Planeamiento de las UAI”, en base a criterios de riesgo y Planificación 10
+0527: exposición, coordinando su presentación para su posterior
+0528: aprobación
+0529: Intervenir en la determinación del plan detallado de trabajo
+0530: y proponer modificaciones o mejoras en las pruebas Programa de Trabajo 5
+0531: aplicables a los proyectos
+0532: Conducir las auditorías integrales, de sistemas y aspectos
+0533: tecnológicos, así como otras tareas de evaluación del
+0534: Aseguramiento/Consultoría 55
+0535: sistema de control interno para las Empresas del Grupo
+0536: Nación, brindando asesoramiento cuando se lo requieran
+0537: Conducir las actividades relacionadas con la
+0538: implementación de recomendaciones efectuadas en Aseguramiento 10
+0539: oportunidad de desarrollar las auditorías integrales
+0540: Controlar la ejecución del plan de trabajo fijado para las
+0541: unidades de su dependencia detectando desvíos y Evaluación y Control 5
+0542: proponiendo los cambios necesarios
+0543: Intervenir y controlar la emisión de los informes sobre las
+0544: actividades realizadas para la Dirección de las Empresas del
+0545: Informes 10
+0546: Grupo Nación, la Dirección del Banco, Organismos
+0547: Externos de contralor y Áreas de la Administración Central
+0548: Gestionar la emisión de opinión previa de los manuales de
+0549: procedimientos y reglamentos, previo a su aprobación por
+0550: el Directorio de las compañías, y la atención de pedidos de Informes/Consultoría 5
+0551: información y asesoramiento de las Comisiones
+0552: Fiscalizadoras de las Empresas del Grupo Nación
+0553: Banco Nación MANUAL DE ORGANIZACIÓN
+0554: Unidad Organizativa
+0555: AUDITORÍA DE EMPRESAS CONTROLADAS – Equipo I
+0556: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha Aprobación 28/10/2021
+0557: Implícita Departamento Reporte
+0558: Misión
+0559: Supervisar las actividades de auditoria de las Empresas del Grupo Nación promoviendo la
+0560: mejora de los procesos
+0561: %
+0562: Funciones Específicas Producto Final
+0563: Dedicación
+0564: Intervenir en la planificación anual relacionada con las auditorias
+0565: de las Empresas del Grupo Nación conforme los Lineamientos
+0566: SIGEN para el Planeamiento de las UAI, en base a criterios de Planificación 10
+0567: riesgo y exposición; proponiendo planes de trabajo para su
+0568: presentación y posterior aprobación
+0569: Determinar el plan detallado de trabajo, diseñar las pruebas
+0570: Programa de Trabajo 10
+0571: respectivas, y controlar su cumplimiento
+0572: Controlar las actividades relacionadas con las auditorias
+0573: integrales y otras tareas de evaluación del sistema de control
+0574: Aseguramiento 50
+0575: interno, asegurando su correcto diligenciamiento y el examen
+0576: objetivo de las evidencias
+0577: Intervenir en las actividades relacionadas con la implementación
+0578: de las recomendaciones efectuadas, en oportunidad de llevar a Evaluación y Control 10
+0579: cabo la auditoría integral de la empresa
+0580: Informar y controlar los resultados de las actividades relacionadas
+0581: con las auditorias integrales y otras tareas de evaluación
+0582: realizadas para la Dirección de las Empresas del Grupo Nación, la Informes 10
+0583: Dirección del Banco, Organismos Externos de contralor y Áreas de
+0584: la Administración Central
+0585: Intervenir en la emisión de opinión previa de los manuales de
+0586: procedimientos y reglamentos, previo a su aprobación por el
+0587: Directorio de las compañías, y atención de pedidos de Informes/Consultoría 10
+0588: información/asesoramiento de las Comisiones Fiscalizadoras de
+0589: las Empresas del Grupo Nación
+0590: Banco Nación MANUAL DE ORGANIZACIÓN
+0591: Unidad Organizativa
+0592: AUDITORÍA DE EMPRESAS CONTROLADAS – Equipo II
+0593: Jerarquía 5 – Jefe Principal de Nivel de 5 Fecha Aprobación 28/10/2021
+0594: Implícita Departamento Reporte
+0595: Misión
+0596: Supervisar las actividades de auditoria de las Empresas del Grupo Nación promoviendo la
+0597: mejora de los procesos
+0598: %
+0599: Funciones Específicas Producto Final
+0600: Dedicación
+0601: Intervenir en la planificación anual relacionada con las auditorias
+0602: de las Empresas del Grupo Nación conforme los Lineamientos
+0603: SIGEN para el Planeamiento de las UAI, en base a criterios de Planificación 10
+0604: riesgo y exposición; proponiendo planes de trabajo para su
+0605: presentación y posterior aprobación
+0606: Determinar el plan detallado de trabajo, diseñar las pruebas
+0607: Programa de Trabajo 10
+0608: respectivas, y controlar su cumplimiento
+0609: Controlar las actividades relacionadas con las auditorias
+0610: integrales y otras tareas de evaluación del sistema de control
+0611: Aseguramiento 50
+0612: interno, asegurando su correcto diligenciamiento y el examen
+0613: objetivo de las evidencias
+0614: Intervenir en las actividades relacionadas con la implementación
+0615: de las recomendaciones efectuadas, en oportunidad de llevar a Evaluación y Control 10
+0616: cabo la auditoría integral de la empresa
+0617: Informar y controlar los resultados de las actividades relacionadas
+0618: con las auditorias integrales y otras tareas de evaluación
+0619: realizadas para la Dirección de las Empresas del Grupo Nación, la Informes 10
+0620: Dirección del Banco, Organismos Externos de contralor y Áreas de
+0621: la Administración Central
+0622: Intervenir en la emisión de opinión previa de los manuales de
+0623: procedimientos y reglamentos, previo a su aprobación por el
+0624: Directorio de las compañías, y atención de pedidos de Informes/Consultoría 10
+0625: información/asesoramiento de las Comisiones Fiscalizadoras de
+0626: las Empresas del Grupo Nación
+0627: Banco Nación MANUAL DE ORGANIZACIÓN
+0628: Unidad Organizativa
+0629: AUDITORÍA DE SISTEMAS DE EMPRESAS CONTROLADAS
+0630: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha Aprobación 28/10/2021
+0631: Implícita Departamento Reporte
+0632: Misión
+0633: Supervisar las actividades de auditoría relacionadas con los sistemas aplicativos, plataformas de
+0634: procesamiento, tecnología, seguridad y comunicaciones de las empresas controladas del Grupo
+0635: Nación promoviendo mejoras en los procesos
+0636: %
+0637: Funciones Específicas Producto Final
+0638: Dedicación
+0639: Intervenir en la planificación anual relacionada con las auditorias
+0640: de sistemas y aspectos tecnológicos de las Empresas del Grupo
+0641: Nación conforme los Lineamientos SIGEN para el Planeamiento Planificación 10
+0642: de las UAI, en base a criterios de riesgo y exposición; proponiendo
+0643: planes de trabajo para su presentación y posterior aprobación
+0644: Determinar el plan detallado de trabajo, diseñar las pruebas
+0645: Programa de Trabajo 10
+0646: respectivas, y controlar su cumplimiento
+0647: Controlar las actividades relacionadas con las auditorías
+0648: vinculadas a sistemas aplicativos, procesamiento de datos,
+0649: tecnología, seguridad y comunicaciones, controlando las
+0650: aplicaciones, asegurando la integridad de los datos, el
+0651: Aseguramiento 40
+0652: cumplimiento de las normas y procedimientos vigentes, en la
+0653: instalación y mantenimiento de hardware y software y la emisión
+0654: de la información requerida, asegurando su correcto
+0655: diligenciamiento y el examen objetivo de las evidencias
+0656: Controlar las actividades relacionadas con la auditoria de las
+0657: políticas, estándares y procedimientos referidos con la protección
+0658: de activos de la información, la gestión de riesgo aplicada a la Aseguramiento 20
+0659: tecnología informática y la continuidad del procesamiento de
+0660: datos
+0661: Intervenir en las actividades relacionadas con la implementación
+0662: de las recomendaciones efectuadas en oportunidad de desarrollar Evaluación y Control 5
+0663: la auditoría integral
+0664: Informar los resultados de las actividades relacionadas con las
+0665: auditorias integrales y otras tareas de evaluación del sistema de
+0666: control interno realizadas para la Dirección de las Empresas del Informes 5
+0667: Grupo Nación, la Dirección del Banco, Organismos Externos de
+0668: contralor y Áreas de la Administración Central
+0669: Intervenir en la emisión de opinión previa de los manuales de
+0670: procedimientos y reglamentos, previo a su aprobación por el Informes/Consultoría 10
+0671: Directorio de las compañías, y atención de pedidos de
+0672: información/asesoramiento de las Comisiones Fiscalizadoras de
+0673: las Empresas del Grupo Nación
+0674: Banco Nación MANUAL DE ORGANIZACIÓN
+0675: Unidad Organizativa
+0676: AUDITORIAS ESPECIALES
+0677: Jerarquía 4 – Subgerente Nivel de 3 Fecha 28/10/2021
+0678: Implícita Departamental Reporte Aprobación
+0679: Misión
+0680: Dirigir las actividades relacionadas con las auditorías de procesos de asesoría y gestión legal,
+0681: contabilidad, información que emite el Banco para el BCRA y organismos de control, de
+0682: Prevención del Lavado de Activos, Financiamiento del Terrorismo y Fraude, y de la gestión de
+0683: riesgos y monitoreo continuo, promoviendo la mejora de los mismos
+0684: Funciones Específicas Producto Final % Dedicación
+0685: Gestionar el proceso de planificación anual relacionado con las
+0686: auditorías especiales, conforme los lineamientos de los entes de Planificación 10
+0687: contralor, en base a criterios de riesgo y exposición
+0688: Intervenir en la determinación del plan detallado de trabajo y
+0689: Aseguramiento y
+0690: proponer modificaciones o mejoras en las pruebas aplicables a los 10
+0691: Control
+0692: proyectos
+0693: Conducir las auditorías de los procesos de asesoría y gestión legal,
+0694: contabilidad, información que emite el Banco para el BCRA y
+0695: organismos de control, de Prevención del Lavado de Activos,
+0696: Aseguramiento 40
+0697: Financiamiento del Terrorismo y Fraude, y de la gestión de riesgos
+0698: y monitoreo continuo, brindando asesoramiento cuando se lo
+0699: requieran
+0700: Conducir las actividades relacionadas con la implementación de
+0701: las recomendaciones efectuadas, en oportunidad de desarrollar Aseguramiento 10
+0702: cada proyecto de auditoría
+0703: Controlar la ejecución del plan de trabajo fijado para las unidades
+0704: Evaluación y
+0705: de su dependencia detectando desvíos y proponiendo los cambios 10
+0706: Control
+0707: necesarios
+0708: Intervenir y controlar la emisión de los informes sobre las
+0709: actividades realizadas, para la Dirección del Banco, Organismos Informe 20
+0710: Externos de contralor y Áreas de la Administración Central
+0711: Banco Nación MANUAL DE ORGANIZACIÓN
+0712: Unidad Organizativa
+0713: AUDITORÍA DE LEGALES
+0714: Jerarquía 5 - Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0715: Implícita Departamento Reporte Aprobación
+0716: Misión
+0717: Supervisar las actividades de auditoría relacionadas con los procesos de gestión y asesoría legal
+0718: de la Administración Central, de las Sucursales del país y del exterior y de las Empresas del Grupo
+0719: Nación, promoviendo mejoras en los mismos
+0720: %
+0721: Funciones Específicas Producto Final
+0722: Dedicación
+0723: Intervenir en la planificación anual relacionada con las auditorías de
+0724: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0725: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0726: Determinar el plan detallado de trabajo de cada proceso, diseñar las Programa de
+0727: 10
+0728: pruebas respectivas, y controlar su cumplimiento Trabajo
+0729: Controlar las actividades relacionadas con la auditoria de los procesos
+0730: de asesoría legal, de la gestión legal, de la Administración Central, de
+0731: las Representaciones Legales y las integrales de las Empresas del
+0732: Aseguramiento 50
+0733: Grupo Nación, asegurando su correcto diligenciamiento y el examen
+0734: objetivo de las evidencias, asegurando su correcto diligenciamiento y
+0735: el examen objetivo de las evidencias
+0736: Intervenir en las actividades relacionadas con la implementación de las
+0737: Evaluación y
+0738: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0739: Control
+0740: proyecto de auditoría
+0741: Informar y controlar los resultados de las actividades sobre las
+0742: auditorías realizadas y otras tareas de evaluación efectuadas por la
+0743: Informe 20
+0744: Unidad, para la Dirección del Banco, Organismos Externos de contralor
+0745: y Áreas de la Administración Central
+0746: Banco Nación MANUAL DE ORGANIZACIÓN
+0747: Unidad Organizativa
+0748: AUDITORÍA DE ESTADOS CONTABLES
+0749: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0750: Implícita Departamento Reporte Aprobación
+0751: Misión
+0752: Supervisar las actividades de auditoría, relacionadas con los procesos de Contabilidad,
+0753: Presupuesto, Planeamiento y Presentación de Información Contable y Financiera, promoviendo la
+0754: mejora de los mismos
+0755: %
+0756: Funciones Específicas Producto Final
+0757: Dedicación
+0758: Intervenir en la planificación anual relacionada con las auditorías de
+0759: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0760: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0761: Determinar el plan detallado de trabajo de cada proceso, diseñar las Programa de
+0762: 10
+0763: pruebas respectivas, y controlar su cumplimiento Trabajo
+0764: Controlar las actividades relacionadas con la auditoría de los
+0765: procesos de Contabilidad, Presupuesto, Planeamiento y
+0766: Aseguramiento 60
+0767: Presentación de Información Contable y Financiera, asegurando su
+0768: correcto diligenciamiento y el examen objetivo de las evidencias
+0769: Intervenir en las actividades relacionadas con la implementación de
+0770: Evaluación y
+0771: las recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0772: Control
+0773: proyecto de auditoría
+0774: Informar y controlar los resultados de las actividades sobre las
+0775: auditorías realizadas y otras tareas de evaluación, para la Dirección
+0776: Informe 10
+0777: del Banco, Organismos Externos de contralor y Áreas de la
+0778: Administración Central
+0779: Banco Nación MANUAL DE ORGANIZACIÓN
+0780: Unidad Organizativa
+0781: AUDITORÍA DE PREVENCIÓN DE LAVADO DE DINERO, FINANCIAMIENTO DEL
+0782: TERRORISMO Y FRAUDE
+0783: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0784: Implícita Departamento Reporte Aprobación
+0785: Misión
+0786: Supervisar las actividades de auditoria relacionadas con los procesos de acuerdo con la normativa
+0787: vigente sobre prevención de lavado de dinero, financiamiento del terrorismo y fraude,
+0788: promoviendo las mejoras de los mismos
+0789: %
+0790: Funciones Específicas Producto Final
+0791: Dedicación
+0792: Intervenir en la planificación anual relacionada con las auditorías de
+0793: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0794: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0795: Determinar el plan detallado de trabajo de cada proceso, diseñar las Programa de
+0796: 10
+0797: pruebas respectivas, y controlar su cumplimiento Trabajo
+0798: Controlar las actividades relacionadas con la auditoria de los
+0799: procesos de prevención del lavado de dinero, financiamiento del
+0800: Aseguramiento 50
+0801: terrorismo y fraude, de la prevención de ilícitos asegurando su
+0802: correcto diligenciamiento y el examen objetivo de las evidencias y la
+0803: consolidación del análisis de los resultados de las mismas en
+0804: Sucursales del País, Casa Central, Sucursales del Exterior y Empresas
+0805: del Grupo Nación
+0806: Proponer las actividades de diseño de los objetivos de control a
+0807: implementar por las distintas unidades de Auditoría General, en
+0808: función a la evaluación de los riesgos asociados al lavado de dinero, Diseño 10
+0809: financiamiento del terrorismo y fraude en las operativas de las
+0810: Sucursales, Casa Central y Empresas del Grupo Nación
+0811: Intervenir en las actividades de elaboración y desarrollo de cursos de
+0812: capacitación a brindar a los auditores, sobre prevención del lavado Capacitación 5
+0813: de dinero, financiamiento del terrorismo y fraude
+0814: Intervenir en las actividades relacionadas con la implementación de las
+0815: Evaluación y
+0816: recomendaciones efectuadas, oportunidad de desarrollar cada 5
+0817: Control
+0818: proyecto de auditoría
+0819: Informar y controlar los resultados de las actividades sobre las
+0820: auditorías realizadas y otras tareas de evaluación, para la Dirección
+0821: Informe 10
+0822: del Banco, Organismos Externos de contralor y Áreas de la
+0823: Administración Central
+0824: Banco Nación MANUAL DE ORGANIZACIÓN
+0825: Unidad Organizativa
+0826: AUDITORÍA DE GESTIÓN DE RIESGO Y MONITOREO CONTINUO
+0827: Jerarquía 5 – Jefe Principal de Nivel de 4 Fecha 28/10/2021
+0828: Implícita Departamento Reporte Aprobación
+0829: Misión
+0830: Supervisar las actividades de auditoría relacionadas con los procesos de la gestión del riesgo y el
+0831: monitoreo continuo, promoviendo la mejora de los mismos
+0832: %
+0833: Funciones Específicas Producto Final
+0834: Dedicación
+0835: Intervenir en la planificación anual relacionada con las auditorías de
+0836: los procesos, conforme los lineamientos de los entes de contralor en Planificación 10
+0837: base a criterios de riesgo y exposición, proponiendo planes de trabajo
+0838: Determinar el plan detallado de trabajo de cada proceso, diseñar las Programa de
+0839: 10
+0840: pruebas respectivas, y controlar su cumplimiento Trabajo
+0841: Controlar las actividades relacionadas con las auditorias de los
+0842: procesos relacionados con el Gobierno Societario, la Administración
+0843: Aseguramiento 50
+0844: Integral de Riesgos y el Monitoreo Continuo, asegurando su correcto
+0845: diligenciamiento y el examen objetivo de las evidencias
+0846: Intervenir en las actividades de diseño de los objetivos de control a
+0847: implementar por las unidades de Auditoría General en materia de Diseño 10
+0848: Gestión de Riesgo y Gobierno Societario
+0849: Intervenir en las actividades relacionadas con la implementación de las
+0850: Evaluación y
+0851: recomendaciones efectuadas, en oportunidad de desarrollar cada 10
+0852: Control
+0853: proyecto de auditoría y la medición y corrección del desempeño
+0854: Informar y controlar los resultados de las actividades sobre las
+0855: auditorías realizadas y otras tareas de evaluación, para la Dirección del
+0856: Informes 10
+0857: Banco, Organismos Externos de contralor y Áreas de la
+0858: Administración Central
+0859: Banco Nación MANUAL DE ORGANIZACIÓN
+0860: Unidad Organizativa
+0861: AUDITORÍA DE CALIDAD
+0862: Jerarquía 6 – Jefe de Departamento Nivel de 2 Fecha 28/10/2021
+0863: Implícita Reporte Aprobación
+0864: Misión
+0865: Promover el cumplimiento de las actividades relacionadas con la Gestión de la Calidad de la
+0866: Auditoría General y atender las auditorías de los procesos del Banco que se encuentran
+0867: certificados en calidad por Organismos Nacionales y/o Internacionales
+0868: Funciones Genéricas Producto Final
+0869: Organizar los recursos de acuerdo a las pautas de trabajo, criterios
+0870: Organización
+0871: metodológicos establecidos
+0872: Planificar las tareas realizadas en el área a fin de cumplir con las
+0873: Coordinación
+0874: metas propuestas
+0875: Gestionar el cumplimiento de los objetivos propuestos por el área Gestión
+0876: Participar en el diseño y monitorear el cumplimiento de políticas y
+0877: procedimientos que garanticen las condiciones necesarias para
+0878: Solución de problemas
+0879: cumplir la misión del área, dando soporte y solución a los problemas
+0880: que surjan y asegurando la mejora continua de los procesos.
+0881: %
+0882: Funciones Específicas Producto Final
+0883: Dedicación
+0884: Participar en las actividades de planificación de los procesos a auditar
+0885: que se encuentran certificados en calidad y en las relacionadas con la Planificación 10
+0886: Gestión de la Calidad de la Auditoría General
+0887: Proponer coordinación de actividades y efectuar la consolidación del
+0888: Plan Anual de Auditoría para su presentación en el marco del proceso Consolidación 15
+0889: de Planificación Anual de la Auditoría General
+0890: Coordinar las actividades relacionadas con la Gestión de la Calidad de
+0891: la Auditoría General y coordinar el Programa de Aseguramiento y
+0892: Aseguramiento 35
+0893: Mejora de la Calidad según la normativa vigente, proponiendo mejoras
+0894: en los procesos involucrados
+0895: Coordinar las tareas relacionadas con las evaluaciones internas de
+0896: calidad, según la normativa vigente, para los procesos de la Entidad Aseguramiento 20
+0897: que se encuentran certificados en calidad por Organismos Nacionales
+0898: y/o Internacionales y efectuar las auditorias requeridas para la
+0899: certificación
+0900: Gestionar el análisis de la normativa interna y externa y proponer las
+0901: adecuaciones necesarias para la Gestión de la Calidad de la Auditoría Análisis 10
+0902: y el Programa de Aseguramiento de la Calidad
+0903: Asegurar la emisión de información sobre las auditorías realizadas,
+0904: para la Dirección del Banco, Organismos Externos de contralor y Áreas Informes 10
+0905: de la Administración Central
+0906: Banco Nación MANUAL DE ORGANIZACIÓN
+0907: Unidad Organizativa
+0908: INTEGRIDAD Y CUMPLIMIENTO
+0909: Jerarquía 2 – Subgerente General Nivel de 1 Fecha 05/05/2025
+0910: Implícita Reporte Aprobación
+0911: Misión
+0912: Conducir las actividades en materia de Prevención de Lavado de Activos y Financiamiento del
+0913: Terrorismo; Cumplimiento Regulatorio; Protección de Activos de la Información;
+0914: Sustentabilidad Ambiental, Social y de Gobernanza, Transparencia, y Responsabilidad Social, a
+0915: fin de promover buenas prácticas en el ámbito de Gobierno Corporativo del Banco, conforme la
+0916: estrategia fijada por la Dirección.
+0917: Funciones Genéricas Producto Final
+0918: Proponer el plan de Acción y Presupuestos del Área, garantizando
+0919: Plan de Acción y Presupuesto
+0920: su cumplimiento
+0921: Proponer la fijación de políticas, pautas y prioridades para la
+0922: Políticas y Pautas
+0923: gestión del área
+0924: Evaluar los recursos del área definiendo expectativas de
+0925: performance, monitoreando el desarrollo y controlando la Coordinación
+0926: productividad
+0927: Coordinar la determinación de las pautas de trabajo, criterios
+0928: metodológicos y alcance de los planes, estudios e informes Criterios Metodológicos y
+0929: necesarios para cumplir las misiones de las áreas bajo su Alcance
+0930: dependencia
+0931: Proponer y participar, en el diseño de políticas y procedimientos
+0932: que garanticen las condiciones necesarias para cumplir la misión
+0933: Política/Procedimientos/Solución
+0934: del área y, del monitoreo de su cumplimiento, dando soporte y
+0935: de problemas
+0936: solución a los problemas que surjan y asegurando la mejora
+0937: continua de los procesos
+0938: %
+0939: Funciones Específicas Producto Final
+0940: Dedicación
+0941: Coordinar y Proponer las tareas necesarias que propicien el
+0942: cumplimiento de la normativa vigente en materia de Prevención de
+0943: Sistema de
+0944: Lavado de Activos y Financiación del Terrorismo conforme a las 25
+0945: Prevención
+0946: regulaciones vigentes y a las políticas establecidas por el Directorio
+0947: del Banco.
+0948: Proponer estrategias y lineamientos para gestión de la ASG,
+0949: 20
+0950: Sustentabilidad Ambiental, Social y de Gobernanza (ASG), la Transparencia,
+0951: Transparencia y la Responsabilidad Social, a implementar en el Responsabilidad
+0952: Banco. Social
+0953: Coordinar las actividades relacionadas con el Sistema de Protección Activos de la
+0954: 20
+0955: de Activos de la Información. Información
+0956: Coordinar las acciones relacionadas con el análisis, monitoreo,
+0957: seguimiento y asistencia en el cumplimiento de los marcos Cumplimiento
+0958: 25
+0959: regulatorios establecidos por los Organismos de Control en torno a Regulatorio
+0960: la actividad financiera del Banco.
+0961: Coordinar las actividades relacionada con el soporte y la asistencia a
+0962: las Empresas vinculadas y las Filiales del Exterior en los aspectos de Soporte 10
+0963: su incumbencia.
+0964: Banco Nación MANUAL DE ORGANIZACIÓN
+0965: Unidad Organizativa
+0966: APOYO ADMINISTRATIVO
+0967: Jerarquía Nivel de Fecha 22/09/2023
+0968: Implícita Reporte Aprobación
+0969: Misión
+0970: Planificar los asuntos de índole administrativa, controlando administrativamente al personal de
+0971: la casa y coordinando la provisión de elementos de trabajo (útiles)
+0972: %
+0973: Funciones Específicas Producto Final
+0974: Dedicación
+0975: Intervenir en la actualización del inventario de Bienes de Uso Inventario 5
+0976: Efectuar las acciones de apoyo administrativo solicitadas y/o encuadras
+0977: Servicio 40
+0978: en los procedimientos
+0979: Tramitar la entrada y salida de correspondencia y Comunicaciones al
+0980: Registro 5
+0981: Personal
+0982: Determinar la previsión y provisión de útiles, elementos de trabajo,
+0983: realizar las gestiones complementarias y las relacionadas con la Útiles 10
+0984: tramitación de viáticos
+0985: Controlar los asuntos relacionados con el personal y la administración
+0986: Legajos 35
+0987: de los legajos
+0988: Atender las tareas inherentes al mantenimiento de datos de bienes e Mantenimiento
+0989: 5
+0990: insumos de Artículos
+0991: Banco Nación MANUAL DE ORGANIZACIÓN
+0992: Unidad Organizativa
+0993: APOYO TÉCNICO IyC
+0994: Jerarquía Nivel de Fecha 05/05/2025
+0995: Implícita Reporte Aprobación
+0996: Misión
+0997: Asistir y asesorar a la Subgerencia General de Integridad y Cumplimiento, en aquellas tareas
+0998: que le sean asignadas, brindando soporte y apoyo técnico en temas de su incumbencia.
+0999: Producto %
+1000: Funciones Específicas
+1001: Final Dedicación
+1002: Asesorar técnicamente a la Subgerencia General y a las distintas
+1003: Asistencia
+1004: Unidades que componen el Área, en todos aquellos asuntos donde 20
+1005: Técnica
+1006: sea requerida su participación.
+1007: Elaborar informes técnicos que requieran las unidades que integran
+1008: Informes 20
+1009: la Subgerencia General.
+1010: Intervenir y asistir a las Unidades de la Subgerencia General en la
+1011: regularización de las observaciones efectuadas por Organismos de Asistencia
+1012: 20
+1013: Contralor, monitoreando las acciones y el grado de cumplimiento en Observaciones
+1014: los casos asignados.
+1015: Participar en los proyectos de la Subgerencia General, asesorando en
+1016: los aspectos que le sean requeridos, asistiendo en la identificación de
+1017: Proyectos 15
+1018: los riesgos y realizando el seguimiento de las acciones para
+1019: garantizar su grado de cumplimiento y efectividad.
+1020: Participar y brindar soporte técnico en la elaboración y actualización
+1021: Políticas y
+1022: de los lineamientos, políticas y procesos de las Unidades que 10
+1023: Procesos
+1024: integran la Subgerencia General.
+1025: Participar en la elaboración de los programas de formación,
+1026: gestionar Informes e impulsar la comunicación e intercambio Programas 10
+1027: eficiente de información entre áreas.
+1028: Intervenir en la elaboración y ejecución del Plan de Acción y Planificación y
+1029: 5
+1030: Presupuesto. Presupuesto
+1031: Banco Nación MANUAL DE ORGANIZACIÓN
+1032: Unidad Organizativa
+1033: PROTECCIÓN DE ACTIVOS DE LA INFORMACIÓN
+1034: Jerarquía 3 – Gerente Departamental Nivel de 2 Fecha 19/07/20
+1035: Implícita Reporte Aprobación 24
+1036: Misión
+1037: Administrar las actividades que permitan proteger los activos de información del Banco
+1038: garantizando la confidencialidad, integridad y disponibilidad de estos, velando por la mejora
+1039: continua del Sistema de Gestión de Seguridad de la Información, mediante la definición y
+1040: control de medidas de seguridad adecuadas, así como las operaciones relacionadas,
+1041: garantizando el cumplimiento normativo, en concordancia con los objetivos estratégicos del
+1042: Banco.
+1043: Funciones Genéricas Producto Final
+1044: Organizar los recursos de acuerdo a las pautas de trabajo, criterios Organización
+1045: metodológicos establecidos
+1046: Planificar las tareas realizadas en el área a fin de cumplir con las metas Coordinación
+1047: propuestas
+1048: Gestionar el cumplimiento de los objetivos propuestos por el área Gestión
+1049: Participar en el diseño y monitorear el cumplimiento de políticas y Solución de problemas
+1050: procedimientos que garanticen las condiciones necesarias para cumplir la
+1051: misión del área, dando soporte y solución a los problemas que surjan y
+1052: asegurando la mejora continua de los procesos.
+1053: %
+1054: Funciones Específicas Producto Final Dedica
+1055: ción
+1056: Coordinar las actividades que permitan asegurar la disponibilidad, Arquitectura
+1057: integridad y confidencialidad de los datos, sistemas e infraestructuras de Segurid 30
+1058: asociadas en todos los sistemas operativos, aplicaciones, bases de datos, redes ad
+1059: y equipamiento de comunicaciones, garantizando la correcta protección de la
+1060: infraestructura del banco con herramientas de propósito específico y el
+1061: involucramiento de la seguridad en los proyectos tecnológicos del Banco.
+1062: Coordinar la ejecución de las tareas relacionadas con el monitoreo y Monitoreo y 15
+1063: prevención de ciberincidentes. Prevención
+1064: Coordinar los procesos de Gestión de Incidentes, gestionando acciones de Gestión de
+1065: mitigación/prevención/análisis y reporte al respecto de eventos que afecten a Incidentes 15
+1066: la normal operatoria y/o a los activos de información del Banco.
+1067: Coordinar el aprovisionamiento de identidades a fin de posibilitar el acceso a Gestión de I
+1068: 10
+1069: los sistemas informáticos. dentidades
+1070: Proponer el Plan Estratégico de la Unidad de acuerdo a los lineamientos Estrategia
+1071: 10
+1072: definidos y coordinar la estrategia de seguridad e informes de gestión.
+1073: Coordinar, mantener y evaluar el cumplimiento de las Políticas y Normas de Cumplimient
+1074: 10
+1075: Seguridad de la Información del Banco a fin de preservar la confidencialidad, o
+1076: integridad y disponibilidad de esta tanto en el País como en el Exterior,
+1077: incluyendo el programa de concientización de los usuarios.
+1078: Manual de S
+1079: Coordinar la actualización del Sistema de Gestión de Seguridad de la Informa
+1080: eguridad
+1081: ción dentro de un plan de mejora continua.
+1082: 10
+1083: Banco Nación MANUAL DE ORGANIZACIÓN
+1084: Unidad Organizativa
+1085: ARQUITECTURA TECNOLÓGICA DE SEGURIDAD
+1086: Jerarquía Nivel de 3 Fecha Aprobación 19/07/202
+1087: 4 – Subgerente Departamen
+1088: Implícita Reporte 4
+1089: tal
+1090: Misión
+1091: Coordinar las actividades relacionadas con la gestión de la arquitectura tecnológica de
+1092: seguridad y las operaciones relacionadas con el objeto de asegurar la integridad,
+1093: confidencialidad y disponibilidad de la información garantizando la correcta protección de la infrae
+1094: structura, redes de datos y servicios digitales prestados por el Banco y sus Filiales.
+1095: %
+1096: Funciones Específicas Producto Final Dedicaci
+1097: ón
+1098: Proponer la arquitectura de seguridad y gestionar las operacion Infraestructura d
+1099: 35
+1100: es de seguridad relacionadas e Segurida
+1101: con la infraestructura tecnológica del banco y brindando d
+1102: soporte a las Filiales.
+1103: Gestionar los proyectos del Banco en materia de protección de Gestión de Proyectos
+1104: 25
+1105: activos de información
+1106: y liderar los proyectos estratégicos propios del área.
+1107: Utilización de
+1108: Gestionar el uso de herramientas y productos de seguridad. 10
+1109: Herramientas
+1110: Proponer herramientas y soluciones de seguridad. Selección de
+1111: 10
+1112: Herramientas
+1113: Determinar los lineamientos para la gestión y operación de Documentos de Segu
+1114: 5
+1115: seguridad de la infraestructura tecnológica del Banco. ridad
+1116: Gestionar la asistencia en la gestión de incidentes de seguridad Gestión de Incidentes 5
+1117: en el ámbito de incumbencia.
+1118: Intervenir en las actividades de soporte operativo para la gestión Soporte 5
+1119: del área.
+1120: Gestionar los procesos de adquisición/contratación de Gestión de productos 5
+1121: bienes y servicios del área. y servicios
+1122: Banco Nación
+1123: MANUAL DE ORGANIZACIÓN
+1124: Unidad Organizativa
+1125: INGENIERÍA DE SEGURIDAD
+1126: Jerarquía 5 – Jefe Principal de Sistemas Nivel de 4 Fecha 19/07/20
+1127: Implícita Reporte Aprobación 24
+1128: Misión
+1129: Supervisar las actividades relacionadas con la seguridad de la arquitectura tecnológica con el o
+1130: bjeto de garantizar la correcta protección de la infraestructura
+1131: tecnológica y servicios digitales prestados por el Banco y sus Filiales.
+1132: %
+1133: Producto Final Dedicac
+1134: Funciones Específicas
+1135: ión
+1136: Investigar, diseñar y coordinar la parametrización, implantación y
+1137: Sistemas de seg 30
+1138: actualización de aspectos de seguridad en la infraestructura tecnológica
+1139: uridad
+1140: bajo un esquema de mejora continua.
+1141: Intervenir en la gestión del desarrollo de proyectos, asegurando el cumpli Gestión de proy 25
+1142: miento de políticas, normas y estándares de seguridad. ectos
+1143: Determinar estándares de seguridad y procedimientos operativos para l Document
+1144: 25
+1145: a gestión y operación de seguridad de la infraestructura tecnológica. os de se
+1146: gurida
+1147: d
+1148: Diseñar y desarrollar herramientas y soluciones de seguridad de Diseño 10
+1149: propósito específico. Herramientas
+1150: Intervenir en el proceso de investigación, estudio, análisis, selección y pru Productos 5
+1151: ebas de nuevas herramientas y tecnologías.
+1152: Intervenir en la gestión de incidentes de seguridad en el ámbito de incum Gestión de Inci 5
+1153: bencia. dentes
+1154: Banco Nación MANUAL DE ORGANIZACIÓN
+1155: Unidad Organizativa
+1156: HERRAMIENTAS Y SERVICIOS DE SEGURIDAD
+1157: Jerarquía 6 – Jefe de Sistemas Nivel de 4 Fecha 19/07/202
+1158: Implícita Reporte Aprobación 4
+1159: Misión
+1160: Supervisar las actividades relacionadas con las soluciones de seguridad de propósito específico con e
+1161: l objeto de garantizar la correcta protección de la infraestructura, redes de datos y servicios digitales pr
+1162: estados por el Banco y sus Filiales.
+1163: %
+1164: Funciones Específicas Producto Final Dedicaci
+1165: ón
+1166: Prevención,
+1167: Intervenir en la investigación, selección, diseño, detección 30
+1168: desarrollo y operación de las soluciones de seguridad de propósito espec y eliminación
+1169: ífico. de amenazas
+1170: y brechas de
+1171: seguridad
+1172: Determinar y controlar los procesos de gestión de análisis Gestión 30
+1173: de vulnerabilidades, las pruebas de intrusión y su seguimiento. de vulnerabili
+1174: dades
+1175: y Evaluacione
+1176: s de segurida
+1177: d
+1178: Determinar la seguridad de las redes de datos y el equipamiento tecn Segur
+1179: 10
+1180: ológico involucrado en la prestación de servicios de red. idad
+1181: en las
+1182: Com
+1183: unica
+1184: cione
+1185: s
+1186: Gestión
+1187: Intervenir en la gestión del desarrollo de proyectos, asegurando el 10
+1188: de
+1189: cumplimiento de políticas, normas y estándares de seguridad.
+1190: Proyec
+1191: tos
+1192: Determinar estándares de seguridad y procedimientos operativos para la Documen
+1193: 10
+1194: gestión y operación de las herramientas y servicios de seguridad. tos de
+1195: seguri
+1196: dad
+1197: Intervenir en la gestión de incidentes de seguridad en el ámbito de incum Gestión de Inci 10
+1198: bencia. dentes
+1199: Banco Nación MANUAL DE ORGANIZACIÓN
+1200: Unidad Organizativa
+1201: APOYO OPERATIVO DE GESTIÓN
+1202: Jerarquía 7 – Supervisor de Sistemas Nivel de 4 Fecha Aprobación 19/07/20
+1203: Implícita Reporte 24
+1204: Misión
+1205: Supervisar la coordinación y control de gestión de la unidad con el objeto de garantizar el cumplimi
+1206: ento de los objetivos y su alineación con el Plan
+1207: Estratégico, obrando de enlace entre las unidades del área.
+1208: %
+1209: Funciones Específicas Producto Final Dedicaci
+1210: ón
+1211: Intervenir en el seguimiento y sugerir acciones correctivas del Plan Plan Estratégico 50
+1212: Estratégico y proyectos del área.
+1213: Intervenir en el desarrollo y Control 10
+1214: monitoreo de los indicadores de gestión y evaluar su impacto.
+1215: Gestión de proces
+1216: Controlar y conducir el seguimiento de los procesos de auditoría int 10
+1217: os de audi
+1218: ernos y externos.
+1219: toría
+1220: Intervenir en la elaboración de informes de gestión del área. Informes de gestión 10
+1221: Gestión de
+1222: Intervenir y conducir los procesos de adquisición/contratación de 10
+1223: productos
+1224: bienes y servicios del área y realizar los controles de niveles de
+1225: servicio correspondientes. y servicios
+1226: Intervenir en las actividades de soporte y asistencia a la Gerencia. Asistencia 10
+1227: Banco Nación MANUAL DE ORGANIZACIÓN
+1228: Unidad Organizativa
+1229: MONITOREO Y CONTROL
+1230: Jerarquía 5 – Jefe Principal de Sistemas Nivel de 3 Fecha Aprobación 19/07/2024
+1231: Implícita Reporte
+1232: Misión
+1233: Dirigir las actividades de monitoreo de eventos de seguridad y el control de desvíos en los
+1234: estándares implementados, gestionando los incidentes de ciberseguridad en la infraestructura
+1235: tecnológica del Banco y sus Filiales, proponiendo mejoras en las reglas de detección
+1236: y en las herramientas empleadas.
+1237: %
+1238: Funciones Específicas Producto Final
+1239: Dedicación
+1240: Determinar y controlar los eventos de ciberseguridad en Monitoreo
+1241: 20
+1242: el ambiente de Ciberseguridad
+1243: de producción y el adecuado tratamiento de alertas.
+1244: Intervenir en el análisis de comportamientos maliciosos Análisis de 20
+1245: estableciendo patrones y proponiendo acciones para la comportamiento
+1246: detección temprana y acciones mitigantes en caso de malicioso
+1247: corresponder.
+1248: Gestionar las actividades asociadas a la detección,
+1249: Gestión de incidentes 20
+1250: contención y resolución de incidentes de ciberseguridad
+1251: de la infraestructura tecnológica, incluyendo reportes e
+1252: informes asociados.
+1253: Determinar ciberamenazas que pudieran haber evadido
+1254: Búsqueda e inteligencia de 15
+1255: los controles implementados y análisis de las tácticas,
+1256: Amenazas
+1257: técnicas y procedimientos conocidos de ciberataques
+1258: obtenidos de fuentes diversas, con el fin de identificar
+1259: amenazas potenciales.
+1260: Controlar el cumplimiento de estándares de seguridad en
+1261: Cumplimiento 10
+1262: las plataformas, aplicativos sensitivos y dispositivos de
+1263: comunicaciones en el ambiente de producción.
+1264: Desarrollar ejercicios simulados de ataques sobre la Ejercicios
+1265: 10
+1266: infraestructura, con el fin de determinar la efectividad de de Ciberseguridad
+1267: los monitoreos y controles, y proponer medidas para
+1268: fortalecer la postura de ciberseguridad.
+1269: Intervenir en la generación de información para la Tablero de
+1270: 5
+1271: integración del Tablero de Control, en función de las Control
+1272: métricas definidas.
+1273: Banco Nación MANUAL DE ORGANIZACIÓN
+1274: Unidad Organizativa
+1275: IDENTIDADES Y CUMPLIMIENTO
+1276: Jerarquía 5 – Jefe Principal de Sistemas Nivel de 3 Fecha 19/07/202
+1277: Implícita Reporte Aprobación 4
+1278: Misión
+1279: Coordinar las actividades relacionadas con el aprovisionamiento de identidades y accesos a lo
+1280: s sistemas informáticos, velando por el cumplimiento normativo y generando conciencia en mater
+1281: ia de seguridad en los usuarios de la infraestructura tecnológica del Banco.
+1282: %
+1283: Funciones Específicas Producto Final Dedicaci
+1284: ón
+1285: Proponer y gestionar los controles sobre el proceso de aprovisionamiento
+1286: y control de identidades y accesos para todas las plataformas y Gestión de Identi 50
+1287: aplicativos del Banco, y para los aplicativos de terceros homologados dades
+1288: donde se requieran accesos de agentes del
+1289: Banco, supervisando el cumplimiento normativo relacionado y la imple
+1290: mentación de software específico para aprovisionamiento de accesos.
+1291: Concientizació
+1292: Proponer y gestionar el control de los programas de concientización y ca 20
+1293: n y Capacita
+1294: pacitación en materia de seguridad de los activos de información.
+1295: ción
+1296: Desarrollar y Documentos d
+1297: 10
+1298: mantener las políticas y normas de seguridad y los procedimientos opera e segurida
+1299: tivos relacionados con la gestión de identidades actualizados. d
+1300: Gestionar la elaboración y mantenimiento del tablero de control de segur Tablero de Co 10
+1301: idad. ntrol
+1302: Gestionar la elaboración y mantenimiento del plan de continuidad operativa del Continuidad 5
+1303: área.
+1304: Gestió
+1305: Gestionar los incidentes de seguridad en el ámbito de incumbencia. 5
+1306: n de I
+1307: ncide
+1308: ntes
+1309: Banco Nación MANUAL DE ORGANIZACIÓN
+1310: Unidad Organizativa
+1311: POLÍTICAS Y ESTÁNDARES
+1312: Jerarquía 6 – Jefe de Sistemas Nivel de 4 Fecha 19/07/202
+1313: Implícita Reporte Aprobación 4
+1314: Misión
+1315: Supervisar las actividades de elaboración, mantenimiento,
+1316: revisión y cumplimiento normativo en temas de
+1317: seguridad de la información del Banco, incluidas las Sucursales del Exterior, asegurando su adapt
+1318: ación a las regulaciones establecidas por los organismos de control y generando conciencia en
+1319: materia de Seguridad.
+1320: %
+1321: Funciones Específicas Producto Final Dedicaci
+1322: ón
+1323: Intervenir en la confección, mantenimiento y publicación de las Manual de Ges
+1324: políticas, normas, estándares y procedimientos para tión de Seguri 25
+1325: administrar la seguridad de la infraestructura tecnológica y los recursos dad de
+1326: críticos para su funcionamiento, revisando se ajusten a las regulaciones la Información
+1327: vigentes.
+1328: Programa
+1329: Determinar y mantener el programa de concientización para el person
+1330: de Concientiza 25
+1331: al del Banco, y coordinar el programa de capacitación para agentes del
+1332: ción/
+1333: área.
+1334: Programa de
+1335: Capacitación
+1336: Controlar el cumplimiento de las políticas, normas y regulaciones Control de Cu 20
+1337: vigentes, dando seguimiento a las actualizaciones mplimiento
+1338: normativas en materia de seguridad de la infraestructura y canales elect
+1339: rónicos, incluyendo los análisis normativos en materia de seguridad.
+1340: Intervenir en la confección del tablero de control del área, reflejando el Tablero de Co 15
+1341: estado situación de la seguridad para la correcta toma de decisiones. ntrol
+1342: Intervenir en las actividades de elaboración, mantenimiento y revisión del Plan de Contin 10
+1343: Plan de Continuidad Operativa del área. uidad de
+1344: Procesamiento
+1345: Intervenir en la gestión de incidentes de seguridad en el ámbito de incu Gestión de Inc 5
+1346: mbencia. identes
+1347: Banco Nación MANUAL DE ORGANIZACIÓN
+1348: Unidad Organizativa
+1349: GESTIÓN DE IDENTIDADES
+1350: Jerarquía 6 – Jefe de Sistemas Nivel de 4 Fecha 19/07/2
+1351: Implícita Reporte Aprobación 024
+1352: Misión
+1353: Supervisar las actividades relacionadas con el aprovisionamiento de identidades y accesos
+1354: a los sistemas informáticos e infraestructura tecnológica.
+1355: %
+1356: Funciones Específicas Producto Final Dedica
+1357: ción
+1358: Tramitar el aprovisionamiento de identidades y accesos para todas las
+1359: plataformas y aplicativos del Banco, y para los aplicativos de Terceros Gestión de Ide 40
+1360: homologados donde se requieran accesos de agentes del Banco, ntidades
+1361: supervisando el cumplimiento normativo relacionado.
+1362: Determinar y mantener actualizados los procedimientos de aprovisiona Documen
+1363: 10
+1364: miento y depuración de los distintos sistemas y plataformas. tos de
+1365: Seguri
+1366: dad
+1367: Tramitar el resguardo y uso de claves sensibles. Resguardo de 10
+1368: claves
+1369: Determinar y conducir la implementación de procesos que permitan autom
+1370: Automatizació 10
+1371: atizar tareas de aprovisionamiento o depuración de usuarios.
+1372: n
+1373: Recertific
+1374: Intervenir en la conducción 10
+1375: ación
+1376: de los procesos de recertificación de permisos y accesos.
+1377: de a
+1378: cceso
+1379: s
+1380: Intervenir en la implementación de software específico de gestión de identi Nuevas Herra 10
+1381: dades. mientas
+1382: Certificados
+1383: Intervenir en la provisión de factores adicionales de autenticación 5
+1384: Digitales
+1385: en las plataformas que lo requieran.
+1386: y Factores de
+1387: Autenticación
+1388: Tablero de
+1389: Intervenir en la generación de información para la integración del Tablero 5
+1390: Control
+1391: de Control, en función de las métricas definidas.
+1392: Banco Nación MANUAL DE ORGANIZACIÓN
+1393: Unidad Organizativa
+1394: SUSTENTABILIDAD AMBIENTAL, SOCIAL Y DE GOBERNANZA (ASG)
+1395: Jerarquía 3 – Gerente Departamental Nivel de 2 Fecha 05/05/2025
+1396: Implícita Reporte Aprobación
+1397: Misión
+1398: Administrar las actividades vinculadas a la gestión del Gobierno Corporativo, la
+1399: Transparencia y Sostenibilidad, promoviendo buenas prácticas en materia de integridad
+1400: institucional, valores corporativos y sustentables en la Entidad.
+1401: Funciones Genéricas Producto Final
+1402: Organizar los recursos de acuerdo a las pautas de trabajo, criterios
+1403: Organización
+1404: metodológicos establecidos
+1405: Planificar las tareas realizadas en el área a fin de cumplir con las
+1406: Coordinación
+1407: metas propuestas
+1408: Gestionar el cumplimiento de los objetivos propuestos por el área Gestión
+1409: Participar en el diseño y monitorear el cumplimiento de políticas y
+1410: procedimientos que garanticen las condiciones necesarias para
+1411: Solución de problemas
+1412: cumplir la misión del área, dando soporte y solución a los problemas
+1413: que surjan y asegurando la mejora continua de los procesos.
+1414: %
+1415: Funciones Específicas Producto Final
+1416: Dedicación
+1417: Aprobar las Políticas de Integridad, Transparencia y Sustentabilidad
+1418: del BNA y las actividades vinculadas con los valores corporativos y la Coordinación y
+1419: 20
+1420: sostenibilidad de la organización, garantizando el cumplimiento Cumplimiento
+1421: regulatorio en la materia.
+1422: Proponer la estrategia de sustentabilidad de la Entidad y coordinar la Estrategia y
+1423: 20
+1424: elaboración de reportes y programas de voluntariado corporativo. Gestión
+1425: Garantizar la difusión, generación y actualización de las acciones en Gestión y
+1426: 10
+1427: materia Integridad Institucional y la Gobernanza corporativa. Difusión
+1428: Proponer las estrategias para el desarrollo, la promoción y el
+1429: fortalecimiento de la Integridad Institucional, la Gobernanza, y la Gestión 10
+1430: Sustentabilidad.
+1431: Gestionar el cumplimiento de las tareas de revisión anual y difusión
+1432: Código de
+1433: del Código de Gobierno Corporativo de la Entidad y Coordinar los
+1434: Gobierno 10
+1435: mecanismos para evaluar la gestión del Gobierno Corporativo de la
+1436: Corporativo
+1437: Entidad, Filiales del Exterior y Sociedades Vinculadas.
+1438: Coordinar la gestión de los requerimientos provenientes de áreas del
+1439: Informes 5
+1440: Banco, Organismos de Control y la Administración Central.
+1441: Sistema de
+1442: Conducir, participar en su implementación y dar seguimiento a
+1443: Gestión 10
+1444: iniciativas con impacto ambiental positivo.
+1445: Ambiental
+1446: Coordinar la integración de riesgos ambientales, sociales, climáticos y Integración de
+1447: 5
+1448: de gobernanza al negocio del Banco. Riesgos ASG
+1449: Proponer la estrategia sustentable y ambiental de la Entidad, y Estrategia 5
+1450: coordinar el diseño de políticas y sistemas de gestión.
+1451: Proponer programas de capacitación relacionados a Integridad,
+1452: Transparencia, Gobierno Corporativo y Sustentabilidad Ambiental y Capacitación 5
+1453: Social.
+1454: Banco Nación MANUAL DE ORGANIZACIÓN
+1455: Unidad Organizativa
+1456: SUSTENTABILIDAD
+1457: Jerarquía 4 – Subgerente Nivel de 3 Fecha 16/12/2024
+1458: Implícita Departamental Reporte Aprobación
+1459: Misión
+1460: Coordinar las actividades vinculadas a la gestión de la sustentabilidad, tanto en la Entidad como
+1461: en su relación con el entorno y con los grupos de interés, contribuyendo al desarrollo sostenible.
+1462: Funciones Específicas Producto Final % Dedicación
+1463: Conducir el desarrollo y análisis de los programas e iniciativas en
+1464: Políticas y
+1465: materia de sostenibilidad corporativa orientadas a empleados, 15
+1466: Programas
+1467: comunidad, clientes y proveedores.
+1468: Determinar los lineamientos y la implementación de procedimientos
+1469: necesarios para la elaboración y desarrollo de Reportes en Materia de Reportes 10
+1470: Sustentabilidad.
+1471: Conducir, participar en su implementación y dar seguimiento a Sistema de
+1472: iniciativas con impacto ambiental positivo. Gestión 10
+1473: Ambiental
+1474: Conducir programas de Voluntariado Corporativo vinculados a la
+1475: Voluntariado 10
+1476: competencia del área.
+1477: Proponer la vinculación del Banco con organizaciones y grupos de Alianzas
+1478: 10
+1479: interés vinculados a la sustentabilidad. estratégicas
+1480: Proponer acciones comunicacionales y capacitaciones para
+1481: Difusión/
+1482: difundir/sensibilizar respecto de la contribución del Banco al 10
+1483: Capacitación
+1484: desarrollo sostenible.
+1485: Coordinar la integración de los riesgos ambientales, sociales y Integración de
+1486: 10
+1487: climáticos al negocio del banco. Riesgos ASG
+1488: Conducir el asesoramiento y la asistencia a otras áreas del Banco en
+1489: Asesoramiento 10
+1490: aspectos de sustentabilidad ambiental y social.
+1491: Controlar las actividades necesarias para el cumplimiento de
+1492: Cumplimiento
+1493: regulaciones de carácter obligatorio establecidos por los Organismos 10
+1494: normativo
+1495: de Control con impacto en el BNA en materia de sustentabilidad.
+1496: Conducir el asesoramiento a las Filiales del Exterior y Empresas
+1497: Controladas sobre las políticas y lineamientos establecidos por el Asesoramiento 5
+1498: Banco en materia de Sustentabilidad.

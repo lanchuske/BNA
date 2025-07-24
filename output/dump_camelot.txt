@@ -1,0 +1,351 @@
+===== Camelot Table 1 =====
+0,1
+,Conducir  la  evaluación  y  el  monitoreo  del  control  interno  de  la  entidad  y  de  sus  empresas
+"controladas, promoviendo la mejora de los procesos auditados",
+Funciones Genéricas,Producto Final
+"Proponer el plan de Acción y Presupuestos del Área,",
+,Plan de Acción y Presupuesto
+garantizando su cumplimiento,
+"Proponer la fijación de políticas, pautas y prioridades para",
+,Políticas y Pautas
+la gestión del área,
+Evaluar los recursos del área definiendo expectativas de,
+"performance, monitoreando el desarrollo y controlando la",Coordinación
+productividad,
+"Coordinar la determinación de las pautas de trabajo,",
+"criterios metodológicos y alcance de los planes, estudios e",
+,Criterios Metodológicos y Alcance
+informes necesarios para cumplir las misiones de las áreas,
+
+===== Camelot Table 2 =====
+0,1,2
+que surjan y asegurando la mejora continua de los,,
+procesos,,
+Funciones Específicas,Producto Final,% Dedicación
+"Evaluar 
+los 
+resultados  de 
+los 
+trabajos  de 
+auditoría,",Programación/,
+,,60
+coordinar e integrar el Comité de Auditoría,Informe,
+Proponer  las  prioridades  de  los  ciclos/procesos/auditorias,,
+,Programación/,
+"específicas a auditar, conforme los lineamientos de los entes",,40
+,Planificación,
+"de contralor, en base a criterios de riesgo y exposición",,
+
+===== Camelot Table 3 =====
+0
+la casa y coordinando la provisión de elementos de trabajo (útiles)
+%
+"Funciones Específicas 
+Producto Final"
+Dedicación
+"Intervenir en la actualización del inventario de Bienes de Uso 
+Inventario 
+5"
+Efectuar las acciones de apoyo administrativo solicitadas y/o encuadras
+"Servicio 
+40"
+en los procedimientos
+Tramitar la entrada y salida de correspondencia y Comunicaciones al
+"Registro 
+5"
+Personal
+"Determinar  la  previsión  y  provisión  de  útiles,  elementos  de  trabajo,"
+"realizar 
+las  gestiones  complementarias  y 
+las  relacionadas  con 
+la 
+Útiles 
+10"
+tramitación de viáticos
+Controlar los asuntos relacionados con el personal y la administración
+"Legajos 
+35"
+de los legajos
+"Atender  las  tareas  inherentes  al  mantenimiento  de  datos  de  bienes  e 
+Mantenimiento"
+5
+"insumos 
+de Artículos"
+"Banco Nación 
+MANUAL DE ORGANIZACIÓN"
+
+===== Camelot Table 4 =====
+0,1,2,3,4,5
+,,,,,%
+,,Funciones Específicas,,Producto Final,
+,,,,,Dedicación
+Gestionar la elaboración de la planificación de las sucursales del,,,,,
+"país  y  del  exterior  a  auditar,  conforme  los  lineamientos  de  los",,,,Planificación,20
+"entes de contralor, en base a criterios de riesgo y exposición",,,,,
+Gestionar,"la 
+emisión  de","información 
+sobre",las  auditorías,,
+"realizadas, para la Dirección del Banco, Organismos Externos de",,,,Informe,25
+contralor y Áreas de la Administración Central,,,,,
+Coordinar,las  auditorías  en,las  Sucursales  y,las  Gerencias,,
+,,,,Programación/Informe,25
+Zonales del Banco y el análisis de los resultados,,,,,
+Coordinar,,las  actividades  de  auditoría  de,la  operativa  de,,
+Comercio  Exterior  y  Cambios  en  las  Sucursales  del  país  y  la,,,,,
+,,,,Programación/Informe,10
+evaluación y monitoreo del control interno en las Sucursales del,,,,,
+exterior,,,,,
+Gestionar la verificación del cumplimiento del Plan de Auditoria,,,,,
+,,,,Control,10
+para las Sucursales y Gerencias Zonales a auditar,,,,,
+Participar en la determinación de las áreas y procesos de mayor,,,,,
+,,,,Programación/Informe,10
+riesgo y exposición en las Sucursales y Gerencias Zonales,,,,,
+
+===== Camelot Table 5 =====
+0,1,2
+,,%
+Funciones Específicas,Producto Final,
+,,Dedicación
+"Gestionar  el  proceso  de  planificación  anual 
+relacionado  con 
+las",,
+"auditorías de procesos de Comercio Exterior y Cambios en el país, y de",,
+,Planificación,10
+"las sucursales del exterior, conforme los lineamientos de los entes de",,
+"contralor, en base a criterios de riesgo y exposición",,
+Conducir  las  actividades  relacionadas  con  la  implementación  de  las,,
+"recomendaciones  efectuadas,  en  oportunidad  de  desarrollar  cada",Aseguramiento,10
+proyecto de auditoría,,
+"Conducir 
+las 
+actividades 
+de 
+evaluación 
+del 
+control 
+contable,",,
+"operacional,  crediticio  (incluye la  evaluación  de la  calificación  de  los",,
+,Auditoría,15
+"clientes  principales)  y  de  gastos  en 
+las  Sucursales  del  exterior,",,
+controlando la información contable remitida a Casa Central,,
+Conducir las actividades de evaluación de la efectividad y eficiencia de,,
+los sistemas de control interno y de  administración de riesgos de las,Auditoría,20
+sucursales del exterior,,
+"Conducir 
+las  actividades  de  auditoría  de  procesos  de  Comercio",,
+,Auditoría,15
+Exterior y Cambios en el país,,
+Conducir las actividades de auditoría de procesos centrales de Filiales,,
+,Auditoría,10
+del Exterior y Banca Corresponsal,,
+"Controlar  el cumplimiento  de leyes,  regulaciones  y normas vigentes,",,
+,Evaluación y,
+"incluyendo 
+requerimientos  de 
+los 
+entes  de 
+supervisión  de 
+las",,10
+,Control,
+sucursales del exterior,,
+Intervenir  y  controlar  la  emisión  de  informes  sobre  las  auditorías,,
+"realizadas,  para 
+la  Dirección  del  Banco,  Organismos  Externos  de",Informes,10
+contralor y Áreas de la Administración Central,,
+
+===== Camelot Table 6 =====
+0,1,2
+las auditorías de procesos en Sucursales y Gerencias Zonales,,
+Funciones Específicas,Producto Final,% Dedicación
+Intervenir en la elaboración de la planificación anual relacionada,,
+"con 
+las 
+auditorías 
+de 
+sucursales 
+del 
+país, 
+conforme 
+los",,
+,Planificación,10
+lineamientos de los entes de contralor en base a criterios de riesgo,,
+y exposición,,
+Controlar las propuestas de elaboración / actualización de normas,,
+,Análisis /,
+"internas de procedimientos de auditoría y programas de trabajo,",,10
+,Programas,
+diligenciando su instrumentación,,
+Intervenir  en  la  elaboración  de  información  sobre  las  auditorías,,
+"realizadas, para la Dirección del Banco, Organismos Externos de",Informe,20
+contralor y Áreas de la Administración Central,,
+"Conducir 
+las 
+actividades 
+de 
+análisis 
+y 
+seguimiento 
+del",,
+"cumplimiento 
+de 
+indicaciones 
+efectuadas 
+en 
+Sucursales 
+y",Aseguramiento,20
+Gerencias Zonales,,
+"Controlar 
+las  actividades  relacionadas  con 
+la  revisión  de 
+los",,
+,Aseguramiento,40
+informes de auditoría de Sucursales y Gerencias Zonales,,
+
+===== Camelot Table 7 =====
+0,1
+Planificar las tareas realizadas en el área a fin de cumplir con las,
+,Coordinación
+metas propuestas,
+Gestionar el cumplimiento de los objetivos propuestos por el,
+,Gestión
+área,
+Participar en el diseño y monitorear el cumplimiento de,
+políticas y procedimientos que garanticen las condiciones,
+"necesarias para cumplir la misión del área, dando soporte y",Solución de problemas
+solución a los problemas que surjan y asegurando la mejora,
+continua de los procesos.,
+
+===== Camelot Table 8 =====
+0
+"Conducir 
+las  auditorías  de  gobierno  de  TI,  gestión  de 
+riesgos"
+"tecnológicos,  sistemas  aplicativos, 
+infraestructura  tecnológica  y  de"
+"comunicaciones, y sus procesos asociados, asegurando la integridad de"
+"Aseguramiento 
+40"
+"los datos , el cumplimiento de las normas y procedimientos vigentes y"
+"la  emisión  de 
+la 
+información  requerida,  brindando  asesoramiento"
+cuando se lo requieran
+Conducir las actividades relacionadas con la auditoría de la seguridad
+"Aseguramiento 
+20"
+de la información
+Conducir  las  actividades  relacionadas  con  la  implementación  de  las
+"recomendaciones  efectuadas,  en  oportunidad  de  desarrollar  cada 
+Aseguramiento 
+5"
+proyecto de auditoría
+Controlar la ejecución del plan de trabajo fijado para las unidades de
+Evaluación y
+"su  dependencia  detectando  desvíos  y  proponiendo 
+los 
+cambios 
+5"
+Control
+necesarios
+"Conducir 
+las  actividades  de  supervisión  de  soporte  y 
+tecnología"
+"Control 
+5"
+informática en las restantes unidades de Auditoria General
+"Intervenir en la determinación del plan detallado de trabajo y proponer 
+Aseguramiento"
+10
+"modificaciones o mejoras en las pruebas aplicables a los proyectos 
+y Control"
+Intervenir y controlar la emisión de los informes sobre las actividades
+"realizadas  y  otras  tareas  de  evaluación,  para  la  Dirección  del  Banco,"
+"Informes 
+5"
+"Organismos  Externos  de  contralor  y  Áreas  de 
+la  Administración"
+Central
+"Banco Nación 
+MANUAL DE ORGANIZACIÓN"
+Unidad Organizativa
+AUDITORÍA DE SISTEMAS APLICATIVOS Y PROCESAMIENTO
+"Jerarquía 
+5 – Jefe Principal de 
+Nivel de 
+4 
+Fecha 
+28/10/2021"
+"Implícita 
+Departamento 
+Reporte 
+Aprobación"
+Misión
+Supervisar las actividades de auditoría relacionadas con el ambiente de control de los procesos de
+
+===== Camelot Table 9 =====
+0,1,2
+Controlar las actividades relacionadas con la auditoria de gobierno de,,
+,Aseguramiento,20
+"TI, gestión de riesgo tecnológico y la seguridad de la información",,
+Intervenir en las actividades relacionadas con la implementación de las,,
+,Evaluación y,
+"recomendaciones  efectuadas,  en  oportunidad  de  desarrollar  cada",,10
+,Control,
+proyecto de auditoría,,
+"Informar  y  controlar 
+los  resultados  de 
+las  actividades  sobre 
+las",,
+"auditorías realizadas y otras tareas de evaluación, para la Dirección del",,
+,Informes,10
+"Banco, 
+Organismos 
+Externos 
+de 
+contralor 
+y 
+Áreas 
+de 
+la",,
+Administración Central,,
+
+===== Camelot Table 10 =====
+0,1,2
+,,%
+Funciones Específicas,Producto Final,
+,,Dedicación
+Intervenir en la planificación anual relacionada con las auditorías de,,
+"los  procesos,  conforme  los  lineamientos  de  los  entes  de  contralor  en",Planificación,10
+"base a criterios de riesgo y exposición, proponiendo planes de trabajo",,
+"Determinar 
+el  plan  detallado  de 
+trabajo,  diseñar 
+las  pruebas",Programa de,
+,,10
+"respectivas, y controlar su cumplimiento",Trabajo,
+Controlar las actividades relacionadas con la auditoría de la gestión y,,
+"utilización del hardware, software de base, redes de comunicaciones,",Aseguramiento,40
+base de datos y los procesos asociados,,
+Controlar las actividades relacionadas con la auditoría de los procesos,,
+"de  gestión  de 
+riesgo 
+tecnológico,  protección  de 
+activos  de 
+la",Aseguramiento,20
+información y la continuidad del procesamiento de datos,,
+Intervenir en las actividades relacionadas con la implementación de las,,
+,Evaluación y,
+"recomendaciones  efectuadas,  en  oportunidad  de  desarrollar  cada",,10
+,Control,
+proyecto de auditoría,,
+"Informar  y  controlar 
+los  resultados  de 
+las  actividades  sobre 
+las",,
+"auditorías realizadas y otras tareas de evaluación, para la Dirección del",,
+,Informes,10
+"Banco, Organismos Externos de contralor y Áreas de la Administración",,
+Central,,
+
