@@ -17,11 +17,6 @@ instance/
 .webassets-cache
 
 # Data/output files
-*.csv
-*.xlsx
-*.png
-*.pdf
-*.pptx
 
 # Allow source CSVs and Excel
 !Diseño_Organizativo_Propuesto_BNA.csv
