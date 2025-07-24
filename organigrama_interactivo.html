@@ -341,6 +341,7 @@
           base['Unidad Organizativa'] = nuevo;
           allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
         }
+        compararCSVActualConOriginal && compararCSVActualConOriginal();
       });
       document.getElementById('edit-reporta').addEventListener('change', function() {
         const oldKey = base['Unidad Organizativa'] + '|' + (base['Reporta A'] || '');
@@ -368,10 +369,11 @@
           compararCSVActualConOriginal && compararCSVActualConOriginal();
         }
       });
-      document.getElementById('edit-jerarquia').addEventListener('change', function() { base['Jerarquía'] = this.value; });
-      document.getElementById('edit-nivel').addEventListener('change', function() { base['Nivel Jerárquico Calculado'] = this.value; });
-      document.getElementById('edit-unidades').addEventListener('change', function() { base['Unidades que Reportan Directamente'] = this.value; });
-      document.getElementById('edit-mision').addEventListener('blur', function() { this.value = correctSpelling(this.value); base['Misión'] = this.value; });
+      document.getElementById('edit-jerarquia').addEventListener('change', function() { base['Jerarquía'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
+      document.getElementById('edit-jerarquia').addEventListener('blur', function() { compararCSVActualConOriginal && compararCSVActualConOriginal(); });
+      document.getElementById('edit-nivel').addEventListener('change', function() { base['Nivel Jerárquico Calculado'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
+      document.getElementById('edit-unidades').addEventListener('change', function() { base['Unidades que Reportan Directamente'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
+      document.getElementById('edit-mision').addEventListener('blur', function() { this.value = correctSpelling(this.value); base['Misión'] = this.value; compararCSVActualConOriginal && compararCSVActualConOriginal(); });
       // Funciones
       document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
         input.addEventListener('blur', function() {
@@ -383,15 +385,7 @@
           else if (type === 'espec') especificas[idx][field] = this.value;
         });
       });
-      // Al final de cada cambio, comparar
-      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #edit-unidades, #edit-mision').forEach(input => {
-        input.addEventListener('change', compararCSVActualConOriginal);
-        input.addEventListener('blur', compararCSVActualConOriginal);
-      });
-      document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
-        input.addEventListener('change', compararCSVActualConOriginal);
-        input.addEventListener('blur', compararCSVActualConOriginal);
-      });
+      // Los eventos para funciones ya están configurados arriba individualmente
     }
     function autocompletarUnidadesReportan() {
       // Mapear hijos por padre y contar ocurrencias por nombre
