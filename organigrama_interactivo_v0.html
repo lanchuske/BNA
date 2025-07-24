@@ -60,34 +60,6 @@
     let allUnidades = [];
     let csvHeaders = [];
     let inconsistenciaDetectada = false;
-    let originalCSV = '';
-    let datosModificados = false;
-
-    function marcarAdminCambios(pendiente) {
-      const adminBtn = document.getElementById('adminBtn');
-      if (pendiente) {
-        adminBtn.style.background = '#e67e22'; // naranja
-        adminBtn.title = '¡Hay cambios sin exportar! Haz clic para exportar.';
-      } else {
-        adminBtn.style.background = '#3498db';
-        adminBtn.title = '';
-      }
-    }
-
-    function compararCSVActualConOriginal() {
-      // Generar CSV actual
-      let rows = [csvHeaders.join(';')];
-      Object.values(unidadesMap).forEach(arr => {
-        arr.forEach(u => {
-          let row = csvHeaders.map(h => (u[h] || ''));
-          rows.push(row.join(';'));
-        });
-      });
-      const actual = rows.join('\n');
-      datosModificados = (actual !== originalCSV);
-      marcarAdminCambios(datosModificados);
-    }
-
     function parseCSV(text) {
       const lines = text.split(/\r?\n/).filter(Boolean);
       const headers = lines[0].split(';');
@@ -102,8 +74,7 @@
     function groupByUnidad(data) {
       const map = {};
       data.forEach(item => {
-        // Usar clave compuesta: nombre + '|' + reportaA
-        const key = item['Unidad Organizativa'] + '|' + (item['Reporta A'] || '');
+        const key = item['Unidad Organizativa'];
         if (!map[key]) map[key] = [];
         map[key].push(item);
       });
@@ -113,29 +84,18 @@
       const nodeMap = {};
       data.forEach(item => {
         const name = item['Unidad Organizativa'];
-        const parent = item['Reporta A'] || '';
-        const key = name + '|' + parent;
-        if (!nodeMap[key]) nodeMap[key] = { key, name, parent, children: [], item };
-        nodeMap[key].parent = parent;
+        if (!nodeMap[name]) nodeMap[name] = { name, parent: item['Reporta A'], children: [] };
+        nodeMap[name].parent = item['Reporta A'];
       });
-      // Relacionar hijos con padres usando la clave compuesta
       Object.values(nodeMap).forEach(node => {
-        if (node.parent) {
-          // Buscar clave del padre
-          const parentKey = Object.keys(nodeMap).find(k => nodeMap[k].name === node.parent);
-          if (parentKey && nodeMap[parentKey]) {
-            nodeMap[parentKey].children.push(node);
-          }
+        if (node.parent && nodeMap[node.parent]) {
+          nodeMap[node.parent].children.push(node);
         }
       });
-      // Raíces: nodos cuyo padre no existe en el mapa
-      const roots = Object.values(nodeMap).filter(node => {
-        const parentKey = Object.keys(nodeMap).find(k => nodeMap[k].name === node.parent);
-        return !node.parent || !parentKey;
-      });
+      const roots = Object.values(nodeMap).filter(node => !node.parent || !nodeMap[node.parent]);
       return roots;
     }
-    function renderTree(nodes, parentElem, selectUnidad, selectedKey) {
+    function renderTree(nodes, parentElem, selectUnidad, selectedName) {
       if (!nodes.length) return;
       const ul = document.createElement('ul');
       nodes.forEach(node => {
@@ -153,8 +113,7 @@
             // Validar duplicados exactos (nombre + reporta a)
             let existeMisma = false;
             let existeNombreOtroReporta = false;
-            Object.keys(unidadesMap).forEach(k => {
-              const arr = unidadesMap[k];
+            Object.values(unidadesMap).forEach(arr => {
               arr.forEach(u => {
                 if (u['Unidad Organizativa'] === nombre && u['Reporta A'] === node.name) existeMisma = true;
                 else if (u['Unidad Organizativa'] === nombre && u['Reporta A'] !== node.name) existeNombreOtroReporta = true;
@@ -179,12 +138,11 @@
               'Descripción': '',
               'Producto Final': ''
             };
-            const newKey = nombre + '|' + node.name;
-            unidadesMap[newKey] = [nueva];
+            unidadesMap[nombre + '|' + node.name] = [nueva];
             allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
             treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
-            renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, newKey);
-            selectUnidad(newKey);
+            renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, nombre);
+            selectUnidad(nombre);
           };
           li.appendChild(addBtn);
           if (node.parent) {
@@ -194,11 +152,14 @@
             delBtn.title = 'Eliminar unidad';
             delBtn.onclick = function(e) {
               e.stopPropagation();
-              delete unidadesMap[node.key];
-              allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-              treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
-              renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, '');
-              document.getElementById('unidad-content').innerHTML = '';
+              if (confirm('¿Eliminar la unidad y todas sus funciones?')) {
+                delete unidadesMap[node.name];
+                allUnidades = Object.keys(unidadesMap);
+                // Actualizar árbol y memoria inmediatamente
+                treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+                renderTree(treeRoots, document.getElementById('tree-container'), selectUnidad, '');
+                document.getElementById('unidad-content').innerHTML = '';
+              }
             };
             li.appendChild(delBtn);
           }
@@ -206,10 +167,10 @@
         if (node.children.length) {
           const toggle = document.createElement('span');
           toggle.className = 'toggle';
-          toggle.textContent = expandedNodes[node.key] ? '[–]' : '[+]';
+          toggle.textContent = expandedNodes[node.name] ? '[–]' : '[+]';
           toggle.onclick = function(e) {
             e.stopPropagation();
-            expandedNodes[node.key] = !expandedNodes[node.key];
+            expandedNodes[node.name] = !expandedNodes[node.name];
             const treeDiv = document.getElementById('tree-container');
             treeDiv.innerHTML = '';
             renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
@@ -223,14 +184,14 @@
         }
         const span = document.createElement('span');
         span.textContent = node.name;
-        span.className = 'node' + (node.key === selectedKey ? ' selected' : '');
+        span.className = 'node' + (node.name === selectedName ? ' selected' : '');
         span.onclick = function(e) {
           e.stopPropagation();
-          selectUnidad(node.key);
+          selectUnidad(node.name);
         };
         li.appendChild(span);
-        if (node.children.length && expandedNodes[node.key]) {
-          renderTree(node.children, li, selectUnidad, selectedKey);
+        if (node.children.length && expandedNodes[node.name]) {
+          renderTree(node.children, li, selectUnidad, selectedName);
         }
         ul.appendChild(li);
       });
@@ -326,37 +287,14 @@
         const nuevo = this.value.trim();
         if (nuevo && nuevo !== base['Unidad Organizativa']) {
           // Renombrar en el mapa y actualizar árbol
-          unidadesMap[nuevo + '|' + base['Reporta A']] = unidadesMap[base.key];
-          delete unidadesMap[base.key];
+          unidadesMap[nuevo] = unidadesMap[base['Unidad Organizativa']];
+          delete unidadesMap[base['Unidad Organizativa']];
           base['Unidad Organizativa'] = nuevo;
-          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+          allUnidades = Object.keys(unidadesMap);
         }
       });
       document.getElementById('edit-reporta').addEventListener('change', function() {
-        const oldKey = base['Unidad Organizativa'] + '|' + (base['Reporta A'] || '');
-        const newReporta = this.value;
-        // Actualizar el valor en el objeto base
-        base['Reporta A'] = newReporta;
-        const newKey = base['Unidad Organizativa'] + '|' + (newReporta || '');
-        if (newKey !== oldKey) {
-          // Copiar el array de la unidad y eliminar la clave antigua
-          const unidadArr = unidadesMap[oldKey];
-          delete unidadesMap[oldKey];
-          // Actualizar el campo 'Reporta A' en todos los objetos de la unidad
-          unidadArr.forEach(u => u['Reporta A'] = newReporta);
-          // Asignar a la nueva clave
-          unidadesMap[newKey] = unidadArr;
-          // Reconstruir allUnidades solo con claves actuales
-          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-          // Reconstruir árbol desde cero
-          treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
-          lastSelected = newKey;
-          const treeDiv = document.getElementById('tree-container');
-          treeDiv.innerHTML = '';
-          renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
-          showUnidad(unidadesMap[newKey]);
-          compararCSVActualConOriginal && compararCSVActualConOriginal();
-        }
+        base['Reporta A'] = this.value;
       });
       document.getElementById('edit-jerarquia').addEventListener('change', function() { base['Jerarquía'] = this.value; });
       document.getElementById('edit-nivel').addEventListener('change', function() { base['Nivel Jerárquico Calculado'] = this.value; });
@@ -372,15 +310,6 @@
           if (type === 'gen') genericas[idx][field] = this.value;
           else if (type === 'espec') especificas[idx][field] = this.value;
         });
-      });
-      // Al final de cada cambio, comparar
-      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #edit-unidades, #edit-mision').forEach(input => {
-        input.addEventListener('change', compararCSVActualConOriginal);
-        input.addEventListener('blur', compararCSVActualConOriginal);
-      });
-      document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
-        input.addEventListener('change', compararCSVActualConOriginal);
-        input.addEventListener('blur', compararCSVActualConOriginal);
       });
     }
     function autocompletarUnidadesReportan() {
@@ -466,10 +395,6 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      // Guardar como original y resetear flag
-      originalCSV = rows.join('\n');
-      datosModificados = false;
-      marcarAdminCambios(false);
     }
     // Alternar modo edición
     document.getElementById('editModeBtn').addEventListener('click', function() {
@@ -494,65 +419,22 @@
       }
     });
     document.getElementById('exportBtn').addEventListener('click', exportCSV);
-    function selectUnidad(key) {
-      showUnidad(unidadesMap[key]);
-      lastSelected = key;
+    function selectUnidad(nombre) {
+      showUnidad(unidadesMap[nombre]);
+      lastSelected = nombre;
       const treeDiv = document.getElementById('tree-container');
       treeDiv.innerHTML = '';
       renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
     }
-    // Mouseover para adminBtn
-    const adminBtn = document.getElementById('adminBtn');
-    adminBtn.addEventListener('mouseenter', function() {
-      if (datosModificados) {
-        adminBtn.title = '¡Hay cambios sin exportar! Haz clic en Exportar CSV para guardar.';
-      }
-    });
-    adminBtn.addEventListener('mouseleave', function() {
-      if (datosModificados) {
-        adminBtn.title = '¡Hay cambios sin exportar! Haz clic para exportar.';
-      } else {
-        adminBtn.title = '';
-      }
-    });
-
-    // Al cargar la página, intentar cargar datos desde localStorage
-    window.addEventListener('DOMContentLoaded', function() {
-      const savedCSV = localStorage.getItem('csvData');
-      if (savedCSV) {
-        originalCSV = savedCSV;
-        const data = parseCSV(savedCSV);
-        unidadesMap = groupByUnidad(data);
-        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-        treeRoots = buildTree(data);
-        lastSelected = '';
-        expandedNodes = {};
-        const treeDiv = document.getElementById('tree-container');
-        treeDiv.innerHTML = '';
-        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
-        document.getElementById('unidad-content').innerHTML = '';
-        datosModificados = false;
-        marcarAdminCambios(false);
-      }
-    });
-
     document.getElementById('fileInput').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
         const csvText = evt.target.result;
-        // Limpiar cualquier otro dato relacionado en localStorage
-        for (let key in localStorage) {
-          if (key.startsWith('csvData') && key !== 'csvData') {
-            localStorage.removeItem(key);
-          }
-        }
-        localStorage.setItem('csvData', csvText);
-        originalCSV = csvText;
         const data = parseCSV(csvText);
         unidadesMap = groupByUnidad(data);
-        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+        allUnidades = Object.keys(unidadesMap);
         treeRoots = buildTree(data);
         lastSelected = '';
         expandedNodes = {};
@@ -560,10 +442,6 @@
         treeDiv.innerHTML = '';
         renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
         document.getElementById('unidad-content').innerHTML = '';
-        datosModificados = false;
-        marcarAdminCambios(false);
-        // Mostrar mensaje de confirmación
-        mostrarAlerta('Archivo cargado y datos actualizados correctamente.', 2500);
       };
       reader.readAsText(file);
     });
