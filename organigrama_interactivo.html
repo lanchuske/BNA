@@ -5570,7 +5570,8 @@ Campo: ${issue.field || 'N/A'}
       
       units.forEach((unitData, index) => {
         const unit = unitData[0];
-        const functions = unitData.filter(row => row['Tipo de Función'] === 'Genérica' || row['Tipo de Función'] === 'Específica');
+        // Incluir todas las funciones, no solo las genéricas y específicas
+        const functions = unitData.filter(row => row['Tipo de Función'] && row['Tipo de Función'] !== '');
         
         // Agregar salto de página si no es la primera unidad
         if (index > 0) {
@@ -5595,58 +5596,43 @@ Campo: ${issue.field || 'N/A'}
             </div>
         `;
         
-        // Funciones Genéricas
-        const genericFunctions = functions.filter(f => f['Tipo de Función'] === 'Genérica');
-        if (genericFunctions.length > 0) {
-          pdfHTML += `
-            <div class="table-title">Funciones Genéricas</div>
-            <table class="functions-table">
-              <thead>
-                <tr>
-                  <th style="width: 70%;">Función Genérica</th>
-                  <th style="width: 30%;">Producto Final</th>
-                </tr>
-              </thead>
-              <tbody>
-          `;
-          
-          genericFunctions.forEach(func => {
-            pdfHTML += `
-              <tr>
-                <td>${func['Función Genérica'] || 'No especificada'}</td>
-                <td>${func['Producto Final'] || 'No especificado'}</td>
-              </tr>
-            `;
-          });
-          
-          pdfHTML += `
-              </tbody>
-            </table>
-          `;
-        }
+        // Agrupar funciones por tipo
+        const functionsByType = {};
+        functions.forEach(func => {
+          const type = func['Tipo de Función'];
+          if (!functionsByType[type]) {
+            functionsByType[type] = [];
+          }
+          functionsByType[type].push(func);
+        });
         
-        // Funciones Específicas
-        const specificFunctions = functions.filter(f => f['Tipo de Función'] === 'Específica');
-        if (specificFunctions.length > 0) {
+        // Generar tablas para cada tipo de función
+        Object.keys(functionsByType).forEach(type => {
+          const typeFunctions = functionsByType[type];
+          
           pdfHTML += `
-            <div class="table-title">Funciones Específicas</div>
+            <div class="table-title">Funciones ${type}</div>
             <table class="functions-table">
               <thead>
                 <tr>
-                  <th style="width: 50%;">Función Específica</th>
-                  <th style="width: 30%;">Producto Final</th>
-                  <th style="width: 20%;">% Dedicación</th>
+                  <th style="width: 40%;">Función ${type === 'Genérica' ? 'Genérica' : type === 'Específica' ? 'Específica' : type}</th>
+                  <th style="width: 40%;">Producto Final</th>
+                  <th style="width: 20%;">${type === 'Específica' ? '% Dedicación' : 'Tipo'}</th>
                 </tr>
               </thead>
               <tbody>
           `;
           
-          specificFunctions.forEach(func => {
+          typeFunctions.forEach(func => {
+            const functionField = type === 'Genérica' ? 'Función Genérica' : 
+                                type === 'Específica' ? 'Función Específica' : 
+                                'Función Genérica'; // Default fallback
+            
             pdfHTML += `
               <tr>
-                <td>${func['Función Específica'] || 'No especificada'}</td>
+                <td>${func[functionField] || 'No especificada'}</td>
                 <td>${func['Producto Final'] || 'No especificado'}</td>
-                <td style="text-align: center;">${func['Porcentaje Dedicación'] || '0'}%</td>
+                <td style="text-align: center;">${type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type}</td>
               </tr>
             `;
           });
@@ -5655,7 +5641,7 @@ Campo: ${issue.field || 'N/A'}
               </tbody>
             </table>
           `;
-        }
+        });
         
         pdfHTML += `
           </div>
