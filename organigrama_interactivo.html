@@ -1310,8 +1310,10 @@
             }
         }
     </style>
-    <!-- Librería para exportación a PDF -->
+    <!-- Librerías para exportación a PDF con fallbacks -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <h1 style="display:inline-block;">Unidades Organizativas BNA</h1>
@@ -5426,21 +5428,83 @@ Campo: ${issue.field || 'N/A'}
       }
     });
     
-    // Función para exportar a PDF
+    // Función para exportar a PDF con múltiples fallbacks
     function exportToPDF() {
       try {
         console.log('Iniciando exportación a PDF...');
         
+        // Verificar si la librería está disponible
+        if (typeof html2pdf === 'undefined') {
+          throw new Error('Librería html2pdf.js no está disponible. Verifique su conexión a internet.');
+        }
+        
         // Crear el contenido HTML para el PDF
         const pdfContent = generatePDFContent();
         
-        // Configurar opciones de PDF
+        // Configurar opciones de PDF optimizadas
         const pdfOptions = {
-          margin: [20, 20, 20, 20],
+          margin: [15, 15, 15, 15],
           filename: `organigrama_bna_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
-          image: { type: 'jpeg', quality: 0.98 },
+          image: { type: 'jpeg', quality: 0.95 },
           html2canvas: { 
-            scale: 2,
+            scale: 1.5,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            logging: false
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+          }
+        };
+        
+        console.log('Configurando exportación PDF con opciones:', pdfOptions);
+        
+        // Intentar exportación con manejo de errores mejorado
+        const pdfPromise = html2pdf()
+          .from(pdfContent)
+          .set(pdfOptions)
+          .save();
+        
+        // Manejar la promesa de exportación
+        pdfPromise.then(() => {
+          console.log('PDF exportado exitosamente');
+          mostrarAlerta('✅ PDF exportado correctamente', 3000, '#27ae60');
+          addToChangeHistory('export_pdf', 'Exportar organigrama a PDF', { format: 'PDF', units: Object.keys(unidadesMap).length });
+        }).catch((error) => {
+          console.error('Error en la promesa de exportación PDF:', error);
+          mostrarAlerta('Error al generar PDF: ' + error.message, 3000, '#e74c3c');
+          
+          // Intentar fallback con configuración más simple
+          tryFallbackExport(pdfContent);
+        });
+        
+      } catch (error) {
+        console.error('Error al exportar PDF:', error);
+        mostrarAlerta('Error al exportar PDF: ' + error.message, 3000, '#e74c3c');
+        
+        // Intentar fallback
+        tryFallbackExport();
+      }
+    }
+    
+    // Función de fallback para exportación PDF
+    function tryFallbackExport(pdfContent = null) {
+      try {
+        console.log('Intentando exportación de fallback...');
+        
+        const content = pdfContent || generatePDFContent();
+        
+        // Configuración más simple para fallback
+        const fallbackOptions = {
+          margin: [10, 10, 10, 10],
+          filename: `organigrama_bna_fallback_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+          image: { type: 'jpeg', quality: 0.8 },
+          html2canvas: { 
+            scale: 1,
             useCORS: true,
             allowTaint: true
           },
@@ -5451,80 +5515,95 @@ Campo: ${issue.field || 'N/A'}
           }
         };
         
-        // Generar PDF usando html2pdf.js
-        html2pdf().from(pdfContent).set(pdfOptions).save();
-        
-        mostrarAlerta('✅ PDF exportado correctamente', 3000, '#27ae60');
-        addToChangeHistory('export_pdf', 'Exportar organigrama a PDF', { format: 'PDF', units: Object.keys(unidadesMap).length });
+        html2pdf().from(content).set(fallbackOptions).save().then(() => {
+          console.log('Exportación de fallback exitosa');
+          mostrarAlerta('✅ PDF exportado (modo fallback)', 3000, '#f39c12');
+        }).catch((fallbackError) => {
+          console.error('Error en fallback:', fallbackError);
+          mostrarAlerta('❌ No se pudo exportar PDF. Verifique su navegador y conexión.', 5000, '#e74c3c');
+        });
         
       } catch (error) {
-        console.error('Error al exportar PDF:', error);
-        mostrarAlerta('Error al exportar PDF: ' + error.message, 3000, '#e74c3c');
+        console.error('Error en fallback:', error);
+        mostrarAlerta('❌ Error crítico en exportación PDF', 5000, '#e74c3c');
       }
     }
     
-    // Función para generar el contenido HTML del PDF
+    // Función para generar el contenido HTML del PDF con mejor manejo de errores
     function generatePDFContent() {
-      const units = Object.values(unidadesMap);
-      let pdfHTML = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <style>
-            @page {
-              size: A4;
-              margin: 20mm;
-            }
-            body {
-              font-family: Arial, sans-serif;
-              font-size: 12px;
-              line-height: 1.4;
-              color: #333;
-            }
-            .unit-page {
-              page-break-after: always;
-              margin-bottom: 20px;
-            }
-            .unit-page:last-child {
-              page-break-after: avoid;
-            }
-            .unit-header {
-              text-align: center;
-              margin-bottom: 20px;
-              border-bottom: 2px solid #2c3e50;
-              padding-bottom: 10px;
-            }
-            .unit-name {
-              font-size: 18px;
-              font-weight: bold;
-              color: #2c3e50;
-              margin-bottom: 10px;
-            }
-            .unit-metadata {
-              font-size: 10px;
-              color: #666;
-              margin-bottom: 15px;
-            }
-            .mission-section {
-              margin-bottom: 20px;
-            }
-            .mission-title {
-              font-size: 14px;
-              font-weight: bold;
-              color: #2c3e50;
-              margin-bottom: 8px;
-            }
-            .mission-content {
-              font-size: 11px;
-              text-align: justify;
-              padding: 10px;
-              background-color: #f8f9fa;
-              border-left: 3px solid #3498db;
-            }
-            .functions-table {
-              width: 100%;
-              border-collapse: collapse;
+      try {
+        const units = Object.values(unidadesMap);
+        
+        if (!units || units.length === 0) {
+          throw new Error('No hay datos disponibles para exportar');
+        }
+        
+        console.log(`Generando PDF para ${units.length} unidades`);
+        
+        let pdfHTML = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <style>
+              @page {
+                size: A4;
+                margin: 15mm;
+              }
+              body {
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                line-height: 1.3;
+                color: #333;
+                margin: 0;
+                padding: 0;
+              }
+              .unit-page {
+                page-break-after: always;
+                margin-bottom: 15px;
+                padding: 10px;
+              }
+              .unit-page:last-child {
+                page-break-after: avoid;
+              }
+              .unit-header {
+                text-align: center;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #2c3e50;
+                padding-bottom: 8px;
+              }
+              .unit-name {
+                font-size: 16px;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+              }
+              .unit-metadata {
+                font-size: 9px;
+                color: #666;
+                margin-bottom: 12px;
+              }
+              .mission-section {
+                margin-bottom: 15px;
+              }
+              .mission-title {
+                font-size: 12px;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 6px;
+              }
+              .mission-content {
+                font-size: 10px;
+                text-align: justify;
+                padding: 8px;
+                background-color: #f8f9fa;
+                border-left: 3px solid #3498db;
+                word-wrap: break-word;
+              }
+              .functions-table {
+                width: 100%;
+                border-collapse: collapse;
               margin-bottom: 15px;
               font-size: 10px;
             }
@@ -5657,7 +5736,13 @@ Campo: ${issue.field || 'N/A'}
         </html>
       `;
       
+      console.log('Contenido PDF generado exitosamente');
       return pdfHTML;
+      
+      } catch (error) {
+        console.error('Error al generar contenido PDF:', error);
+        throw new Error(`Error al generar contenido PDF: ${error.message}`);
+      }
     }
 
     </script>
