@@ -99,6 +99,7 @@
             padding: 5px 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
         }
         .file-input-row button {
             padding: 5px 12px;
@@ -147,6 +148,125 @@
         }
         .func-table tbody tr.drag-over-bottom {
             border-bottom: 3px solid #3498db;
+        }
+        
+        /* Estilos para fuente Courier New en modo edición */
+        .edit-mode input,
+        .edit-mode textarea,
+        .edit-mode select {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Estilos específicos para campos de edición */
+        #edit-nombre,
+        #edit-jerarquia,
+        #edit-nivel,
+        #edit-mision,
+        #uqrd {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Estilos para inputs y textareas de funciones en modo edición */
+        .edit-mode input[data-func-type],
+        .edit-mode textarea[data-func-type] {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Estilos para campos de validación en modo edición */
+        .edit-mode .text-correction-input,
+        .edit-mode .custom-input,
+        .edit-mode .rename-input {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Sistema unificado de tamaños de fuente para modo edición */
+        .edit-mode {
+            /* Tamaños de fuente estandarizados */
+            --font-size-small: 12px;
+            --font-size-normal: 14px;
+            --font-size-medium: 16px;
+            --font-size-large: 18px;
+            --font-size-xlarge: 20px;
+        }
+        
+        /* Campos principales de edición - Tamaño grande para títulos */
+        .edit-mode #edit-nombre {
+            font-size: var(--font-size-large) !important;
+            font-weight: bold;
+        }
+        
+        /* Campos de información - Tamaño normal */
+        .edit-mode #edit-jerarquia,
+        .edit-mode #edit-nivel,
+        .edit-mode #edit-reporta,
+        .edit-mode #uqrd {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Campo de misión - Tamaño normal */
+        .edit-mode #edit-mision {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Campos de funciones - Tamaño normal */
+        .edit-mode input[data-func-type],
+        .edit-mode textarea[data-func-type] {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Campos de validación - Tamaño normal */
+        .edit-mode .text-correction-input,
+        .edit-mode .custom-input,
+        .edit-mode .rename-input,
+        .edit-mode .input-correction {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Campos de porcentaje - Tamaño pequeño */
+        .edit-mode input[data-field="Porcentaje Dedicación"] {
+            font-size: var(--font-size-small) !important;
+        }
+        
+        /* Selects en modo edición - Tamaño normal */
+        .edit-mode select {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Campos de ruta de archivo - Tamaño normal */
+        .edit-mode .file-input-row input[type="text"] {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Override para cualquier campo que tenga tamaño específico */
+        .edit-mode input,
+        .edit-mode textarea,
+        .edit-mode select {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Override específico para estilos inline que puedan causar inconsistencias */
+        .edit-mode input[style*="font-size"],
+        .edit-mode textarea[style*="font-size"],
+        .edit-mode select[style*="font-size"] {
+            font-size: var(--font-size-normal) !important;
+        }
+        
+        /* Excepción para el campo de nombre que debe ser más grande */
+        .edit-mode #edit-nombre[style*="font-size"] {
+            font-size: var(--font-size-large) !important;
+        }
+        
+        /* Excepción para campos de porcentaje que deben ser más pequeños */
+        .edit-mode input[data-field="Porcentaje Dedicación"][style*="font-size"] {
+            font-size: var(--font-size-small) !important;
         }
         .drag-handle {
             cursor: grab;
@@ -440,7 +560,7 @@
             padding: 8px 12px;
             border: 1px solid #ced4da;
             border-radius: 4px;
-            font-family: inherit;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
             resize: vertical;
             min-height: 60px;
@@ -652,6 +772,7 @@
             padding: 6px 10px;
             border: 1px solid #ced4da;
             border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 13px;
         }
         
@@ -906,6 +1027,7 @@
             padding: 4px 8px;
             border: 1px solid #ced4da;
             border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 12px;
             width: 100%;
         }
@@ -973,6 +1095,7 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
             margin: 5px 0;
+            font-family: 'Courier New', Courier, monospace;
         }
         
         .correction-options {
@@ -1020,7 +1143,7 @@
             <div class="file-input-container">
               <div class="file-input-row">
                 <input type="file" id="fileInput" accept=".csv" style="display:none">
-                <button id="browseBtn" class="browse-btn">Browse...</button>
+                <button id="browseBtn" class="browse-btn">Examinar...</button>
                 <input type="text" id="filePath" placeholder="Ruta del archivo CSV">
               </div>
               <button id="loadFileBtn" class="edit-btn" style="margin-top:6px;width:100%;">Cargar Archivo</button>
@@ -3110,7 +3233,7 @@
         html += `<div class="mission-label">Misión:</div><div class="mission-box">${base['Misión'] || ''}</div>`;
       } else {
         // Edición de campos principales
-        html += `<div class="title"><input id="edit-nombre" value="${base['Unidad Organizativa']}" style="font-size:1.2em;width:60%"></div>`;
+        html += `<div class="title"><input id="edit-nombre" value="${base['Unidad Organizativa']}" style="width:60%"></div>`;
         // Select de áreas posibles para "Reporta a"
         html += `<div class="info-line"><span class="info-label">Reporta a:</span> <select id="edit-reporta">
           <option value="">Ninguno</option>`;
@@ -3418,7 +3541,7 @@
       }, 100);
     }
     
-    // Función para mostrar funciones de una unidad específica
+    // Función para mostrar funciones de una unidad específica con selección múltiple
     window.showFunctionsFromUnit = function(unitKey, funcType) {
       const functionsContainer = document.getElementById('functionsContainer');
       
@@ -3455,7 +3578,13 @@
         <div style="font-weight:bold;margin-bottom:10px;color:#2c3e50;">
           📋 Funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'} disponibles en "${unitName}":
         </div>
-        <div style="max-height:200px;overflow-y:auto;border:1px solid #ecf0f1;border-radius:4px;padding:5px;">
+        <div style="margin-bottom:10px;">
+          <label style="display:flex;align-items:center;gap:8px;font-weight:500;color:#2c3e50;">
+            <input type="checkbox" id="select-all-${unitKey}-${funcType}" onchange="toggleSelectAll('${unitKey}', '${funcType}', ${functions.length})">
+            <span>✅ Seleccionar todas las funciones</span>
+          </label>
+        </div>
+        <div style="max-height:250px;overflow-y:auto;border:1px solid #ecf0f1;border-radius:4px;padding:5px;">
       `;
       
       functions.forEach((func, idx) => {
@@ -3464,22 +3593,36 @@
         const porcentaje = func['Porcentaje Dedicación'] || '';
         
         functionsHTML += `
-          <button onclick="window.copyFunction('${funcType}', ${idx}, '${unitKey}')" 
-                  style="width:100%;margin:3px 0;padding:10px;text-align:left;border:1px solid #bdc3c7;border-radius:4px;background:white;cursor:pointer;transition:all 0.2s;"
-                  onmouseover="this.style.backgroundColor='#f8f9fa';this.style.borderColor='#3498db';" 
-                  onmouseout="this.style.backgroundColor='white';this.style.borderColor='#bdc3c7';">
-            <div style="font-weight:bold;margin-bottom:4px;color:#2c3e50;">
-              ${desc.length > 60 ? desc.substring(0, 60) + '...' : desc}
+          <div style="display:flex;align-items:center;gap:10px;margin:3px 0;padding:8px;border:1px solid #ecf0f1;border-radius:4px;background:white;">
+            <input type="checkbox" id="func-${unitKey}-${funcType}-${idx}" class="function-checkbox" 
+                   data-unit="${unitKey}" data-type="${funcType}" data-index="${idx}">
+            <div style="flex:1;cursor:pointer;" onclick="toggleFunctionSelection('${unitKey}', '${funcType}', ${idx})">
+              <div style="font-weight:bold;margin-bottom:4px;color:#2c3e50;">
+                ${desc.length > 60 ? desc.substring(0, 60) + '...' : desc}
+              </div>
+              <div style="font-size:12px;color:#7f8c8d;margin-bottom:2px;">
+                📄 ${producto.length > 50 ? producto.substring(0, 50) + '...' : producto}
+              </div>
+              ${funcType === 'espec' ? `<div style="font-size:11px;color:#27ae60;font-weight:bold;">📊 ${porcentaje}%</div>` : ''}
             </div>
-            <div style="font-size:12px;color:#7f8c8d;margin-bottom:2px;">
-              📄 ${producto.length > 50 ? producto.substring(0, 50) + '...' : producto}
-            </div>
-            ${funcType === 'espec' ? `<div style="font-size:11px;color:#27ae60;font-weight:bold;">📊 ${porcentaje}%</div>` : ''}
-          </button>
+          </div>
         `;
       });
       
-      functionsHTML += '</div>';
+      functionsHTML += `
+        </div>
+        <div style="margin-top:15px;text-align:center;">
+          <button onclick="copySelectedFunctions('${unitKey}', '${funcType}')" 
+                  style="background:#27ae60;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;margin-right:10px;">
+            📋 Copiar Funciones Seleccionadas
+          </button>
+          <button onclick="copyAllFunctions('${unitKey}', '${funcType}')" 
+                  style="background:#3498db;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;">
+            📋 Copiar Todas las Funciones
+          </button>
+        </div>
+      `;
+      
       functionsContainer.innerHTML = functionsHTML;
     }
     
@@ -3489,6 +3632,112 @@
       if (optionsDiv) {
         optionsDiv.remove();
       }
+    }
+    
+    // Función para alternar selección de todas las funciones
+    window.toggleSelectAll = function(unitKey, funcType, totalFunctions) {
+      const selectAllCheckbox = document.getElementById(`select-all-${unitKey}-${funcType}`);
+      const isChecked = selectAllCheckbox.checked;
+      
+      for (let i = 0; i < totalFunctions; i++) {
+        const checkbox = document.getElementById(`func-${unitKey}-${funcType}-${i}`);
+        if (checkbox) {
+          checkbox.checked = isChecked;
+        }
+      }
+    }
+    
+    // Función para alternar selección de una función individual
+    window.toggleFunctionSelection = function(unitKey, funcType, index) {
+      const checkbox = document.getElementById(`func-${unitKey}-${funcType}-${index}`);
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+      }
+    }
+    
+    // Función para copiar funciones seleccionadas
+    window.copySelectedFunctions = function(unitKey, funcType) {
+      const selectedFunctions = [];
+      
+      // Obtener todas las funciones de la unidad
+      const sourceUnit = unidadesMap[unitKey];
+      const sourceFunctions = sourceUnit.filter(u => {
+        if (funcType === 'gen') {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      // Verificar cuáles están seleccionadas
+      sourceFunctions.forEach((func, idx) => {
+        const checkbox = document.getElementById(`func-${unitKey}-${funcType}-${idx}`);
+        if (checkbox && checkbox.checked) {
+          selectedFunctions.push({ function: func, index: idx });
+        }
+      });
+      
+      if (selectedFunctions.length === 0) {
+        mostrarAlerta('Por favor selecciona al menos una función', 2000, '#e74c3c');
+        return;
+      }
+      
+      // Copiar cada función seleccionada
+      const currentUnit = unidadesMap[lastSelected];
+      const sourceUnitName = sourceUnit[0]['Unidad Organizativa'];
+      let copiedCount = 0;
+      
+      // Guardar estado para deshacer
+      saveUndoState('copy_multiple_functions', `Copiar ${selectedFunctions.length} función(es) ${funcType === 'gen' ? 'genérica(s)' : 'específica(s)'} de "${sourceUnitName}"`);
+      
+      selectedFunctions.forEach(({ function: func, index }) => {
+        const newFunction = { ...currentUnit[0] };
+        newFunction['Tipo de Función'] = funcType === 'gen' ? 'Genérica' : 'Específica';
+        newFunction['Descripción'] = func['Descripción'] || '';
+        newFunction['Producto Final'] = func['Producto Final'] || '';
+        newFunction['Porcentaje Dedicación'] = funcType === 'espec' ? (func['Porcentaje Dedicación'] || '') : '';
+        
+        unidadesMap[lastSelected].push(newFunction);
+        copiedCount++;
+      });
+      
+      // Actualizar vista
+      showUnidad(lastSelected);
+      
+      // Cerrar modal
+      closeCopyOptions();
+      
+      // Mostrar confirmación
+      const functionTypeText = funcType === 'gen' ? 'genérica(s)' : 'específica(s)';
+      mostrarAlerta(`✅ ${copiedCount} función(es) ${functionTypeText} copiada(s) desde "${sourceUnitName}"`, 3000, '#27ae60');
+    }
+    
+    // Función para copiar todas las funciones
+    window.copyAllFunctions = function(unitKey, funcType) {
+      const sourceUnit = unidadesMap[unitKey];
+      const sourceFunctions = sourceUnit.filter(u => {
+        if (funcType === 'gen') {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      if (sourceFunctions.length === 0) {
+        mostrarAlerta('No hay funciones para copiar', 2000, '#e74c3c');
+        return;
+      }
+      
+      // Marcar todas como seleccionadas y copiarlas
+      for (let i = 0; i < sourceFunctions.length; i++) {
+        const checkbox = document.getElementById(`func-${unitKey}-${funcType}-${i}`);
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      }
+      
+      // Llamar a la función de copiar seleccionadas
+      copySelectedFunctions(unitKey, funcType);
     }
     
     // Función para copiar una función específica
@@ -4179,23 +4428,6 @@
       const fileInput = document.getElementById('fileInput');
       
       if (browseBtn && fileInput) {
-        // Verificar si ya tiene event listener
-        if (!browseBtn._hasClickHandler) {
-          console.log('Adding fallback click handler for browse button');
-          browseBtn.addEventListener('click', function(e) {
-            console.log('Fallback browse button handler triggered');
-            try {
-              e.preventDefault();
-              e.stopPropagation();
-              fileInput.click();
-            } catch (err) {
-              console.error('Fallback handler error:', err);
-              mostrarAlerta('Error al abrir selector de archivos', 2000, '#e74c3c');
-            }
-          });
-          browseBtn._hasClickHandler = true;
-        }
-        
         // Test para verificar que el botón responde
         console.log('Browse button setup complete. Test clicking programmatically...');
         
