@@ -5560,14 +5560,17 @@ Campo: ${issue.field || 'N/A'}
                 margin: 0;
                 padding: 0;
               }
-              .unit-page {
-                page-break-after: always;
-                margin-bottom: 15px;
-                padding: 10px;
-              }
-              .unit-page:last-child {
-                page-break-after: avoid;
-              }
+                          .unit-page {
+              page-break-after: auto;
+              margin-bottom: 15px;
+              padding: 10px;
+            }
+            .unit-page:last-child {
+              page-break-after: avoid;
+            }
+            .page-break {
+              page-break-before: always;
+            }
               .unit-header {
                 text-align: center;
                 margin-bottom: 15px;
@@ -5649,6 +5652,8 @@ Campo: ${issue.field || 'N/A'}
         <body>
       `;
       
+      let currentPageContent = '';
+      
       units.forEach((unitData, index) => {
         const unit = unitData[0];
         // Incluir todas las funciones, no solo las genéricas y específicas
@@ -5657,12 +5662,8 @@ Campo: ${issue.field || 'N/A'}
         console.log(`Procesando unidad: ${unit['Unidad Organizativa']}`);
         console.log(`Funciones encontradas: ${functions.length}`);
         
-        // Agregar salto de página si no es la primera unidad
-        if (index > 0) {
-          pdfHTML += '<div class="page-break"></div>';
-        }
-        
-        pdfHTML += `
+        // Generar el contenido de esta unidad
+        let unitContent = `
           <div class="unit-page">
             <div class="unit-header">
               <div class="unit-name">${unit['Unidad Organizativa']}</div>
@@ -5696,7 +5697,7 @@ Campo: ${issue.field || 'N/A'}
         Object.keys(functionsByType).forEach(type => {
           const typeFunctions = functionsByType[type];
           
-          pdfHTML += `
+          unitContent += `
             <div class="table-title">Funciones ${type}</div>
             <table class="functions-table">
               <thead>
@@ -5717,7 +5718,7 @@ Campo: ${issue.field || 'N/A'}
             const productFinal = func['Producto Final'] || 'No especificado';
             const dedicationPercent = type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type;
             
-            pdfHTML += `
+            unitContent += `
               <tr>
                 <td>${functionDescription}</td>
                 <td>${productFinal}</td>
@@ -5726,15 +5727,22 @@ Campo: ${issue.field || 'N/A'}
             `;
           });
           
-          pdfHTML += `
+          unitContent += `
               </tbody>
             </table>
           `;
         });
         
-        pdfHTML += `
+        unitContent += `
           </div>
         `;
+        
+        // Solo agregar salto de página si no es la primera unidad
+        if (index > 0) {
+          pdfHTML += '<div class="page-break"></div>';
+        }
+        
+        pdfHTML += unitContent;
       });
       
       pdfHTML += `
