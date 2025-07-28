@@ -1150,6 +1150,8 @@
             </div>
             <button id="editModeBtn" class="edit-btn">Entrar en modo edición</button>
             <button id="undoBtn" class="edit-btn undo-btn" disabled>↶ Deshacer</button>
+            <button id="recentChangesBtn" class="edit-btn">📋 Últimos Cambios</button>
+            <button id="validateIntegrityBtn" class="edit-btn">🔍 Validación de Integridad</button>
             <button id="exportBtn" class="edit-btn">Exportar CSV</button>
           </div>
         </div>
@@ -1219,6 +1221,10 @@
     // Variables para el sistema de deshacer
     let undoStack = [];
     let maxUndoSteps = 20; // Máximo número de pasos para deshacer
+    
+    // Variables para el historial de cambios
+    let changeHistory = [];
+    let maxHistoryEntries = 50; // Máximo número de entradas en el historial
     
     // Variables para el sistema de validación
     let validationIssues = [];
@@ -2997,6 +3003,327 @@
         adminBtn.title = '';
       }
     }
+    
+    // ===== SISTEMA DE HISTORIAL DE CAMBIOS =====
+    
+    // Función para agregar una entrada al historial de cambios
+    function addToChangeHistory(action, description, details = {}) {
+      const changeEntry = {
+        id: Date.now() + Math.random(),
+        action: action,
+        description: description,
+        timestamp: new Date().toISOString(),
+        details: details,
+        unitKey: lastSelected,
+        unitName: lastSelected ? (unidadesMap[lastSelected] ? unidadesMap[lastSelected][0]['Unidad Organizativa'] : 'Unidad eliminada') : 'N/A'
+      };
+      
+      changeHistory.unshift(changeEntry); // Agregar al inicio
+      
+      // Limitar el tamaño del historial
+      if (changeHistory.length > maxHistoryEntries) {
+        changeHistory = changeHistory.slice(0, maxHistoryEntries);
+      }
+      
+      console.log('Cambio registrado:', changeEntry);
+    }
+    
+    // Función para mostrar el historial de cambios
+    function showChangeHistory() {
+      if (changeHistory.length === 0) {
+        mostrarAlerta('No hay cambios registrados', 2000, '#e67e22');
+        return;
+      }
+      
+      // Crear modal para mostrar el historial
+      const modalHTML = `
+        <div id="changeHistoryModal" style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          z-index: 10000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">
+          <div style="
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+          ">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h2 style="margin: 0; color: #2c3e50;">📋 Historial de Cambios</h2>
+              <button onclick="closeChangeHistoryModal()" style="
+                background: #e74c3c;
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+              ">✕</button>
+            </div>
+            
+            <div style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">
+              Total de cambios: ${changeHistory.length}
+            </div>
+            
+            <div id="changeHistoryList" style="max-height: 400px; overflow-y: auto;">
+              ${changeHistory.map((change, index) => `
+                <div style="
+                  border: 1px solid #ecf0f1;
+                  border-radius: 6px;
+                  padding: 12px;
+                  margin-bottom: 8px;
+                  background: ${index % 2 === 0 ? '#f8f9fa' : 'white'};
+                ">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="font-weight: bold; color: #2c3e50;">${change.description}</div>
+                    <div style="font-size: 12px; color: #7f8c8d;">${new Date(change.timestamp).toLocaleString()}</div>
+                  </div>
+                  <div style="font-size: 13px; color: #34495e; margin-bottom: 4px;">
+                    <strong>Acción:</strong> ${change.action}
+                  </div>
+                  <div style="font-size: 13px; color: #34495e;">
+                    <strong>Unidad:</strong> ${change.unitName}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div style="margin-top: 15px; text-align: center;">
+              <button onclick="clearChangeHistory()" style="
+                background: #e67e22;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+              ">🗑️ Limpiar Historial</button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
+    
+    // Función para cerrar el modal de historial
+    function closeChangeHistoryModal() {
+      const modal = document.getElementById('changeHistoryModal');
+      if (modal) {
+        modal.remove();
+      }
+    }
+    
+    // Función para limpiar el historial
+    function clearChangeHistory() {
+      if (confirm('¿Estás seguro de que quieres limpiar todo el historial de cambios?')) {
+        changeHistory = [];
+        mostrarAlerta('Historial de cambios limpiado', 2000, '#27ae60');
+        closeChangeHistoryModal();
+      }
+    }
+    
+    // ===== SISTEMA DE VALIDACIÓN MANUAL =====
+    
+    // Función para ejecutar validación de integridad manualmente
+    function runManualValidation() {
+      if (!unidadesMap || Object.keys(unidadesMap).length === 0) {
+        mostrarAlerta('No hay datos cargados para validar', 2000, '#e67e22');
+        return;
+      }
+      
+      console.log('Iniciando validación manual de integridad...');
+      
+      // Convertir unidadesMap a formato de array para la validación
+      const allData = [];
+      Object.values(unidadesMap).forEach(unitArray => {
+        unitArray.forEach(unit => {
+          allData.push(unit);
+        });
+      });
+      
+      // Ejecutar validación
+      const issues = validateDataIntegrity(allData);
+      
+      if (issues.length === 0) {
+        mostrarAlerta('✅ No se encontraron problemas de integridad en los datos', 3000, '#27ae60');
+        return;
+      }
+      
+      // Mostrar resultados de la validación
+      showValidationResults(issues);
+    }
+    
+    // Función para mostrar los resultados de la validación
+    function showValidationResults(issues) {
+      const modalHTML = `
+        <div id="validationResultsModal" style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          z-index: 10000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">
+          <div style="
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+          ">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h2 style="margin: 0; color: #2c3e50;">🔍 Resultados de Validación</h2>
+              <button onclick="closeValidationResultsModal()" style="
+                background: #e74c3c;
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+              ">✕</button>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                <div style="background: #e74c3c; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold;">
+                  ${issues.length} Problemas Encontrados
+                </div>
+                <div style="background: #f39c12; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold;">
+                  ${issues.filter(i => i.type === 'error').length} Errores
+                </div>
+                <div style="background: #e67e22; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold;">
+                  ${issues.filter(i => i.type === 'warning').length} Advertencias
+                </div>
+              </div>
+            </div>
+            
+            <div id="validationIssuesList" style="max-height: 400px; overflow-y: auto;">
+              ${issues.map((issue, index) => `
+                <div style="
+                  border: 1px solid ${issue.type === 'error' ? '#e74c3c' : '#f39c12'};
+                  border-radius: 6px;
+                  padding: 12px;
+                  margin-bottom: 8px;
+                  background: ${issue.type === 'error' ? '#fdf2f2' : '#fef9e7'};
+                ">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="font-weight: bold; color: #2c3e50;">${issue.title}</div>
+                    <div style="
+                      font-size: 12px; 
+                      color: white; 
+                      padding: 2px 6px; 
+                      border-radius: 3px;
+                      background: ${issue.type === 'error' ? '#e74c3c' : '#f39c12'};
+                    ">${issue.type.toUpperCase()}</div>
+                  </div>
+                  <div style="font-size: 13px; color: #34495e; margin-bottom: 4px;">
+                    ${issue.description}
+                  </div>
+                  <div style="font-size: 12px; color: #7f8c8d;">
+                    <strong>Categoría:</strong> ${issue.category} | <strong>Fila:</strong> ${issue.rowIndex + 1}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            
+            <div style="margin-top: 15px; text-align: center;">
+              <button onclick="exportValidationReport(${JSON.stringify(issues).replace(/"/g, '&quot;')})" style="
+                background: #27ae60;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                margin-right: 10px;
+              ">📄 Exportar Reporte</button>
+              <button onclick="closeValidationResultsModal()" style="
+                background: #95a5a6;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+              ">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
+    
+    // Función para cerrar el modal de resultados de validación
+    function closeValidationResultsModal() {
+      const modal = document.getElementById('validationResultsModal');
+      if (modal) {
+        modal.remove();
+      }
+    }
+    
+    // Función para exportar reporte de validación
+    function exportValidationReport(issues) {
+      const report = {
+        timestamp: new Date().toISOString(),
+        totalIssues: issues.length,
+        errors: issues.filter(i => i.type === 'error').length,
+        warnings: issues.filter(i => i.type === 'warning').length,
+        issues: issues.map(issue => ({
+          title: issue.title,
+          description: issue.description,
+          type: issue.type,
+          category: issue.category,
+          rowIndex: issue.rowIndex + 1,
+          field: issue.field
+        }))
+      };
+      
+      const reportText = `Reporte de Validación de Integridad
+Fecha: ${new Date().toLocaleString()}
+Total de Problemas: ${report.totalIssues}
+Errores: ${report.errors}
+Advertencias: ${report.warnings}
+
+DETALLES:
+${report.issues.map(issue => `
+${issue.type.toUpperCase()}: ${issue.title}
+Descripción: ${issue.description}
+Categoría: ${issue.category}
+Fila: ${issue.rowIndex}
+Campo: ${issue.field || 'N/A'}
+`).join('\n')}`;
+      
+      const blob = new Blob([reportText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `validacion_integridad_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      mostrarAlerta('Reporte de validación exportado', 2000, '#27ae60');
+    }
 
     function compararCSVActualConOriginal() {
       if (!csvHeaders || csvHeaders.length === 0) {
@@ -3096,6 +3423,10 @@
       if (!nombre) return;
       
       saveUndoState('add_unit', `Agregar unidad: ${nombre} bajo ${parentName}`);
+      addToChangeHistory('add_unit', `Agregar unidad: ${nombre} bajo ${parentName}`, {
+        unitName: nombre,
+        parentName: parentName
+      });
       
       const newKey = nombre + '|' + parentName;
       if (unidadesMap[newKey]) {
@@ -3426,6 +3757,11 @@
       
       // Guardar estado para deshacer
       saveUndoState('reorder_functions', `Reordenar funciones ${draggedType === 'gen' ? 'genéricas' : 'específicas'}`);
+      addToChangeHistory('reorder_functions', `Reordenar funciones ${draggedType === 'gen' ? 'genéricas' : 'específicas'}`, {
+        functionType: draggedType,
+        draggedIndex: draggedIndex,
+        targetIndex: targetIndex
+      });
       
       // Reordenar las funciones
       const draggedFunction = functions[draggedIndex];
@@ -3508,21 +3844,34 @@
       optionsDiv.innerHTML = optionsHTML;
       document.body.appendChild(optionsDiv);
       
-      // Poblar el selector con todas las unidades organizativas
+      // Poblar el selector con todas las unidades organizativas ordenadas alfabéticamente
       const select = document.getElementById('sourceUnitSelect');
       const currentUnitName = currentUnit[0]['Unidad Organizativa'];
       
+      // Crear array de unidades para ordenar alfabéticamente
+      const unitsArray = [];
       Object.keys(unidadesMap).forEach(key => {
         const unit = unidadesMap[key][0];
         const unitName = unit['Unidad Organizativa'];
         
         // No incluir la unidad actual en la lista
         if (unitName !== currentUnitName) {
-          const option = document.createElement('option');
-          option.value = key;
-          option.textContent = unitName;
-          select.appendChild(option);
+          unitsArray.push({
+            key: key,
+            name: unitName
+          });
         }
+      });
+      
+      // Ordenar alfabéticamente por nombre de unidad
+      unitsArray.sort((a, b) => a.name.localeCompare(b.name, 'es', {sensitivity: 'base'}));
+      
+      // Agregar opciones ordenadas al select
+      unitsArray.forEach(unit => {
+        const option = document.createElement('option');
+        option.value = unit.key;
+        option.textContent = unit.name;
+        select.appendChild(option);
       });
       
       // Manejar cambio de selección
@@ -3613,12 +3962,8 @@
         </div>
         <div style="margin-top:15px;text-align:center;">
           <button onclick="copySelectedFunctions('${unitKey}', '${funcType}')" 
-                  style="background:#27ae60;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;margin-right:10px;">
-            📋 Copiar Funciones Seleccionadas
-          </button>
-          <button onclick="copyAllFunctions('${unitKey}', '${funcType}')" 
-                  style="background:#3498db;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;">
-            📋 Copiar Todas las Funciones
+                  style="background:#27ae60;color:white;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;">
+            Copiar Selección
           </button>
         </div>
       `;
@@ -3689,6 +4034,11 @@
       
       // Guardar estado para deshacer
       saveUndoState('copy_multiple_functions', `Copiar ${selectedFunctions.length} función(es) ${funcType === 'gen' ? 'genérica(s)' : 'específica(s)'} de "${sourceUnitName}"`);
+      addToChangeHistory('copy_multiple_functions', `Copiar ${selectedFunctions.length} función(es) ${funcType === 'gen' ? 'genérica(s)' : 'específica(s)'} de "${sourceUnitName}"`, {
+        sourceUnit: sourceUnitName,
+        functionType: funcType,
+        count: selectedFunctions.length
+      });
       
       selectedFunctions.forEach(({ function: func, index }) => {
         const newFunction = { ...currentUnit[0] };
@@ -3702,7 +4052,7 @@
       });
       
       // Actualizar vista
-      showUnidad(lastSelected);
+      showUnidad(unidadesMap[lastSelected]);
       
       // Cerrar modal
       closeCopyOptions();
@@ -3762,6 +4112,11 @@
       
       // Guardar estado para deshacer
       saveUndoState('copy_function', `Copiar función ${funcType === 'gen' ? 'genérica' : 'específica'} de "${sourceUnitName}"`);
+      addToChangeHistory('copy_function', `Copiar función ${funcType === 'gen' ? 'genérica' : 'específica'} de "${sourceUnitName}"`, {
+        sourceUnit: sourceUnitName,
+        functionType: funcType,
+        functionIndex: funcIndex
+      });
       
       // Crear nueva función basada en la copiada
       const newFunction = { ...currentUnit[0] };
@@ -3943,6 +4298,10 @@
     // Agregar/eliminar funciones
     window.addFuncRow = function(type) {
       saveUndoState('add_function', `Agregar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      addToChangeHistory('add_function', `Agregar función ${type === 'gen' ? 'genérica' : 'específica'}`, {
+        functionType: type,
+        unitName: unidadesMap[lastSelected] ? unidadesMap[lastSelected][0]['Unidad Organizativa'] : 'N/A'
+      });
       
       const base = unidadesMap[lastSelected][0];
       if (type === 'gen') {
@@ -3955,6 +4314,11 @@
     };
     window.deleteFuncRow = function(type, idx) {
       saveUndoState('delete_function', `Eliminar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      addToChangeHistory('delete_function', `Eliminar función ${type === 'gen' ? 'genérica' : 'específica'}`, {
+        functionType: type,
+        functionIndex: idx,
+        unitName: unidadesMap[lastSelected] ? unidadesMap[lastSelected][0]['Unidad Organizativa'] : 'N/A'
+      });
       
       let arr = unidadesMap[lastSelected];
       let filtered = arr.filter(u => {
@@ -3968,6 +4332,9 @@
     // Implementación de eliminarUnidad
     function eliminarUnidad(nombreUnidad) {
       saveUndoState('delete_unit', `Eliminar unidad: ${nombreUnidad}`);
+      addToChangeHistory('delete_unit', `Eliminar unidad: ${nombreUnidad}`, {
+        unitName: nombreUnidad
+      });
       
       // Buscar la clave exacta (nombre + '|' + padre) en el mapa
       // Puede haber varias unidades con el mismo nombre pero distinto padre, así que buscamos la seleccionada
@@ -4131,6 +4498,13 @@
           mostrarAlerta('Error: Elemento de archivo no encontrado', 2000, '#e74c3c');
           return;
         }
+        
+            // Verificar si el fileInput está deshabilitado (estar oculto es normal)
+    if (fileInput.disabled) {
+      console.error('fileInput is disabled');
+      mostrarAlerta('Error: Selector de archivos no disponible', 2000, '#e74c3c');
+      return;
+    }
         
         console.log('Triggering file input click');
         fileInput.click();
@@ -4420,6 +4794,15 @@
     });
     document.getElementById('adminMenu').addEventListener('click', function(e) {
       e.stopPropagation();
+    });
+    
+    // Event listeners para los nuevos botones del menú Admin
+    document.getElementById('recentChangesBtn').addEventListener('click', function() {
+      showChangeHistory();
+    });
+    
+    document.getElementById('validateIntegrityBtn').addEventListener('click', function() {
+      runManualValidation();
     });
     
     // Verificación adicional para asegurar que el botón Browse funcione

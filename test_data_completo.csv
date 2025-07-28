@@ -1,0 +1,42 @@
+Unidad Organizativa;Reporta a;Jerarquía;Nivel Jerárquico Calculado;Unidades que Reportan Directamente;Misión;Tipo de Función;Descripción;Producto Final;Porcentaje Dedicación
+Gerencia General;;1;1;0;Dirigir y coordinar todas las operaciones del banco;Genérica;Establecer la estrategia corporativa y políticas generales;Plan Estratégico Corporativo;
+Gerencia General;;1;1;0;Dirigir y coordinar todas las operaciones del banco;Genérica;Gestionar las relaciones con stakeholders externos;Reportes de Relaciones Institucionales;
+Gerencia General;;1;1;0;Dirigir y coordinar todas las operaciones del banco;Específica;Supervisar el cumplimiento regulatorio;Reporte de Cumplimiento Mensual;15
+Gerencia General;;1;1;0;Dirigir y coordinar todas las operaciones del banco;Específica;Coordinar reuniones de directorio;Actas de Directorio;10
+Gerencia de Personas;Gerencia General;1.1;2;0;Gestionar el capital humano de la organización;Genérica;Desarrollar políticas de recursos humanos;Manual de Políticas de RH;
+Gerencia de Personas;Gerencia General;1.1;2;0;Gestionar el capital humano de la organización;Genérica;Coordinar procesos de selección y contratación;Proceso de Contratación Optimizado;
+Gerencia de Personas;Gerencia General;1.1;2;0;Gestionar el capital humano de la organización;Específica;Administrar nómina y beneficios;Procesamiento de Nómina;25
+Gerencia de Personas;Gerencia General;1.1;2;0;Gestionar el capital humano de la organización;Específica;Implementar programas de capacitación;Plan de Capacitación Anual;20
+Gerencia de Personas;Gerencia General;1.1;2;0;Gestionar el capital humano de la organización;Específica;Gestionar clima laboral;Encuesta de Clima Laboral;15
+Gerencia de Empresas;Gerencia General;1.2;2;0;Gestionar productos y servicios para empresas;Genérica;Desarrollar productos financieros empresariales;Portafolio de Productos Empresariales;
+Gerencia de Empresas;Gerencia General;1.2;2;0;Gestionar productos y servicios para empresas;Genérica;Coordinar estrategia comercial empresarial;Plan Comercial Empresarial;
+Gerencia de Empresas;Gerencia General;1.2;2;0;Gestionar productos y servicios para empresas;Específica;Gestionar cartera de créditos empresariales;Cartera de Créditos Empresariales;30
+Gerencia de Empresas;Gerencia General;1.2;2;0;Gestionar productos y servicios para empresas;Específica;Administrar cuentas corrientes empresariales;Estado de Cuentas Empresariales;25
+Gerencia de Empresas;Gerencia General;1.2;2;0;Gestionar productos y servicios para empresas;Específica;Coordinar servicios de tesorería empresarial;Servicios de Tesorería;20
+Gerencia de Personas Físicas;Gerencia General;1.3;2;0;Gestionar productos y servicios para personas;Genérica;Desarrollar productos financieros personales;Portafolio de Productos Personales;
+Gerencia de Personas Físicas;Gerencia General;1.3;2;0;Gestionar productos y servicios para personas;Genérica;Coordinar estrategia comercial personal;Plan Comercial Personal;
+Gerencia de Personas Físicas;Gerencia General;1.3;2;0;Gestionar productos y servicios para personas;Específica;Gestionar cartera de créditos personales;Cartera de Créditos Personales;35
+Gerencia de Personas Físicas;Gerencia General;1.3;2;0;Gestionar productos y servicios para personas;Específica;Administrar cuentas de ahorro personales;Estado de Cuentas Personales;30
+Gerencia de Personas Físicas;Gerencia General;1.3;2;0;Gestionar productos y servicios para personas;Específica;Coordinar servicios de tarjetas de crédito;Servicios de Tarjetas;20
+Gerencia de Tecnología;Gerencia General;1.4;2;0;Gestionar la infraestructura tecnológica del banco;Genérica;Desarrollar arquitectura tecnológica;Arquitectura Tecnológica Corporativa;
+Gerencia de Tecnología;Gerencia General;1.4;2;0;Gestionar la infraestructura tecnológica del banco;Genérica;Coordinar proyectos de desarrollo;Portafolio de Proyectos TI;
+Gerencia de Tecnología;Gerencia General;1.4;2;0;Gestionar la infraestructura tecnológica del banco;Específica;Administrar sistemas core bancarios;Sistemas Core Operativos;40
+Gerencia de Tecnología;Gerencia General;1.4;2;0;Gestionar la infraestructura tecnológica del banco;Específica;Gestionar infraestructura de red;Red Corporativa Estable;25
+Gerencia de Tecnología;Gerencia General;1.4;2;0;Gestionar la infraestructura tecnológica del banco;Específica;Implementar ciberseguridad;Protocolos de Seguridad;20
+Gerencia Financiera;Gerencia General;1.5;2;0;Gestionar las finanzas y contabilidad del banco;Genérica;Desarrollar políticas financieras;Políticas Financieras Corporativas;
+Gerencia Financiera;Gerencia General;1.5;2;0;Gestionar las finanzas y contabilidad del banco;Genérica;Coordinar presupuesto anual;Presupuesto Anual Corporativo;
+Gerencia Financiera;Gerencia General;1.5;2;0;Gestionar las finanzas y contabilidad del banco;Específica;Administrar contabilidad general;Estados Financieros Mensuales;30
+Gerencia Financiera;Gerencia General;1.5;2;0;Gestionar las finanzas y contabilidad del banco;Específica;Gestionar tesorería corporativa;Tesorería Corporativa;25
+Gerencia Financiera;Gerencia General;1.5;2;0;Gestionar las finanzas y contabilidad del banco;Específica;Coordinar auditoría interna;Reportes de Auditoría;20
+Estrategia Comercial Personas;Gerencia de Personas Físicas;1.3.1;3;0;Desarrollar estrategias comerciales para segmento personas;Genérica;Analizar comportamiento del cliente personal;Análisis de Comportamiento Cliente;
+Estrategia Comercial Personas;Gerencia de Personas Físicas;1.3.1;3;0;Desarrollar estrategias comerciales para segmento personas;Específica;Diseñar campañas de marketing personal;Campañas de Marketing Personal;40
+Estrategia Comercial Personas;Gerencia de Personas Físicas;1.3.1;3;0;Desarrollar estrategias comerciales para segmento personas;Específica;Coordinar ventas de productos personales;Ventas de Productos Personales;35
+Estrategia Comercial Empresas;Gerencia de Empresas;1.2.1;3;0;Desarrollar estrategias comerciales para segmento empresas;Genérica;Analizar comportamiento del cliente empresarial;Análisis de Comportamiento Empresarial;
+Estrategia Comercial Empresas;Gerencia de Empresas;1.2.1;3;0;Desarrollar estrategias comerciales para segmento empresas;Específica;Diseñar campañas de marketing empresarial;Campañas de Marketing Empresarial;40
+Estrategia Comercial Empresas;Gerencia de Empresas;1.2.1;3;0;Desarrollar estrategias comerciales para segmento empresas;Específica;Coordinar ventas de productos empresariales;Ventas de Productos Empresariales;35
+Desarrollo de Productos Personas;Gerencia de Personas Físicas;1.3.2;3;0;Desarrollar y mantener productos para personas;Genérica;Investigar tendencias del mercado personal;Análisis de Tendencias Personales;
+Desarrollo de Productos Personas;Gerencia de Personas Físicas;1.3.2;3;0;Desarrollar y mantener productos para personas;Específica;Diseñar nuevos productos personales;Nuevos Productos Personales;50
+Desarrollo de Productos Personas;Gerencia de Personas Físicas;1.3.2;3;0;Desarrollar y mantener productos para personas;Específica;Optimizar productos existentes;Productos Optimizados;30
+Desarrollo de Productos Empresas;Gerencia de Empresas;1.2.2;3;0;Desarrollar y mantener productos para empresas;Genérica;Investigar tendencias del mercado empresarial;Análisis de Tendencias Empresariales;
+Desarrollo de Productos Empresas;Gerencia de Empresas;1.2.2;3;0;Desarrollar y mantener productos para empresas;Específica;Diseñar nuevos productos empresariales;Nuevos Productos Empresariales;50
+Desarrollo de Productos Empresas;Gerencia de Empresas;1.2.2;3;0;Desarrollar y mantener productos para empresas;Específica;Optimizar productos existentes;Productos Optimizados;30 
