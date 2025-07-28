@@ -235,6 +235,12 @@
             font-size: var(--font-size-small) !important;
         }
         
+        /* Campos de Producto Final - Tamaño normal */
+        .edit-mode input[data-field="Producto Final"] {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: var(--font-size-normal) !important;
+        }
+        
         /* Selects en modo edición - Tamaño normal */
         .edit-mode select {
             font-size: var(--font-size-normal) !important;
@@ -267,6 +273,12 @@
         /* Excepción para campos de porcentaje que deben ser más pequeños */
         .edit-mode input[data-field="Porcentaje Dedicación"][style*="font-size"] {
             font-size: var(--font-size-small) !important;
+        }
+        
+        /* Excepción para campos de Producto Final que deben tener Courier New */
+        .edit-mode input[data-field="Producto Final"][style*="font-size"] {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: var(--font-size-normal) !important;
         }
         .drag-handle {
             cursor: grab;
@@ -1110,7 +1122,196 @@
         .correction-option input[type="radio"] {
             margin-right: 8px;
         }
+        
+        /* Estilos para el modal de ayuda */
+        .help-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            overflow-y: auto;
+        }
+        
+        .help-modal {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .help-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e9ecef;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .help-title {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        .close-help-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .close-help-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .help-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .help-navigation {
+            width: 250px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+        
+        .help-nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .help-nav-item:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .help-nav-item.active {
+            background: #667eea;
+            color: white;
+            border-left: 4px solid #fff;
+        }
+        
+        .help-sections {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+        
+        .help-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .help-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .help-section h3 {
+            color: #495057;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .help-section h4 {
+            color: #6c757d;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .help-section p {
+            line-height: 1.6;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .help-section ul, .help-section ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .help-section li {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #495057;
+        }
+        
+        .help-section strong {
+            color: #495057;
+            font-weight: 600;
+        }
+        
+        .help-section code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+        
+        /* Responsive design para el modal de ayuda */
+        @media (max-width: 768px) {
+            .help-modal {
+                width: 95%;
+                margin: 10px auto;
+            }
+            
+            .help-content {
+                flex-direction: column;
+            }
+            
+            .help-navigation {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+                max-height: 200px;
+            }
+            
+            .help-nav-item {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            
+            .help-sections {
+                padding: 20px;
+            }
+            
+            .help-title {
+                font-size: 1.4em;
+            }
+        }
     </style>
+    <!-- Librería para exportación a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <h1 style="display:inline-block;">Unidades Organizativas BNA</h1>
@@ -1153,6 +1354,8 @@
             <button id="recentChangesBtn" class="edit-btn">📋 Últimos Cambios</button>
             <button id="validateIntegrityBtn" class="edit-btn">🔍 Validación de Integridad</button>
             <button id="exportBtn" class="edit-btn">Exportar CSV</button>
+            <button id="exportPdfBtn" class="edit-btn" style="background:#e74c3c;color:#fff;">📄 Exportar PDF</button>
+            <button id="helpBtn" class="edit-btn" style="background:#6c5ce7;color:#fff;">❓ Ayuda</button>
           </div>
         </div>
       </div>
@@ -1189,6 +1392,324 @@
             <div class="validation-footer">
                 <button id="skipValidationBtn" class="issue-btn secondary">Omitir Validación</button>
                 <button id="finishValidationBtn" class="issue-btn success" style="display: none;">Finalizar y Aplicar Correcciones</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Ayuda -->
+    <div id="helpOverlay" class="help-overlay">
+        <div class="help-modal">
+            <div class="help-header">
+                <h2 class="help-title">📚 Guía Completa de Funcionalidades</h2>
+                <button id="closeHelpBtn" class="close-help-btn">✕</button>
+            </div>
+            <div class="help-content">
+                <div class="help-navigation">
+                    <div class="help-nav-item active" data-section="general">🏠 General</div>
+                    <div class="help-nav-item" data-section="file-management">📁 Gestión de Archivos</div>
+                    <div class="help-nav-item" data-section="edit-mode">✏️ Modo Edición</div>
+                    <div class="help-nav-item" data-section="functions">⚙️ Gestión de Funciones</div>
+                    <div class="help-nav-item" data-section="validation">🔍 Validación de Datos</div>
+                    <div class="help-nav-item" data-section="history">📋 Historial y Cambios</div>
+                    <div class="help-nav-item" data-section="export">📤 Exportación</div>
+                    <div class="help-nav-item" data-section="tips">💡 Consejos y Trucos</div>
+                </div>
+                <div class="help-sections">
+                    <!-- Sección General -->
+                    <div id="help-general" class="help-section active">
+                        <h3>🏠 Información General</h3>
+                        <p>Esta aplicación permite gestionar y visualizar la estructura organizacional del BNA (Banco de la Nación Argentina) de manera interactiva.</p>
+                        
+                        <h4>🎯 Características Principales:</h4>
+                        <ul>
+                            <li><strong>Visualización Jerárquica:</strong> Árbol interactivo de unidades organizativas</li>
+                            <li><strong>Edición en Tiempo Real:</strong> Modificar datos sin recargar la página</li>
+                            <li><strong>Validación Automática:</strong> Detección de inconsistencias en los datos</li>
+                            <li><strong>Historial de Cambios:</strong> Seguimiento de todas las modificaciones</li>
+                            <li><strong>Exportación de Datos:</strong> Generar archivos CSV actualizados</li>
+                        </ul>
+                        
+                        <h4>📊 Estructura de Datos:</h4>
+                        <ul>
+                            <li><strong>Unidad Organizativa:</strong> Nombre de la unidad</li>
+                            <li><strong>Jerarquía:</strong> Nivel en la estructura organizacional</li>
+                            <li><strong>Reporta a:</strong> Unidad superior directa</li>
+                            <li><strong>Misión:</strong> Propósito y responsabilidades</li>
+                            <li><strong>Funciones Genéricas:</strong> Actividades generales de la unidad</li>
+                            <li><strong>Funciones Específicas:</strong> Tareas concretas con porcentaje de dedicación</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Gestión de Archivos -->
+                    <div id="help-file-management" class="help-section">
+                        <h3>📁 Gestión de Archivos</h3>
+                        
+                        <h4>📥 Cargar Archivo CSV:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"Examinar..."</strong> para seleccionar un archivo CSV</li>
+                            <li>O ingresa manualmente la ruta del archivo en el campo de texto</li>
+                            <li>Haz clic en <strong>"Cargar Archivo"</strong></li>
+                            <li>El sistema validará automáticamente la integridad de los datos</li>
+                        </ol>
+                        
+                        <h4>📋 Formato del Archivo CSV:</h4>
+                        <p>El archivo debe contener las siguientes columnas:</p>
+                        <ul>
+                            <li><code>Unidad Organizativa</code> - Nombre de la unidad</li>
+                            <li><code>Jerarquía</code> - Nivel jerárquico (1, 2, 3, etc.)</li>
+                            <li><code>Reporta a</code> - Unidad superior (vacío para unidades raíz)</li>
+                            <li><code>Misión</code> - Descripción de la misión</li>
+                            <li><code>Tipo de Función</code> - "Genérica" o "Específica"</li>
+                            <li><code>Descripción</code> - Descripción de la función</li>
+                            <li><code>Producto Final</code> - Resultado esperado</li>
+                            <li><code>Porcentaje Dedicación</code> - Solo para funciones específicas</li>
+                        </ul>
+                        
+                        <h4>💾 Estado de Datos:</h4>
+                        <p>El panel muestra información sobre:</p>
+                        <ul>
+                            <li><strong>Última Importación:</strong> Archivo y fecha de carga</li>
+                            <li><strong>Última Exportación:</strong> Archivo y fecha de exportación</li>
+                            <li><strong>Estado Actual:</strong> Sincronización con el archivo original</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Modo Edición -->
+                    <div id="help-edit-mode" class="help-section">
+                        <h3>✏️ Modo Edición</h3>
+                        
+                        <h4>🚀 Activar Modo Edición:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"Entrar en modo edición"</strong></li>
+                            <li>Los botones de edición aparecerán junto a cada unidad</li>
+                            <li>Haz clic en una unidad para editarla</li>
+                        </ol>
+                        
+                        <h4>📝 Editar Información de Unidad:</h4>
+                        <ul>
+                            <li><strong>Nombre:</strong> Cambiar el nombre de la unidad</li>
+                            <li><strong>Reporta a:</strong> Seleccionar la unidad superior</li>
+                            <li><strong>Jerarquía:</strong> Ajustar el nivel jerárquico</li>
+                            <li><strong>Misión:</strong> Modificar la descripción de la misión</li>
+                        </ul>
+                        
+                        <h4>➕ Agregar Nueva Unidad:</h4>
+                        <ol>
+                            <li>En modo edición, haz clic en el botón <strong>"+"</strong> junto a la unidad padre</li>
+                            <li>Se creará una nueva unidad con datos por defecto</li>
+                            <li>Edita los campos según sea necesario</li>
+                        </ol>
+                        
+                        <h4>🗑️ Eliminar Unidad:</h4>
+                        <ol>
+                            <li>Haz clic en el botón <strong>"×"</strong> junto a la unidad</li>
+                            <li>Confirma la eliminación</li>
+                            <li><strong>⚠️ Precaución:</strong> Se eliminarán también todas las unidades hijas</li>
+                        </ol>
+                        
+                        <h4>🎨 Características del Modo Edición:</h4>
+                        <ul>
+                            <li><strong>Fuente Courier New:</strong> Todos los campos de texto usan fuente monoespaciada</li>
+                            <li><strong>Tamaños Unificados:</strong> Consistencia visual en todos los campos</li>
+                            <li><strong>Guardado Automático:</strong> Los cambios se guardan automáticamente</li>
+                            <li><strong>Indicador de Guardado:</strong> Notificación visual cuando se guardan los cambios</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Gestión de Funciones -->
+                    <div id="help-functions" class="help-section">
+                        <h3>⚙️ Gestión de Funciones</h3>
+                        
+                        <h4>📋 Tipos de Funciones:</h4>
+                        <ul>
+                            <li><strong>Funciones Genéricas:</strong> Actividades generales de la unidad</li>
+                            <li><strong>Funciones Específicas:</strong> Tareas concretas con porcentaje de dedicación</li>
+                        </ul>
+                        
+                        <h4>➕ Agregar Función:</h4>
+                        <ol>
+                            <li>Selecciona una unidad en modo edición</li>
+                            <li>Haz clic en <strong>"+ Agregar"</strong> en la sección de funciones</li>
+                            <li>Completa los campos requeridos</li>
+                        </ol>
+                        
+                        <h4>📋 Copiar Funciones de Otra Unidad:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"📋 Copiar de Unidad"</strong></li>
+                            <li>Selecciona la unidad origen del menú desplegable</li>
+                            <li>Marca las funciones que deseas copiar</li>
+                            <li>Haz clic en <strong>"Copiar Selección"</strong></li>
+                        </ol>
+                        
+                        <h4>🗑️ Eliminar Función:</h4>
+                        <ol>
+                            <li>Haz clic en el botón <strong>"✕"</strong> junto a la función</li>
+                            <li>La función se eliminará inmediatamente</li>
+                        </ol>
+                        
+                        <h4>📊 Porcentajes de Dedicación:</h4>
+                        <ul>
+                            <li>Solo aplica a <strong>funciones específicas</strong></li>
+                            <li>El sistema valida que la suma no exceda el 100%</li>
+                            <li>Se muestran advertencias si los porcentajes no suman 100%</li>
+                        </ul>
+                        
+                        <h4>🔄 Reordenar Funciones:</h4>
+                        <ol>
+                            <li>Usa el ícono <strong>"⋮⋮"</strong> para arrastrar y soltar</li>
+                            <li>Las funciones se reordenarán automáticamente</li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Sección Validación de Datos -->
+                    <div id="help-validation" class="help-section">
+                        <h3>🔍 Validación de Datos</h3>
+                        
+                        <h4>🚨 Tipos de Problemas Detectados:</h4>
+                        <ul>
+                            <li><strong>Estructura Básica:</strong> Campos obligatorios faltantes</li>
+                            <li><strong>Jerarquía:</strong> Inconsistencias en la estructura organizacional</li>
+                            <li><strong>Duplicados:</strong> Unidades con nombres idénticos</li>
+                            <li><strong>Contenido:</strong> Campos vacíos o con formato incorrecto</li>
+                            <li><strong>Porcentajes:</strong> Suma incorrecta de dedicación</li>
+                        </ul>
+                        
+                        <h4>🔧 Resolución de Problemas:</h4>
+                        <ul>
+                            <li><strong>Corrección Automática:</strong> Algunos problemas se resuelven automáticamente</li>
+                            <li><strong>Selección Manual:</strong> Elegir entre opciones disponibles</li>
+                            <li><strong>Entrada de Texto:</strong> Escribir valores personalizados</li>
+                            <li><strong>Selección Múltiple:</strong> Elegir de una lista de opciones</li>
+                            <li><strong>Información Contextual:</strong> Datos adicionales para tomar decisiones</li>
+                        </ul>
+                        
+                        <h4>📋 Validación Manual:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"🔍 Validación de Integridad"</strong></li>
+                            <li>El sistema ejecutará todas las validaciones</li>
+                            <li>Revisa los resultados en el modal</li>
+                            <li>Exporta el reporte si es necesario</li>
+                        </ol>
+                        
+                        <h4>💡 Información Contextual:</h4>
+                        <p>Para problemas complejos, el sistema proporciona:</p>
+                        <ul>
+                            <li><strong>Funciones Relacionadas:</strong> Otras funciones similares en la organización</li>
+                            <li><strong>Estadísticas:</strong> Distribución de tipos de función</li>
+                            <li><strong>Jerarquía:</strong> Información sobre la estructura organizacional</li>
+                            <li><strong>Recomendaciones:</strong> Sugerencias basadas en patrones existentes</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Historial y Cambios -->
+                    <div id="help-history" class="help-section">
+                        <h3>📋 Historial y Cambios</h3>
+                        
+                        <h4>📋 Ver Últimos Cambios:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"📋 Últimos Cambios"</strong></li>
+                            <li>Se abrirá un modal con la lista cronológica de cambios</li>
+                            <li>Los cambios se muestran con fecha y hora</li>
+                        </ol>
+                        
+                        <h4>🔄 Deshacer Cambios:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"↶ Deshacer"</strong> (se activa cuando hay cambios)</li>
+                            <li>Se deshará el último cambio realizado</li>
+                            <li>El botón se desactiva cuando no hay más cambios para deshacer</li>
+                        </ol>
+                        
+                        <h4>📊 Tipos de Cambios Registrados:</h4>
+                        <ul>
+                            <li><strong>Agregar Unidad:</strong> Creación de nuevas unidades organizativas</li>
+                            <li><strong>Eliminar Unidad:</strong> Eliminación de unidades</li>
+                            <li><strong>Agregar Función:</strong> Creación de funciones genéricas o específicas</li>
+                            <li><strong>Eliminar Función:</strong> Eliminación de funciones</li>
+                            <li><strong>Copiar Funciones:</strong> Copia de funciones entre unidades</li>
+                            <li><strong>Reordenar Funciones:</strong> Cambio en el orden de las funciones</li>
+                        </ul>
+                        
+                        <h4>💾 Persistencia de Datos:</h4>
+                        <ul>
+                            <li>Los cambios se guardan automáticamente en el navegador</li>
+                            <li>El historial se mantiene entre sesiones</li>
+                            <li>Los datos persisten hasta que se exporten o se cargue un nuevo archivo</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Exportación -->
+                    <div id="help-export" class="help-section">
+                        <h3>📤 Exportación</h3>
+                        
+                        <h4>📄 Exportar a CSV:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"Exportar CSV"</strong></li>
+                            <li>Se descargará automáticamente un archivo CSV</li>
+                            <li>El nombre incluye la fecha y hora de exportación</li>
+                        </ol>
+                        
+                        <h4>📄 Exportar a PDF:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"📄 Exportar PDF"</strong></li>
+                            <li>Se generará automáticamente un archivo PDF</li>
+                            <li>Cada unidad organizativa ocupará una página separada</li>
+                            <li>Incluye misión, funciones genéricas y específicas</li>
+                            <li>Formato profesional con tablas estructuradas</li>
+                        </ol>
+                        
+                        <h4>📋 Contenido del Archivo Exportado:</h4>
+                        <ul>
+                            <li>Todas las unidades organizativas</li>
+                            <li>Todas las funciones (genéricas y específicas)</li>
+                            <li>Información de jerarquía y reportes</li>
+                            <li>Misiones y descripciones actualizadas</li>
+                            <li>Porcentajes de dedicación para funciones específicas</li>
+                        </ul>
+                        
+                        <h4>📊 Reportes de Validación:</h4>
+                        <ul>
+                            <li>Se pueden exportar reportes de validación</li>
+                            <li>Incluyen todos los problemas detectados</li>
+                            <li>Formato de texto para fácil lectura</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Sección Consejos y Trucos -->
+                    <div id="help-tips" class="help-section">
+                        <h3>💡 Consejos y Trucos</h3>
+                        
+                        <h4>⚡ Mejores Prácticas:</h4>
+                        <ul>
+                            <li><strong>Validar Regularmente:</strong> Ejecuta validaciones antes de exportar</li>
+                            <li><strong>Revisar Porcentajes:</strong> Asegúrate de que sumen 100% en cada unidad</li>
+                            <li><strong>Usar Nombres Únicos:</strong> Evita duplicados en nombres de unidades</li>
+                            <li><strong>Guardar Cambios:</strong> Los cambios se guardan automáticamente</li>
+                        </ul>
+                        
+                        <h4>🔧 Solución de Problemas:</h4>
+                        <ul>
+                            <li><strong>Archivo No Carga:</strong> Verifica que sea un archivo CSV válido</li>
+                            <li><strong>Cambios No Se Guardan:</strong> Revisa la conexión a internet</li>
+                            <li><strong>Validación Falla:</strong> Revisa el formato de los datos</li>
+                            <li><strong>Navegador Lento:</strong> Cierra otras pestañas para liberar memoria</li>
+                        </ul>
+                        
+                        <h4>🎯 Funciones Avanzadas:</h4>
+                        <ul>
+                            <li><strong>Copiar Múltiples Funciones:</strong> Usa la función de copia para ahorrar tiempo</li>
+                            <li><strong>Reordenar Jerarquía:</strong> Cambia el campo "Reporta a" para reorganizar</li>
+                            <li><strong>Validación Contextual:</strong> Usa la información adicional para tomar decisiones</li>
+                            <li><strong>Historial Detallado:</strong> Revisa el historial para entender cambios previos</li>
+                        </ul>
+                        
+                        <h4>📱 Compatibilidad:</h4>
+                        <ul>
+                            <li><strong>Navegadores:</strong> Chrome, Firefox, Safari, Edge</li>
+                            <li><strong>Dispositivos:</strong> Escritorio, tablet, móvil</li>
+                            <li><strong>Archivos:</strong> CSV con codificación UTF-8</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -4473,6 +4994,7 @@ Campo: ${issue.field || 'N/A'}
       }
     });
     document.getElementById('exportBtn').addEventListener('click', exportCSV);
+    document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
     document.getElementById('undoBtn').addEventListener('click', undoLastAction);
     
     // Event listeners para el sistema de validación
@@ -4553,7 +5075,7 @@ Campo: ${issue.field || 'N/A'}
       console.log('DOM Content Loaded - Initializing application');
       
       // Verificar que todos los elementos necesarios estén disponibles
-      const requiredElements = ['fileInput', 'browseBtn', 'filePath', 'loadFileBtn', 'editModeBtn', 'undoBtn', 'exportBtn'];
+      const requiredElements = ['fileInput', 'browseBtn', 'filePath', 'loadFileBtn', 'editModeBtn', 'undoBtn', 'exportBtn', 'exportPdfBtn'];
       const missingElements = [];
       
       requiredElements.forEach(id => {
@@ -4833,6 +5355,325 @@ Campo: ${issue.field || 'N/A'}
       }
     }, 500);
     
+    // ===== SISTEMA DE AYUDA =====
+    
+    // Event listener para el botón de ayuda
+    document.getElementById('helpBtn').addEventListener('click', function() {
+      showHelpModal();
+    });
+    
+    // Event listener para cerrar el modal de ayuda
+    document.getElementById('closeHelpBtn').addEventListener('click', function() {
+      closeHelpModal();
+    });
+    
+    // Event listeners para la navegación del menú de ayuda
+    document.querySelectorAll('.help-nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const section = this.getAttribute('data-section');
+        switchHelpSection(section);
+      });
+    });
+    
+    // Función para mostrar el modal de ayuda
+    function showHelpModal() {
+      document.getElementById('helpOverlay').style.display = 'block';
+      // Asegurar que la primera sección esté activa
+      switchHelpSection('general');
+    }
+    
+    // Función para cerrar el modal de ayuda
+    function closeHelpModal() {
+      document.getElementById('helpOverlay').style.display = 'none';
+    }
+    
+    // Función para cambiar entre secciones del menú de ayuda
+    function switchHelpSection(sectionName) {
+      // Remover clase active de todos los elementos de navegación
+      document.querySelectorAll('.help-nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Ocultar todas las secciones
+      document.querySelectorAll('.help-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Activar el elemento de navegación seleccionado
+      const activeNavItem = document.querySelector(`[data-section="${sectionName}"]`);
+      if (activeNavItem) {
+        activeNavItem.classList.add('active');
+      }
+      
+      // Mostrar la sección correspondiente
+      const activeSection = document.getElementById(`help-${sectionName}`);
+      if (activeSection) {
+        activeSection.classList.add('active');
+      }
+    }
+    
+    // Cerrar modal de ayuda al hacer clic fuera de él
+    document.getElementById('helpOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeHelpModal();
+      }
+    });
+    
+    // Cerrar modal de ayuda con la tecla Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('helpOverlay').style.display === 'block') {
+        closeHelpModal();
+      }
+    });
+    
+    // Función para exportar a PDF
+    function exportToPDF() {
+      try {
+        console.log('Iniciando exportación a PDF...');
+        
+        // Crear el contenido HTML para el PDF
+        const pdfContent = generatePDFContent();
+        
+        // Configurar opciones de PDF
+        const pdfOptions = {
+          margin: [20, 20, 20, 20],
+          filename: `organigrama_bna_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { 
+            scale: 2,
+            useCORS: true,
+            allowTaint: true
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait' 
+          }
+        };
+        
+        // Generar PDF usando html2pdf.js
+        html2pdf().from(pdfContent).set(pdfOptions).save();
+        
+        mostrarAlerta('✅ PDF exportado correctamente', 3000, '#27ae60');
+        addToChangeHistory('export_pdf', 'Exportar organigrama a PDF', { format: 'PDF', units: Object.keys(unidadesMap).length });
+        
+      } catch (error) {
+        console.error('Error al exportar PDF:', error);
+        mostrarAlerta('Error al exportar PDF: ' + error.message, 3000, '#e74c3c');
+      }
+    }
+    
+    // Función para generar el contenido HTML del PDF
+    function generatePDFContent() {
+      const units = Object.values(unidadesMap);
+      let pdfHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            @page {
+              size: A4;
+              margin: 20mm;
+            }
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 12px;
+              line-height: 1.4;
+              color: #333;
+            }
+            .unit-page {
+              page-break-after: always;
+              margin-bottom: 20px;
+            }
+            .unit-page:last-child {
+              page-break-after: avoid;
+            }
+            .unit-header {
+              text-align: center;
+              margin-bottom: 20px;
+              border-bottom: 2px solid #2c3e50;
+              padding-bottom: 10px;
+            }
+            .unit-name {
+              font-size: 18px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin-bottom: 10px;
+            }
+            .unit-metadata {
+              font-size: 10px;
+              color: #666;
+              margin-bottom: 15px;
+            }
+            .mission-section {
+              margin-bottom: 20px;
+            }
+            .mission-title {
+              font-size: 14px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin-bottom: 8px;
+            }
+            .mission-content {
+              font-size: 11px;
+              text-align: justify;
+              padding: 10px;
+              background-color: #f8f9fa;
+              border-left: 3px solid #3498db;
+            }
+            .functions-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 15px;
+              font-size: 10px;
+            }
+            .functions-table th {
+              background-color: #2c3e50;
+              color: white;
+              padding: 8px;
+              text-align: left;
+              font-weight: bold;
+            }
+            .functions-table td {
+              padding: 6px 8px;
+              border: 1px solid #ddd;
+              vertical-align: top;
+            }
+            .functions-table tr:nth-child(even) {
+              background-color: #f8f9fa;
+            }
+            .table-title {
+              font-size: 12px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin: 15px 0 8px 0;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+            .footer {
+              position: fixed;
+              bottom: 10mm;
+              left: 20mm;
+              right: 20mm;
+              text-align: center;
+              font-size: 8px;
+              color: #666;
+              border-top: 1px solid #ddd;
+              padding-top: 5px;
+            }
+          </style>
+        </head>
+        <body>
+      `;
+      
+      units.forEach((unitData, index) => {
+        const unit = unitData[0];
+        const functions = unitData.filter(row => row['Tipo de Función'] === 'Genérica' || row['Tipo de Función'] === 'Específica');
+        
+        // Agregar salto de página si no es la primera unidad
+        if (index > 0) {
+          pdfHTML += '<div class="page-break"></div>';
+        }
+        
+        pdfHTML += `
+          <div class="unit-page">
+            <div class="unit-header">
+              <div class="unit-name">${unit['Unidad Organizativa']}</div>
+              <div class="unit-metadata">
+                <strong>Jerarquía:</strong> ${unit['Jerarquía']} | 
+                <strong>Nivel:</strong> ${unit['Nivel']} | 
+                <strong>Reporta a:</strong> ${unit['Reporta a'] || 'N/A'} | 
+                <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}
+              </div>
+            </div>
+            
+            <div class="mission-section">
+              <div class="mission-title">Misión</div>
+              <div class="mission-content">${unit['Misión'] || 'No especificada'}</div>
+            </div>
+        `;
+        
+        // Funciones Genéricas
+        const genericFunctions = functions.filter(f => f['Tipo de Función'] === 'Genérica');
+        if (genericFunctions.length > 0) {
+          pdfHTML += `
+            <div class="table-title">Funciones Genéricas</div>
+            <table class="functions-table">
+              <thead>
+                <tr>
+                  <th style="width: 70%;">Función Genérica</th>
+                  <th style="width: 30%;">Producto Final</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          
+          genericFunctions.forEach(func => {
+            pdfHTML += `
+              <tr>
+                <td>${func['Función Genérica'] || 'No especificada'}</td>
+                <td>${func['Producto Final'] || 'No especificado'}</td>
+              </tr>
+            `;
+          });
+          
+          pdfHTML += `
+              </tbody>
+            </table>
+          `;
+        }
+        
+        // Funciones Específicas
+        const specificFunctions = functions.filter(f => f['Tipo de Función'] === 'Específica');
+        if (specificFunctions.length > 0) {
+          pdfHTML += `
+            <div class="table-title">Funciones Específicas</div>
+            <table class="functions-table">
+              <thead>
+                <tr>
+                  <th style="width: 50%;">Función Específica</th>
+                  <th style="width: 30%;">Producto Final</th>
+                  <th style="width: 20%;">% Dedicación</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          
+          specificFunctions.forEach(func => {
+            pdfHTML += `
+              <tr>
+                <td>${func['Función Específica'] || 'No especificada'}</td>
+                <td>${func['Producto Final'] || 'No especificado'}</td>
+                <td style="text-align: center;">${func['Porcentaje Dedicación'] || '0'}%</td>
+              </tr>
+            `;
+          });
+          
+          pdfHTML += `
+              </tbody>
+            </table>
+          `;
+        }
+        
+        pdfHTML += `
+          </div>
+        `;
+      });
+      
+      pdfHTML += `
+          <div class="footer">
+            Organigrama BNA - Generado el ${new Date().toLocaleDateString('es-ES')} a las ${new Date().toLocaleTimeString('es-ES')} | 
+            Total de unidades: ${units.length}
+          </div>
+        </body>
+        </html>
+      `;
+      
+      return pdfHTML;
+    }
+
     </script>
 </body>
 </html> 
