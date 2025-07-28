@@ -5529,17 +5529,51 @@ Campo: ${issue.field || 'N/A'}
       }
     }
     
+    // Función para obtener el orden jerárquico del árbol
+    function getHierarchicalOrder() {
+      const orderedUnits = [];
+      
+      function traverseTree(nodes) {
+        nodes.forEach(node => {
+          // Obtener todos los registros para esta unidad
+          const unitKey = node.key;
+          const unitData = unidadesMap[unitKey];
+          
+          if (unitData && unitData.length > 0) {
+            orderedUnits.push(unitData);
+          }
+          
+          // Recorrer hijos si están expandidos
+          if (node.children && node.children.length > 0 && expandedNodes[node.key]) {
+            traverseTree(node.children);
+          }
+        });
+      }
+      
+      // Usar el árbol actual si existe, sino construir uno
+      if (treeRoots && treeRoots.length > 0) {
+        traverseTree(treeRoots);
+      } else {
+        // Construir árbol temporal para obtener orden
+        const tempTree = buildTree([].concat(...Object.values(unidadesMap)));
+        traverseTree(tempTree);
+      }
+      
+      return orderedUnits;
+    }
+    
     // Función para generar el contenido HTML del PDF con mejor manejo de errores
     function generatePDFContent() {
       try {
-        // Obtener datos del localStorage en lugar del CSV directo
-        const units = Object.values(unidadesMap);
+        // Obtener datos en orden jerárquico del árbol
+        const units = getHierarchicalOrder();
         
         if (!units || units.length === 0) {
           throw new Error('No hay datos disponibles para exportar');
         }
         
-        console.log(`Generando PDF para ${units.length} unidades`);
+        console.log(`Generando PDF para ${units.length} unidades en orden jerárquico`);
+        console.log('Orden de unidades:', units.map(u => u[0]['Unidad Organizativa']));
         console.log('Estructura de datos de ejemplo:', units[0]);
         
         let pdfHTML = `
