@@ -5532,6 +5532,7 @@ Campo: ${issue.field || 'N/A'}
     // Función para generar el contenido HTML del PDF con mejor manejo de errores
     function generatePDFContent() {
       try {
+        // Obtener datos del localStorage en lugar del CSV directo
         const units = Object.values(unidadesMap);
         
         if (!units || units.length === 0) {
@@ -5539,6 +5540,7 @@ Campo: ${issue.field || 'N/A'}
         }
         
         console.log(`Generando PDF para ${units.length} unidades`);
+        console.log('Estructura de datos de ejemplo:', units[0]);
         
         let pdfHTML = `
           <!DOCTYPE html>
@@ -5652,6 +5654,9 @@ Campo: ${issue.field || 'N/A'}
         // Incluir todas las funciones, no solo las genéricas y específicas
         const functions = unitData.filter(row => row['Tipo de Función'] && row['Tipo de Función'] !== '');
         
+        console.log(`Procesando unidad: ${unit['Unidad Organizativa']}`);
+        console.log(`Funciones encontradas: ${functions.length}`);
+        
         // Agregar salto de página si no es la primera unidad
         if (index > 0) {
           pdfHTML += '<div class="page-break"></div>';
@@ -5663,8 +5668,8 @@ Campo: ${issue.field || 'N/A'}
               <div class="unit-name">${unit['Unidad Organizativa']}</div>
               <div class="unit-metadata">
                 <strong>Jerarquía:</strong> ${unit['Jerarquía']} | 
-                <strong>Nivel:</strong> ${unit['Nivel']} | 
-                <strong>Reporta a:</strong> ${unit['Reporta a'] || 'N/A'} | 
+                <strong>Nivel:</strong> ${unit['Nivel Jerárquico Calculado'] || unit['Nivel']} | 
+                <strong>Reporta a:</strong> ${unit['Reporta A'] || 'N/A'} | 
                 <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}
               </div>
             </div>
@@ -5685,6 +5690,8 @@ Campo: ${issue.field || 'N/A'}
           functionsByType[type].push(func);
         });
         
+        console.log('Tipos de funciones encontrados:', Object.keys(functionsByType));
+        
         // Generar tablas para cada tipo de función
         Object.keys(functionsByType).forEach(type => {
           const typeFunctions = functionsByType[type];
@@ -5703,15 +5710,18 @@ Campo: ${issue.field || 'N/A'}
           `;
           
           typeFunctions.forEach(func => {
-            const functionField = type === 'Genérica' ? 'Función Genérica' : 
-                                type === 'Específica' ? 'Función Específica' : 
-                                'Función Genérica'; // Default fallback
+            console.log('Procesando función:', func);
+            
+            // Usar el campo 'Descripción' que es el que contiene la función
+            const functionDescription = func['Descripción'] || 'No especificada';
+            const productFinal = func['Producto Final'] || 'No especificado';
+            const dedicationPercent = type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type;
             
             pdfHTML += `
               <tr>
-                <td>${func[functionField] || 'No especificada'}</td>
-                <td>${func['Producto Final'] || 'No especificado'}</td>
-                <td style="text-align: center;">${type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type}</td>
+                <td>${functionDescription}</td>
+                <td>${productFinal}</td>
+                <td style="text-align: center;">${dedicationPercent}</td>
               </tr>
             `;
           });
