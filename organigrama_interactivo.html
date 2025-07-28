@@ -295,7 +295,7 @@
       // Seleccionar la nueva unidad
       selectUnidad(newKey);
       // Guardar cambios
-      compararCSVActualConOriginal && compararCSVActualConOriginal();
+      compararCSVActualConOriginal();
     }
     function renderTree(nodes, container, onSelect, selectedNode = '') {
         const ul = document.createElement('ul');
@@ -603,6 +603,50 @@
         });
       });
     }
+    // Función para eliminar una unidad organizativa
+    function eliminarUnidad(nombreUnidad) {
+      const keys = Object.keys(unidadesMap);
+      const unidadKeys = keys.filter(key => key.startsWith(nombreUnidad + '|'));
+      
+      if (unidadKeys.length === 0) {
+        alert('No se encontró la unidad para eliminar');
+        return;
+      }
+      
+      // Verificar si hay unidades que reportan a esta unidad
+      const tieneHijos = Object.values(unidadesMap).some(arr => 
+        arr.some(u => u['Reporta A'] === nombreUnidad)
+      );
+      
+      if (tieneHijos) {
+        alert('No se puede eliminar esta unidad porque tiene unidades subordinadas. Primero reasigne o elimine las unidades subordinadas.');
+        return;
+      }
+      
+      // Eliminar todas las entradas de esta unidad
+      unidadKeys.forEach(key => {
+        delete unidadesMap[key];
+      });
+      
+      // Actualizar listas y árbol
+      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+      treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+      lastSelected = '';
+      
+      // Re-renderizar árbol
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, '');
+      
+      // Limpiar contenido de unidad
+      document.getElementById('unidad-content').innerHTML = '';
+      
+      // Guardar cambios
+      compararCSVActualConOriginal();
+      
+      mostrarAlerta('Unidad eliminada correctamente', 2000);
+    }
+
     // Agregar/eliminar funciones
     window.addFuncRow = function(type) {
       const base = unidadesMap[lastSelected][0];
@@ -612,7 +656,7 @@
         unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Específica', 'Descripción': '', 'Producto Final': '', 'Porcentaje Dedicación': '' });
       }
       showUnidad(unidadesMap[lastSelected]);
-      compararCSVActualConOriginal && compararCSVActualConOriginal();
+      compararCSVActualConOriginal();
     };
     window.deleteFuncRow = function(type, idx) {
       let arr = unidadesMap[lastSelected];
@@ -622,7 +666,7 @@
       });
       unidadesMap[lastSelected] = filtered;
       showUnidad(unidadesMap[lastSelected]);
-      compararCSVActualConOriginal && compararCSVActualConOriginal();
+      compararCSVActualConOriginal();
     };
     // Exportar CSV
     function exportCSV() {
