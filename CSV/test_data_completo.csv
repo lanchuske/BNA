@@ -1,0 +1,31 @@
+Unidad Organizativa;Jerarquía;Nivel;Reporta a;Misión;Producto Final;Tipo de Función;Función Genérica;Función Específica;Porcentaje Dedicación
+Gerencia General;1;1;;Dirigir y coordinar todas las operaciones del banco;Plan estratégico institucional;Directiva;Desarrollar estrategias corporativas;Definir objetivos estratégicos anuales;30
+Gerencia General;1;1;;Dirigir y coordinar todas las operaciones del banco;Plan estratégico institucional;Directiva;Gestionar recursos institucionales;Asignar presupuesto por área;25
+Gerencia General;1;1;;Dirigir y coordinar todas las operaciones del banco;Plan estratégico institucional;Directiva;Supervisar operaciones;Revisar indicadores de gestión;20
+Gerencia de Personas;1.1;2;Gerencia General;Gestionar el capital humano de la institución;Políticas de recursos humanos;Administrativa;Reclutar personal;Conducir entrevistas de selección;40
+Gerencia de Personas;1.1;2;Gerencia General;Gestionar el capital humano de la institución;Políticas de recursos humanos;Administrativa;Capacitar empleados;Diseñar programas de formación;30
+Gerencia de Personas;1.1;2;Gerencia General;Gestionar el capital humano de la institución;Políticas de recursos humanos;Administrativa;Evaluar desempeño;Conducir evaluaciones anuales;30
+Gerencia de Empresas;1.2;2;Gerencia General;Gestionar la cartera empresarial del banco;Portafolio de productos empresariales;Comercial;Desarrollar productos empresariales;Diseñar líneas de crédito PYME;35
+Gerencia de Empresas;1.2;2;Gerencia General;Gestionar la cartera empresarial del banco;Portafolio de productos empresariales;Comercial;Gestionar cartera empresarial;Monitorear morosidad empresarial;40
+Gerencia de Empresas;1.2;2;Gerencia General;Gestionar la cartera empresarial del banco;Portafolio de productos empresariales;Comercial;Asesorar clientes empresariales;Brindar consultoría financiera;25
+Gerencia de Personas Físicas;1.3;2;Gerencia General;Gestionar la cartera de personas físicas;Portafolio de productos personales;Comercial;Desarrollar productos personales;Diseñar tarjetas de crédito;30
+Gerencia de Personas Físicas;1.3;2;Gerencia General;Gestionar la cartera de personas físicas;Portafolio de productos personales;Comercial;Gestionar cartera personal;Monitorear morosidad personal;35
+Gerencia de Personas Físicas;1.3;2;Gerencia General;Gestionar la cartera de personas físicas;Portafolio de productos personales;Comercial;Asesorar clientes personales;Brindar asesoría crediticia;35
+Gerencia de Tecnología;1.4;2;Gerencia General;Gestionar la infraestructura tecnológica del banco;Sistemas informáticos operativos;Técnica;Desarrollar sistemas;Programar aplicaciones bancarias;40
+Gerencia de Tecnología;1.4;2;Gerencia General;Gestionar la infraestructura tecnológica del banco;Sistemas informáticos operativos;Técnica;Mantener infraestructura;Administrar servidores;35
+Gerencia de Tecnología;1.4;2;Gerencia General;Gestionar la infraestructura tecnológica del banco;Sistemas informáticos operativos;Técnica;Garantizar seguridad;Implementar protocolos de seguridad;25
+Gerencia Financiera;1.5;2;Gerencia General;Gestionar los recursos financieros del banco;Estados financieros;Administrativa;Contabilizar operaciones;Registrar transacciones bancarias;40
+Gerencia Financiera;1.5;2;Gerencia General;Gestionar los recursos financieros del banco;Estados financieros;Administrativa;Analizar riesgos;Evaluar riesgo crediticio;30
+Gerencia Financiera;1.5;2;Gerencia General;Gestionar los recursos financieros del banco;Estados financieros;Administrativa;Reportar resultados;Generar reportes financieros;30
+Estrategia Comercial Personas;1.1.1;3;Gerencia de Personas;Desarrollar estrategias comerciales para personas;Plan comercial personal;Comercial;Investigar mercado;Realizar estudios de mercado;40
+Estrategia Comercial Personas;1.1.1;3;Gerencia de Personas;Desarrollar estrategias comerciales para personas;Plan comercial personal;Comercial;Diseñar campañas;Crear campañas publicitarias;35
+Estrategia Comercial Personas;1.1.1;3;Gerencia de Personas;Desarrollar estrategias comerciales para personas;Plan comercial personal;Comercial;Analizar competencia;Monitorear productos competidores;25
+Estrategia Comercial Empresas;1.2.1;3;Gerencia de Empresas;Desarrollar estrategias comerciales para empresas;Plan comercial empresarial;Comercial;Investigar mercado empresarial;Analizar necesidades empresariales;40
+Estrategia Comercial Empresas;1.2.1;3;Gerencia de Empresas;Desarrollar estrategias comerciales para empresas;Plan comercial empresarial;Comercial;Diseñar estrategias;Desarrollar planes de venta;35
+Estrategia Comercial Empresas;1.2.1;3;Gerencia de Empresas;Desarrollar estrategias comerciales para empresas;Plan comercial empresarial;Comercial;Capacitar vendedores;Entrenar equipo comercial;25
+Desarrollo de Productos Personas;1.1.2;3;Gerencia de Personas;Desarrollar productos financieros para personas;Productos financieros personales;Comercial;Diseñar productos;Desarrollar nuevas tarjetas;50
+Desarrollo de Productos Personas;1.1.2;3;Gerencia de Personas;Desarrollar productos financieros para personas;Productos financieros personales;Comercial;Evaluar productos;Analizar rentabilidad de productos;30
+Desarrollo de Productos Personas;1.1.2;3;Gerencia de Personas;Desarrollar productos financieros para personas;Productos financieros personales;Comercial;Coordinar lanzamientos;Planificar lanzamiento de productos;20
+Desarrollo de Productos Empresas;1.2.2;3;Gerencia de Empresas;Desarrollar productos financieros para empresas;Productos financieros empresariales;Comercial;Diseñar productos empresariales;Desarrollar líneas de crédito;50
+Desarrollo de Productos Empresas;1.2.2;3;Gerencia de Empresas;Desarrollar productos financieros para empresas;Productos financieros empresariales;Comercial;Evaluar productos empresariales;Analizar viabilidad de productos;30
+Desarrollo de Productos Empresas;1.2.2;3;Gerencia de Empresas;Desarrollar productos financieros para empresas;Productos financieros empresariales;Comercial;Coordinar lanzamientos empresariales;Planificar lanzamiento de productos empresariales;20 
