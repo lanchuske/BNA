@@ -1,0 +1,4223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Unidades Organizativas BNA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .section { margin-top: 2em; }
+        .title { font-size: 2em; font-weight: bold; margin-bottom: 0.2em; }
+        .info-line { margin-bottom: 0.2em; }
+        .info-label { font-weight: bold; }
+        .mission-label { font-weight: bold; margin-top: 1em; }
+        .mission-box { margin-bottom: 1.5em; }
+        .func-table { border-collapse: collapse; width: 100%; margin-top: 1em; margin-bottom: 1.5em; }
+        .func-table th, .func-table td { border: 1px solid #bfc9d1; padding: 0.6em 0.5em; }
+        .func-table th { background: #e0eaf3; font-weight: bold; }
+        .func-table tr:nth-child(even) { background: #f8f9fa; }
+        .func-section-title { font-weight: bold; font-size: 1.1em; margin-top: 1.5em; margin-bottom: 0.2em; }
+        #fileInput { margin: 20px 0; }
+        .tree { margin-bottom: 2em; }
+        .tree ul { padding-left: 20px; border-left: 1px solid #ccc; margin: 0; }
+        .tree li { list-style-type: none; margin: 0; padding: 0.2em 0 0.2em 1em; position: relative; }
+        .tree li::before { content: ''; position: absolute; left: 0; top: 1.2em; width: 1em; height: 0; border-top: 1px solid #ccc; }
+        .tree span.node { cursor: pointer; display: inline-block; padding: 2px 8px; border-radius: 4px; transition: background 0.2s, color 0.2s; }
+        .tree span.node.selected, .tree span.node:hover { background: #3498db; color: #fff; }
+        .tree .toggle { cursor: pointer; font-size: 13px; color: #3498db; margin-right: 4px; user-select: none; }
+        .edit-btn, .export-btn { margin: 0 0.5em 1em 0; padding: 0.5em 1.2em; font-size: 1em; border-radius: 4px; border: 1px solid #3498db; background: #e0eaf3; color: #222; cursor: pointer; transition: background 0.2s; }
+        .edit-btn.active { background: #3498db; color: #fff; }
+        .export-btn { border: 1px solid #2ecc71; background: #eafaf1; color: #222; }
+        .export-btn:hover { background: #2ecc71; color: #fff; }
+        .edit-btn:hover { background: #3498db; color: #fff; }
+        .delete-func { color: #c0392b; cursor: pointer; font-weight: bold; margin-left: 0.5em; }
+        .add-func { color: #27ae60; cursor: pointer; font-weight: bold; margin-left: 0.5em; }
+        input, select, textarea { font-size: 1em; padding: 0.2em; border-radius: 3px; border: 1px solid #bfc9d1; }
+        textarea { resize: vertical; }
+        .save-indicator { 
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: #2ecc71;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        .save-indicator.show {
+            opacity: 1;
+        }
+        /* Nuevos estilos para los botones de edición en el árbol */
+        .tree .edit-buttons {
+            display: none;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .tree.edit-mode .edit-buttons {
+            display: inline-block;
+        }
+        .tree .edit-buttons span {
+            cursor: pointer;
+            margin: 0 2px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .tree .edit-buttons .add-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .tree .edit-buttons .add-btn:hover {
+            background: #2ecc71;
+        }
+        .tree .edit-buttons .delete-btn {
+            background: #c0392b;
+            color: white;
+        }
+        .tree .edit-buttons .delete-btn:hover {
+            background: #e74c3c;
+        }
+        .file-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .file-input-row {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .file-input-row input[type="text"] {
+            flex: 1;
+            padding: 5px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .file-input-row button {
+            padding: 5px 12px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .file-input-row button:hover {
+            background: #e0e0e0;
+        }
+        #loadFileBtn {
+            width: 100%;
+            padding: 8px;
+            background: #52a8e5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #loadFileBtn:hover {
+            background: #4598d5;
+        }
+        .tree span.node-content.selected {
+            background: #3498db;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #3498db33;
+            border: 1.5px solid #217dbb;
+        }
+        /* Estilos para drag and drop */
+        .func-table tbody tr {
+            cursor: move;
+            transition: background-color 0.2s;
+        }
+        .func-table tbody tr:hover {
+            background-color: #f0f8ff !important;
+        }
+        .func-table tbody tr.dragging {
+            opacity: 0.5;
+            background-color: #e3f2fd !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .func-table tbody tr.drag-over {
+            border-top: 3px solid #3498db;
+        }
+        .func-table tbody tr.drag-over-bottom {
+            border-bottom: 3px solid #3498db;
+        }
+        .drag-handle {
+            cursor: grab;
+            color: #666;
+            font-size: 12px;
+            margin-right: 8px;
+            user-select: none;
+        }
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+        /* Estilos para botones de copiar */
+        .copy-func {
+            color: #3498db;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 0.5em;
+        }
+        .copy-func:hover {
+            color: #2980b9;
+        }
+        .copy-options {
+            position: fixed;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            padding: 8px;
+            z-index: 1000;
+            display: block;
+        }
+        .copy-options button {
+            display: block;
+            width: 100%;
+            padding: 6px 12px;
+            margin: 2px 0;
+            border: none;
+            background: #f8f9fa;
+            cursor: pointer;
+            border-radius: 3px;
+            text-align: left;
+        }
+        .copy-options button:hover {
+            background: #e9ecef;
+        }
+        /* Estilos para botón deshacer */
+        .undo-btn {
+            background: #f39c12 !important;
+            color: white !important;
+            border-color: #e67e22 !important;
+        }
+        .undo-btn:hover {
+            background: #e67e22 !important;
+        }
+        .undo-btn:disabled {
+            background: #bdc3c7 !important;
+            color: #7f8c8d !important;
+            cursor: not-allowed;
+        }
+        /* Estilos para validación de porcentajes */
+        .percentage-warning {
+            background: #fff3cd !important;
+            border: 2px solid #ffc107 !important;
+            color: #856404 !important;
+        }
+        .percentage-error {
+            background: #f8d7da !important;
+            border: 2px solid #dc3545 !important;
+            color: #721c24 !important;
+        }
+        .percentage-info {
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        
+        /* Estilos para el sistema de validación */
+        .validation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            display: none;
+        }
+        
+        .validation-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            min-width: 600px;
+        }
+        
+        .validation-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .validation-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #495057;
+            margin: 0;
+        }
+        
+        .validation-subtitle {
+            color: #6c757d;
+            margin: 5px 0 0 0;
+        }
+        
+        .validation-content {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .validation-issue {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .validation-issue.error {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .validation-issue.success {
+            background: #d1edff;
+            border-color: #0ea5e9;
+        }
+        
+        .issue-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 8px;
+        }
+        
+        .validation-issue.error .issue-title {
+            color: #721c24;
+        }
+        
+        .validation-issue.success .issue-title {
+            color: #0c4a6e;
+        }
+        
+        .issue-description {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .issue-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .issue-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        
+        .issue-btn.primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .issue-btn.primary:hover {
+            background: #0056b3;
+        }
+        
+        .issue-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .issue-btn.secondary:hover {
+            background: #545b62;
+        }
+        
+        .issue-btn.success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .issue-btn.success:hover {
+            background: #1e7e34;
+        }
+        
+        .issue-btn.warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .issue-btn.warning:hover {
+            background: #e0a800;
+        }
+        
+        /* Estilos para opciones de resolución mejoradas */
+        .correction-options {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .correction-options strong {
+            color: #495057;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .parent-selection, .suggestion-options, .percentage-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .correction-option {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .correction-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .correction-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        .parent-option {
+            position: relative;
+        }
+        
+        .parent-name {
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .suggestion-text, .option-text {
+            color: #495057;
+        }
+        
+        .custom-option {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-option input[type="text"] {
+            margin-top: 5px;
+            padding: 4px 8px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            width: calc(100% - 20px);
+        }
+        
+        .text-input-container {
+            margin-top: 8px;
+        }
+        
+        .text-correction-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .text-correction-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .resolution-note {
+            margin-top: 10px;
+            padding: 8px 10px;
+            background: #e8f4f8;
+            border-left: 3px solid #17a2b8;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .resolution-note small {
+            color: #0c5460;
+            line-height: 1.3;
+        }
+        
+        .no-auto-resolution {
+            margin: 15px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+        }
+        
+        .manual-note strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .manual-note p {
+            color: #856404;
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        .suggested-fix {
+            background: #e8f5e8;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border-left: 3px solid #28a745;
+            margin-top: 8px;
+            font-family: monospace;
+            color: #155724;
+        }
+        
+        /* Estilos para comparación contextual */
+        .context-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 10px 0;
+        }
+        
+        .unit-context-card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .context-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .context-header strong {
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .function-count {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .context-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .context-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+        }
+        
+        .context-label {
+            font-weight: 500;
+            color: #666;
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+        
+        .context-value {
+            color: #333;
+            line-height: 1.3;
+            flex: 1;
+        }
+        
+        /* Estilos para opciones de resolución */
+        .resolution-options {
+            margin: 15px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .resolution-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .resolution-choice {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .resolution-choice:hover {
+            border-color: #007bff;
+            background: #f8f9fa;
+        }
+        
+        .resolution-choice input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+        
+        .choice-content {
+            flex: 1;
+        }
+        
+        .choice-content strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+        
+        .choice-content small {
+            color: #6c757d;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        /* Estilos para opciones condicionales */
+        .conditional-options {
+            margin: 10px 0;
+            padding: 12px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .rename-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .rename-option {
+            padding: 8px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        
+        .rename-option label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        
+        .rename-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        .rename-input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .rename-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        /* Estilos para el panel contextual de tipo de función */
+        .function-context-panel {
+            background: #f8f9fc;
+            border: 1px solid #e3e6ea;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .context-summary {
+            background: white;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .context-summary h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+        
+        .context-section {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .context-section h5 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .function-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .function-example {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .function-type {
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .function-type.type-genérica {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .function-type.type-específica {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .function-unit {
+            font-weight: 500;
+            color: #666;
+            flex-shrink: 0;
+        }
+        
+        .function-desc {
+            color: #333;
+            line-height: 1.3;
+            flex: 1;
+        }
+        
+        .organization-stats {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .organization-stats h5 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .ai-recommendation {
+            background: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .ai-recommendation h5 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .recommendation-box {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .recommendation-box.confidence-alta {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .recommendation-box.confidence-media {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        
+        .recommendation-box.confidence-baja {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .confidence-badge {
+            background: #6c757d;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .confidence-badge.confidence-alta {
+            background: #28a745;
+        }
+        
+        .confidence-badge.confidence-media {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .confidence-badge.confidence-baja {
+            background: #dc3545;
+        }
+        
+        .recommendation-reasoning {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .reason-item {
+            margin: 2px 0;
+            line-height: 1.3;
+        }
+        
+        /* Estilos para opciones de tipo de función */
+        .function-type-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .function-type-choice {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .function-type-choice:hover {
+            border-color: #007bff;
+            background: #f8f9fa;
+        }
+        
+        .function-type-choice.recommended {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+        
+        .function-type-choice.recommended:before {
+            content: "⭐ ";
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .function-type-choice input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+        
+        .custom-input {
+            margin-top: 5px;
+            padding: 4px 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 12px;
+            width: 100%;
+        }
+        
+        .custom-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .validation-footer {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0 0 8px 8px;
+            text-align: right;
+        }
+        
+        .validation-progress {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 8px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .validation-progress-bar {
+            background: #007bff;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .validation-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            min-width: 80px;
+        }
+        
+        .stat-item.issues {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .stat-item.errors {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .stat-item.resolved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .input-correction {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        
+        .correction-options {
+            margin: 10px 0;
+        }
+        
+        .correction-option {
+            display: block;
+            margin: 5px 0;
+        }
+        
+        .correction-option input[type="radio"] {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="display:inline-block;">Unidades Organizativas BNA</h1>
+    <div style="position:absolute;top:2em;right:2em;z-index:10;">
+      <div style="position:relative;display:inline-block;">
+        <button id="adminBtn" class="edit-btn" style="background:#3498db;color:#fff;">Admin ▼</button>
+        <div id="adminMenu" style="display:none;position:absolute;right:0;top:2.5em;background:#fff;border:1px solid #bfc9d1;border-radius:6px;box-shadow:0 2px 8px #0001;padding:1em 1.2em;min-width:220px;">
+          <div style="margin-bottom:1em;">
+            <div id="currentFileInfo" style="margin-bottom:0.8em;padding:0.5em;background:#f8f9fa;border:1px solid #e9ecef;border-radius:4px;font-size:0.9em;">
+              <div style="font-weight:bold;color:#495057;margin-bottom:0.3em;">Estado de Datos:</div>
+              
+              <div id="lastImportInfo" style="margin-bottom:0.2em;padding:0.2em;background:#e7f3ff;border-radius:3px;">
+                <div style="font-size:0.8em;color:#0066cc;font-weight:500;">📥 Última Importación:</div>
+                <div id="lastImportFile" style="color:#333;font-size:0.85em;">Ningún archivo cargado</div>
+                <div id="lastImportTime" style="color:#666;font-size:0.75em;font-style:italic;"></div>
+              </div>
+              
+              <div id="lastExportInfo" style="margin-bottom:0.2em;padding:0.2em;background:#f0f8e7;border-radius:3px;">
+                <div style="font-size:0.8em;color:#228b22;font-weight:500;">📤 Última Exportación:</div>
+                <div id="lastExportFile" style="color:#333;font-size:0.85em;">Sin exportaciones</div>
+                <div id="lastExportTime" style="color:#666;font-size:0.75em;font-style:italic;"></div>
+              </div>
+              
+              <div id="dataStatusInfo" style="padding:0.2em;background:#fff3cd;border-radius:3px;">
+                <div style="font-size:0.8em;color:#856404;font-weight:500;">💾 Estado Actual:</div>
+                <div id="dataStatus" style="color:#333;font-size:0.85em;">Datos desde localStorage</div>
+              </div>
+            </div>
+            <label style="font-weight:bold;">Cargar CSV:</label><br>
+            <div class="file-input-container">
+              <div class="file-input-row">
+                <input type="file" id="fileInput" accept=".csv" style="display:none">
+                <button id="browseBtn" class="browse-btn">Browse...</button>
+                <input type="text" id="filePath" placeholder="Ruta del archivo CSV">
+              </div>
+              <button id="loadFileBtn" class="edit-btn" style="margin-top:6px;width:100%;">Cargar Archivo</button>
+            </div>
+            <button id="editModeBtn" class="edit-btn">Entrar en modo edición</button>
+            <button id="undoBtn" class="edit-btn undo-btn" disabled>↶ Deshacer</button>
+            <button id="exportBtn" class="edit-btn">Exportar CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="saveIndicator" class="save-indicator">Cambios guardados</div>
+    
+    <!-- Modal de validación de datos -->
+    <div id="validationOverlay" class="validation-overlay">
+        <div class="validation-modal">
+            <div class="validation-header">
+                <h2 class="validation-title">Validación de Integridad de Datos</h2>
+                <p class="validation-subtitle">Revisando la estructura y consistencia de los datos cargados</p>
+                <div class="validation-progress">
+                    <div id="validationProgressBar" class="validation-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="validation-stats">
+                    <div class="stat-item issues">
+                        <div><strong id="issuesCount">0</strong></div>
+                        <div>Problemas</div>
+                    </div>
+                    <div class="stat-item errors">
+                        <div><strong id="errorsCount">0</strong></div>
+                        <div>Errores</div>
+                    </div>
+                    <div class="stat-item resolved">
+                        <div><strong id="resolvedCount">0</strong></div>
+                        <div>Resueltos</div>
+                    </div>
+                </div>
+            </div>
+            <div id="validationContent" class="validation-content">
+                <!-- Aquí se cargarán dinámicamente los problemas encontrados -->
+            </div>
+            <div class="validation-footer">
+                <button id="skipValidationBtn" class="issue-btn secondary">Omitir Validación</button>
+                <button id="finishValidationBtn" class="issue-btn success" style="display: none;">Finalizar y Aplicar Correcciones</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tree-container" class="tree"></div>
+    <div id="unidad-content" class="section"></div>
+    <script>
+    let unidadesMap = {};
+    let treeRoots = [];
+    let lastSelected = '';
+    let expandedNodes = {};
+    let editMode = false;
+    let allUnidades = [];
+    let csvHeaders = [];
+    let inconsistenciaDetectada = false;
+    let originalCSV = '';
+    let datosModificados = false;
+    
+    // Variables para información de archivos
+    let lastImportInfo = {
+      fileName: null,
+      timestamp: null,
+      source: null // 'file' o 'path'
+    };
+    let lastExportInfo = {
+      fileName: null,
+      timestamp: null
+    };
+    
+    // Variables para el sistema de deshacer
+    let undoStack = [];
+    let maxUndoSteps = 20; // Máximo número de pasos para deshacer
+    
+    // Variables para el sistema de validación
+    let validationIssues = [];
+    let currentIssueIndex = 0;
+    let resolvedIssuesCount = 0;
+    let validationInProgress = false;
+    let originalDataBeforeValidation = null;
+    
+    // ===== SISTEMA DE VALIDACIÓN DE INTEGRIDAD DE DATOS =====
+    
+    // Función principal para validar los datos CSV
+    function validateDataIntegrity(data) {
+      console.log('Iniciando validación de integridad de datos...');
+      validationIssues = [];
+      
+      // 1. Validar estructura básica
+      validateBasicStructure(data);
+      
+      // 2. Validar jerarquía organizacional
+      validateHierarchy(data);
+      
+      // 3. Validar duplicados y inconsistencias
+      validateDuplicatesAndInconsistencies(data);
+      
+      // 4. Validar contenido de campos
+      validateFieldContent(data);
+      
+      // 5. Validar porcentajes de dedicación
+      validatePercentages(data);
+      
+      console.log(`Validación completada. ${validationIssues.length} problemas encontrados.`);
+      return validationIssues;
+    }
+    
+    // Validar estructura básica del CSV
+    function validateBasicStructure(data) {
+      const requiredFields = ['Unidad Organizativa', 'Reporta A', 'Tipo de Función'];
+      
+      data.forEach((row, index) => {
+        requiredFields.forEach(field => {
+          if (!row[field] || row[field].trim() === '') {
+            if (field === 'Reporta A' && isRootUnit(row, data)) {
+              // Es válido que las unidades raíz no tengan "Reporta A"
+              return;
+            }
+            
+            // Generar información contextual específica para ayudar en la decisión
+            const contextualInfo = getFieldContextualInfo(field, row, data, index);
+            
+            validationIssues.push({
+              id: `missing-${field}-${index}`,
+              type: 'error',
+              category: 'estructura',
+              title: `Campo obligatorio faltante: ${field}`,
+              description: `La fila ${index + 1} (${row['Unidad Organizativa'] || 'Sin nombre'}) no tiene valor para el campo "${field}".`,
+              rowIndex: index,
+              field: field,
+              currentValue: row[field] || '',
+              suggestions: getFieldSuggestions(field, data),
+              contextualInfo: contextualInfo,
+              autoFix: field !== 'Tipo de Función', // Tipo de Función requiere decisión informada
+              resolutionType: field === 'Tipo de Función' ? 'functionTypeSelection' : 'multipleChoice'
+            });
+          }
+        });
+      });
+    }
+    
+    // Verificar si una unidad es raíz (no debe tener padre)
+    function isRootUnit(unit, data) {
+      const unitName = unit['Unidad Organizativa'];
+      // Una unidad es raíz si otras unidades reportan a ella pero ella no reporta a nadie
+      const hasChildren = data.some(row => row['Reporta A'] === unitName);
+      const hasParent = unit['Reporta A'] && unit['Reporta A'].trim() !== '';
+      return hasChildren && !hasParent;
+    }
+    
+    // Validar jerarquía organizacional
+    function validateHierarchy(data) {
+      const unitNames = new Set(data.map(row => row['Unidad Organizativa']));
+      
+      data.forEach((row, index) => {
+        const unitName = row['Unidad Organizativa'];
+        const parentName = row['Reporta A'];
+        
+        if (parentName && parentName.trim() !== '') {
+          // Verificar que el padre existe
+          if (!unitNames.has(parentName)) {
+            validationIssues.push({
+              id: `missing-parent-${index}`,
+              type: 'error',
+              category: 'jerarquia',
+              title: 'Unidad padre no existe',
+              description: `"${unitName}" reporta a "${parentName}", pero esta unidad padre no existe en los datos.`,
+              rowIndex: index,
+              field: 'Reporta A',
+              currentValue: parentName,
+              suggestions: Array.from(unitNames).filter(name => name !== unitName),
+              autoFix: false
+            });
+          }
+          
+          // Verificar ciclos en la jerarquía
+          if (detectHierarchyCycle(unitName, parentName, data)) {
+            validationIssues.push({
+              id: `cycle-${index}`,
+              type: 'error',
+              category: 'jerarquia',
+              title: 'Ciclo en la jerarquía detectado',
+              description: `Se detectó un ciclo jerárquico que involucra a "${unitName}". Esto crearía una estructura circular.`,
+              rowIndex: index,
+              field: 'Reporta A',
+              currentValue: parentName,
+              suggestions: ['Ninguno'].concat(Array.from(unitNames).filter(name => name !== unitName && !wouldCreateCycle(unitName, name, data))),
+              autoFix: false
+            });
+          }
+        }
+      });
+    }
+    
+    // Detectar ciclos en la jerarquía
+    function detectHierarchyCycle(unitName, parentName, data, visited = new Set()) {
+      if (visited.has(unitName)) {
+        return true; // Ciclo detectado
+      }
+      
+      visited.add(unitName);
+      
+      const parentRow = data.find(row => row['Unidad Organizativa'] === parentName);
+      if (parentRow && parentRow['Reporta A']) {
+        return detectHierarchyCycle(parentName, parentRow['Reporta A'], data, visited);
+      }
+      
+      return false;
+    }
+    
+    // Verificar si asignar un padre crearía un ciclo
+    function wouldCreateCycle(unitName, potentialParent, data) {
+      const tempData = data.map(row => {
+        if (row['Unidad Organizativa'] === unitName) {
+          return { ...row, 'Reporta A': potentialParent };
+        }
+        return row;
+      });
+      
+      return detectHierarchyCycle(unitName, potentialParent, tempData);
+    }
+    
+    // Validar duplicados y inconsistencias
+    function validateDuplicatesAndInconsistencies(data) {
+      const unitCounts = {};
+      
+      data.forEach((row, index) => {
+        const unitName = row['Unidad Organizativa'];
+        const parentName = row['Reporta A'] || '';
+        const key = `${unitName}|${parentName}`;
+        
+        if (!unitCounts[key]) {
+          unitCounts[key] = [];
+        }
+        unitCounts[key].push({ row, index });
+      });
+      
+      // Buscar unidades con mismo nombre pero diferentes padres
+      const unitsByName = {};
+      Object.entries(unitCounts).forEach(([key, entries]) => {
+        const [unitName, parentName] = key.split('|');
+        if (!unitsByName[unitName]) {
+          unitsByName[unitName] = [];
+        }
+        unitsByName[unitName].push({ parentName, entries });
+      });
+      
+      Object.entries(unitsByName).forEach(([unitName, variations]) => {
+        if (variations.length > 1) {
+          // Crear sugerencias para resolver el conflicto de múltiples ubicaciones
+          const suggestions = variations.map(v => v.parentName || 'Ninguno');
+          const affectedRows = variations.flatMap(v => v.entries.map(e => e.index));
+          
+          // Recopilar información contextual de cada variación
+          const contextualInfo = variations.map(variation => {
+            const firstEntry = variation.entries[0];
+            const row = firstEntry.row;
+            
+            // Recopilar funciones y detalles de esta instancia
+            const functions = variation.entries.map(e => e.row['Descripción']).filter(desc => desc && desc.trim());
+            const missions = variation.entries.map(e => e.row['Misión']).filter(mission => mission && mission.trim());
+            const functionTypes = variation.entries.map(e => e.row['Tipo de Función']).filter(type => type && type.trim());
+            
+            return {
+              parentName: variation.parentName || 'Ninguno',
+              functionsCount: variation.entries.length,
+              sampleFunctions: functions.slice(0, 2), // Primeras 2 funciones como muestra
+              mission: missions.length > 0 ? missions[0] : '',
+              functionTypes: [...new Set(functionTypes)], // Tipos únicos
+              hierarchy: row['Jerarquía'] || '',
+              level: row['Nivel Jerárquico Calculado'] || ''
+            };
+          });
+          
+          validationIssues.push({
+            id: `duplicate-unit-${unitName}`,
+            type: 'warning',
+            category: 'duplicados',
+            title: 'Unidad con múltiples ubicaciones',
+            description: `La unidad "${unitName}" aparece en diferentes ubicaciones. Revisa los detalles para determinar si son la misma unidad (duplicado) o unidades diferentes con nombres similares.`,
+            unitName: unitName,
+            variations: variations,
+            suggestions: suggestions,
+            affectedRows: affectedRows,
+            contextualInfo: contextualInfo,
+            autoFix: false,
+            resolutionType: 'selectParentWithContext'
+          });
+        }
+      });
+    }
+    
+    // Validar contenido de campos
+    function validateFieldContent(data) {
+      data.forEach((row, index) => {
+        // Validar misión vacía en unidades importantes (que tienen subordinados)
+        const hasSubordinates = data.some(r => r['Reporta A'] === row['Unidad Organizativa']);
+        if (hasSubordinates && (!row['Misión'] || row['Misión'].trim() === '')) {
+          validationIssues.push({
+            id: `empty-mission-${index}`,
+            type: 'warning',
+            category: 'contenido',
+            title: 'Misión faltante en unidad con subordinados',
+            description: `"${row['Unidad Organizativa']}" tiene unidades subordinadas pero no tiene misión definida. Ingrese una misión apropiada.`,
+            rowIndex: index,
+            field: 'Misión',
+            currentValue: row['Misión'] || '',
+            autoFix: false,
+            resolutionType: 'textInput',
+            placeholder: 'Ingrese la misión de esta unidad organizativa'
+          });
+        }
+        
+        // Validar funciones sin descripción
+        if (row['Tipo de Función'] && (!row['Descripción'] || row['Descripción'].trim() === '')) {
+          validationIssues.push({
+            id: `empty-description-${index}`,
+            type: 'warning',
+            category: 'contenido',
+            title: 'Función sin descripción',
+            description: `Función de tipo "${row['Tipo de Función']}" en "${row['Unidad Organizativa']}" no tiene descripción. Ingrese una descripción clara de esta función.`,
+            rowIndex: index,
+            field: 'Descripción',
+            currentValue: row['Descripción'] || '',
+            autoFix: false,
+            resolutionType: 'textInput',
+            placeholder: 'Describa qué hace esta función'
+          });
+        }
+        
+        // Validar inconsistencias en nombres (espacios, mayúsculas)
+        const unitName = row['Unidad Organizativa'];
+        if (unitName && (unitName !== unitName.trim() || hasMultipleSpaces(unitName))) {
+          validationIssues.push({
+            id: `format-unit-name-${index}`,
+            type: 'info',
+            category: 'formato',
+            title: 'Formato de nombre inconsistente',
+            description: `El nombre "${unitName}" tiene espacios extra o formato inconsistente.`,
+            rowIndex: index,
+            field: 'Unidad Organizativa',
+            currentValue: unitName,
+            suggestedValue: cleanupName(unitName),
+            autoFix: true
+          });
+        }
+      });
+    }
+    
+    // Validar porcentajes de dedicación
+    function validatePercentages(data) {
+      const unitGroups = {};
+      
+      data.forEach((row, index) => {
+        const unitName = row['Unidad Organizativa'];
+        const parentName = row['Reporta A'] || '';
+        const key = `${unitName}|${parentName}`;
+        
+        if (!unitGroups[key]) {
+          unitGroups[key] = [];
+        }
+        unitGroups[key].push({ row, index });
+      });
+      
+      Object.entries(unitGroups).forEach(([key, entries]) => {
+        const [unitName] = key.split('|');
+        const specificFunctions = entries.filter(e => 
+          e.row['Tipo de Función'] && e.row['Tipo de Función'].toLowerCase().includes('espec')
+        );
+        
+        if (specificFunctions.length > 0) {
+          const percentages = specificFunctions.map(e => {
+            const pct = parseFloat(e.row['Porcentaje Dedicación'] || '0');
+            return isNaN(pct) ? 0 : pct;
+          });
+          
+          const total = percentages.reduce((sum, p) => sum + p, 0);
+          
+          if (total !== 100 && total > 0) {
+            validationIssues.push({
+              id: `percentage-${key}`,
+              type: total > 100 ? 'error' : 'warning',
+              category: 'porcentajes',
+              title: `Porcentajes ${total > 100 ? 'exceden' : 'no suman'} 100%`,
+              description: `Las funciones específicas de "${unitName}" suman ${total.toFixed(1)}% (${total > 100 ? 'exceso' : 'falta'} ${Math.abs(100 - total).toFixed(1)}%).`,
+              unitName: unitName,
+              total: total,
+              functions: specificFunctions,
+              autoFix: total < 100
+            });
+          }
+        }
+      });
+    }
+    
+    // Funciones auxiliares para validación
+    function hasMultipleSpaces(text) {
+      return /\s{2,}/.test(text);
+    }
+    
+    function cleanupName(name) {
+      return name.trim().replace(/\s+/g, ' ');
+    }
+    
+    function getFieldSuggestions(field, data) {
+      switch (field) {
+        case 'Reporta A':
+          return Array.from(new Set(data.map(row => row['Unidad Organizativa']).filter(Boolean)));
+        case 'Tipo de Función':
+          return ['Genérica', 'Específica'];
+        default:
+          return [];
+      }
+    }
+    
+    // Función para generar información contextual que ayude en la decisión
+    function getFieldContextualInfo(field, currentRow, allData, rowIndex) {
+      const contextInfo = {
+        field: field,
+        currentRow: currentRow,
+        rowIndex: rowIndex
+      };
+      
+      if (field === 'Tipo de Función') {
+        const unitName = currentRow['Unidad Organizativa'] || 'Sin nombre';
+        const description = currentRow['Descripción'] || '';
+        const mission = currentRow['Misión'] || '';
+        const parentUnit = currentRow['Reporta A'] || '';
+        const hierarchy = currentRow['Jerarquía'] || '';
+        const product = currentRow['Producto Final'] || '';
+        
+        // Buscar otras funciones de la misma unidad para contexto
+        const sameUnitFunctions = allData.filter(r => 
+          r['Unidad Organizativa'] === unitName && 
+          r['Tipo de Función'] && 
+          r['Tipo de Función'].trim() !== ''
+        );
+        
+        // Buscar funciones similares en otras unidades (basado en descripción o producto)
+        const similarFunctions = [];
+        if (description) {
+          const descWords = description.toLowerCase().split(' ').filter(w => w.length > 3);
+          if (descWords.length > 0) {
+            similarFunctions.push(...allData.filter(r => {
+              const rDesc = (r['Descripción'] || '').toLowerCase();
+              return r['Tipo de Función'] && 
+                     r['Tipo de Función'].trim() !== '' &&
+                     descWords.some(word => rDesc.includes(word)) &&
+                     r !== currentRow;
+            }));
+          }
+        }
+        
+        // Analizar distribución de tipos en la organización
+        const allFunctionTypes = allData.filter(r => r['Tipo de Función'] && r['Tipo de Función'].trim() !== '');
+        const genericCount = allFunctionTypes.filter(r => r['Tipo de Función'].toLowerCase().includes('gen')).length;
+        const specificCount = allFunctionTypes.filter(r => r['Tipo de Función'].toLowerCase().includes('espec')).length;
+        
+        // Funciones similares en el mismo nivel jerárquico o unidades hermanas
+        const siblingFunctions = [];
+        if (parentUnit) {
+          siblingFunctions.push(...allData.filter(r => 
+            r['Reporta A'] === parentUnit && 
+            r['Tipo de Función'] && 
+            r['Tipo de Función'].trim() !== '' &&
+            r !== currentRow
+          ));
+        }
+        
+        contextInfo.specificContext = {
+          unitName: unitName,
+          functionDescription: description,
+          unitMission: mission,
+          parentUnit: parentUnit,
+          hierarchy: hierarchy,
+          productFinal: product,
+          sameUnitFunctions: sameUnitFunctions.slice(0, 5).map(f => ({
+            description: f['Descripción'] || 'Sin descripción',
+            type: f['Tipo de Función'],
+            product: f['Producto Final'] || ''
+          })),
+          similarFunctions: similarFunctions.slice(0, 4).map(f => ({
+            unit: f['Unidad Organizativa'],
+            description: f['Descripción'] || 'Sin descripción',
+            type: f['Tipo de Función'],
+            product: f['Producto Final'] || ''
+          })),
+          siblingFunctions: siblingFunctions.slice(0, 4).map(f => ({
+            unit: f['Unidad Organizativa'],
+            description: f['Descripción'] || 'Sin descripción',
+            type: f['Tipo de Función'],
+            product: f['Producto Final'] || ''
+          })),
+          organizationStats: {
+            totalFunctions: allFunctionTypes.length,
+            genericCount: genericCount,
+            specificCount: specificCount,
+            genericPercentage: allFunctionTypes.length > 0 ? Math.round((genericCount / allFunctionTypes.length) * 100) : 0,
+            specificPercentage: allFunctionTypes.length > 0 ? Math.round((specificCount / allFunctionTypes.length) * 100) : 0
+          },
+          recommendations: generateFunctionTypeRecommendation(currentRow, sameUnitFunctions, similarFunctions, siblingFunctions)
+        };
+      }
+      
+      return contextInfo;
+    }
+    
+    // Generar recomendación inteligente para tipo de función
+    function generateFunctionTypeRecommendation(currentRow, sameUnitFunctions, similarFunctions, siblingFunctions) {
+      const description = (currentRow['Descripción'] || '').toLowerCase();
+      const product = (currentRow['Producto Final'] || '').toLowerCase();
+      
+      // Palabras clave que sugieren función genérica
+      const genericKeywords = ['gestión', 'administración', 'coordinación', 'supervisión', 'control', 'planificación', 'dirección'];
+      // Palabras clave que sugieren función específica
+      const specificKeywords = ['ejecución', 'implementación', 'desarrollo', 'análisis específico', 'procesamiento', 'operación'];
+      
+      let recommendation = '';
+      let confidence = 'baja';
+      let reasoning = [];
+      
+      // Analizar descripción
+      const hasGenericKeywords = genericKeywords.some(keyword => description.includes(keyword));
+      const hasSpecificKeywords = specificKeywords.some(keyword => description.includes(keyword));
+      
+      if (hasGenericKeywords && !hasSpecificKeywords) {
+        recommendation = 'Genérica';
+        confidence = 'alta';
+        reasoning.push('La descripción contiene palabras asociadas con funciones de gestión/coordinación');
+      } else if (hasSpecificKeywords && !hasGenericKeywords) {
+        recommendation = 'Específica';
+        confidence = 'alta';
+        reasoning.push('La descripción contiene palabras asociadas con funciones de ejecución/implementación');
+      }
+      
+      // Analizar funciones similares
+      if (similarFunctions.length > 0) {
+        const similarTypes = similarFunctions.map(f => f.type);
+        const mostCommonType = similarTypes.reduce((a, b, i, arr) => 
+          arr.filter(v => v === a).length >= arr.filter(v => v === b).length ? a : b);
+        
+        if (recommendation === '') {
+          recommendation = mostCommonType;
+          confidence = 'media';
+        }
+        reasoning.push(`Funciones similares en la organización suelen ser: ${mostCommonType}`);
+      }
+      
+      // Analizar funciones en la misma unidad
+      if (sameUnitFunctions.length > 0) {
+        const unitTypes = sameUnitFunctions.map(f => f.type);
+        const predominantType = unitTypes.reduce((a, b, i, arr) => 
+          arr.filter(v => v === a).length >= arr.filter(v => v === b).length ? a : b);
+          
+        reasoning.push(`En esta unidad predominan las funciones: ${predominantType}`);
+      }
+      
+      return {
+        suggestedType: recommendation || 'Requiere análisis manual',
+        confidence: confidence,
+        reasoning: reasoning,
+        needsManualReview: recommendation === '' || confidence === 'baja'
+      };
+    }
+    
+    // Función para actualizar la información completa de archivos en el menú
+    function updateFileInfo() {
+      
+      // Actualizar información de importación
+      const lastImportFileEl = document.getElementById('lastImportFile');
+      const lastImportTimeEl = document.getElementById('lastImportTime');
+      
+      if (lastImportInfo.fileName) {
+        lastImportFileEl.textContent = lastImportInfo.fileName;
+        lastImportFileEl.style.color = '#28a745';
+        lastImportFileEl.style.fontWeight = '500';
+        
+        if (lastImportInfo.timestamp) {
+          const timeStr = formatTimestamp(lastImportInfo.timestamp);
+          lastImportTimeEl.textContent = `${timeStr} (${lastImportInfo.source === 'file' ? 'archivo local' : 'ruta'})`;
+        }
+      } else {
+        lastImportFileEl.textContent = 'Ningún archivo cargado';
+        lastImportFileEl.style.color = '#666';
+        lastImportFileEl.style.fontWeight = 'normal';
+        lastImportTimeEl.textContent = '';
+      }
+      
+      // Actualizar información de exportación
+      const lastExportFileEl = document.getElementById('lastExportFile');
+      const lastExportTimeEl = document.getElementById('lastExportTime');
+      
+      if (lastExportInfo.fileName) {
+        lastExportFileEl.textContent = lastExportInfo.fileName;
+        lastExportFileEl.style.color = '#28a745';
+        lastExportFileEl.style.fontWeight = '500';
+        
+        if (lastExportInfo.timestamp) {
+          const timeStr = formatTimestamp(lastExportInfo.timestamp);
+          lastExportTimeEl.textContent = timeStr;
+        }
+      } else {
+        lastExportFileEl.textContent = 'Sin exportaciones';
+        lastExportFileEl.style.color = '#666';
+        lastExportFileEl.style.fontWeight = 'normal';
+        lastExportTimeEl.textContent = '';
+      }
+      
+      // Actualizar estado actual
+      const dataStatusEl = document.getElementById('dataStatus');
+      let statusText = 'Datos desde localStorage';
+      let statusColor = '#856404';
+      
+      if (datosModificados) {
+        statusText = 'Datos modificados (sin exportar)';
+        statusColor = '#e67e22';
+      } else if (lastImportInfo.fileName) {
+        statusText = `Sincronizado con: ${lastImportInfo.fileName}`;
+        statusColor = '#28a745';
+      }
+      
+      dataStatusEl.textContent = statusText;
+      dataStatusEl.style.color = statusColor;
+    }
+    
+    // Función para formatear timestamp de forma legible
+    function formatTimestamp(timestamp) {
+      if (!timestamp) return '';
+      
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffMins = Math.floor(diffMs / (1000 * 60));
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      if (diffMins < 1) {
+        return 'Hace menos de 1 minuto';
+      } else if (diffMins < 60) {
+        return `Hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`;
+      } else if (diffHours < 24) {
+        return `Hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
+      } else if (diffDays < 7) {
+        return `Hace ${diffDays} día${diffDays !== 1 ? 's' : ''}`;
+      } else {
+        return date.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
+    }
+    
+    // Función para registrar importación
+    function recordImport(fileName, source = 'file') {
+      lastImportInfo = {
+        fileName: fileName,
+        timestamp: new Date().toISOString(),
+        source: source
+      };
+      
+      // Guardar en localStorage
+      localStorage.setItem('lastImportInfo', JSON.stringify(lastImportInfo));
+      updateFileInfo();
+    }
+    
+    // Función para registrar exportación
+    function recordExport(fileName) {
+      lastExportInfo = {
+        fileName: fileName,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Guardar en localStorage
+      localStorage.setItem('lastExportInfo', JSON.stringify(lastExportInfo));
+      updateFileInfo();
+    }
+    
+    // Función para cargar información de archivos desde localStorage
+    function loadFileInfoFromStorage() {
+      try {
+        const savedImportInfo = localStorage.getItem('lastImportInfo');
+        const savedExportInfo = localStorage.getItem('lastExportInfo');
+        
+        if (savedImportInfo) {
+          const parsedImportInfo = JSON.parse(savedImportInfo);
+          // Solo sobrescribir si no hay datos actuales o si los datos guardados son más recientes
+          if (!lastImportInfo.fileName || !lastImportInfo.timestamp || 
+              (parsedImportInfo.timestamp && parsedImportInfo.timestamp > lastImportInfo.timestamp)) {
+            lastImportInfo = parsedImportInfo;
+          }
+        } else {
+          // Solo resetear si no hay datos actuales
+          if (!lastImportInfo.fileName) {
+            lastImportInfo = { fileName: null, timestamp: null, source: null };
+          }
+        }
+        
+        if (savedExportInfo) {
+          const parsedExportInfo = JSON.parse(savedExportInfo);
+          // Solo sobrescribir si no hay datos actuales o si los datos guardados son más recientes
+          if (!lastExportInfo.fileName || !lastExportInfo.timestamp ||
+              (parsedExportInfo.timestamp && parsedExportInfo.timestamp > lastExportInfo.timestamp)) {
+            lastExportInfo = parsedExportInfo;
+          }
+        } else {
+          // Solo resetear si no hay datos actuales
+          if (!lastExportInfo.fileName) {
+            lastExportInfo = { fileName: null, timestamp: null };
+          }
+        }
+        
+        updateFileInfo();
+      } catch (error) {
+        console.error('Error al cargar información de archivos:', error);
+        updateFileInfo();
+      }
+    }
+
+    // ===== INTERFAZ DE VALIDACIÓN INTERACTIVA =====
+    
+    // Mostrar la interfaz de validación
+    function showValidationInterface(issues) {
+      console.log('Mostrando interfaz de validación con', issues.length, 'problemas');
+      validationIssues = issues;
+      currentIssueIndex = 0;
+      resolvedIssuesCount = 0;
+      validationInProgress = true;
+      
+      updateValidationStats();
+      updateValidationProgress();
+      
+      const overlay = document.getElementById('validationOverlay');
+      overlay.style.display = 'block';
+      
+      if (issues.length === 0) {
+        showValidationComplete();
+      } else {
+        showCurrentIssue();
+      }
+    }
+    
+    // Actualizar estadísticas de validación
+    function updateValidationStats() {
+      document.getElementById('issuesCount').textContent = validationIssues.length;
+      document.getElementById('errorsCount').textContent = validationIssues.filter(i => i.type === 'error').length;
+      document.getElementById('resolvedCount').textContent = resolvedIssuesCount;
+    }
+    
+    // Actualizar barra de progreso
+    function updateValidationProgress() {
+      const progress = validationIssues.length === 0 ? 100 : (resolvedIssuesCount / validationIssues.length) * 100;
+      document.getElementById('validationProgressBar').style.width = progress + '%';
+    }
+    
+    // Mostrar el problema actual
+    function showCurrentIssue() {
+      const content = document.getElementById('validationContent');
+      
+      if (currentIssueIndex >= validationIssues.length) {
+        showValidationComplete();
+        return;
+      }
+      
+      const issue = validationIssues[currentIssueIndex];
+      content.innerHTML = generateIssueHTML(issue);
+      
+      // Agregar event listeners para los botones
+      attachIssueEventListeners(issue);
+    }
+    
+    // Generar HTML para un problema específico
+    function generateIssueHTML(issue) {
+      const issueNumber = currentIssueIndex + 1;
+      const totalIssues = validationIssues.length;
+      
+      let html = `
+        <div class="validation-issue ${issue.type}">
+          <div class="issue-title">
+            Problema ${issueNumber} de ${totalIssues}: ${issue.title}
+          </div>
+          <div class="issue-description">
+            ${issue.description}
+          </div>
+      `;
+      
+      // Opciones específicas según el tipo de resolución
+      if (issue.autoFix && issue.suggestedValue) {
+        // Corrección automática simple
+        html += `
+          <div class="correction-options">
+            <strong>Corrección sugerida:</strong>
+            <div class="suggested-fix">Cambiar "${issue.currentValue}" por "${issue.suggestedValue}"</div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn success" onclick="applyAutoFix('${issue.id}')">✅ Aplicar Corrección</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else if (issue.resolutionType === 'selectParentWithContext') {
+        // Resolución para múltiples ubicaciones con información contextual
+        html += `
+          <div class="correction-options">
+            <strong>🔍 Analiza los detalles de cada instancia de "${issue.unitName}":</strong>
+            <div class="context-comparison">
+        `;
+        
+        issue.contextualInfo.forEach((info, index) => {
+          const parentDisplay = info.parentName === 'Ninguno' ? '🏢 Unidad Raíz' : `📁 ${info.parentName}`;
+          const functionsPreview = info.sampleFunctions.length > 0 ? 
+            info.sampleFunctions.map(f => f.substring(0, 40) + (f.length > 40 ? '...' : '')).join(', ') : 
+            'Sin funciones definidas';
+          const missionPreview = info.mission ? 
+            (info.mission.substring(0, 60) + (info.mission.length > 60 ? '...' : '')) : 
+            'Sin misión definida';
+          
+          html += `
+            <div class="unit-context-card">
+              <div class="context-header">
+                <strong>${parentDisplay}</strong>
+                <span class="function-count">${info.functionsCount} función(es)</span>
+              </div>
+              <div class="context-details">
+                <div class="context-row">
+                  <span class="context-label">📋 Funciones ejemplo:</span>
+                  <span class="context-value">${functionsPreview}</span>
+                </div>
+                <div class="context-row">
+                  <span class="context-label">🎯 Misión:</span>
+                  <span class="context-value">${missionPreview}</span>
+                </div>
+                ${info.hierarchy ? `
+                <div class="context-row">
+                  <span class="context-label">📊 Jerarquía:</span>
+                  <span class="context-value">${info.hierarchy}</span>
+                </div>
+                ` : ''}
+                ${info.functionTypes.length > 0 ? `
+                <div class="context-row">
+                  <span class="context-label">🏷️ Tipos:</span>
+                  <span class="context-value">${info.functionTypes.join(', ')}</span>
+                </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `
+            </div>
+            <div class="resolution-options">
+              <strong>🤔 ¿Qué acción deseas tomar?</strong>
+              <div class="resolution-choices">
+                <label class="resolution-choice">
+                  <input type="radio" name="resolution-${issue.id}" value="merge">
+                  <div class="choice-content">
+                    <strong>🔗 Son la misma unidad (duplicado real)</strong>
+                    <small>Selecciona el padre correcto y elimina la duplicación</small>
+                  </div>
+                </label>
+                <label class="resolution-choice">
+                  <input type="radio" name="resolution-${issue.id}" value="keep-separate">
+                  <div class="choice-content">
+                    <strong>📂 Son unidades diferentes (mantener separadas)</strong>
+                    <small>Renombra una para diferenciarlas claramente</small>
+                  </div>
+                </label>
+                <label class="resolution-choice">
+                  <input type="radio" name="resolution-${issue.id}" value="review-later">
+                  <div class="choice-content">
+                    <strong>⏰ Revisar más tarde</strong>
+                    <small>Necesito más información para decidir</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div id="merge-options-${issue.id}" class="conditional-options" style="display:none;">
+              <strong>📁 Selecciona el padre correcto:</strong>
+              <div class="parent-selection">
+        `;
+        
+        issue.contextualInfo.forEach((info, index) => {
+          const parentDisplay = info.parentName === 'Ninguno' ? '🏢 Unidad Raíz (sin padre)' : `📁 ${info.parentName}`;
+          html += `
+            <label class="correction-option parent-option">
+              <input type="radio" name="parent-${issue.id}" value="${info.parentName}">
+              <span class="parent-name">${parentDisplay}</span>
+            </label>
+          `;
+        });
+        
+        html += `
+              </div>
+            </div>
+            <div id="rename-options-${issue.id}" class="conditional-options" style="display:none;">
+              <strong>✏️ Renombra una de las unidades para diferenciarla:</strong>
+              <div class="rename-options">
+        `;
+        
+        issue.contextualInfo.forEach((info, index) => {
+          const parentDisplay = info.parentName === 'Ninguno' ? 'Unidad Raíz' : info.parentName;
+          html += `
+            <div class="rename-option">
+              <label>
+                <input type="radio" name="rename-target-${issue.id}" value="${index}">
+                <strong>Renombrar la unidad bajo "${parentDisplay}"</strong>
+              </label>
+              <input type="text" id="new-name-${issue.id}-${index}" placeholder="Nuevo nombre para esta unidad" 
+                     class="rename-input" style="margin-top:5px;display:none;">
+            </div>
+          `;
+        });
+        
+        html += `
+              </div>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn primary" onclick="applyContextualFix('${issue.id}')">✅ Aplicar Resolución</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else if (issue.resolutionType === 'textInput') {
+        // Resolución para campos de texto faltantes
+        html += `
+          <div class="correction-options">
+            <strong>📝 Ingrese el contenido faltante:</strong>
+            <div class="text-input-container">
+              <textarea 
+                id="text-input-${issue.id}" 
+                class="text-correction-input" 
+                placeholder="${issue.placeholder || 'Ingrese el texto'}"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn primary" onclick="applyTextFix('${issue.id}')">✅ Aplicar Corrección</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else if (issue.resolutionType === 'functionTypeSelection') {
+        // Resolución contextual para Tipo de Función
+        const context = issue.contextualInfo.specificContext;
+        const recommendation = context.recommendations;
+        
+        html += `
+          <div class="function-context-panel">
+            <div class="context-summary">
+              <h4>📋 Información de la Función</h4>
+              <div class="context-details">
+                <div class="context-row">
+                  <span class="context-label">🏢 Unidad:</span>
+                  <span class="context-value">${context.unitName}</span>
+                </div>
+                ${context.functionDescription ? `
+                <div class="context-row">
+                  <span class="context-label">📝 Descripción:</span>
+                  <span class="context-value">${context.functionDescription}</span>
+                </div>
+                ` : ''}
+                ${context.productFinal ? `
+                <div class="context-row">
+                  <span class="context-label">🎯 Producto:</span>
+                  <span class="context-value">${context.productFinal}</span>
+                </div>
+                ` : ''}
+                ${context.parentUnit ? `
+                <div class="context-row">
+                  <span class="context-label">📁 Reporta a:</span>
+                  <span class="context-value">${context.parentUnit}</span>
+                </div>
+                ` : ''}
+                ${context.hierarchy ? `
+                <div class="context-row">
+                  <span class="context-label">📊 Jerarquía:</span>
+                  <span class="context-value">${context.hierarchy}</span>
+                </div>
+                ` : ''}
+              </div>
+            </div>
+            
+            ${context.sameUnitFunctions.length > 0 ? `
+            <div class="context-section">
+              <h5>🔍 Otras funciones en esta unidad (${context.sameUnitFunctions.length})</h5>
+              <div class="function-examples">
+                ${context.sameUnitFunctions.map(f => `
+                  <div class="function-example">
+                    <span class="function-type type-${f.type.toLowerCase()}">${f.type}</span>
+                    <span class="function-desc">${f.description.substring(0, 50)}${f.description.length > 50 ? '...' : ''}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            ` : ''}
+            
+            ${context.similarFunctions.length > 0 ? `
+            <div class="context-section">
+              <h5>📚 Funciones similares en la organización</h5>
+              <div class="function-examples">
+                ${context.similarFunctions.map(f => `
+                  <div class="function-example">
+                    <span class="function-type type-${f.type.toLowerCase()}">${f.type}</span>
+                    <span class="function-unit">${f.unit}:</span>
+                    <span class="function-desc">${f.description.substring(0, 40)}${f.description.length > 40 ? '...' : ''}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            ` : ''}
+            
+            ${context.siblingFunctions.length > 0 ? `
+            <div class="context-section">
+              <h5>👥 Funciones en unidades hermanas</h5>
+              <div class="function-examples">
+                ${context.siblingFunctions.map(f => `
+                  <div class="function-example">
+                    <span class="function-type type-${f.type.toLowerCase()}">${f.type}</span>
+                    <span class="function-unit">${f.unit}:</span>
+                    <span class="function-desc">${f.description.substring(0, 40)}${f.description.length > 40 ? '...' : ''}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            ` : ''}
+            
+            <div class="organization-stats">
+              <h5>📊 Distribución en la organización</h5>
+              <div class="stats-row">
+                <div class="stat-item">
+                  <span class="stat-label">📈 Total funciones:</span>
+                  <span class="stat-value">${context.organizationStats.totalFunctions}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">🔧 Genéricas:</span>
+                  <span class="stat-value">${context.organizationStats.genericCount} (${context.organizationStats.genericPercentage}%)</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">⚙️ Específicas:</span>
+                  <span class="stat-value">${context.organizationStats.specificCount} (${context.organizationStats.specificPercentage}%)</span>
+                </div>
+              </div>
+            </div>
+            
+            ${recommendation.suggestedType !== 'Requiere análisis manual' ? `
+            <div class="ai-recommendation">
+              <h5>🤖 Recomendación del sistema</h5>
+              <div class="recommendation-box confidence-${recommendation.confidence}">
+                <div class="recommendation-header">
+                  <strong>Sugerencia: ${recommendation.suggestedType}</strong>
+                  <span class="confidence-badge">${recommendation.confidence} confianza</span>
+                </div>
+                <div class="recommendation-reasoning">
+                  ${recommendation.reasoning.map(reason => `<div class="reason-item">• ${reason}</div>`).join('')}
+                </div>
+              </div>
+            </div>
+            ` : ''}
+          </div>
+          
+          <div class="correction-options">
+            <strong>🎯 Seleccione el tipo de función:</strong>
+            <div class="function-type-options">
+              <label class="function-type-choice ${recommendation.suggestedType === 'Genérica' ? 'recommended' : ''}">
+                <input type="radio" name="function-type-${issue.id}" value="Genérica" ${recommendation.suggestedType === 'Genérica' ? 'checked' : ''}>
+                <div class="choice-content">
+                  <strong>🔧 Genérica</strong>
+                  <small>Funciones de gestión, coordinación, supervisión o control general</small>
+                </div>
+              </label>
+              <label class="function-type-choice ${recommendation.suggestedType === 'Específica' ? 'recommended' : ''}">
+                <input type="radio" name="function-type-${issue.id}" value="Específica" ${recommendation.suggestedType === 'Específica' ? 'checked' : ''}>
+                <div class="choice-content">
+                  <strong>⚙️ Específica</strong>
+                  <small>Funciones de ejecución, implementación o trabajo especializado</small>
+                </div>
+              </label>
+              <label class="function-type-choice">
+                <input type="radio" name="function-type-${issue.id}" value="_custom_">
+                <div class="choice-content">
+                  <strong>📝 Otro tipo</strong>
+                  <input type="text" id="custom-function-type-${issue.id}" placeholder="Especifique el tipo" class="custom-input">
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn primary" onclick="applyFunctionTypeFix('${issue.id}')">✅ Aplicar Corrección</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else if (issue.suggestions && issue.suggestions.length > 0) {
+        // Selección múltiple con opción personalizada
+        html += `
+          <div class="correction-options">
+            <strong>🔍 Seleccione el valor correcto:</strong>
+            <div class="suggestion-options">
+        `;
+        
+        issue.suggestions.forEach((suggestion, index) => {
+          html += `
+            <label class="correction-option">
+              <input type="radio" name="correction-${issue.id}" value="${suggestion}">
+              <span class="suggestion-text">${suggestion}</span>
+            </label>
+          `;
+        });
+        
+        html += `
+            <label class="correction-option custom-option">
+              <input type="radio" name="correction-${issue.id}" value="_custom_">
+              <span class="suggestion-text">🖊️ Otro: </span>
+              <input type="text" class="input-correction" id="custom-${issue.id}" placeholder="Escriba el valor correcto">
+            </label>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn primary" onclick="applyManualFix('${issue.id}')">✅ Aplicar Corrección</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else if (issue.category === 'porcentajes' && issue.autoFix) {
+        // Corrección de porcentajes
+        html += `
+          <div class="correction-options">
+            <strong>📊 ¿Cómo desea corregir los porcentajes?</strong>
+            <div class="percentage-options">
+              <label class="correction-option">
+                <input type="radio" name="percentage-fix-${issue.id}" value="distribute">
+                <span class="option-text">🧮 Distribuir proporcionalmente para sumar 100%</span>
+              </label>
+              <label class="correction-option">
+                <input type="radio" name="percentage-fix-${issue.id}" value="manual">
+                <span class="option-text">🖊️ Corregir manualmente en modo edición</span>
+              </label>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn primary" onclick="applyPercentageFix('${issue.id}')">🔧 Aplicar Corrección</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">Omitir</button>
+          </div>
+        `;
+      } else {
+        // Problemas sin resolución automática
+        html += `
+          <div class="no-auto-resolution">
+            <div class="manual-note">
+              <strong>⚠️ Resolución manual requerida</strong>
+              <p>Este problema requiere revisión manual. Use el modo edición para corregirlo o márquelo como revisado si ya está correcto.</p>
+            </div>
+          </div>
+          <div class="issue-options">
+            <button class="issue-btn warning" onclick="skipIssue('${issue.id}')">✅ Marcar como Revisado</button>
+            <button class="issue-btn secondary" onclick="skipIssue('${issue.id}')">⏭️ Omitir</button>
+          </div>
+        `;
+      }
+      
+      html += `</div>`;
+      return html;
+    }
+    
+    // Adjuntar event listeners para los elementos interactivos
+    function attachIssueEventListeners(issue) {
+      // Event listener para radio buttons personalizados
+      const customRadio = document.querySelector(`input[value="_custom_"]`);
+      if (customRadio) {
+        customRadio.addEventListener('change', function() {
+          const customInput = document.getElementById(`custom-${issue.id}`);
+          if (customInput) {
+            customInput.focus();
+          }
+        });
+      }
+      
+      // Event listener para input personalizado
+      const customInput = document.getElementById(`custom-${issue.id}`);
+      if (customInput) {
+        customInput.addEventListener('input', function() {
+          if (this.value.trim()) {
+            customRadio.checked = true;
+          }
+        });
+      }
+      
+      // Event listeners para resolución contextual
+      if (issue.resolutionType === 'selectParentWithContext') {
+        const resolutionRadios = document.querySelectorAll(`input[name="resolution-${issue.id}"]`);
+        resolutionRadios.forEach(radio => {
+          radio.addEventListener('change', function() {
+            toggleConditionalOptions(issue.id, this.value);
+          });
+        });
+        
+        // Event listeners para opciones de renombrado
+        const renameRadios = document.querySelectorAll(`input[name="rename-target-${issue.id}"]`);
+        renameRadios.forEach(radio => {
+          radio.addEventListener('change', function() {
+            toggleRenameInputs(issue.id, this.value);
+          });
+        });
+      }
+    }
+    
+    // Mostrar/ocultar opciones condicionales según la selección
+    function toggleConditionalOptions(issueId, selectedAction) {
+      const mergeOptions = document.getElementById(`merge-options-${issueId}`);
+      const renameOptions = document.getElementById(`rename-options-${issueId}`);
+      
+      // Ocultar todas las opciones primero
+      if (mergeOptions) mergeOptions.style.display = 'none';
+      if (renameOptions) renameOptions.style.display = 'none';
+      
+      // Mostrar la opción correspondiente
+      if (selectedAction === 'merge' && mergeOptions) {
+        mergeOptions.style.display = 'block';
+      } else if (selectedAction === 'keep-separate' && renameOptions) {
+        renameOptions.style.display = 'block';
+      }
+    }
+    
+    // Mostrar/ocultar campos de entrada para renombrado
+    function toggleRenameInputs(issueId, selectedIndex) {
+      // Ocultar todos los campos de entrada primero
+      const allInputs = document.querySelectorAll(`input[id^="new-name-${issueId}-"]`);
+      allInputs.forEach(input => {
+        input.style.display = 'none';
+        input.value = '';
+      });
+      
+      // Mostrar solo el campo seleccionado
+      const selectedInput = document.getElementById(`new-name-${issueId}-${selectedIndex}`);
+      if (selectedInput) {
+        selectedInput.style.display = 'block';
+        selectedInput.focus();
+      }
+    }
+    
+    // Aplicar corrección automática
+    window.applyAutoFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      console.log('Aplicando corrección automática para:', issueId);
+      
+      // Aplicar la corrección según el tipo
+      if (issue.suggestedValue !== undefined) {
+        applyFieldCorrection(issue.rowIndex, issue.field, issue.suggestedValue);
+      }
+      
+      markIssueResolved(issueId);
+      nextIssue();
+    };
+    
+    // Aplicar corrección manual
+    window.applyManualFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const selectedRadio = document.querySelector(`input[name="correction-${issueId}"]:checked`);
+      if (!selectedRadio) {
+        mostrarAlerta('Por favor seleccione una opción', 2000, '#e74c3c');
+        return;
+      }
+      
+      let newValue = selectedRadio.value;
+      if (newValue === '_custom_') {
+        const customInput = document.getElementById(`custom-${issueId}`);
+        newValue = customInput ? customInput.value.trim() : '';
+        if (!newValue) {
+          mostrarAlerta('Por favor ingrese un valor personalizado', 2000, '#e74c3c');
+          return;
+        }
+      }
+      
+      console.log('Aplicando corrección manual:', newValue);
+      applyFieldCorrection(issue.rowIndex, issue.field, newValue);
+      
+      markIssueResolved(issueId);
+      nextIssue();
+    };
+    
+    // Aplicar corrección de porcentajes
+    window.applyPercentageFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const selectedMethod = document.querySelector(`input[name="percentage-fix-${issueId}"]:checked`);
+      if (!selectedMethod) {
+        mostrarAlerta('Por favor seleccione un método de corrección', 2000, '#e74c3c');
+        return;
+      }
+      
+      if (selectedMethod.value === 'distribute') {
+        distributePercentages(issue);
+        markIssueResolved(issueId);
+        nextIssue();
+      } else {
+        // Abrir modo edición para corrección manual
+        closeValidationInterface();
+        mostrarAlerta('Abra modo edición para corregir los porcentajes manualmente', 3000, '#007bff');
+      }
+    };
+    
+    // Aplicar corrección para múltiples ubicaciones (seleccionar padre)
+    window.applyParentFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const selectedRadio = document.querySelector(`input[name="correction-${issueId}"]:checked`);
+      if (!selectedRadio) {
+        mostrarAlerta('Por favor seleccione el padre correcto', 2000, '#e74c3c');
+        return;
+      }
+      
+      const selectedParent = selectedRadio.value;
+      console.log('Resolviendo múltiples ubicaciones para:', issue.unitName, 'bajo padre:', selectedParent);
+      
+      // Obtener todas las filas de datos
+      const allData = [].concat(...Object.values(unidadesMap));
+      
+      // Encontrar todas las instancias de esta unidad
+      const unitInstances = [];
+      allData.forEach((row, index) => {
+        if (row['Unidad Organizativa'] === issue.unitName) {
+          unitInstances.push({ row, index });
+        }
+      });
+      
+      // Mantener solo la instancia con el padre seleccionado
+      const instancesToKeep = unitInstances.filter(instance => {
+        const currentParent = instance.row['Reporta A'] || 'Ninguno';
+        return currentParent === selectedParent;
+      });
+      
+      // Si no existe una instancia con ese padre, usar la primera y cambiar su padre
+      if (instancesToKeep.length === 0 && unitInstances.length > 0) {
+        const firstInstance = unitInstances[0];
+        firstInstance.row['Reporta A'] = selectedParent === 'Ninguno' ? '' : selectedParent;
+        instancesToKeep.push(firstInstance);
+      }
+      
+      // Eliminar las instancias duplicadas (mantener solo la primera válida)
+      const indexesToRemove = [];
+      unitInstances.forEach((instance, idx) => {
+        if (idx > 0 || (instancesToKeep.length > 0 && instance !== instancesToKeep[0])) {
+          if (!instancesToKeep.includes(instance)) {
+            indexesToRemove.push(instance.index);
+          }
+        }
+      });
+      
+      // Remover las filas duplicadas (de atrás hacia adelante para no alterar índices)
+      indexesToRemove.sort((a, b) => b - a).forEach(index => {
+        if (index < allData.length) {
+          allData.splice(index, 1);
+        }
+      });
+      
+      // Reconstruir unidadesMap
+      rebuildUnidadesMapFromData(allData);
+      
+      markIssueResolved(issueId);
+      mostrarAlerta(`✅ Duplicado resuelto: "${issue.unitName}" ahora reporta a "${selectedParent}"`, 3000, '#27ae60');
+      nextIssue();
+    };
+    
+    // Aplicar corrección para campos de texto faltantes
+    window.applyTextFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const textInput = document.getElementById(`text-input-${issueId}`);
+      if (!textInput) return;
+      
+      const newValue = textInput.value.trim();
+      if (!newValue) {
+        mostrarAlerta('Por favor ingrese un valor', 2000, '#e74c3c');
+        return;
+      }
+      
+      console.log('Aplicando corrección de texto:', newValue);
+      applyFieldCorrection(issue.rowIndex, issue.field, newValue);
+      
+      markIssueResolved(issueId);
+      const fieldDisplay = issue.field === 'Misión' ? 'misión' : 'descripción';
+      mostrarAlerta(`✅ ${fieldDisplay} agregada correctamente`, 3000, '#27ae60');
+      nextIssue();
+    };
+    
+    // Aplicar corrección contextual para múltiples ubicaciones
+    window.applyContextualFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const selectedResolution = document.querySelector(`input[name="resolution-${issueId}"]:checked`);
+      if (!selectedResolution) {
+        mostrarAlerta('Por favor selecciona una acción', 2000, '#e74c3c');
+        return;
+      }
+      
+      const resolutionType = selectedResolution.value;
+      
+      if (resolutionType === 'merge') {
+        // Fusionar duplicados - seleccionar padre correcto
+        const selectedParent = document.querySelector(`input[name="parent-${issueId}"]:checked`);
+        if (!selectedParent) {
+          mostrarAlerta('Por favor selecciona el padre correcto', 2000, '#e74c3c');
+          return;
+        }
+        
+        applyMergeResolution(issue, selectedParent.value);
+        
+      } else if (resolutionType === 'keep-separate') {
+        // Mantener separadas - renombrar una unidad
+        const selectedTarget = document.querySelector(`input[name="rename-target-${issueId}"]:checked`);
+        if (!selectedTarget) {
+          mostrarAlerta('Por favor selecciona qué unidad renombrar', 2000, '#e74c3c');
+          return;
+        }
+        
+        const targetIndex = parseInt(selectedTarget.value);
+        const newNameInput = document.getElementById(`new-name-${issueId}-${targetIndex}`);
+        const newName = newNameInput ? newNameInput.value.trim() : '';
+        
+        if (!newName) {
+          mostrarAlerta('Por favor ingresa el nuevo nombre para la unidad', 2000, '#e74c3c');
+          return;
+        }
+        
+        applyRenameResolution(issue, targetIndex, newName);
+        
+      } else if (resolutionType === 'review-later') {
+        // Revisar más tarde
+        console.log('Marcando para revisión posterior:', issueId);
+        mostrarAlerta('⏰ Problema marcado para revisión posterior', 2000, '#17a2b8');
+        nextIssue();
+        return;
+      }
+    };
+    
+    // Aplicar resolución de fusión (eliminar duplicados)
+    function applyMergeResolution(issue, selectedParent) {
+      console.log('Aplicando resolución de fusión para:', issue.unitName, 'bajo padre:', selectedParent);
+      
+      // Usar la misma lógica que applyParentFix
+      const allData = [].concat(...Object.values(unidadesMap));
+      
+      // Encontrar todas las instancias de esta unidad
+      const unitInstances = [];
+      allData.forEach((row, index) => {
+        if (row['Unidad Organizativa'] === issue.unitName) {
+          unitInstances.push({ row, index });
+        }
+      });
+      
+      // Mantener solo la instancia con el padre seleccionado
+      const instancesToKeep = unitInstances.filter(instance => {
+        const currentParent = instance.row['Reporta A'] || 'Ninguno';
+        return currentParent === selectedParent;
+      });
+      
+      // Si no existe una instancia con ese padre, usar la primera y cambiar su padre
+      if (instancesToKeep.length === 0 && unitInstances.length > 0) {
+        const firstInstance = unitInstances[0];
+        firstInstance.row['Reporta A'] = selectedParent === 'Ninguno' ? '' : selectedParent;
+        instancesToKeep.push(firstInstance);
+      }
+      
+      // Eliminar las instancias duplicadas
+      const indexesToRemove = [];
+      unitInstances.forEach((instance, idx) => {
+        if (idx > 0 || (instancesToKeep.length > 0 && instance !== instancesToKeep[0])) {
+          if (!instancesToKeep.includes(instance)) {
+            indexesToRemove.push(instance.index);
+          }
+        }
+      });
+      
+      // Remover las filas duplicadas
+      indexesToRemove.sort((a, b) => b - a).forEach(index => {
+        if (index < allData.length) {
+          allData.splice(index, 1);
+        }
+      });
+      
+      // Reconstruir unidadesMap
+      rebuildUnidadesMapFromData(allData);
+      
+      markIssueResolved(issue.id);
+      mostrarAlerta(`🔗 Duplicado fusionado: "${issue.unitName}" ahora solo existe bajo "${selectedParent}"`, 3000, '#27ae60');
+      nextIssue();
+    }
+    
+    // Aplicar resolución de renombrado (mantener separadas)
+    function applyRenameResolution(issue, targetIndex, newName) {
+      console.log('Aplicando resolución de renombrado para índice:', targetIndex, 'nuevo nombre:', newName);
+      
+      const allData = [].concat(...Object.values(unidadesMap));
+      const variation = issue.variations[targetIndex];
+      
+      if (!variation || !variation.entries) {
+        mostrarAlerta('Error: No se pudo encontrar la variación seleccionada', 2000, '#e74c3c');
+        return;
+      }
+      
+      // Renombrar todas las instancias de esta variación específica
+      variation.entries.forEach(entry => {
+        if (entry.row && entry.row['Unidad Organizativa'] === issue.unitName) {
+          entry.row['Unidad Organizativa'] = newName;
+        }
+      });
+      
+      // Reconstruir unidadesMap
+      rebuildUnidadesMapFromData(allData);
+      
+      markIssueResolved(issue.id);
+      const parentDisplay = variation.parentName || 'Unidad Raíz';
+      mostrarAlerta(`📂 Unidad renombrada: "${issue.unitName}" bajo "${parentDisplay}" ahora se llama "${newName}"`, 3000, '#27ae60');
+      nextIssue();
+    }
+    
+    // Aplicar corrección para tipo de función
+    window.applyFunctionTypeFix = function(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (!issue) return;
+      
+      const selectedType = document.querySelector(`input[name="function-type-${issueId}"]:checked`);
+      if (!selectedType) {
+        mostrarAlerta('Por favor selecciona un tipo de función', 2000, '#e74c3c');
+        return;
+      }
+      
+      let functionType = selectedType.value;
+      
+      // Si es un tipo personalizado, obtener el valor del input
+      if (functionType === '_custom_') {
+        const customInput = document.getElementById(`custom-function-type-${issueId}`);
+        functionType = customInput ? customInput.value.trim() : '';
+        
+        if (!functionType) {
+          mostrarAlerta('Por favor especifica el tipo de función', 2000, '#e74c3c');
+          return;
+        }
+      }
+      
+      console.log('Aplicando tipo de función:', functionType, 'para fila:', issue.rowIndex);
+      
+      // Aplicar la corrección al campo
+      applyFieldCorrection(issue.rowIndex, issue.field, functionType);
+      
+      markIssueResolved(issueId);
+      const unitName = issue.contextualInfo.currentRow['Unidad Organizativa'] || 'Sin nombre';
+      mostrarAlerta(`✅ Tipo de función "${functionType}" asignado a "${unitName}"`, 3000, '#27ae60');
+      nextIssue();
+    };
+    
+    // Omitir problema actual
+    window.skipIssue = function(issueId) {
+      console.log('Omitiendo problema:', issueId);
+      nextIssue();
+    };
+    
+    // Aplicar corrección a un campo específico
+    function applyFieldCorrection(rowIndex, field, newValue) {
+      const allData = [].concat(...Object.values(unidadesMap));
+      if (rowIndex < allData.length) {
+        allData[rowIndex][field] = newValue;
+        console.log(`Campo ${field} en fila ${rowIndex} actualizado a:`, newValue);
+      }
+    }
+    
+    // Reconstruir unidadesMap desde datos actualizados
+    function rebuildUnidadesMapFromData(allData) {
+      unidadesMap = {};
+      allData.forEach(row => {
+        const unitName = row['Unidad Organizativa'];
+        const parentName = row['Reporta A'] || '';
+        const key = `${unitName}|${parentName}`;
+        
+        if (!unidadesMap[key]) {
+          unidadesMap[key] = [];
+        }
+        unidadesMap[key].push(row);
+      });
+      
+      // Actualizar variables globales
+      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+      
+      // Regenerar árbol si es necesario
+      if (window.buildTree && window.renderTree) {
+        treeRoots = buildTree(allData);
+        const treeDiv = document.getElementById('tree-container');
+        if (treeDiv) {
+          treeDiv.innerHTML = '';
+          renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        }
+      }
+    }
+    
+    // Distribuir porcentajes proporcionalmente
+    function distributePercentages(issue) {
+      const functions = issue.functions;
+      const currentTotal = issue.total;
+      
+      functions.forEach(funcEntry => {
+        const currentPct = parseFloat(funcEntry.row['Porcentaje Dedicación'] || '0');
+        const newPct = (currentPct / currentTotal) * 100;
+        funcEntry.row['Porcentaje Dedicación'] = newPct.toFixed(1);
+      });
+      
+      console.log('Porcentajes redistribuidos para:', issue.unitName);
+    }
+    
+    // Marcar problema como resuelto
+    function markIssueResolved(issueId) {
+      const issue = validationIssues.find(i => i.id === issueId);
+      if (issue) {
+        issue.resolved = true;
+        resolvedIssuesCount++;
+        updateValidationStats();
+        updateValidationProgress();
+      }
+    }
+    
+    // Ir al siguiente problema
+    function nextIssue() {
+      currentIssueIndex++;
+      if (currentIssueIndex >= validationIssues.length) {
+        showValidationComplete();
+      } else {
+        showCurrentIssue();
+      }
+    }
+    
+    // Mostrar pantalla de validación completada
+    function showValidationComplete() {
+      const content = document.getElementById('validationContent');
+      const resolved = validationIssues.filter(i => i.resolved).length;
+      const total = validationIssues.length;
+      
+      content.innerHTML = `
+        <div class="validation-issue success">
+          <div class="issue-title">¡Validación Completada!</div>
+          <div class="issue-description">
+            Se han procesado todos los problemas encontrados.<br>
+            Resueltos: ${resolved} de ${total} problemas.
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('finishValidationBtn').style.display = 'inline-block';
+      document.getElementById('skipValidationBtn').textContent = 'Cerrar sin Aplicar';
+    }
+    
+    // Cerrar interfaz de validación
+    function closeValidationInterface() {
+      document.getElementById('validationOverlay').style.display = 'none';
+      validationInProgress = false;
+    }
+    
+    // Finalizar validación y aplicar cambios
+    function finishValidationAndApplyChanges() {
+      console.log('Finalizando validación y aplicando cambios...');
+      
+      try {
+        // Regenerar los datos corregidos
+        const allData = [].concat(...Object.values(unidadesMap));
+        
+        // Regenerar CSV con datos corregidos
+        let correctedCSV = csvHeaders.join(';') + '\n';
+        allData.forEach(row => {
+          const csvRow = csvHeaders.map(header => (row[header] || '').toString().trim());
+          correctedCSV += csvRow.join(';') + '\n';
+        });
+        
+        // Guardar en localStorage
+        localStorage.setItem('csvData', correctedCSV);
+        localStorage.setItem('csvValidated', 'true');
+        localStorage.setItem('csvLastValidated', new Date().toISOString());
+        
+        // Actualizar estado
+        originalCSV = correctedCSV;
+        datosModificados = false;
+        marcarAdminCambios(false);
+        
+        // Regenerar estructura
+        unidadesMap = groupByUnidad(allData);
+        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+        treeRoots = buildTree(allData);
+        
+        // Refrescar vista
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        document.getElementById('unidad-content').innerHTML = '';
+        
+        closeValidationInterface();
+        mostrarAlerta('✅ Datos validados y corregidos exitosamente', 3000, '#28a745');
+        
+      } catch (error) {
+        console.error('Error al aplicar correcciones:', error);
+        mostrarAlerta('Error al aplicar las correcciones', 3000, '#e74c3c');
+      }
+    }
+    
+    // Verificar si los datos necesitan validación
+    function needsValidation() {
+      const lastValidated = localStorage.getItem('csvLastValidated');
+      const wasValidated = localStorage.getItem('csvValidated') === 'true';
+      
+      if (!wasValidated) return true;
+      
+      // Si han pasado más de 24 horas, revalidar
+      if (lastValidated) {
+        const lastValidatedDate = new Date(lastValidated);
+        const now = new Date();
+        const hoursSinceValidation = (now - lastValidatedDate) / (1000 * 60 * 60);
+        if (hoursSinceValidation > 24) return true;
+      }
+      
+      return false;
+    }
+    
+    // Función para validar porcentajes de funciones específicas
+    function validarPorcentajesEspecificas(especificas) {
+      if (!especificas || especificas.length === 0) return { isValid: true, message: '' };
+      
+      const porcentajes = especificas.map(f => {
+        const porcentaje = parseFloat(f['Porcentaje Dedicación'] || '0');
+        return isNaN(porcentaje) ? 0 : porcentaje;
+      });
+      
+      const total = porcentajes.reduce((sum, p) => sum + p, 0);
+      
+      if (total === 0) {
+        return { isValid: true, message: 'No hay porcentajes definidos' };
+      } else if (total < 100) {
+        return { 
+          isValid: true, 
+          message: `⚠️ Advertencia: Los porcentajes suman ${total.toFixed(1)}% (falta ${(100 - total).toFixed(1)}%)`,
+          type: 'warning'
+        };
+      } else if (total > 100) {
+        return { 
+          isValid: true, 
+          message: `⚠️ Advertencia: Los porcentajes suman ${total.toFixed(1)}% (excede en ${(total - 100).toFixed(1)}%)`,
+          type: 'error'
+        };
+      } else {
+        return { isValid: true, message: '✅ Los porcentajes suman exactamente 100%', type: 'success' };
+      }
+    }
+
+
+
+    // Función para guardar estado para deshacer
+    function saveUndoState(action, description) {
+      if (!lastSelected || !unidadesMap[lastSelected]) return;
+      
+      const currentState = {
+        action: action,
+        description: description,
+        timestamp: new Date().toISOString(),
+        unitKey: lastSelected,
+        unitData: JSON.parse(JSON.stringify(unidadesMap[lastSelected])), // Deep copy
+        allUnitsData: JSON.parse(JSON.stringify(unidadesMap)) // Deep copy of all units
+      };
+      
+      undoStack.push(currentState);
+      
+      // Limitar el tamaño del stack
+      if (undoStack.length > maxUndoSteps) {
+        undoStack.shift();
+      }
+      
+      updateUndoButton();
+    }
+    
+    // Función para actualizar el estado del botón deshacer
+    function updateUndoButton() {
+      const undoBtn = document.getElementById('undoBtn');
+      if (undoStack.length > 0) {
+        undoBtn.disabled = false;
+        undoBtn.title = `Deshacer: ${undoStack[undoStack.length - 1].description}`;
+      } else {
+        undoBtn.disabled = true;
+        undoBtn.title = 'No hay acciones para deshacer';
+      }
+    }
+    
+    // Función para deshacer la última acción
+    function undoLastAction() {
+      if (undoStack.length === 0) {
+        mostrarAlerta('No hay acciones para deshacer', 2000, '#e67e22');
+        return;
+      }
+      
+      const lastState = undoStack.pop();
+      
+      try {
+        // Restaurar el estado de todas las unidades
+        unidadesMap = JSON.parse(JSON.stringify(lastState.allUnitsData));
+        
+        // Actualizar listas y árbol
+        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+        treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+        
+        // Restaurar selección si la unidad aún existe
+        if (unidadesMap[lastState.unitKey]) {
+          lastSelected = lastState.unitKey;
+        } else {
+          lastSelected = '';
+        }
+        
+        // Volver a renderizar el árbol
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        
+        // Mostrar la unidad si hay selección
+        if (lastSelected && unidadesMap[lastSelected]) {
+          showUnidad(unidadesMap[lastSelected]);
+        } else {
+          document.getElementById('unidad-content').innerHTML = '';
+        }
+        
+        // Actualizar estado de cambios
+        compararCSVActualConOriginal();
+        updateUndoButton();
+        
+        mostrarAlerta(`Deshecho: ${lastState.description}`, 2000, '#27ae60');
+        
+      } catch (error) {
+        console.error('Error al deshacer:', error);
+        mostrarAlerta('Error al deshacer la acción', 2000, '#e74c3c');
+      }
+    }
+    
+    function marcarAdminCambios(pendiente) {
+      const adminBtn = document.getElementById('adminBtn');
+      if (pendiente) {
+        adminBtn.style.background = '#e67e22'; // naranja
+        adminBtn.title = '¡Hay cambios sin exportar! Haz clic para exportar.';
+      } else {
+        adminBtn.style.background = '#3498db';
+        adminBtn.title = '';
+      }
+    }
+
+    function compararCSVActualConOriginal() {
+      if (!csvHeaders || csvHeaders.length === 0) {
+        console.warn('csvHeaders no definido, no se pueden guardar cambios');
+        return;
+      }
+      
+      try {
+        // Generar CSV actual
+        let rows = [csvHeaders.join(';')];
+        Object.values(unidadesMap).forEach(arr => {
+          arr.forEach(u => {
+            let row = csvHeaders.map(h => (u[h] || '').toString().trim());
+            rows.push(row.join(';'));
+          });
+        });
+        const actual = rows.join('\n');
+        
+        // Verificar si hay cambios
+        datosModificados = (actual !== originalCSV);
+        marcarAdminCambios(datosModificados);
+        updateFileInfo(); // Actualizar información de archivos
+        
+        // Guardar automáticamente en localStorage si hay cambios
+        if (datosModificados && editMode) {
+          try {
+            localStorage.setItem('csvData', actual);
+            localStorage.setItem('csvLastSaved', new Date().toISOString());
+            console.log('Cambios guardados automáticamente en localStorage:', new Date().toLocaleString());
+            
+            // Mostrar mensaje sutil de guardado automático
+            mostrarAlerta('Cambios guardados automáticamente', 1000, '#27ae60');
+            
+            // Actualizar originalCSV para futuras comparaciones
+            originalCSV = actual;
+          } catch (e) {
+            console.error('Error al guardar en localStorage:', e);
+            mostrarAlerta('Error al guardar cambios', 2000, '#e74c3c');
+          }
+        }
+      } catch (e) {
+        console.error('Error al comparar/guardar cambios:', e);
+        mostrarAlerta('Error al procesar cambios', 2000, '#e74c3c');
+      }
+    }
+
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      const headers = lines[0].split(';');
+      csvHeaders = headers;
+      return lines.slice(1).map(line => {
+        const values = line.split(';');
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = (values[i] || '').trim());
+        return obj;
+      });
+    }
+    function groupByUnidad(data) {
+      const map = {};
+      data.forEach(item => {
+        // Usar clave compuesta: nombre + '|' + reportaA
+        const key = item['Unidad Organizativa'] + '|' + (item['Reporta A'] || '');
+        if (!map[key]) map[key] = [];
+        map[key].push(item);
+      });
+      return map;
+    }
+    function buildTree(data) {
+      const nodeMap = {};
+      data.forEach(item => {
+        const name = item['Unidad Organizativa'];
+        const parent = item['Reporta A'] || '';
+        const key = name + '|' + parent;
+        if (!nodeMap[key]) nodeMap[key] = { key, name, parent, children: [], item };
+        nodeMap[key].parent = parent;
+      });
+      // Relacionar hijos con padres usando la clave compuesta
+      Object.values(nodeMap).forEach(node => {
+        if (node.parent) {
+          // Buscar clave del padre
+          const parentKey = Object.keys(nodeMap).find(k => nodeMap[k].name === node.parent);
+          if (parentKey && nodeMap[parentKey]) {
+            nodeMap[parentKey].children.push(node);
+          }
+        }
+      });
+      // Raíces: nodos cuyo padre no existe en el mapa
+      const roots = Object.values(nodeMap).filter(node => {
+        const parentKey = Object.keys(nodeMap).find(k => nodeMap[k].name === node.parent);
+        return !node.parent || !parentKey;
+      });
+      return roots;
+    }
+
+    // Agregar una nueva unidad bajo un padre existente
+    function agregarUnidad(nombre, parentName) {
+      if (!nombre) return;
+      
+      saveUndoState('add_unit', `Agregar unidad: ${nombre} bajo ${parentName}`);
+      
+      const newKey = nombre + '|' + parentName;
+      if (unidadesMap[newKey]) {
+        alert('Ya existe una unidad con ese nombre bajo este padre');
+        return;
+      }
+      // Obtener registro base del padre (o plantilla vacía)
+      const parentKey = Object.keys(unidadesMap).find(k => k.startsWith(parentName + '|')) || '';
+      const baseParent = parentKey && unidadesMap[parentKey] ? unidadesMap[parentKey][0] : {};
+      const nuevaBase = { ...baseParent };
+      nuevaBase['Unidad Organizativa'] = nombre;
+      nuevaBase['Reporta A'] = parentName;
+      nuevaBase['Misión'] = '';
+      // Limpiar marcadores internos
+      delete nuevaBase['_autocompletado'];
+      delete nuevaBase['_ambiguedad'];
+      // Insertar en mapa
+      unidadesMap[newKey] = [nuevaBase];
+      // Actualizar listas y árbol
+      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+      treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, newKey);
+      // Seleccionar la nueva unidad
+      selectUnidad(newKey);
+      // Guardar cambios
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
+    }
+    function renderTree(nodes, container, onSelect, selectedNode = '') {
+        const ul = document.createElement('ul');
+        nodes.forEach(node => {
+            const li = document.createElement('li');
+            li.setAttribute('data-key', node.key);
+            
+            // Crear el botón de toggle si tiene hijos
+            if (node.children && node.children.length > 0) {
+                const toggle = document.createElement('span');
+                toggle.className = 'toggle';
+                toggle.textContent = expandedNodes[node.key] ? '[–]' : '[+]';
+                toggle.onclick = function(e) {
+                    e.stopPropagation();
+                    const isExpanded = expandedNodes[node.key];
+                    if (isExpanded) {
+                        // Colapsar
+                        delete expandedNodes[node.key];
+                        toggle.textContent = '[+]';
+                        const childUl = li.querySelector('ul');
+                        if (childUl) li.removeChild(childUl);
+                    } else {
+                        // Expandir
+                        expandedNodes[node.key] = true;
+                        toggle.textContent = '[–]';
+                        const childUl = renderTree(node.children, li, onSelect, selectedNode);
+                        li.appendChild(childUl);
+                    }
+                    localStorage.setItem('expandedNodes', JSON.stringify(expandedNodes));
+                };
+                li.appendChild(toggle);
+            }
+
+            // Crear el contenido del nodo
+            const content = document.createElement('span');
+            content.textContent = node.name;
+            content.className = 'node-content';
+            if (node.key === selectedNode) {
+                content.classList.add('selected');
+            }
+            content.onclick = () => onSelect(node.key);
+            li.appendChild(content);
+
+            // Agregar botones de edición si está en modo edición
+            if (editMode) {
+                const editButtons = document.createElement('span');
+                editButtons.className = 'edit-buttons';
+                
+                const addBtn = document.createElement('span');
+                addBtn.className = 'add-btn';
+                addBtn.textContent = '+';
+                addBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    const newName = prompt('Nombre de la nueva unidad:');
+                    if (newName) {
+                        agregarUnidad(newName, node.name);
+                    }
+                };
+                
+                const delBtn = document.createElement('span');
+                delBtn.className = 'delete-btn';
+                delBtn.textContent = '×';
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (confirm('¿Está seguro de eliminar esta unidad?')) {
+                        eliminarUnidad(node.name);
+                    }
+                };
+                
+                editButtons.appendChild(addBtn);
+                editButtons.appendChild(delBtn);
+                li.appendChild(editButtons);
+            }
+
+            // Si el nodo está expandido, renderizar sus hijos
+            if (node.children && node.children.length > 0 && expandedNodes[node.key]) {
+                const childUl = renderTree(node.children, li, onSelect, selectedNode);
+                li.appendChild(childUl);
+            }
+
+            ul.appendChild(li);
+        });
+        container.appendChild(ul);
+        return ul;
+    }
+    function correctSpelling(text) {
+      // Simple autocorrect: capitalize first letter, trim, and fix double spaces
+      if (!text) return '';
+      let t = text.trim().replace(/\s+/g, ' ');
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    }
+    function showUnidad(unidadArr) {
+      if (!unidadArr || !unidadArr.length) {
+        document.getElementById('unidad-content').innerHTML = '';
+        return;
+      }
+      const base = unidadArr[0];
+      const genericas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('gen'));
+      const especificas = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('espec'));
+      let html = '';
+      if (!editMode) {
+        html += `<div class="title">${base['Unidad Organizativa']}</div>`;
+        html += `<div class="info-line"><span class="info-label">Reporta a:</span> ${base['Reporta A'] || 'Ninguno'}</div>`;
+        html += `<div class="info-line"><span class="info-label">Jerarquía:</span> ${base['Jerarquía'] || ''}</div>`;
+        html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> ${base['Nivel Jerárquico Calculado'] || ''}</div>`;
+        html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> ${base['Unidades que Reportan Directamente'] || ''}</div>`;
+        html += `<div class="mission-label">Misión:</div><div class="mission-box">${base['Misión'] || ''}</div>`;
+      } else {
+        // Edición de campos principales
+        html += `<div class="title"><input id="edit-nombre" value="${base['Unidad Organizativa']}" style="font-size:1.2em;width:60%"></div>`;
+        // Select de áreas posibles para "Reporta a"
+        html += `<div class="info-line"><span class="info-label">Reporta a:</span> <select id="edit-reporta">
+          <option value="">Ninguno</option>`;
+        allUnidades.slice().sort((a, b) => a.localeCompare(b, 'es', {sensitivity:'base'})).forEach(u => {
+          if (u !== base['Unidad Organizativa']) {
+            html += `<option value="${u}"${base['Reporta A'] === u ? ' selected' : ''}>${u}</option>`;
+          }
+        });
+        html += `</select></div>`;
+        html += `<div class="info-line"><span class="info-label">Jerarquía:</span> <input id="edit-jerarquia" value="${base['Jerarquía'] || ''}"></div>`;
+        html += `<div class="info-line"><span class="info-label">Nivel Jerárquico Calculado:</span> <input id="edit-nivel" value="${base['Nivel Jerárquico Calculado'] || ''}"></div>`;
+        let uqrdStyle = '';
+        let uqrdTitle = '';
+        if (base._autocompletado) {
+          uqrdStyle += 'background: #fff8b3; border: 1.5px solid #e6b800;';
+          uqrdTitle = 'Campo autocompletado automáticamente';
+        }
+        if (base._ambiguedad) {
+          uqrdStyle += 'background: #ffd6d6; border: 2px solid #d32f2f;';
+          uqrdTitle += ' (Hay unidades con el mismo nombre pero distinto padre. Revisa los datos)';
+        }
+        html += `<div class="info-line"><span class="info-label">Unidades que Reportan Directamente:</span> <input type="text" id="uqrd" value="${base['Unidades que Reportan Directamente'] || ''}" style="${uqrdStyle}" title="${uqrdTitle}"></div>`;
+        html += `<div class="mission-label">Misión:</div><textarea id="edit-mision" rows="2" style="width:100%">${base['Misión'] || ''}</textarea>`;
+      }
+      // Funciones Genéricas
+      html += `<div class="func-section-title">Funciones Genéricas`;
+      if (editMode) {
+        html += `<span class="add-func" onclick="window.addFuncRow('gen')">+ Agregar</span>`;
+        html += `<span class="copy-func" onclick="window.showCopyOptions('gen')">📋 Copiar de Unidad</span>`;
+      }
+      html += `</div>`;
+      html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th>${editMode ? '<th></th>' : ''}</tr></thead><tbody id="gen-func-tbody">`;
+      genericas.forEach((u, idx) => {
+        if (!editMode) {
+          html += `<tr draggable="true" data-func-type="gen" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td></tr>`;
+        } else {
+          html += `<tr draggable="true" data-func-type="gen" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span><textarea data-func-type="gen" data-idx="${idx}" data-field="Descripción" rows="2" style="width:98%">${u['Descripción'] || ''}</textarea></td><td><input data-func-type="gen" data-idx="${idx}" data-field="Producto Final" value="${u['Producto Final'] || ''}" style="width:98%"></td><td><span class="delete-func" onclick="window.deleteFuncRow('gen',${idx})">✕</span></td></tr>`;
+        }
+      });
+      html += `</tbody></table>`;
+      // Funciones Específicas
+      html += `<div class="func-section-title">Funciones Específicas`;
+      if (editMode) {
+        html += `<span class="add-func" onclick="window.addFuncRow('espec')">+ Agregar</span>`;
+        html += `<span class="copy-func" onclick="window.showCopyOptions('espec')">📋 Copiar de Unidad</span>`;
+      }
+      html += `</div>`;
+      html += `<table class="func-table"><thead><tr><th>Descripción</th><th>Producto Final</th><th>% Dedicación</th>${editMode ? '<th></th>' : ''}</tr></thead><tbody id="espec-func-tbody">`;
+      especificas.forEach((u, idx) => {
+        if (!editMode) {
+          html += `<tr draggable="true" data-func-type="espec" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span>${u['Descripción'] || ''}</td><td>${u['Producto Final'] || ''}</td><td>${u['Porcentaje Dedicación'] || ''}</td></tr>`;
+        } else {
+          html += `<tr draggable="true" data-func-type="espec" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span><textarea data-func-type="espec" data-idx="${idx}" data-field="Descripción" rows="2" style="width:98%">${u['Descripción'] || ''}</textarea></td><td><input data-func-type="espec" data-idx="${idx}" data-field="Producto Final" value="${u['Producto Final'] || ''}" style="width:98%"></td><td><input data-func-type="espec" data-idx="${idx}" data-field="Porcentaje Dedicación" value="${u['Porcentaje Dedicación'] || ''}" style="width:90%"></td><td><span class="delete-func" onclick="window.deleteFuncRow('espec',${idx})">✕</span></td></tr>`;
+        }
+      });
+      html += `</tbody></table>`;
+      
+      // Agregar validación de porcentajes para funciones específicas
+      if (especificas.length > 0) {
+        const validacion = validarPorcentajesEspecificas(especificas);
+        if (validacion.message) {
+          let alertClass = '';
+          if (validacion.type === 'warning') alertClass = 'percentage-warning';
+          else if (validacion.type === 'error') alertClass = 'percentage-error';
+          else if (validacion.type === 'success') alertClass = 'percentage-info';
+          
+          html += `<div class="percentage-info ${alertClass}">${validacion.message}</div>`;
+        }
+      }
+      document.getElementById('unidad-content').innerHTML = html;
+      if (editMode) attachEditHandlers(base, genericas, especificas);
+      
+      // Configurar drag and drop para las funciones
+      setupDragAndDrop();
+    }
+    
+    // Función para mostrar validación de porcentajes en tiempo real
+    function mostrarValidacionPorcentajes(validacion) {
+      // Buscar si ya existe un mensaje de validación
+      let existingAlert = document.querySelector('.percentage-info');
+      if (existingAlert) {
+        existingAlert.remove();
+      }
+      
+      if (validacion.message && validacion.message !== 'No hay porcentajes definidos') {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'percentage-info';
+        
+        if (validacion.type === 'warning') alertDiv.classList.add('percentage-warning');
+        else if (validacion.type === 'error') alertDiv.classList.add('percentage-error');
+        
+        alertDiv.textContent = validacion.message;
+        
+        // Insertar después de la tabla de funciones específicas
+        const especTable = document.querySelector('#espec-func-tbody').closest('table');
+        especTable.parentNode.insertBefore(alertDiv, especTable.nextSibling);
+      }
+    }
+    
+    // Función para configurar drag and drop
+    function setupDragAndDrop() {
+      const tbodyElements = document.querySelectorAll('#gen-func-tbody, #espec-func-tbody');
+      
+      tbodyElements.forEach(tbody => {
+        const rows = tbody.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+          row.addEventListener('dragstart', handleDragStart);
+          row.addEventListener('dragend', handleDragEnd);
+          row.addEventListener('dragover', handleDragOver);
+          row.addEventListener('drop', handleDrop);
+          row.addEventListener('dragenter', handleDragEnter);
+          row.addEventListener('dragleave', handleDragLeave);
+        });
+      });
+    }
+    
+    // Variables para drag and drop
+    let draggedElement = null;
+    let draggedIndex = null;
+    let draggedType = null;
+    
+    function handleDragStart(e) {
+      draggedElement = this;
+      draggedIndex = parseInt(this.getAttribute('data-idx'));
+      draggedType = this.getAttribute('data-func-type');
+      
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.outerHTML);
+    }
+    
+    function handleDragEnd(e) {
+      this.classList.remove('dragging');
+      // Limpiar clases de drag over
+      document.querySelectorAll('.drag-over, .drag-over-bottom').forEach(el => {
+        el.classList.remove('drag-over', 'drag-over-bottom');
+      });
+    }
+    
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    }
+    
+    function handleDragEnter(e) {
+      e.preventDefault();
+      if (this !== draggedElement) {
+        const rect = this.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        const mouseY = e.clientY;
+        
+        this.classList.remove('drag-over', 'drag-over-bottom');
+        if (mouseY < midY) {
+          this.classList.add('drag-over');
+        } else {
+          this.classList.add('drag-over-bottom');
+        }
+      }
+    }
+    
+    function handleDragLeave(e) {
+      this.classList.remove('drag-over', 'drag-over-bottom');
+    }
+    
+    function handleDrop(e) {
+      e.preventDefault();
+      
+      if (this === draggedElement) return;
+      
+      const targetIndex = parseInt(this.getAttribute('data-idx'));
+      const targetType = this.getAttribute('data-func-type');
+      
+      if (draggedType !== targetType) return; // Solo permitir drag dentro del mismo tipo
+      
+      // Obtener la unidad actual
+      const currentUnit = unidadesMap[lastSelected];
+      if (!currentUnit) return;
+      
+      // Filtrar funciones del tipo correspondiente
+      const functions = currentUnit.filter(u => {
+        if (draggedType === 'gen') {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      if (draggedIndex === targetIndex) return;
+      
+      // Guardar estado para deshacer
+      saveUndoState('reorder_functions', `Reordenar funciones ${draggedType === 'gen' ? 'genéricas' : 'específicas'}`);
+      
+      // Reordenar las funciones
+      const draggedFunction = functions[draggedIndex];
+      functions.splice(draggedIndex, 1);
+      functions.splice(targetIndex, 0, draggedFunction);
+      
+      // Actualizar la unidad con el nuevo orden
+      const otherFunctions = currentUnit.filter(u => {
+        if (draggedType === 'gen') {
+          return !(u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return !(u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      unidadesMap[lastSelected] = [...otherFunctions, ...functions];
+      
+      // Volver a mostrar la unidad para reflejar el nuevo orden
+      showUnidad(unidadesMap[lastSelected]);
+      
+      // Guardar cambios
+      if (editMode) {
+        compararCSVActualConOriginal();
+      }
+      
+      mostrarAlerta('Orden de funciones actualizado', 1500, '#27ae60');
+    }
+    
+    // Función para mostrar opciones de copia
+    window.showCopyOptions = function(funcType) {
+      console.log('showCopyOptions called with funcType:', funcType);
+      console.log('lastSelected:', lastSelected);
+      
+      const currentUnit = unidadesMap[lastSelected];
+      if (!currentUnit || !currentUnit[0]) {
+        console.error('No current unit found');
+        mostrarAlerta('No hay unidad seleccionada', 2000, '#e74c3c');
+        return;
+      }
+      
+      // Crear modal de selección de unidad
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'copy-options';
+      optionsDiv.style.position = 'fixed';
+      optionsDiv.style.left = '50%';
+      optionsDiv.style.top = '50%';
+      optionsDiv.style.transform = 'translate(-50%, -50%)';
+      optionsDiv.style.minWidth = '400px';
+      optionsDiv.style.maxWidth = '500px';
+      optionsDiv.style.maxHeight = '70vh';
+      optionsDiv.style.overflow = 'auto';
+      optionsDiv.style.display = 'block';
+      optionsDiv.style.zIndex = '10000';
+      optionsDiv.style.backgroundColor = 'white';
+      optionsDiv.style.border = '2px solid #3498db';
+      optionsDiv.style.borderRadius = '8px';
+      optionsDiv.style.padding = '20px';
+      optionsDiv.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+      
+      let optionsHTML = `
+        <div style="font-weight:bold;margin-bottom:12px;border-bottom:2px solid #3498db;padding-bottom:8px;color:#2c3e50;font-size:16px;">
+          🔄 Copiar funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'}
+        </div>
+        <div style="margin-bottom:12px;color:#7f8c8d;font-size:14px;">
+          Selecciona la unidad organizativa de la cual quieres copiar funciones:
+        </div>
+        <div style="margin-bottom:15px;">
+          <select id="sourceUnitSelect" style="width:100%;padding:8px;border:1px solid #bdc3c7;border-radius:4px;font-size:14px;">
+            <option value="">-- Seleccionar unidad --</option>
+          </select>
+        </div>
+        <div id="functionsContainer" style="margin-bottom:15px;"></div>
+        <div style="text-align:right;">
+          <button onclick="window.closeCopyOptions()" style="margin-right:10px;padding:8px 16px;background:#e74c3c;color:white;border:none;border-radius:4px;cursor:pointer;">
+            Cancelar
+          </button>
+        </div>
+      `;
+      
+      optionsDiv.innerHTML = optionsHTML;
+      document.body.appendChild(optionsDiv);
+      
+      // Poblar el selector con todas las unidades organizativas
+      const select = document.getElementById('sourceUnitSelect');
+      const currentUnitName = currentUnit[0]['Unidad Organizativa'];
+      
+      Object.keys(unidadesMap).forEach(key => {
+        const unit = unidadesMap[key][0];
+        const unitName = unit['Unidad Organizativa'];
+        
+        // No incluir la unidad actual en la lista
+        if (unitName !== currentUnitName) {
+          const option = document.createElement('option');
+          option.value = key;
+          option.textContent = unitName;
+          select.appendChild(option);
+        }
+      });
+      
+      // Manejar cambio de selección
+      select.addEventListener('change', function() {
+        window.showFunctionsFromUnit(this.value, funcType);
+      });
+      
+      // Cerrar al hacer clic fuera
+      setTimeout(() => {
+        document.addEventListener('click', function closeHandler(e) {
+          if (!optionsDiv.contains(e.target)) {
+            window.closeCopyOptions();
+            document.removeEventListener('click', closeHandler);
+          }
+        });
+      }, 100);
+    }
+    
+    // Función para mostrar funciones de una unidad específica
+    window.showFunctionsFromUnit = function(unitKey, funcType) {
+      const functionsContainer = document.getElementById('functionsContainer');
+      
+      if (!unitKey) {
+        functionsContainer.innerHTML = '';
+        return;
+      }
+      
+      const selectedUnit = unidadesMap[unitKey];
+      if (!selectedUnit) {
+        functionsContainer.innerHTML = '<div style="color:#e74c3c;text-align:center;">Unidad no encontrada</div>';
+        return;
+      }
+      
+      const unitName = selectedUnit[0]['Unidad Organizativa'];
+      const functions = selectedUnit.filter(u => {
+        if (funcType === 'gen') {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      if (functions.length === 0) {
+        functionsContainer.innerHTML = `
+          <div style="text-align:center;color:#e67e22;padding:15px;background:#fef9e7;border:1px solid #f39c12;border-radius:4px;">
+            📋 No hay funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'} en "${unitName}"
+          </div>
+        `;
+        return;
+      }
+      
+      let functionsHTML = `
+        <div style="font-weight:bold;margin-bottom:10px;color:#2c3e50;">
+          📋 Funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'} disponibles en "${unitName}":
+        </div>
+        <div style="max-height:200px;overflow-y:auto;border:1px solid #ecf0f1;border-radius:4px;padding:5px;">
+      `;
+      
+      functions.forEach((func, idx) => {
+        const desc = func['Descripción'] || '';
+        const producto = func['Producto Final'] || '';
+        const porcentaje = func['Porcentaje Dedicación'] || '';
+        
+        functionsHTML += `
+          <button onclick="window.copyFunction('${funcType}', ${idx}, '${unitKey}')" 
+                  style="width:100%;margin:3px 0;padding:10px;text-align:left;border:1px solid #bdc3c7;border-radius:4px;background:white;cursor:pointer;transition:all 0.2s;"
+                  onmouseover="this.style.backgroundColor='#f8f9fa';this.style.borderColor='#3498db';" 
+                  onmouseout="this.style.backgroundColor='white';this.style.borderColor='#bdc3c7';">
+            <div style="font-weight:bold;margin-bottom:4px;color:#2c3e50;">
+              ${desc.length > 60 ? desc.substring(0, 60) + '...' : desc}
+            </div>
+            <div style="font-size:12px;color:#7f8c8d;margin-bottom:2px;">
+              📄 ${producto.length > 50 ? producto.substring(0, 50) + '...' : producto}
+            </div>
+            ${funcType === 'espec' ? `<div style="font-size:11px;color:#27ae60;font-weight:bold;">📊 ${porcentaje}%</div>` : ''}
+          </button>
+        `;
+      });
+      
+      functionsHTML += '</div>';
+      functionsContainer.innerHTML = functionsHTML;
+    }
+    
+    // Función para cerrar opciones de copia
+    window.closeCopyOptions = function() {
+      const optionsDiv = document.querySelector('.copy-options');
+      if (optionsDiv) {
+        optionsDiv.remove();
+      }
+    }
+    
+    // Función para copiar una función específica
+    window.copyFunction = function(funcType, funcIndex, sourceKey) {
+      const sourceUnit = unidadesMap[sourceKey];
+      const sourceFunctions = sourceUnit.filter(u => {
+        if (funcType === 'gen') {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
+        } else {
+          return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
+        }
+      });
+      
+      if (funcIndex >= sourceFunctions.length) {
+        mostrarAlerta('Función no encontrada', 2000, '#e74c3c');
+        return;
+      }
+      
+      const functionToCopy = sourceFunctions[funcIndex];
+      const currentUnit = unidadesMap[lastSelected];
+      const sourceUnitName = sourceUnit[0]['Unidad Organizativa'];
+      
+      // Guardar estado para deshacer
+      saveUndoState('copy_function', `Copiar función ${funcType === 'gen' ? 'genérica' : 'específica'} de "${sourceUnitName}"`);
+      
+      // Crear nueva función basada en la copiada
+      const newFunction = { ...currentUnit[0] };
+      newFunction['Tipo de Función'] = funcType === 'gen' ? 'Genérica' : 'Específica';
+      newFunction['Descripción'] = functionToCopy['Descripción'] || '';
+      newFunction['Producto Final'] = functionToCopy['Producto Final'] || '';
+      if (funcType === 'espec') {
+        newFunction['Porcentaje Dedicación'] = functionToCopy['Porcentaje Dedicación'] || '';
+      }
+      
+      // Agregar a la unidad actual
+      unidadesMap[lastSelected].push(newFunction);
+      
+      // Volver a mostrar la unidad
+      showUnidad(unidadesMap[lastSelected]);
+      
+      // Guardar cambios
+      if (editMode) {
+        compararCSVActualConOriginal();
+      }
+      
+      // Cerrar opciones
+      window.closeCopyOptions();
+      
+      const funcDesc = functionToCopy['Descripción'] || 'Sin descripción';
+      const shortDesc = funcDesc.length > 30 ? funcDesc.substring(0, 30) + '...' : funcDesc;
+      mostrarAlerta(`✅ Función "${shortDesc}" copiada desde "${sourceUnitName}"`, 3000, '#27ae60');
+    }
+    function attachEditHandlers(base, genericas, especificas) {
+      // Corrección ortográfica y actualización en blur/change
+      document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #uqrd, #edit-mision').forEach(input => {
+        // Evento input para guardado en tiempo real
+        input.addEventListener('input', function() {
+          const field = this.id.replace('edit-', '');
+          const value = this.value.trim();
+          
+          // Actualizar el valor en todos los objetos de la unidad
+          unidadesMap[lastSelected].forEach(u => {
+            switch(field) {
+              case 'nombre':
+                if (value && value !== base['Unidad Organizativa']) {
+                  const newKey = value + '|' + base['Reporta A'];
+                  unidadesMap[newKey] = unidadesMap[lastSelected];
+                  delete unidadesMap[lastSelected];
+                  base['Unidad Organizativa'] = value;
+                  lastSelected = newKey;
+                  allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+                }
+                break;
+              case 'jerarquia':
+                u['Jerarquía'] = value;
+                break;
+              case 'nivel':
+                u['Nivel Jerárquico Calculado'] = value;
+                break;
+              case 'uqrd':
+                u['Unidades que Reportan Directamente'] = value;
+                break;
+              case 'mision':
+                u['Misión'] = value;
+                break;
+            }
+          });
+          
+          // Guardar cambios
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
+        });
+
+        // Corrección ortográfica en blur
+        input.addEventListener('blur', function() {
+          this.value = correctSpelling(this.value);
+        });
+      });
+
+      // Manejar cambios en el select de "Reporta a"
+      document.getElementById('edit-reporta').addEventListener('change', function() {
+        const oldKey = base['Unidad Organizativa'] + '|' + (base['Reporta A'] || '');
+        const newReporta = this.value;
+        base['Reporta A'] = newReporta;
+        const newKey = base['Unidad Organizativa'] + '|' + (newReporta || '');
+        
+        if (newKey !== oldKey) {
+          unidadesMap[newKey] = unidadesMap[oldKey];
+          delete unidadesMap[oldKey];
+          unidadesMap[newKey].forEach(u => u['Reporta A'] = newReporta);
+          lastSelected = newKey;
+          allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+          treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+          
+          const treeDiv = document.getElementById('tree-container');
+          treeDiv.innerHTML = '';
+          renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+          showUnidad(unidadesMap[newKey]);
+          
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
+        }
+      });
+
+      // Funciones - Agregar guardado automático
+      document.querySelectorAll('textarea[data-func-type], input[data-func-type]').forEach(input => {
+        input.addEventListener('input', function() {
+          const type = this.getAttribute('data-func-type');
+          const idx = parseInt(this.getAttribute('data-idx'));
+          const field = this.getAttribute('data-field');
+          
+          if (type === 'gen') {
+            genericas[idx][field] = this.value;
+          } else if (type === 'espec') {
+            especificas[idx][field] = this.value;
+            
+            // Validación en tiempo real para porcentajes
+            if (field === 'Porcentaje Dedicación') {
+              const validacion = validarPorcentajesEspecificas(especificas);
+              mostrarValidacionPorcentajes(validacion);
+            }
+          }
+          
+          if (editMode) {
+            compararCSVActualConOriginal();
+          }
+        });
+        
+        input.addEventListener('blur', function() {
+          this.value = correctSpelling(this.value);
+          compararCSVActualConOriginal();
+        });
+      });
+    }
+    function autocompletarUnidadesReportan() {
+      // Mapear hijos por padre y contar ocurrencias por nombre
+      const hijosPorPadre = {};
+      const nombreCount = {};
+      Object.values(unidadesMap).forEach(arr => {
+        arr.forEach(u => {
+          const padre = u['Reporta A'];
+          const nombre = u['Unidad Organizativa'];
+          if (padre) {
+            if (!hijosPorPadre[padre]) hijosPorPadre[padre] = [];
+            hijosPorPadre[padre].push({ nombre, padre });
+          }
+          // Contar ocurrencias globales
+          if (!nombreCount[nombre]) nombreCount[nombre] = new Set();
+          nombreCount[nombre].add(padre || '');
+        });
+      });
+      // Autocompletar campo si está vacío pero existen hijos
+      Object.values(unidadesMap).forEach(arr => {
+        arr.forEach(u => {
+          const hijosArr = hijosPorPadre[u['Unidad Organizativa']] || [];
+          if ((!u['Unidades que Reportan Directamente'] || !u['Unidades que Reportan Directamente'].trim()) && hijosArr.length) {
+            // Agrupar por nombre y mostrar solo una vez, salvo ambigüedad
+            const hijosUnicos = {};
+            hijosArr.forEach(hijo => {
+              if (!hijosUnicos[hijo.nombre]) hijosUnicos[hijo.nombre] = new Set();
+              hijosUnicos[hijo.nombre].add(hijo.padre);
+            });
+            const hijosFormateados = Object.entries(hijosUnicos).map(([nombre, padresSet]) => {
+              const padres = Array.from(padresSet);
+              if (padres.length > 1 || (nombreCount[nombre] && nombreCount[nombre].size > 1)) {
+                // Si hay ambigüedad, mostrar todos los padres
+                return padres.map(padre => `${nombre} [Reporta a: ${padre}]`).join(', ');
+              } else {
+                return nombre;
+              }
+            });
+            u['Unidades que Reportan Directamente'] = Array.from(new Set(hijosFormateados)).join(', ');
+            u._autocompletado = true;
+            // Marcar si hay algún caso ambiguo
+            u._ambiguedad = Object.values(hijosUnicos).some(padresSet => padresSet.size > 1);
+            inconsistenciaDetectada = true;
+          }
+        });
+      });
+    }
+    // Agregar/eliminar funciones
+    window.addFuncRow = function(type) {
+      saveUndoState('add_function', `Agregar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      
+      const base = unidadesMap[lastSelected][0];
+      if (type === 'gen') {
+        unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Genérica', 'Descripción': '', 'Producto Final': '' });
+      } else {
+        unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Específica', 'Descripción': '', 'Producto Final': '', 'Porcentaje Dedicación': '' });
+      }
+      showUnidad(unidadesMap[lastSelected]);
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
+    };
+    window.deleteFuncRow = function(type, idx) {
+      saveUndoState('delete_function', `Eliminar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      
+      let arr = unidadesMap[lastSelected];
+      let filtered = arr.filter(u => {
+        if (type === 'gen') return !(u['Tipo de Función'].toLowerCase().includes('gen') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('gen')).indexOf(u) === idx);
+        else return !(u['Tipo de Función'].toLowerCase().includes('espec') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('espec')).indexOf(u) === idx);
+      });
+      unidadesMap[lastSelected] = filtered;
+      showUnidad(unidadesMap[lastSelected]);
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
+    };
+    // Implementación de eliminarUnidad
+    function eliminarUnidad(nombreUnidad) {
+      saveUndoState('delete_unit', `Eliminar unidad: ${nombreUnidad}`);
+      
+      // Buscar la clave exacta (nombre + '|' + padre) en el mapa
+      // Puede haber varias unidades con el mismo nombre pero distinto padre, así que buscamos la seleccionada
+      let keyAEliminar = null;
+      // Si hay una selección activa y coincide el nombre, usar esa clave
+      if (lastSelected && unidadesMap[lastSelected] && unidadesMap[lastSelected][0]['Unidad Organizativa'] === nombreUnidad) {
+        keyAEliminar = lastSelected;
+      } else {
+        // Buscar la primera clave que coincida con el nombre
+        keyAEliminar = Object.keys(unidadesMap).find(k => {
+          const arr = unidadesMap[k];
+          return arr && arr[0] && arr[0]['Unidad Organizativa'] === nombreUnidad;
+        });
+      }
+      if (!keyAEliminar) {
+        mostrarAlerta('No se encontró la unidad a eliminar', 2000, '#e74c3c');
+        return;
+      }
+      // Verificar si tiene hijos
+      const hijos = Object.values(unidadesMap).filter(arr => arr[0]['Reporta A'] === nombreUnidad);
+      if (hijos.length > 0) {
+        mostrarAlerta('No se puede eliminar: la unidad tiene áreas hijas', 2500, '#e67e22');
+        return;
+      }
+      // Eliminar del mapa
+      delete unidadesMap[keyAEliminar];
+      // Actualizar lista de unidades y árbol
+      allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+      treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+      // Limpiar selección si era la eliminada
+      if (lastSelected === keyAEliminar) {
+        lastSelected = '';
+        document.getElementById('unidad-content').innerHTML = '';
+      }
+      // Volver a renderizar el árbol
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+      // Guardar cambios
+      compararCSVActualConOriginal && compararCSVActualConOriginal();
+      mostrarAlerta('Unidad eliminada', 1500, '#27ae60');
+    }
+    // Exportar CSV
+    function exportCSV() {
+      try {
+        // Validar datos antes de exportar
+        const allData = [].concat(...Object.values(unidadesMap));
+        const issues = validateDataIntegrity(allData);
+        
+        if (issues.length > 0) {
+          const criticalIssues = issues.filter(i => i.type === 'error');
+          if (criticalIssues.length > 0) {
+            if (!confirm(`Se encontraron ${criticalIssues.length} errores críticos en los datos. ¿Desea continuar con la exportación? Se recomienda corregir los problemas primero.`)) {
+              showValidationInterface(issues);
+              return;
+            }
+          }
+        }
+        
+        // Limpiar y validar datos antes de exportar
+        const cleanedData = allData.map(row => {
+          const cleanedRow = {};
+          csvHeaders.forEach(header => {
+            let value = row[header] || '';
+            // Limpiar espacios extra y formato
+            if (typeof value === 'string') {
+              value = value.trim().replace(/\s+/g, ' ');
+            }
+            cleanedRow[header] = value;
+          });
+          return cleanedRow;
+        });
+        
+        let rows = [csvHeaders.join(';')];
+        cleanedData.forEach(u => {
+          let row = csvHeaders.map(h => (u[h] || '').toString().trim());
+          rows.push(row.join(';'));
+        });
+        
+        const csvContent = rows.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        // Nombre de archivo con timestamp si hay correcciones
+        const timestamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
+        const filename = issues.length > 0 ? 
+          `unidades_organizativas_corregido_${timestamp}.csv` : 
+          'unidades_organizativas_editado.csv';
+        
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        // Registrar la exportación
+        recordExport(filename);
+        
+        // Actualizar estado
+        originalCSV = csvContent;
+        datosModificados = false;
+        marcarAdminCambios(false);
+        
+        // Marcar como validado en export
+        localStorage.setItem('csvData', csvContent);
+        localStorage.setItem('csvValidated', 'true');
+        localStorage.setItem('csvLastValidated', new Date().toISOString());
+        
+        const message = issues.length > 0 ? 
+          `✅ CSV exportado con correcciones aplicadas (${filename})` : 
+          `✅ CSV exportado correctamente (${filename})`;
+        
+        mostrarAlerta(message, 3000, '#28a745');
+        
+      } catch (error) {
+        console.error('Error al exportar CSV:', error);
+        mostrarAlerta('Error al exportar CSV: ' + error.message, 3000, '#e74c3c');
+      }
+    }
+    // Alternar modo edición
+    document.getElementById('editModeBtn').addEventListener('click', function() {
+      editMode = !editMode;
+      this.classList.toggle('active', editMode);
+      this.textContent = editMode ? 'Salir de edición' : 'Entrar en modo edición';
+      document.getElementById('exportBtn').style.display = editMode ? '' : 'none';
+      document.getElementById('tree-container').classList.toggle('edit-mode', editMode);
+      showUnidad(unidadesMap[lastSelected]);
+      // Siempre volver a renderizar el árbol para reflejar botones u ocultarlos
+      {
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+      }
+    });
+    document.getElementById('exportBtn').addEventListener('click', exportCSV);
+    document.getElementById('undoBtn').addEventListener('click', undoLastAction);
+    
+    // Event listeners para el sistema de validación
+    document.getElementById('skipValidationBtn').addEventListener('click', function() {
+      closeValidationInterface();
+    });
+    
+    document.getElementById('finishValidationBtn').addEventListener('click', function() {
+      // Aplicar todas las correcciones y regenerar los datos
+      finishValidationAndApplyChanges();
+    });
+    
+    // Manejador mejorado para el botón Browse
+    document.getElementById('browseBtn').addEventListener('click', function(e) {
+      try {
+        console.log('Browse button clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const fileInput = document.getElementById('fileInput');
+        if (!fileInput) {
+          console.error('fileInput element not found');
+          mostrarAlerta('Error: Elemento de archivo no encontrado', 2000, '#e74c3c');
+          return;
+        }
+        
+        console.log('Triggering file input click');
+        fileInput.click();
+        
+        // Verificar si el click fue exitoso después de un pequeño delay
+        setTimeout(() => {
+          console.log('File input click executed');
+        }, 100);
+        
+      } catch (error) {
+        console.error('Error in browse button handler:', error);
+        mostrarAlerta('Error al abrir selector de archivos: ' + error.message, 3000, '#e74c3c');
+      }
+    });
+    
+    function selectUnidad(key) {
+      showUnidad(unidadesMap[key]);
+      lastSelected = key;
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+    }
+    // Mouseover para adminBtn
+    const adminBtn = document.getElementById('adminBtn');
+    // Toggle menú Admin al hacer clic
+    adminBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const menu = document.getElementById('adminMenu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    });
+    adminBtn.addEventListener('mouseenter', function() {
+      if (datosModificados) {
+        adminBtn.title = '¡Hay cambios sin exportar! Haz clic en Exportar CSV para guardar.';
+      }
+    });
+    adminBtn.addEventListener('mouseleave', function() {
+      if (datosModificados) {
+        adminBtn.title = '¡Hay cambios sin exportar! Haz clic para exportar.';
+      } else {
+        adminBtn.title = '';
+      }
+    });
+
+    // Al cargar la página, recuperar estado de nodos expandidos
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM Content Loaded - Initializing application');
+      
+      // Verificar que todos los elementos necesarios estén disponibles
+      const requiredElements = ['fileInput', 'browseBtn', 'filePath', 'loadFileBtn', 'editModeBtn', 'undoBtn', 'exportBtn'];
+      const missingElements = [];
+      
+      requiredElements.forEach(id => {
+        const element = document.getElementById(id);
+        if (!element) {
+          missingElements.push(id);
+        } else {
+          console.log('✓ Element found:', id);
+        }
+      });
+      
+      if (missingElements.length > 0) {
+        console.error('Missing required elements:', missingElements);
+        mostrarAlerta('Error de inicialización: Elementos faltantes en la página', 5000, '#e74c3c');
+      } else {
+        console.log('✓ All required elements found');
+      }
+      
+      // Cargar información de archivos desde localStorage DESPUÉS de verificar elementos
+      loadFileInfoFromStorage();
+      
+      try {
+        const savedExpandedNodes = localStorage.getItem('expandedNodes');
+        if (savedExpandedNodes) {
+          expandedNodes = JSON.parse(savedExpandedNodes);
+        }
+      } catch (e) {
+        console.error('Error loading expanded nodes state:', e);
+        expandedNodes = {};
+      }
+      
+      const savedCSV = localStorage.getItem('csvData');
+      if (savedCSV) {
+        originalCSV = savedCSV;
+        const data = parseCSV(savedCSV);
+        unidadesMap = groupByUnidad(data);
+        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+        treeRoots = buildTree(data);
+        lastSelected = '';
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        document.getElementById('unidad-content').innerHTML = '';
+        datosModificados = false;
+        marcarAdminCambios(false);
+        
+        // Cargar información de archivos desde localStorage solo si no hay información actual
+        if (!lastImportInfo.fileName && !lastExportInfo.fileName) {
+          loadFileInfoFromStorage();
+        } else {
+          updateFileInfo();
+        }
+      }
+      
+      // Inicializar el estado del botón deshacer
+      updateUndoButton();
+      
+      // FINAL: Asegurar que la información de archivos se carga al final de todo
+      setTimeout(() => {
+        loadFileInfoFromStorage();
+      }, 100);
+    });
+
+    // Función para cargar y procesar el CSV
+    async function procesarCSV(csvText, fileName = '', source = 'file') {
+      try {
+        mostrarAlerta('Procesando archivo...', 1000);
+        
+        // Limpiar cualquier otro dato relacionado en localStorage
+        for (let key in localStorage) {
+          if (key.startsWith('csvData') && key !== 'csvData') {
+            localStorage.removeItem(key);
+          }
+        }
+        
+        // Validación básica: asegurarse de que tiene al menos una línea con separadores
+        if (!csvText.includes(';')) {
+          throw new Error('El archivo no parece ser CSV con ";" como separador');
+        }
+        
+        localStorage.setItem('csvData', csvText);
+        if (fileName) {
+          localStorage.setItem('csvFileName', fileName);
+        }
+        originalCSV = csvText;
+        const data = parseCSV(csvText);
+        
+        // Guardar datos originales antes de validación
+        originalDataBeforeValidation = JSON.parse(JSON.stringify(data));
+        
+        unidadesMap = groupByUnidad(data);
+        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+        treeRoots = buildTree(data);
+        lastSelected = '';
+        expandedNodes = {};
+        const treeDiv = document.getElementById('tree-container');
+        treeDiv.innerHTML = '';
+        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+        document.getElementById('unidad-content').innerHTML = '';
+        datosModificados = false;
+        marcarAdminCambios(false);
+        
+        // Registrar la importación
+        if (fileName && fileName.trim() !== '') {
+          recordImport(fileName, source);
+        } else {
+          // Para datos desde localStorage, usar información guardada si existe
+          loadFileInfoFromStorage();
+        }
+        
+        mostrarAlerta('Archivo cargado correctamente', 2000);
+        
+        // VALIDACIÓN DE INTEGRIDAD AUTOMÁTICA
+        console.log('Iniciando validación automática de integridad...');
+        setTimeout(() => {
+          const issues = validateDataIntegrity(data);
+          
+          if (issues.length > 0) {
+            console.log(`Encontrados ${issues.length} problemas de integridad`);
+            showValidationInterface(issues);
+          } else {
+            console.log('✅ No se encontraron problemas de integridad');
+            // Marcar como validado si no hay problemas
+            localStorage.setItem('csvValidated', 'true');
+            localStorage.setItem('csvLastValidated', new Date().toISOString());
+            mostrarAlerta('✅ Datos validados: Sin problemas encontrados', 3000, '#28a745');
+          }
+        }, 500);
+        
+      } catch (error) {
+        console.error('Error al procesar CSV:', error);
+        mostrarAlerta('Error: ' + error.message, 2500, '#e74c3c');
+      }
+    }
+
+    // Cargar archivo usando el input file
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      try {
+        console.log('File input change event triggered');
+        const file = e.target.files[0];
+        
+        if (!file) {
+          console.log('No file selected, user cancelled');
+          return;
+        }
+        
+        console.log('File selected:', file.name, 'Size:', file.size, 'Type:', file.type);
+        
+        if (!file.name.toLowerCase().endsWith('.csv')) {
+          console.error('Invalid file type:', file.name);
+          mostrarAlerta('Por favor seleccione un archivo CSV', 2000, '#e74c3c');
+          return;
+        }
+        
+        if (file.size > 10 * 1024 * 1024) { // 10MB limit
+          console.error('File too large:', file.size);
+          mostrarAlerta('El archivo es demasiado grande (máximo 10MB)', 2000, '#e74c3c');
+          return;
+        }
+        
+        mostrarAlerta('Leyendo archivo...');
+        
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          console.log('File read successfully, processing CSV...');
+          procesarCSV(evt.target.result, file.name);
+        };
+        reader.onerror = function(err) {
+          console.error('FileReader error:', err);
+          mostrarAlerta('Error al leer el archivo', 2000, '#e74c3c');
+        };
+        reader.onprogress = function(evt) {
+          if (evt.lengthComputable) {
+            const percentComplete = (evt.loaded / evt.total) * 100;
+            console.log('Reading progress:', percentComplete.toFixed(1) + '%');
+          }
+        };
+        
+        reader.readAsText(file);
+        
+        // Limpiar el input para permitir seleccionar el mismo archivo de nuevo
+        setTimeout(() => {
+          e.target.value = '';
+        }, 100);
+        
+      } catch (error) {
+        console.error('Error in file input handler:', error);
+        mostrarAlerta('Error al procesar el archivo: ' + error.message, 3000, '#e74c3c');
+      }
+    });
+
+    // Se elimina la carga por ruta para simplificar y evitar problemas de CORS/seguridad
+    // Manejo de carga mediante ruta manual escrita por el usuario
+    document.getElementById('loadFileBtn').addEventListener('click', async function() {
+      const filePath = document.getElementById('filePath').value.trim();
+      if (!filePath) {
+        mostrarAlerta('Por favor ingrese una ruta de archivo', 2000, '#e74c3c');
+        return;
+      }
+
+      if (!filePath.toLowerCase().endsWith('.csv')) {
+        mostrarAlerta('La ruta debe ser de un archivo CSV', 2000, '#e74c3c');
+        return;
+      }
+
+      mostrarAlerta('Intentando cargar archivo...', 1000);
+
+      try {
+        let fetchUrl = filePath;
+        // Si la página está en protocolo file:// y la ruta es absoluta, anteponer file://
+        if (location.protocol === 'file:' && filePath.startsWith('/')) {
+          fetchUrl = 'file://' + filePath;
+        }
+        const response = await fetch(fetchUrl);
+        if (!response.ok) throw new Error('No se pudo acceder al archivo');
+        const csvText = await response.text();
+        const fileName = filePath.split('/').pop() || filePath.split('\\').pop() || filePath;
+        procesarCSV(csvText, fileName, 'path');
+      } catch (error) {
+        console.error('Error al cargar el archivo:', error);
+        mostrarAlerta('No se pudo abrir el archivo. Intente con otra ruta o use Browse.', 2500, '#e74c3c');
+      }
+    });
+
+    // Función para mostrar mensajes de alerta visuales
+    function mostrarAlerta(mensaje, duracion, color) {
+      const saveIndicator = document.getElementById('saveIndicator');
+      saveIndicator.textContent = mensaje;
+      saveIndicator.style.background = color || '#2ecc71';
+      saveIndicator.classList.add('show');
+      setTimeout(() => {
+        saveIndicator.classList.remove('show');
+      }, duracion || 2000);
+    }
+    // Admin menu toggle
+    document.body.addEventListener('click', function() {
+      document.getElementById('adminMenu').style.display = 'none';
+    });
+    document.getElementById('adminMenu').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    // Verificación adicional para asegurar que el botón Browse funcione
+    setTimeout(function() {
+      const browseBtn = document.getElementById('browseBtn');
+      const fileInput = document.getElementById('fileInput');
+      
+      if (browseBtn && fileInput) {
+        // Verificar si ya tiene event listener
+        if (!browseBtn._hasClickHandler) {
+          console.log('Adding fallback click handler for browse button');
+          browseBtn.addEventListener('click', function(e) {
+            console.log('Fallback browse button handler triggered');
+            try {
+              e.preventDefault();
+              e.stopPropagation();
+              fileInput.click();
+            } catch (err) {
+              console.error('Fallback handler error:', err);
+              mostrarAlerta('Error al abrir selector de archivos', 2000, '#e74c3c');
+            }
+          });
+          browseBtn._hasClickHandler = true;
+        }
+        
+        // Test para verificar que el botón responde
+        console.log('Browse button setup complete. Test clicking programmatically...');
+        
+        // Agregar una forma alternativa de activar el file chooser desde consola para debug
+        window.testBrowseButton = function() {
+          console.log('Testing browse button...');
+          try {
+            fileInput.click();
+            console.log('✓ File input click successful');
+            return true;
+          } catch (e) {
+            console.error('✗ File input click failed:', e);
+            return false;
+          }
+        };
+        
+        console.log('✓ Browse button verification complete. Use testBrowseButton() to test manually.');
+      } else {
+        console.error('✗ Browse button or file input not found during verification');
+      }
+    }, 500);
+    
+    </script>
+</body>
+</html> 
