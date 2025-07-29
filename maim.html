@@ -1,0 +1,2687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNA - Organigrama Optimizado (Formato Final)</title>
+    <!-- Librerías para exportación a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Estilos básicos optimizados */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { padding: 20px; border-bottom: 1px solid #eee; }
+        .controls { padding: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .btn:active { transform: translateY(0); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
+        .btn-success { background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%); color: white; }
+        .btn-success:hover { background: linear-gradient(135deg, #4a9a23 0%, #97d5b8 100%); }
+        .btn-warning { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
+        .btn-warning:hover { background: linear-gradient(135deg, #e085e8 0%, #e54b5f 100%); }
+        .btn-danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; }
+        .btn-danger:hover { background: linear-gradient(135deg, #ff5252 0%, #e64a19 100%); }
+        .btn-info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .btn-info:hover { background: linear-gradient(135deg, #4a9bfe 0%, #00e6f2 100%); }
+        .btn-secondary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-secondary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
+        .main-content { display: flex; height: 600px; }
+        .tree-container { width: 300px; border-right: 1px solid #eee; overflow-y: auto; padding: 20px; }
+        .content-area { flex: 1; padding: 20px; overflow-y: auto; }
+        .tree-node { cursor: pointer; padding: 5px; margin: 2px 0; border-radius: 4px; }
+        .tree-node:hover { background: #f8f9fa; }
+        .tree-node.selected { background: #007bff; color: white; }
+        .tree-toggle { margin-right: 5px; }
+        .alert { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .hidden { display: none; }
+        .function-item { 
+            border: none; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 0; 
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        
+        .function-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .function-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+        
+        .function-item.editing {
+            border: 2px solid #007bff;
+            background: #f0f8ff;
+            padding: 20px;
+        }
+        
+        .function-drag-handle {
+            cursor: grab;
+            color: #666;
+            font-size: 18px;
+            user-select: none;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .function-drag-handle:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        
+        .function-content {
+            flex: 1;
+        }
+        
+        .function-edit-controls {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .function-edit-controls .btn-sm {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+        
+        .function-form {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .function-form.show {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+        
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .add-function-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-function-btn:hover {
+            background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+            transform: translateY(-2px);
+        }
+        
+        .delete-function-btn {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .delete-function-btn:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+        }
+        
+        .functions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .function-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        
+        .functions-container {
+            min-height: 200px;
+            border: 2px dashed #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        
+        .function-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .function-type.generica { background: #d4edda; color: #155724; }
+        .function-type.especifica { background: #fff3cd; color: #856404; }
+        .function-type.indicador { background: #d1ecf1; color: #0c5460; }
+        
+        .function-percentage {
+            background: #28a745;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .edit-mode .function-item {
+            border: 2px solid #007bff;
+            background: #f8f9fa;
+        }
+        
+        .edit-mode .functions-container {
+            border-color: #007bff;
+            background: #f0f8ff;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-2px);
+        }
+        
+        .status-bar {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .unit-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .unit-info h3 {
+            margin: 0 0 10px 0;
+            color: #1976d2;
+        }
+        
+        .unit-info p {
+            margin: 5px 0;
+            color: #424242;
+        }
+        
+        .mission-text {
+            font-style: italic;
+            color: #666;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .function-details {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .function-details span {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #f44336;
+        }
+        
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content { flex-direction: column; height: auto; }
+            .tree-container { width: 100%; border-right: none; border-bottom: 1px solid #eee; }
+            .controls { flex-direction: column; }
+        }
+        .tree-container { width: 300px; border-right: 1px solid #eee; overflow-y: auto; padding: 20px; }
+        .content-area { flex: 1; padding: 20px; overflow-y: auto; }
+        .tree-node { cursor: pointer; padding: 5px; margin: 2px 0; border-radius: 4px; }
+        .tree-node:hover { background: #f8f9fa; }
+        .tree-node.selected { background: #007bff; color: white; }
+        .tree-toggle { margin-right: 5px; }
+        
+        /* Estilos para drag and drop de unidades */
+        .tree-node.draggable {
+            cursor: grab;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tree-node.draggable:hover {
+            border-color: #007bff;
+            background-color: #f0f8ff;
+            transform: translateX(5px);
+        }
+        
+        .tree-node.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+            border-color: #007bff !important;
+            background-color: #e3f2fd !important;
+            box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+        }
+        
+        .tree-node.drag-over {
+            border-top: 3px solid #28a745;
+            background-color: #f8fff8;
+        }
+        
+        .tree-node.drag-over-before {
+            border-top: 3px solid #28a745;
+        }
+        
+        .tree-node.drag-over-after {
+            border-bottom: 3px solid #28a745;
+        }
+        
+        .tree-node.drag-over-child {
+            border-left: 3px solid #28a745;
+            background-color: #f8fff8;
+        }
+        
+        .drag-handle {
+            cursor: grab;
+            color: #666;
+            font-size: 14px;
+            margin-right: 8px;
+            user-select: none;
+            padding: 2px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+        
+        .drag-handle:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+        
+        .drop-indicator {
+            height: 3px;
+            background-color: #28a745;
+            margin: 2px 0;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        
+        .drop-indicator.show {
+            height: 6px;
+            background-color: #28a745;
+            box-shadow: 0 2px 4px rgba(40,167,69,0.3);
+        }
+        .tree-controls { 
+            padding: 10px; 
+            border-bottom: 1px solid #eee; 
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .tree-controls .btn-sm {
+            padding: 6px 12px;
+            font-size: 11px;
+            margin-right: 5px;
+        }
+        .unit-form {
+            display: none;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            border: 2px solid #007bff;
+        }
+        .unit-form.show {
+            display: block;
+        }
+        .unit-form h4 {
+            margin: 0 0 15px 0;
+            color: #007bff;
+        }
+        .unit-form .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .unit-form .form-group {
+            flex: 1;
+        }
+        .unit-form .form-group.full-width {
+            flex: none;
+            width: 100%;
+        }
+        .unit-form textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        .unit-form .form-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .tree-node.add-unit-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tree-node.add-unit-btn:hover {
+            background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+            transform: translateY(-1px);
+        }
+        .tree-node.add-subunit-btn {
+            background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 3px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tree-node.add-subunit-btn:hover {
+            background: linear-gradient(135deg, #138496 0%, #5a32a3 100%);
+            transform: translateY(-1px);
+        }
+        .tree-node.delete-unit-btn {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+                .tree-node.delete-unit-btn:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+        }
+        .tree-node.edit-unit-btn {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tree-node.edit-unit-btn:hover {
+            background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+        }
+        .tree-node.with-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tree-node-content {
+            flex: 1;
+            cursor: pointer;
+        }
+        .tree-node-controls {
+            display: flex;
+            gap: 5px;
+        }
+        .info-header {
+            display: flex !important;
+            background-color: #2c5aa0 !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            border-radius: 6px 6px 0 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .info-header .left-text {
+            width: 65% !important;
+            text-align: left !important;
+            padding: 10px 12px !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        .info-header .right-text {
+            width: 35% !important;
+            text-align: left !important;
+            padding: 10px 12px !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        .functions-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-bottom: 15px !important;
+            table-layout: fixed !important;
+            box-sizing: border-box !important;
+        }
+        
+        .functions-table th,
+        .functions-table td {
+            padding: 10px 12px !important;
+            border-bottom: 1px solid #e9ecef !important;
+            font-size: 10px !important;
+            line-height: 1.3 !important;
+            word-wrap: break-word !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        
+        .functions-table td:first-child {
+            width: 65% !important;
+            padding-left: 12px !important;
+        }
+        
+        .functions-table td:nth-child(2) {
+            width: 35% !important;
+            padding-left: 12px !important;
+        }
+
+        .info-section {
+            margin-bottom: 25px !important;
+            margin-top: 20px !important;
+        }
+
+        .info-section:first-of-type {
+            margin-top: 10px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 BNA</h1>
+        </div>
+        
+        <div class="controls">
+            <div class="file-input-wrapper">
+                <input type="file" id="fileInput" class="file-input" accept=".json">
+                <label for="fileInput" class="file-input-label">📁 Cargar Archivo JSON</label>
+            </div>
+            
+            <button class="btn btn-success" onclick="exportJSON()">💾 Exportar JSON</button>
+            <button class="btn btn-info" onclick="exportPDF()">📄 Exportar PDF</button>
+            <button class="btn btn-warning edit-mode-btn" onclick="toggleEditMode()">✏️ Modo Edición</button>
+            <button class="btn btn-secondary" onclick="showHelp()">❓ Ayuda</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="tree-container" id="tree-container">
+                <div class="loading">
+                    <h3>📁 Carga un archivo JSON para comenzar</h3>
+                    <p>El archivo debe tener el formato hierarchy-only</p>
+                </div>
+            </div>
+            
+            <div class="content-area" id="content-area">
+                <div class="info">
+                    <h3>👋 Bienvenido al Organigrama BNA</h3>
+                    <p>Este visualizador está optimizado para el formato final del JSON que incluye solo la sección hierarchy.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>✅ Carga archivos JSON con formato hierarchy-only</li>
+                        <li>✅ Navegación jerárquica optimizada</li>
+                        <li>✅ Visualización de funciones y misiones</li>
+                        <li>✅ Exportación a JSON y PDF</li>
+                        <li>✅ Modo de edición para reordenar funciones</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar" id="status-bar">
+            <span id="status-text">Listo para cargar archivo</span>
+        </div>
+    </div>
+
+    <script>
+        // ===== CONFIGURACIÓN =====
+        const CONFIG = {
+            VERSION: '3.0-final',
+            SUPPORTED_FORMATS: ['hierarchy-only', 'optimized'],
+            MAX_FILE_SIZE: 10 * 1024 * 1024 // 10MB
+        };
+
+        // ===== ESTADO GLOBAL =====
+        const STATE = {
+            currentData: null,
+            selectedUnit: null,
+            expandedNodes: {},
+            isEditMode: false,
+            draggedFunction: null,
+            // Variables para drag and drop de unidades
+            draggedUnit: null,
+            dragOverUnit: null,
+            dragOverPosition: null // 'before', 'after', 'child'
+        };
+
+        // ===== UTILIDADES =====
+        const Utils = {
+            showAlert: function(message, type = 'info') {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type}`;
+                alertDiv.textContent = message;
+                
+                const container = document.querySelector('.container');
+                container.insertBefore(alertDiv, container.firstChild);
+                
+                setTimeout(() => alertDiv.remove(), 5000);
+            },
+            
+            calcularNivelReporte: function(unit, allUnits) {
+                // Si es SGP Clientes, nivel 2
+                if (unit.nombre === 'SGP Clientes') {
+                    return 2;
+                }
+                
+                // Si no tiene reportaA, es nivel 1
+                if (!unit.reportaA) {
+                    return 1;
+                }
+                
+                // Buscar la unidad superior
+                const unidadSuperior = allUnits.find(u => u.nombre === unit.reportaA);
+                if (!unidadSuperior) {
+                    return 1;
+                }
+                
+                // Calcular recursivamente el nivel de la unidad superior
+                const nivelSuperior = this.calcularNivelReporte(unidadSuperior, allUnits);
+                return nivelSuperior + 1;
+            },
+            
+            log: function(message, data = null) {
+                console.log(`[${new Date().toISOString()}] ${message}`, data);
+            },
+            
+            updateStatus: function(message) {
+                document.getElementById('status-text').textContent = message;
+            },
+            
+            validateJSONFormat: function(data) {
+                if (!data.metadata || !data.hierarchy) {
+                    return { valid: false, error: 'Formato JSON inválido: debe contener metadata y hierarchy' };
+                }
+                
+                if (data.metadata.format && !CONFIG.SUPPORTED_FORMATS.includes(data.metadata.format)) {
+                    return { valid: false, error: `Formato no soportado: ${data.metadata.format}` };
+                }
+                
+                return { valid: true };
+            }
+        };
+
+        // ===== CARGADOR DE ARCHIVOS =====
+        const FileLoader = {
+            loadFile: function(file) {
+                Utils.updateStatus('Cargando archivo...');
+                
+                if (file.size > CONFIG.MAX_FILE_SIZE) {
+                    Utils.showAlert('Archivo demasiado grande. Máximo 10MB.', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        FileLoader.processData(jsonData);
+                    } catch (error) {
+                        Utils.showAlert(`Error al parsear JSON: ${error.message}`, 'error');
+                        Utils.updateStatus('Error al cargar archivo');
+                    }
+                };
+                
+                reader.onerror = function() {
+                    Utils.showAlert('Error al leer el archivo', 'error');
+                    Utils.updateStatus('Error al cargar archivo');
+                };
+                
+                reader.readAsText(file);
+            },
+            
+            processData: function(data) {
+                const validation = Utils.validateJSONFormat(data);
+                if (!validation.valid) {
+                    Utils.showAlert(validation.error, 'error');
+                    return;
+                }
+                
+                STATE.currentData = data;
+                Utils.showAlert(`✅ Archivo cargado exitosamente - ${data.metadata.totalUnits} unidades`, 'success');
+                Utils.updateStatus(`Archivo cargado: ${data.metadata.version || 'Sin versión'}`);
+                
+                // Renderizar el árbol
+                TreeRenderer.render(data.hierarchy);
+                
+                // Mostrar estadísticas
+                StatsRenderer.render(data.metadata);
+            }
+        };
+
+        // ===== RENDERIZADOR DE ÁRBOL =====
+        const TreeRenderer = {
+            render: function(hierarchy) {
+                const container = document.getElementById('tree-container');
+                container.innerHTML = '';
+                
+                if (!hierarchy || !hierarchy.tree || hierarchy.tree.length === 0) {
+                    container.innerHTML = '<div class="error">No se encontró estructura jerárquica</div>';
+                    return;
+                }
+                
+                // Agregar controles de edición si está en modo edición
+                const controlsHTML = STATE.isEditMode ? this.renderTreeControls() : '';
+                
+                const treeHTML = this.buildTreeHTML(hierarchy.tree);
+                container.innerHTML = controlsHTML + treeHTML;
+                
+                // Agregar event listeners
+                this.addTreeEventListeners();
+                
+                // Configurar drag and drop si está en modo edición
+                if (STATE.isEditMode) {
+                    this.setupUnitDragAndDrop();
+                }
+            },
+            
+            renderTreeControls: function() {
+                return `
+                    <div class="tree-controls">
+                        <button class="btn btn-sm btn-success" onclick="TreeRenderer.addRootUnit()">🏢 Agregar Unidad Raíz</button>
+                    </div>
+                `;
+            },
+            
+            buildTreeHTML: function(nodes, level = 0) {
+                let html = '';
+                
+                nodes.forEach(node => {
+                    const indent = '  '.repeat(level);
+                    const hasChildren = node.children && node.children.length > 0;
+                    const isExpanded = STATE.expandedNodes[node.key] || false;
+                    
+                    const dragHandle = STATE.isEditMode ? `<span class="drag-handle" draggable="true" data-key="${node.key}">⋮⋮</span>` : '';
+                    
+                    const editControls = STATE.isEditMode ? `
+                        <div class="tree-node-controls">
+                            <button class="edit-unit-btn" onclick="TreeRenderer.editUnit('${node.key}')" title="Editar unidad">✏️</button>
+                            <button class="add-subunit-btn" onclick="TreeRenderer.addSubUnit('${node.key}')" title="Agregar subunidad">➕</button>
+                            <button class="delete-unit-btn" onclick="TreeRenderer.deleteUnit('${node.key}')" title="Eliminar unidad">🗑️</button>
+                        </div>
+                    ` : '';
+                    
+                    html += `
+                        <div class="tree-node ${STATE.isEditMode ? 'with-controls draggable' : ''}" data-key="${node.key}" data-nombre="${node.nombre}" draggable="${STATE.isEditMode}">
+                            <div class="tree-node-content">
+                                ${indent}
+                                ${dragHandle}
+                                ${hasChildren ? 
+                                    `<span class="tree-toggle" onclick="TreeRenderer.toggleNode('${node.key}')">${isExpanded ? '▼' : '▶'}</span>` : 
+                                    '<span style="width: 20px; display: inline-block;"></span>'
+                                }
+                                <span onclick="TreeRenderer.selectNode('${node.key}')">${node.nombre}</span>
+                            </div>
+                            ${editControls}
+                        </div>
+                        
+                        ${STATE.isEditMode ? `<div class="unit-form" id="unit-form-${node.key}">${this.renderUnitForm(node, node.key)}</div>` : ''}
+                    `;
+                    
+                    if (hasChildren && isExpanded) {
+                        html += this.buildTreeHTML(node.children, level + 1);
+                    }
+                    
+                    // Agregar botón para agregar subunidad si está en modo edición
+                    if (STATE.isEditMode && isExpanded) {
+                        html += `
+                            <div class="tree-node add-subunit-btn" onclick="TreeRenderer.addSubUnit('${node.key}')">
+                                ${indent}  ➕ Agregar Subunidad
+                            </div>
+                        `;
+                    }
+                });
+                
+                return html;
+            },
+            
+            renderUnitForm: function(unit, unitKey) {
+                const isNew = unitKey === 'new';
+                const unitData = unit || {
+                    nombre: '',
+                    reportaA: '',
+                    mision: '',
+                    funciones: []
+                };
+                
+                // Generar dropdown de unidades existentes (excluyendo la unidad actual)
+                const unitsDropdown = this.generateUnitsDropdown(unitKey);
+                
+                return `
+                    <div class="unit-form" id="unit-form-${unitKey}">
+                        <h4>${isNew ? '➕ Nueva Unidad' : '✏️ Editar Unidad'}</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre de la Unidad:</label>
+                                <input type="text" id="nombre-${unitKey}" value="${unitData.nombre || ''}" placeholder="Nombre de la unidad">
+                            </div>
+                            <div class="form-group">
+                                <label>Reporta a:</label>
+                                <select id="reportaA-${unitKey}" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jerarquía:</label>
+                                <select id="jerarquia-${unitKey}" class="form-control">
+                                    <option value="">Seleccionar jerarquía...</option>
+                                    <option value="GG" ${unitData.jerarquia === 'GG' ? 'selected' : ''}>GG</option>
+                                    <option value="SGP" ${unitData.jerarquia === 'SGP' ? 'selected' : ''}>SGP</option>
+                                    <option value="SG" ${unitData.jerarquia === 'SG' ? 'selected' : ''}>SG</option>
+                                    <option value="GD" ${unitData.jerarquia === 'GD' ? 'selected' : ''}>GD</option>
+                                    <option value="SGD" ${unitData.jerarquia === 'SGD' ? 'selected' : ''}>SGD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nivel de Reporte:</label>
+                                <input type="number" id="nivelReporte-${unitKey}" value="${unitData.nivelReporte || ''}" placeholder="Nivel de reporte" min="1">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Misión:</label>
+                            <textarea id="mision-${unitKey}" placeholder="Describe la misión de la unidad...">${unitData.mision || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button class="btn btn-sm btn-success" onclick="TreeRenderer.saveUnit('${unitKey}')">💾 Guardar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="TreeRenderer.cancelUnitEdit('${unitKey}')">❌ Cancelar</button>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            generateUnitsDropdown: function(excludeKey = null) {
+                if (!STATE.currentData || !STATE.currentData.hierarchy.tree) {
+                    return '';
+                }
+                
+                const units = this.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                
+                // Ordenar unidades alfabéticamente por nombre
+                units.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+                
+                let options = '';
+                
+                units.forEach(unit => {
+                    // Excluir la unidad actual si se está editando
+                    if (excludeKey && unit.key === excludeKey) {
+                        return;
+                    }
+                    
+                    const selected = unit.nombre === STATE.selectedUnit?.reportaA ? 'selected' : '';
+                    options += `<option value="${unit.nombre}" ${selected}>${unit.nombre}</option>`;
+                });
+                
+                return options;
+            },
+            
+            getAllUnitsFlat: function(nodes, units = []) {
+                nodes.forEach(node => {
+                    units.push(node);
+                    if (node.children && node.children.length > 0) {
+                        this.getAllUnitsFlat(node.children, units);
+                    }
+                });
+                return units;
+            },
+            
+            toggleNode: function(nodeKey) {
+                STATE.expandedNodes[nodeKey] = !STATE.expandedNodes[nodeKey];
+                TreeRenderer.render(STATE.currentData.hierarchy);
+            },
+            
+            selectNode: function(nodeKey) {
+                const node = this.findNodeByKey(STATE.currentData.hierarchy.tree, nodeKey);
+                if (node) {
+                    STATE.selectedUnit = node;
+                    UnitRenderer.render(node);
+                }
+            },
+            
+            findNodeByKey: function(nodes, key) {
+                for (let node of nodes) {
+                    if (node.key === key) return node;
+                    if (node.children) {
+                        const found = this.findNodeByKey(node.children, key);
+                        if (found) return found;
+                    }
+                }
+                return null;
+            },
+            
+            addRootUnit: function() {
+                // Ocultar todos los formularios
+                document.querySelectorAll('.unit-form').forEach(form => {
+                    form.classList.remove('show');
+                });
+                
+                // Generar dropdown de unidades existentes
+                const unitsDropdown = this.generateUnitsDropdown();
+                
+                // Crear formulario para nueva unidad raíz
+                const newUnitForm = `
+                    <div class="unit-form show" id="unit-form-new-root">
+                        <h4>🏢 Nueva Unidad Raíz</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre de la Unidad:</label>
+                                <input type="text" id="nombre-new-root" placeholder="Nombre de la unidad" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Reporta a:</label>
+                                <select id="reportaA-new-root" class="form-control">
+                                    <option value="">Seleccionar unidad superior (opcional)...</option>
+                                    ${unitsDropdown}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Misión:</label>
+                            <textarea id="mision-new-root" placeholder="Describe la misión de la unidad..."></textarea>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button class="btn btn-sm btn-success" onclick="TreeRenderer.saveUnit('new-root')">💾 Guardar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="TreeRenderer.cancelUnitEdit('new-root')">❌ Cancelar</button>
+                        </div>
+                    </div>
+                `;
+                
+                const container = document.getElementById('tree-container');
+                container.innerHTML = newUnitForm;
+                
+                // Enfocar el primer campo
+                setTimeout(() => {
+                    const nombreInput = document.getElementById('nombre-new-root');
+                    if (nombreInput) {
+                        nombreInput.focus();
+                    }
+                }, 100);
+            },
+            
+            addSubUnit: function(parentKey) {
+                // Ocultar todos los formularios
+                document.querySelectorAll('.unit-form').forEach(form => {
+                    form.classList.remove('show');
+                });
+                
+                const parentNode = this.findNodeByKey(STATE.currentData.hierarchy.tree, parentKey);
+                if (!parentNode) return;
+                
+                // Generar dropdown de unidades existentes
+                const unitsDropdown = this.generateUnitsDropdown();
+                
+                // Crear formulario para nueva subunidad
+                const newSubUnitForm = `
+                    <div class="unit-form show" id="unit-form-new-subunit">
+                        <h4>➕ Nueva Subunidad de "${parentNode.nombre}"</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre de la Unidad:</label>
+                                <input type="text" id="nombre-new-subunit" placeholder="Nombre de la subunidad">
+                            </div>
+                            <div class="form-group">
+                                <label>Reporta a:</label>
+                                <select id="reportaA-new-subunit" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Misión:</label>
+                            <textarea id="mision-new-subunit" placeholder="Describe la misión de la subunidad..."></textarea>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button class="btn btn-sm btn-success" onclick="TreeRenderer.saveUnit('new-subunit', '${parentKey}')">💾 Guardar</button>
+                            <button class="btn btn-sm btn-secondary" onclick="TreeRenderer.cancelUnitEdit('new-subunit')">❌ Cancelar</button>
+                        </div>
+                    </div>
+                `;
+                
+                const container = document.getElementById('tree-container');
+                container.insertAdjacentHTML('afterbegin', newSubUnitForm);
+            },
+            
+            editUnit: function(unitKey) {
+                // Ocultar todos los formularios
+                document.querySelectorAll('.unit-form').forEach(form => {
+                    form.classList.remove('show');
+                });
+                
+                // Mostrar el formulario específico
+                const form = document.getElementById(`unit-form-${unitKey}`);
+                if (form) {
+                    form.classList.add('show');
+                    form.scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            
+            saveUnit: function(unitKey, parentKey = null) {
+                const unitData = {
+                    nombre: document.getElementById(`nombre-${unitKey}`).value.trim(),
+                    reportaA: document.getElementById(`reportaA-${unitKey}`).value.trim(),
+                    jerarquia: document.getElementById(`jerarquia-${unitKey}`).value.trim(),
+                    mision: document.getElementById(`mision-${unitKey}`).value.trim(),
+                    funciones: []
+                };
+                
+                // Calcular automáticamente el nivel de reporte
+                const allUnits = TreeRenderer.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                unitData.nivelReporte = Utils.calcularNivelReporte(unitData, allUnits);
+                
+                // Validaciones
+                if (!unitData.nombre) {
+                    Utils.showAlert('❌ El nombre de la unidad es obligatorio', 'error');
+                    return;
+                }
+                
+                // Generar key único para nueva unidad
+                const newKey = unitKey.startsWith('new') ? 
+                    `unit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` : unitKey;
+                
+                if (unitKey.startsWith('new')) {
+                    // Crear nueva unidad
+                    const newUnit = {
+                        key: newKey,
+                        ...unitData
+                    };
+                    
+                    if (unitKey === 'new-root') {
+                        // Agregar como unidad raíz
+                        if (!STATE.currentData.hierarchy.tree) {
+                            STATE.currentData.hierarchy.tree = [];
+                        }
+                        STATE.currentData.hierarchy.tree.push(newUnit);
+                        Utils.showAlert('✅ Nueva unidad raíz agregada', 'success');
+                        
+                        // Si era la primera unidad, actualizar el contenido del área principal
+                        if (STATE.currentData.hierarchy.tree.length === 1) {
+                            document.getElementById('content-area').innerHTML = `
+                                <div class="success">
+                                    <h3>🎉 ¡Primera unidad creada exitosamente!</h3>
+                                    <p>La unidad "${unitData.nombre}" ha sido creada. Ahora puedes:</p>
+                                    <ul>
+                                        <li>Seleccionar la unidad para agregar funciones</li>
+                                        <li>Crear subunidades</li>
+                                        <li>Editar la información de la unidad</li>
+                                    </ul>
+                                </div>
+                            `;
+                        }
+                    } else if (unitKey === 'new-subunit' && parentKey) {
+                        // Agregar como subunidad
+                        const parentNode = this.findNodeByKey(STATE.currentData.hierarchy.tree, parentKey);
+                        if (parentNode) {
+                            if (!parentNode.children) parentNode.children = [];
+                            parentNode.children.push(newUnit);
+                            Utils.showAlert('✅ Nueva subunidad agregada', 'success');
+                        }
+                    }
+                } else {
+                    // Actualizar unidad existente
+                    const existingUnit = this.findNodeByKey(STATE.currentData.hierarchy.tree, unitKey);
+                    if (existingUnit) {
+                        Object.assign(existingUnit, unitData);
+                        Utils.showAlert('✅ Unidad actualizada', 'success');
+                    }
+                }
+                
+                // Actualizar metadata
+                this.updateMetadata();
+                
+                // Re-renderizar
+                TreeRenderer.render(STATE.currentData.hierarchy);
+            },
+            
+            cancelUnitEdit: function(unitKey) {
+                const form = document.getElementById(`unit-form-${unitKey}`);
+                if (form) {
+                    form.classList.remove('show');
+                }
+                
+                // Si es un formulario temporal, eliminarlo
+                if (unitKey.startsWith('new')) {
+                    const tempForm = document.getElementById(`unit-form-${unitKey}`);
+                    if (tempForm) {
+                        tempForm.remove();
+                    }
+                    
+                    // Si no hay unidades y se cancela la creación de la primera unidad, volver a mostrar la pantalla de creación
+                    if (unitKey === 'new-root' && (!STATE.currentData || !STATE.currentData.hierarchy || !STATE.currentData.hierarchy.tree || STATE.currentData.hierarchy.tree.length === 0)) {
+                        this.showCreateFirstUnit();
+                    }
+                }
+            },
+            
+            deleteUnit: function(unitKey) {
+                const unit = this.findNodeByKey(STATE.currentData.hierarchy.tree, unitKey);
+                if (!unit) return;
+                
+                const confirmed = confirm(`¿Estás seguro de que quieres eliminar la unidad "${unit.nombre}" y todas sus subunidades?`);
+                
+                if (confirmed) {
+                    // Eliminar unidad del árbol
+                    this.removeUnitFromTree(STATE.currentData.hierarchy.tree, unitKey);
+                    
+                    // Actualizar metadata
+                    this.updateMetadata();
+                    
+                    // Re-renderizar
+                    TreeRenderer.render(STATE.currentData.hierarchy);
+                    Utils.showAlert('✅ Unidad eliminada', 'success');
+                }
+            },
+            
+            removeUnitFromTree: function(nodes, key) {
+                for (let i = 0; i < nodes.length; i++) {
+                    if (nodes[i].key === key) {
+                        nodes.splice(i, 1);
+                        return true;
+                    }
+                    if (nodes[i].children) {
+                        if (this.removeUnitFromTree(nodes[i].children, key)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            },
+            
+            updateMetadata: function() {
+                if (STATE.currentData && STATE.currentData.metadata) {
+                    STATE.currentData.metadata.totalUnits = this.countUnits(STATE.currentData.hierarchy.tree);
+                    STATE.currentData.metadata.lastModified = new Date().toISOString();
+                    STATE.currentData.metadata.version = STATE.currentData.metadata.version + '-edited';
+                }
+            },
+            
+            countUnits: function(nodes) {
+                let count = 0;
+                nodes.forEach(node => {
+                    count++;
+                    if (node.children) {
+                        count += this.countUnits(node.children);
+                    }
+                });
+                return count;
+            },
+            
+            showUnitStats: function() {
+                if (!STATE.currentData || !STATE.currentData.hierarchy.tree) return;
+                
+                const stats = {
+                    totalUnits: this.countUnits(STATE.currentData.hierarchy.tree),
+                    rootUnits: STATE.currentData.hierarchy.tree.length,
+                    maxDepth: this.getMaxDepth(STATE.currentData.hierarchy.tree)
+                };
+                
+                const statsHTML = `
+                    <div class="info">
+                        <h4>📊 Estadísticas de Unidades</h4>
+                        <p><strong>Total de unidades:</strong> ${stats.totalUnits}</p>
+                        <p><strong>Unidades raíz:</strong> ${stats.rootUnits}</p>
+                        <p><strong>Profundidad máxima:</strong> ${stats.maxDepth} niveles</p>
+                    </div>
+                `;
+                
+                const container = document.getElementById('tree-container');
+                container.insertAdjacentHTML('afterbegin', statsHTML);
+            },
+            
+            getMaxDepth: function(nodes, currentDepth = 1) {
+                let maxDepth = currentDepth;
+                nodes.forEach(node => {
+                    if (node.children && node.children.length > 0) {
+                        const childDepth = this.getMaxDepth(node.children, currentDepth + 1);
+                        if (childDepth > maxDepth) {
+                            maxDepth = childDepth;
+                        }
+                    }
+                });
+                return maxDepth;
+            },
+            
+            addTreeEventListeners: function() {
+                // Los event listeners se manejan con onclick en el HTML generado
+            },
+            
+            // Funciones para drag and drop de unidades
+            setupUnitDragAndDrop: function() {
+                const container = document.getElementById('tree-container');
+                const draggableNodes = container.querySelectorAll('.tree-node.draggable');
+                
+                draggableNodes.forEach(node => {
+                    node.addEventListener('dragstart', (e) => {
+                        STATE.draggedUnit = node.dataset.key;
+                        node.classList.add('dragging');
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', node.dataset.key);
+                    });
+                    
+                    node.addEventListener('dragend', (e) => {
+                        node.classList.remove('dragging');
+                        STATE.draggedUnit = null;
+                        STATE.dragOverUnit = null;
+                        STATE.dragOverPosition = null;
+                        
+                        // Limpiar indicadores visuales
+                        container.querySelectorAll('.tree-node').forEach(n => {
+                            n.classList.remove('drag-over', 'drag-over-before', 'drag-over-after', 'drag-over-child');
+                        });
+                    });
+                    
+                    node.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                        
+                        const draggedKey = STATE.draggedUnit;
+                        const targetKey = node.dataset.key;
+                        
+                        if (draggedKey === targetKey) return;
+                        
+                        // Determinar posición de drop
+                        const rect = node.getBoundingClientRect();
+                        const mouseY = e.clientY;
+                        const threshold = rect.height / 3;
+                        
+                        let position = 'after';
+                        if (mouseY < rect.top + threshold) {
+                            position = 'before';
+                        } else if (mouseY > rect.bottom - threshold) {
+                            position = 'after';
+                        } else {
+                            position = 'child';
+                        }
+                        
+                        // Actualizar indicadores visuales
+                        container.querySelectorAll('.tree-node').forEach(n => {
+                            n.classList.remove('drag-over', 'drag-over-before', 'drag-over-after', 'drag-over-child');
+                        });
+                        
+                        if (position === 'before') {
+                            node.classList.add('drag-over-before');
+                        } else if (position === 'after') {
+                            node.classList.add('drag-over-after');
+                        } else {
+                            node.classList.add('drag-over-child');
+                        }
+                        
+                        STATE.dragOverUnit = targetKey;
+                        STATE.dragOverPosition = position;
+                    });
+                    
+                    node.addEventListener('dragleave', (e) => {
+                        // Solo limpiar si no estamos sobre el mismo elemento
+                        if (!node.contains(e.relatedTarget)) {
+                            node.classList.remove('drag-over', 'drag-over-before', 'drag-over-after', 'drag-over-child');
+                        }
+                    });
+                    
+                    node.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        
+                        const draggedKey = STATE.draggedUnit;
+                        const targetKey = node.dataset.key;
+                        const position = STATE.dragOverPosition;
+                        
+                        if (draggedKey && targetKey && draggedKey !== targetKey) {
+                            TreeRenderer.moveUnit(draggedKey, targetKey, position);
+                        }
+                        
+                        // Limpiar indicadores
+                        container.querySelectorAll('.tree-node').forEach(n => {
+                            n.classList.remove('drag-over', 'drag-over-before', 'drag-over-after', 'drag-over-child');
+                        });
+                    });
+                });
+            },
+            
+            moveUnit: function(draggedKey, targetKey, position) {
+                console.log(`🔄 Moviendo unidad ${draggedKey} a ${targetKey} en posición ${position}`);
+                
+                // Encontrar las unidades
+                const draggedUnit = this.findNodeByKey(STATE.currentData.hierarchy.tree, draggedKey);
+                const targetUnit = this.findNodeByKey(STATE.currentData.hierarchy.tree, targetKey);
+                
+                if (!draggedUnit || !targetUnit) {
+                    Utils.showAlert('❌ Error: No se encontraron las unidades', 'error');
+                    return;
+                }
+                
+                // Verificar que no se mueva una unidad dentro de sí misma
+                if (this.isDescendant(draggedUnit, targetKey)) {
+                    Utils.showAlert('❌ No puedes mover una unidad dentro de sí misma', 'error');
+                    return;
+                }
+                
+                // Remover la unidad arrastrada de su posición actual
+                this.removeUnitFromTree(STATE.currentData.hierarchy.tree, draggedKey);
+                
+                // Insertar en la nueva posición según la posición especificada
+                if (position === 'child') {
+                    // Mover como hijo del target
+                    if (!targetUnit.children) targetUnit.children = [];
+                    targetUnit.children.push(draggedUnit);
+                    draggedUnit.reportaA = targetUnit.nombre;
+                } else {
+                    // Mover como hermano del target
+                    const parentNode = this.findParentNode(STATE.currentData.hierarchy.tree, targetKey);
+                    const targetIndex = parentNode ? 
+                        parentNode.children.findIndex(child => child.key === targetKey) : 
+                        STATE.currentData.hierarchy.tree.findIndex(child => child.key === targetKey);
+                    
+                    if (parentNode) {
+                        // Insertar en la posición correcta
+                        const insertIndex = position === 'before' ? targetIndex : targetIndex + 1;
+                        parentNode.children.splice(insertIndex, 0, draggedUnit);
+                        draggedUnit.reportaA = parentNode.nombre;
+                    } else {
+                        // Es una unidad raíz
+                        const insertIndex = position === 'before' ? targetIndex : targetIndex + 1;
+                        STATE.currentData.hierarchy.tree.splice(insertIndex, 0, draggedUnit);
+                        draggedUnit.reportaA = '';
+                    }
+                }
+                
+                // Actualizar niveles de reporte
+                this.updateAllReportLevels();
+                
+                // Actualizar metadata
+                this.updateMetadata();
+                
+                // Re-renderizar
+                TreeRenderer.render(STATE.currentData.hierarchy);
+                
+                Utils.showAlert(`✅ Unidad "${draggedUnit.nombre}" movida exitosamente`, 'success');
+            },
+            
+            isDescendant: function(unit, targetKey) {
+                if (!unit.children) return false;
+                
+                for (let child of unit.children) {
+                    if (child.key === targetKey) return true;
+                    if (this.isDescendant(child, targetKey)) return true;
+                }
+                return false;
+            },
+            
+            findParentNode: function(nodes, targetKey, parent = null) {
+                for (let node of nodes) {
+                    if (node.children) {
+                        for (let child of node.children) {
+                            if (child.key === targetKey) {
+                                return node;
+                            }
+                        }
+                        const found = this.findParentNode(node.children, targetKey, node);
+                        if (found) return found;
+                    }
+                }
+                return null;
+            },
+            
+            updateAllReportLevels: function() {
+                const allUnits = this.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                allUnits.forEach(unit => {
+                    unit.nivelReporte = Utils.calcularNivelReporte(unit, allUnits);
+                });
+            },
+            
+            showCreateFirstUnit: function() {
+                const container = document.getElementById('tree-container');
+                container.innerHTML = `
+                    <div class="info" style="margin-bottom: 20px;">
+                        <h3>🏢 Crear Primera Unidad</h3>
+                        <p>No hay unidades en el organigrama. Crea la primera unidad raíz para comenzar.</p>
+                    </div>
+                    
+                    <div class="tree-controls">
+                        <button class="btn btn-success" onclick="TreeRenderer.addRootUnit()" style="width: 100%; padding: 15px; font-size: 16px;">
+                            🏢 Crear Primera Unidad Raíz
+                        </button>
+                    </div>
+                    
+                    <div class="info" style="margin-top: 20px;">
+                        <h4>📋 Instrucciones:</h4>
+                        <ol>
+                            <li>Haz clic en "Crear Primera Unidad Raíz"</li>
+                            <li>Completa el formulario con los datos de la unidad</li>
+                            <li>Guarda la unidad</li>
+                            <li>Luego podrás agregar subunidades y funciones</li>
+                        </ol>
+                    </div>
+                `;
+            }
+        };
+
+        // ===== RENDERIZADOR DE UNIDADES =====
+        const UnitRenderer = {
+            render: function(unit) {
+                const container = document.getElementById('content-area');
+                
+                if (!unit) {
+                    container.innerHTML = '<div class="info">Selecciona una unidad del árbol para ver sus detalles</div>';
+                    return;
+                }
+                
+                const functionsHTML = this.renderFunctions(unit.funciones || []);
+                const addFunctionHTML = STATE.isEditMode ? this.renderAddFunctionForm() : '';
+                
+                container.innerHTML = `
+                    <div class="unit-info">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="flex: 1;">
+                                <h3>🏢 ${unit.nombre}</h3>
+                                <p><strong>Reporta a:</strong> ${unit.reportaA || 'No especificado'}</p>
+                                <p><strong>Jerarquía:</strong> ${unit.jerarquia || 'No especificada'}</p>
+                                <p><strong>Nivel de Reporte:</strong> ${unit.nivelReporte || 'No especificado'}</p>
+                                ${unit.mision ? `<div class="mission-text"><strong>Misión:</strong> ${unit.mision}</div>` : ''}
+                            </div>
+                            ${STATE.isEditMode ? `
+                                <div style="margin-left: 15px;">
+                                    <button class="btn btn-sm btn-warning" onclick="UnitRenderer.editCurrentUnit()" title="Editar información de la unidad">
+                                        ✏️ Editar Unidad
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="functions-header">
+                        <h3></h3>
+                        <div class="function-controls">
+                            ${STATE.isEditMode ? '<button class="btn btn-sm btn-success" onclick="UnitRenderer.addNewFunction()">➕ Agregar Función</button>' : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="functions-container" id="functions-container">
+                        ${functionsHTML}
+                    </div>
+                    
+                    ${addFunctionHTML}
+                    
+                    <!-- Formulario de edición de unidad (oculto por defecto) -->
+                    <div class="unit-form" id="unit-edit-form" style="display: none;">
+                        ${this.renderUnitEditForm(unit)}
+                    </div>
+                `;
+                
+                // Agregar drag and drop si está en modo edición
+                if (STATE.isEditMode) {
+                    this.setupDragAndDrop();
+                    this.setupEditListeners();
+                }
+            },
+            
+            renderFunctions: function(funciones) {
+                if (!funciones || funciones.length === 0) {
+                    return '<div class="info">No hay funciones definidas para esta unidad</div>';
+                }
+                
+                return funciones.map((func, index) => {
+                    const typeClass = func.tipo ? func.tipo.toLowerCase().replace('á', 'a').replace('í', 'i') : 'generica';
+                    const percentageHTML = func.porcentajeDedicacion ? 
+                        `<span class="function-percentage">${func.porcentajeDedicacion}%</span>` : '';
+                    
+                    const editControls = STATE.isEditMode ? `
+                        <div class="function-edit-controls">
+                            <button class="btn btn-sm btn-info" onclick="UnitRenderer.editFunction(${index})">✏️ Editar</button>
+                            <button class="delete-function-btn" onclick="UnitRenderer.deleteFunction(${index})">🗑️</button>
+                        </div>
+                    ` : '';
+                    
+                    return `
+                        <div class="function-item" data-index="${index}" draggable="${STATE.isEditMode}">
+                            <div class="function-drag-handle">⋮⋮</div>
+                            <div class="function-content">
+                                <div>
+                                    <span class="function-type ${typeClass}">${func.tipo || 'Genérica'}</span>
+                                    ${percentageHTML}
+                                </div>
+                                <div class="function-description">${func.descripcion || 'Sin descripción'}</div>
+                                <div class="function-details">
+                                    <span><strong>Producto Final:</strong> ${func.productoFinal || 'N/A'}</span>
+                                </div>
+                                ${editControls}
+                            </div>
+                        </div>
+                        
+                        <div class="function-form" id="function-form-${index}">
+                            ${this.renderFunctionForm(func, index)}
+                        </div>
+                    `;
+                }).join('');
+            },
+            
+            renderFunctionForm: function(func, index) {
+                const isNew = index === 'new';
+                const functionData = func || {
+                    tipo: 'Genérica',
+                    descripcion: '',
+                    productoFinal: '',
+                    porcentajeDedicacion: '',
+                    orden: 1
+                };
+                
+                return `
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo de Función:</label>
+                            <select id="tipo-${index}">
+                                <option value="Genérica" ${functionData.tipo === 'Genérica' ? 'selected' : ''}>Genérica</option>
+                                <option value="Específica" ${functionData.tipo === 'Específica' ? 'selected' : ''}>Específica</option>
+                                <option value="Indicador" ${functionData.tipo === 'Indicador' ? 'selected' : ''}>Indicador</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Orden:</label>
+                            <input type="number" id="orden-${index}" value="${functionData.orden || 1}" min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <textarea id="descripcion-${index}" placeholder="Describe la función...">${functionData.descripcion || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Producto Final:</label>
+                            <input type="text" id="productoFinal-${index}" value="${functionData.productoFinal || ''}" placeholder="Producto final de la función">
+                        </div>
+                        <div class="form-group">
+                            <label>Porcentaje de Dedicación:</label>
+                            <input type="text" id="porcentajeDedicacion-${index}" value="${functionData.porcentajeDedicacion || ''}" placeholder="Ej: 20%">
+                        </div>
+                    </div>
+                    
+                    <div class="function-edit-controls">
+                        <button class="btn btn-sm btn-success" onclick="UnitRenderer.saveFunction(${index})">💾 Guardar</button>
+                        <button class="btn btn-sm btn-secondary" onclick="UnitRenderer.cancelEdit(${index})">❌ Cancelar</button>
+                    </div>
+                `;
+            },
+            
+            renderAddFunctionForm: function() {
+                return `
+                    <div class="function-form show" id="function-form-new">
+                        <h4>➕ Agregar Nueva Función</h4>
+                        ${this.renderFunctionForm(null, 'new')}
+                    </div>
+                `;
+            },
+            
+            setupEditListeners: function() {
+                // Los event listeners se manejan con onclick en el HTML generado
+            },
+            
+            editFunction: function(index) {
+                // Ocultar todos los formularios
+                document.querySelectorAll('.function-form').forEach(form => {
+                    form.classList.remove('show');
+                });
+                
+                // Mostrar el formulario específico
+                const form = document.getElementById(`function-form-${index}`);
+                if (form) {
+                    form.classList.add('show');
+                    form.scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            
+            saveFunction: function(index) {
+                const unit = STATE.selectedUnit;
+                if (!unit) return;
+                
+                // Recopilar datos del formulario
+                const functionData = {
+                    tipo: document.getElementById(`tipo-${index}`).value,
+                    orden: parseInt(document.getElementById(`orden-${index}`).value),
+                    descripcion: document.getElementById(`descripcion-${index}`).value.trim(),
+                    productoFinal: document.getElementById(`productoFinal-${index}`).value.trim(),
+                    porcentajeDedicacion: document.getElementById(`porcentajeDedicacion-${index}`).value.trim()
+                };
+                
+                // Validaciones
+                if (!functionData.descripcion) {
+                    Utils.showAlert('❌ La descripción es obligatoria', 'error');
+                    return;
+                }
+                
+                // Validar porcentajes según tipo
+                if (functionData.tipo === 'Genérica' && functionData.porcentajeDedicacion) {
+                    Utils.showAlert('⚠️ Las funciones genéricas no deben tener porcentaje de dedicación', 'warning');
+                    functionData.porcentajeDedicacion = '';
+                }
+                
+                if (functionData.tipo === 'Indicador' && functionData.porcentajeDedicacion) {
+                    Utils.showAlert('⚠️ Los indicadores no deben tener porcentaje de dedicación', 'warning');
+                    functionData.porcentajeDedicacion = '';
+                }
+                
+                if (index === 'new') {
+                    // Agregar nueva función
+                    if (!unit.funciones) unit.funciones = [];
+                    unit.funciones.push(functionData);
+                    Utils.showAlert('✅ Nueva función agregada', 'success');
+                } else {
+                    // Actualizar función existente
+                    unit.funciones[index] = { ...unit.funciones[index], ...functionData };
+                    Utils.showAlert('✅ Función actualizada', 'success');
+                }
+                
+                // Reordenar funciones por orden
+                unit.funciones.sort((a, b) => a.orden - b.orden);
+                
+                // Actualizar órdenes secuencialmente
+                unit.funciones.forEach((func, idx) => {
+                    func.orden = idx + 1;
+                });
+                
+                // Re-renderizar
+                UnitRenderer.render(unit);
+            },
+            
+            cancelEdit: function(index) {
+                const form = document.getElementById(`function-form-${index}`);
+                if (form) {
+                    form.classList.remove('show');
+                }
+                
+                if (index === 'new') {
+                    // Limpiar formulario de nueva función
+                    document.getElementById('function-form-new').innerHTML = `
+                        <h4>➕ Agregar Nueva Función</h4>
+                        ${this.renderFunctionForm(null, 'new')}
+                    `;
+                }
+            },
+            
+            deleteFunction: function(index) {
+                const unit = STATE.selectedUnit;
+                if (!unit || !unit.funciones) return;
+                
+                const functionToDelete = unit.funciones[index];
+                const confirmed = confirm(`¿Estás seguro de que quieres eliminar la función "${functionToDelete.descripcion.substring(0, 50)}..."?`);
+                
+                if (confirmed) {
+                    unit.funciones.splice(index, 1);
+                    
+                    // Actualizar órdenes
+                    unit.funciones.forEach((func, idx) => {
+                        func.orden = idx + 1;
+                    });
+                    
+                    UnitRenderer.render(unit);
+                    Utils.showAlert('✅ Función eliminada', 'success');
+                }
+            },
+            
+            addNewFunction: function() {
+                // Mostrar formulario de nueva función
+                const form = document.getElementById('function-form-new');
+                if (form) {
+                    form.classList.add('show');
+                    form.scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            
+            setupDragAndDrop: function() {
+                const container = document.getElementById('functions-container');
+                const items = container.querySelectorAll('.function-item');
+                
+                items.forEach(item => {
+                    item.addEventListener('dragstart', (e) => {
+                        STATE.draggedFunction = parseInt(item.dataset.index);
+                        item.classList.add('dragging');
+                    });
+                    
+                    item.addEventListener('dragend', (e) => {
+                        item.classList.remove('dragging');
+                        STATE.draggedFunction = null;
+                    });
+                    
+                    item.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                    });
+                    
+                    item.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const targetIndex = parseInt(e.currentTarget.dataset.index);
+                        if (STATE.draggedFunction !== null && STATE.draggedFunction !== targetIndex) {
+                            UnitRenderer.reorderFunctions(STATE.draggedFunction, targetIndex);
+                        }
+                    });
+                });
+            },
+            
+            reorderFunctions: function(fromIndex, toIndex) {
+                const unit = STATE.selectedUnit;
+                const funciones = [...unit.funciones];
+                const movedFunction = funciones.splice(fromIndex, 1)[0];
+                funciones.splice(toIndex, 0, movedFunction);
+                
+                // Actualizar órdenes
+                funciones.forEach((func, index) => {
+                    func.orden = index + 1;
+                });
+                
+                unit.funciones = funciones;
+                UnitRenderer.render(unit);
+                Utils.showAlert('✅ Funciones reordenadas', 'success');
+            },
+            
+            showFunctionStats: function() {
+                const unit = STATE.selectedUnit;
+                if (!unit || !unit.funciones) return;
+                
+                const stats = {
+                    total: unit.funciones.length,
+                    genericas: unit.funciones.filter(f => f.tipo === 'Genérica').length,
+                    especificas: unit.funciones.filter(f => f.tipo === 'Específica').length,
+                    indicadores: unit.funciones.filter(f => f.tipo === 'Indicador').length
+                };
+                
+                const statsHTML = `
+                    <div class="info">
+                        <h4>📊 Estadísticas de Funciones</h4>
+                        <p><strong>Total:</strong> ${stats.total}</p>
+                        <p><strong>Genéricas:</strong> ${stats.genericas}</p>
+                        <p><strong>Específicas:</strong> ${stats.especificas}</p>
+                        <p><strong>Indicadores:</strong> ${stats.indicadores}</p>
+                    </div>
+                `;
+                
+                const container = document.getElementById('content-area');
+                container.insertAdjacentHTML('afterbegin', statsHTML);
+            },
+            
+            renderUnitEditForm: function(unit) {
+                // Generar dropdown de unidades existentes (excluyendo la unidad actual)
+                const unitsDropdown = TreeRenderer.generateUnitsDropdown(unit.key);
+                
+                return `
+                    <div class="unit-form show" id="unit-edit-form-content">
+                        <h4>✏️ Editar Información de la Unidad</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre de la Unidad:</label>
+                                <input type="text" id="edit-nombre" value="${unit.nombre || ''}" placeholder="Nombre de la unidad">
+                            </div>
+                            <div class="form-group">
+                                <label>Reporta a:</label>
+                                <select id="edit-reportaA" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jerarquía:</label>
+                                <select id="edit-jerarquia" class="form-control">
+                                    <option value="">Seleccionar jerarquía...</option>
+                                    <option value="GG" ${unit.jerarquia === 'GG' ? 'selected' : ''}>GG</option>
+                                    <option value="SGP" ${unit.jerarquia === 'SGP' ? 'selected' : ''}>SGP</option>
+                                    <option value="SG" ${unit.jerarquia === 'SG' ? 'selected' : ''}>SG</option>
+                                    <option value="GD" ${unit.jerarquia === 'GD' ? 'selected' : ''}>GD</option>
+                                    <option value="SGD" ${unit.jerarquia === 'SGD' ? 'selected' : ''}>SGD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nivel de Reporte:</label>
+                                <input type="number" id="edit-nivelReporte" value="${unit.nivelReporte || ''}" placeholder="Nivel de reporte" min="1">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Misión:</label>
+                            <textarea id="edit-mision" placeholder="Describe la misión de la unidad...">${unit.mision || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button class="btn btn-sm btn-success" onclick="UnitRenderer.saveUnitEdit()">💾 Guardar Cambios</button>
+                            <button class="btn btn-sm btn-secondary" onclick="UnitRenderer.cancelUnitEdit()">❌ Cancelar</button>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            editCurrentUnit: function() {
+                const editForm = document.getElementById('unit-edit-form');
+                if (editForm) {
+                    editForm.style.display = 'block';
+                    editForm.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Establecer el valor seleccionado en el dropdown
+                    const reportaSelect = document.getElementById('edit-reportaA');
+                    if (reportaSelect && STATE.selectedUnit.reportaA) {
+                        reportaSelect.value = STATE.selectedUnit.reportaA;
+                    }
+                }
+            },
+            
+            saveUnitEdit: function() {
+                const unit = STATE.selectedUnit;
+                if (!unit) return;
+                
+                const unitData = {
+                    nombre: document.getElementById('edit-nombre').value.trim(),
+                    reportaA: document.getElementById('edit-reportaA').value.trim(),
+                    jerarquia: document.getElementById('edit-jerarquia').value.trim(),
+                    mision: document.getElementById('edit-mision').value.trim()
+                };
+                
+                // Calcular automáticamente el nivel de reporte
+                const allUnits = TreeRenderer.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                unitData.nivelReporte = Utils.calcularNivelReporte(unitData, allUnits);
+                
+                // Validaciones
+                if (!unitData.nombre) {
+                    Utils.showAlert('❌ El nombre de la unidad es obligatorio', 'error');
+                    return;
+                }
+                
+                // Actualizar la unidad
+                Object.assign(unit, unitData);
+                
+                // Actualizar metadata
+                TreeRenderer.updateMetadata();
+                
+                // Re-renderizar la unidad
+                UnitRenderer.render(unit);
+                
+                // Re-renderizar el árbol para reflejar los cambios
+                TreeRenderer.render(STATE.currentData.hierarchy);
+                
+                Utils.showAlert('✅ Información de la unidad actualizada', 'success');
+            },
+            
+            cancelUnitEdit: function() {
+                const editForm = document.getElementById('unit-edit-form');
+                if (editForm) {
+                    editForm.style.display = 'none';
+                }
+            }
+        };
+
+        // ===== RENDERIZADOR DE ESTADÍSTICAS =====
+        const StatsRenderer = {
+            render: function(metadata) {
+                // Mostrar estadísticas en el status bar
+                const stats = metadata.stats || {};
+                const qualityScore = stats.qualityScore || 0;
+                
+                Utils.updateStatus(`Calidad: ${qualityScore}% | Registros: ${metadata.totalRecords || 0} | Unidades: ${metadata.totalUnits || 0}`);
+            }
+        };
+
+        // ===== EXPORTADORES =====
+        const Exporters = {
+            exportJSON: function() {
+                if (!STATE.currentData) {
+                    Utils.showAlert('No hay datos para exportar', 'error');
+                    return;
+                }
+                
+                // Crear copia de los datos actuales
+                const exportData = {
+                    metadata: {
+                        ...STATE.currentData.metadata,
+                        exportDate: new Date().toISOString(),
+                        version: STATE.currentData.metadata.version + '-exported'
+                    },
+                    hierarchy: STATE.currentData.hierarchy
+                };
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `organigrama_bna_${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                Utils.showAlert('✅ JSON exportado exitosamente', 'success');
+            },
+            
+            exportPDF: function() {
+                if (!STATE.currentData) {
+                    Utils.showAlert('No hay datos para exportar', 'error');
+                    return;
+                }
+                
+                console.log('🔍 Iniciando exportación PDF mejorada...');
+                
+                try {
+                    // Crear contenido PDF estructurado
+                    const pdfContent = this.generateStructuredPDFContent();
+                    console.log('✅ Contenido PDF generado:', pdfContent.length, 'caracteres');
+                    
+                    // Verificar que el contenido no esté vacío
+                    if (!pdfContent || pdfContent.trim().length === 0) {
+                        throw new Error('No hay contenido para generar el PDF');
+                    }
+                    
+                    // Crear una nueva ventana para imprimir con estilos mejorados
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Organigrama BNA - ${new Date().toISOString().split('T')[0]}</title>
+                            <meta charset="UTF-8">
+                            <style>
+                                /* Estilos base para pantalla e impresión */
+                                * {
+                                    box-sizing: border-box;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                
+                                body {
+                                    font-family: Arial, Helvetica, sans-serif !important;
+                                    font-size: 12px !important;
+                                    line-height: 1.4 !important;
+                                    color: #000000 !important;
+                                    background: #ffffff !important;
+                                    margin: 20px !important;
+                                    padding: 0 !important;
+                                }
+                                
+                                /* Estilos específicos para impresión */
+                                @media print {
+                                    body {
+                                        margin: 15px !important;
+                                        font-size: 11px !important;
+                                    }
+                                    
+                                    .unit-container {
+                                        page-break-inside: avoid !important;
+                                        margin-bottom: 30px !important;
+                                    }
+                                    
+                                    .unit-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 12px !important;
+                                        margin-bottom: 20px !important;
+                                        border-radius: 4px !important;
+                                    }
+                                    
+                                    .unit-header h2 {
+                                        margin: 0 !important;
+                                        font-size: 16px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .unit-header h3 {
+                                        margin: 5px 0 0 0 !important;
+                                        font-size: 14px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .info-section {
+                                        margin-bottom: 20px !important;
+                                    }
+                                    
+                                    .info-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 8px 12px !important;
+                                        font-weight: bold !important;
+                                        border-radius: 4px 4px 0 0 !important;
+                                        font-size: 12px !important;
+                                        display: flex !important;
+                                        justify-content: space-between !important;
+                                    }
+                                    
+                                    .info-header .left-text {
+                                        flex: 1 !important;
+                                    }
+                                    
+                                    .info-header .right-text {
+                                        flex: 1 !important;
+                                        text-align: right !important;
+                                    }
+                                    
+                                    .info-content {
+                                        border: 2px solid #2c5aa0 !important;
+                                        border-top: none !important;
+                                        padding: 15px !important;
+                                        background-color: #ffffff !important;
+                                        border-left: 4px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .info-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                    }
+                                    
+                                    .info-table td {
+                                        padding: 8px 12px !important;
+                                        font-size: 11px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                    }
+                                    
+                                    .info-table td:first-child {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        width: 35% !important;
+                                    }
+                                    
+                                    .mission-content {
+                                        line-height: 1.6 !important;
+                                        font-size: 11px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .functions-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                        margin-bottom: 15px !important;
+                                    }
+                                    
+                                    .functions-table tr:first-child {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table th,
+                                    .functions-table td {
+                                        padding: 10px 12px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                        font-size: 10px !important;
+                                        line-height: 1.3 !important;
+                                        word-wrap: break-word !important;
+                                        vertical-align: top !important;
+                                    }
+                                    
+                                    .functions-table th {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .function-header-cell {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(even) {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(odd) {
+                                        background-color: #ffffff !important;
+                                    }
+                                    
+                                    .percentage-cell {
+                                        text-align: center !important;
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                    }
+                                    
+                                    .no-functions {
+                                        background-color: #f8f9fa !important;
+                                        color: #6c757d !important;
+                                        padding: 15px !important;
+                                        text-align: center !important;
+                                        border: 1px solid #dee2e6 !important;
+                                        border-radius: 4px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .page-break {
+                                        page-break-after: always !important;
+                                    }
+                                    
+                                    .separator {
+                                        margin-bottom: 30px !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        padding-bottom: 20px !important;
+                                    }
+                                }
+                                
+                                /* Estilos para vista previa en pantalla */
+                                @media screen {
+                                    body {
+                                        margin: 20px !important;
+                                        font-size: 12px !important;
+                                    }
+                                    
+                                    .unit-container {
+                                        margin-bottom: 40px !important;
+                                    }
+                                    
+                                    .unit-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 15px !important;
+                                        margin-bottom: 25px !important;
+                                        border-radius: 6px !important;
+                                        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+                                    }
+                                    
+                                    .unit-header h2 {
+                                        margin: 0 !important;
+                                        font-size: 20px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .unit-header h3 {
+                                        margin: 10px 0 0 0 !important;
+                                        font-size: 18px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .info-section {
+                                        margin-bottom: 25px !important;
+                                    }
+                                    
+                                    .info-header {
+                                        display: flex !important;
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        font-weight: bold !important;
+                                        font-size: 14px !important;
+                                        border-radius: 6px 6px 0 0 !important;
+                                        padding: 0 !important;
+                                        margin: 0 !important;
+                                    }
+                                    
+                                    .info-header .left-text {
+                                        width: 65% !important;
+                                        text-align: left !important;
+                                        padding: 10px 12px !important;
+                                        vertical-align: top !important;
+                                        box-sizing: border-box !important;
+                                    }
+                                    
+                                    .info-header .right-text {
+                                        width: 35% !important;
+                                        text-align: left !important;
+                                        padding: 10px 12px !important;
+                                        vertical-align: top !important;
+                                        box-sizing: border-box !important;
+                                    }
+                                    
+                                    .info-content {
+                                        border: 1px solid #2c5aa0 !important;
+                                        border-top: none !important;
+                                        padding: 20px !important;
+                                        background-color: #ffffff !important;
+                                        border-left: 4px solid #2c5aa0 !important;
+                                        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+                                    }
+                                    
+                                    .info-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                    }
+                                    
+                                    .info-table td {
+                                        padding: 12px !important;
+                                        font-size: 14px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                    }
+                                    
+                                    .info-table td:first-child {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        width: 35% !important;
+                                    }
+                                    
+                                    .mission-content {
+                                        line-height: 1.7 !important;
+                                        font-size: 14px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .functions-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                        margin-bottom: 15px !important;
+                                    }
+                                    
+                                    .functions-table tr:first-child {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table th,
+                                    .functions-table td {
+                                        padding: 15px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                        font-size: 13px !important;
+                                        line-height: 1.5 !important;
+                                    }
+                                    
+                                    .functions-table th {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .function-header-cell {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(even) {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(odd) {
+                                        background-color: #ffffff !important;
+                                    }
+                                    
+                                    .percentage-cell {
+                                        text-align: center !important;
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                    }
+                                    
+                                    .no-functions {
+                                        background-color: #f8f9fa !important;
+                                        color: #6c757d !important;
+                                        padding: 15px !important;
+                                        text-align: center !important;
+                                        border: 1px solid #dee2e6 !important;
+                                        border-radius: 4px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .separator {
+                                        margin-bottom: 30px !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        padding-bottom: 20px !important;
+                                    }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${pdfContent}
+                        </body>
+                        </html>
+                    `);
+                    printWindow.document.close();
+                    
+                    // Esperar a que se cargue el contenido y luego imprimir
+                    printWindow.onload = function() {
+                        console.log('✅ Ventana de impresión lista con estilos mejorados');
+                        setTimeout(() => {
+                            printWindow.print();
+                            printWindow.close();
+                            Utils.showAlert('✅ PDF exportado exitosamente con diseño mejorado', 'success');
+                        }, 500);
+                    };
+                    
+                } catch (error) {
+                    console.error('❌ Error en exportación PDF:', error);
+                    Utils.showAlert(`❌ Error al exportar PDF: ${error.message}`, 'error');
+                }
+            },
+            
+            generateStructuredPDFContent: function() {
+                console.log('🔧 Generando contenido PDF estructurado...');
+                
+                if (!STATE.currentData || !STATE.currentData.hierarchy || !STATE.currentData.hierarchy.tree) {
+                    console.log('❌ No hay datos de hierarchy disponibles');
+                    return '';
+                }
+                
+                const units = this.getAllUnitsInOrder(STATE.currentData.hierarchy.tree);
+                console.log(`📊 Unidades encontradas: ${units.length}`);
+                console.log('📋 Primeras 3 unidades:', units.slice(0, 3).map(u => u.nombre));
+                
+                let pdfHTML = '';
+                
+                units.forEach((unit, index) => {
+                    console.log(`📋 Procesando unidad ${index + 1}/${units.length}: ${unit.nombre}`);
+                    const unitHTML = this.generateUnitPDFContent(unit);
+                    pdfHTML += unitHTML;
+                    
+                    // Agregar salto de página solo si hay más unidades y el contenido es extenso
+                    if (index < units.length - 1 && this.hasExtensiveContent(unit)) {
+                        pdfHTML += '<div style="page-break-after: always;"></div>';
+                    } else if (index < units.length - 1) {
+                        // Agregar separador simple en lugar de salto de página
+                        pdfHTML += '<div style="margin-bottom: 30px; border-bottom: 2px solid #2c5aa0; padding-bottom: 20px;"></div>';
+                    }
+                });
+                
+                const finalHTML = `
+                    <div style="font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; background-color: white; color: black;">
+                        ${pdfHTML}
+                    </div>
+                `;
+                
+                console.log('✅ Contenido PDF generado exitosamente');
+                return finalHTML;
+            },
+            
+            getAllUnitsInOrder: function(nodes, units = []) {
+                nodes.forEach(node => {
+                    units.push(node);
+                    if (node.children && node.children.length > 0) {
+                        this.getAllUnitsInOrder(node.children, units);
+                    }
+                });
+                return units;
+            },
+            
+            hasExtensiveContent: function(unit) {
+                const funciones = unit.funciones || [];
+                const totalFunctions = funciones.length;
+                const hasMission = unit.mision && unit.mision.length > 100;
+                
+                // Considerar extenso si tiene más de 5 funciones o misión larga
+                return totalFunctions > 5 || hasMission;
+            },
+            
+            generateUnitPDFContent: function(unit) {
+                const funciones = unit.funciones || [];
+                const genericas = funciones.filter(f => f.tipo === 'Genérica');
+                const especificas = funciones.filter(f => f.tipo === 'Específica');
+                const indicadores = funciones.filter(f => f.tipo === 'Indicador');
+                
+                console.log(`  📋 ${unit.nombre}: ${funciones.length} funciones (${genericas.length}G, ${especificas.length}E, ${indicadores.length}I)`);
+                console.log(`  📄 Generando HTML para unidad: ${unit.nombre}`);
+                
+                return `
+                    <div class="unit-container">
+                        <!-- Encabezado de Unidad -->
+                        <div class="unit-header">
+                            <h2>Unidad Organizativa</h2>
+                            <h3>${unit.nombre}</h3>
+                        </div>
+                        
+                        <!-- Información de la Unidad -->
+                        <div class="info-section">
+                            <div class="info-header">
+                                Información de la Unidad
+                            </div>
+                            <div class="info-content">
+                                <table class="info-table">
+                                    <tr>
+                                        <td>Jerarquía:</td>
+                                        <td>${unit.jerarquia || 'No especificada'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nivel de Reporte:</td>
+                                        <td>${unit.nivelReporte || 'No especificado'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha Aprobación:</td>
+                                        <td>${new Date().toLocaleDateString('es-ES')}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Misión -->
+                        ${unit.mision ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    Misión
+                                </div>
+                                <div class="info-content">
+                                    <div class="mission-content">
+                                        ${unit.mision}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Funciones Genéricas -->
+                        ${genericas.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Genéricas</span>
+                                    <span class="right-text">Producto Final</span>
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${genericas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Funciones Específicas -->
+                        ${especificas.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Específicas</span>
+                                    <span class="right-text">Producto Final</span>
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${especificas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                                <td class="percentage-cell">${func.porcentajeDedicacion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Indicadores -->
+                        ${indicadores.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    Indicadores
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${indicadores.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${genericas.length === 0 && especificas.length === 0 && indicadores.length === 0 ? `
+                            <div class="info-section">
+                                <div class="no-functions">
+                                    No hay funciones definidas para esta unidad
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+        };
+
+        // ===== FUNCIONES GLOBALES =====
+        function exportJSON() {
+            Exporters.exportJSON();
+        }
+        
+        function exportPDF() {
+            Exporters.exportPDF();
+        }
+        
+        function toggleEditMode() {
+            STATE.isEditMode = !STATE.isEditMode;
+            const btn = document.querySelector('.edit-mode-btn');
+            
+            if (STATE.isEditMode) {
+                btn.innerHTML = '✅ Salir Edición';
+                btn.classList.add('btn-danger');
+                document.querySelector('.main-content').classList.add('edit-mode');
+                Utils.showAlert('✏️ Modo edición activado - Puedes crear unidades, reordenar funciones y mover unidades', 'info');
+                
+                // Si no hay unidades, mostrar opción para crear la primera unidad raíz
+                if (!STATE.currentData || !STATE.currentData.hierarchy || !STATE.currentData.hierarchy.tree || STATE.currentData.hierarchy.tree.length === 0) {
+                    TreeRenderer.showCreateFirstUnit();
+                } else {
+                    // Re-renderizar el árbol para mostrar controles de edición
+                    TreeRenderer.render(STATE.currentData.hierarchy);
+                }
+            } else {
+                btn.innerHTML = '✏️ Modo Edición';
+                btn.classList.remove('btn-danger');
+                document.querySelector('.main-content').classList.remove('edit-mode');
+                Utils.showAlert('✅ Modo edición desactivado', 'success');
+                
+                // Re-renderizar el árbol sin controles de edición
+                if (STATE.currentData && STATE.currentData.hierarchy) {
+                    TreeRenderer.render(STATE.currentData.hierarchy);
+                }
+            }
+            
+            // Re-renderizar la unidad actual si existe
+            if (STATE.selectedUnit) {
+                UnitRenderer.render(STATE.selectedUnit);
+            }
+        }
+        
+        function showHelp() {
+            const helpHTML = `
+                <div class="info">
+                    <h3>❓ Ayuda - Organigrama BNA</h3>
+                    <p><strong>Formato soportado:</strong> JSON con estructura hierarchy-only</p>
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>📁 Cargar archivo JSON con formato hierarchy-only</li>
+                        <li>🌳 Navegación jerárquica con expansión/contracción</li>
+                        <li>📋 Visualización de funciones por unidad</li>
+                        <li>📊 Estadísticas de funciones</li>
+                        <li>✏️ Modo edición para reordenar funciones y mover unidades</li>
+                        <li>🔄 Drag and drop de unidades para reorganizar la jerarquía</li>
+                        <li>💾 Exportación a JSON y PDF</li>
+                    </ul>
+                    <p><strong>Instrucciones:</strong></p>
+                    <ol>
+                        <li>Carga un archivo JSON con formato hierarchy-only</li>
+                        <li>Navega por el árbol jerárquico</li>
+                        <li>Selecciona una unidad para ver sus funciones</li>
+                        <li>Activa el modo edición para habilitar drag and drop</li>
+                        <li>Arrastra las unidades (⋮⋮) para reorganizar la jerarquía</li>
+                        <li>Usa el modo edición para reordenar funciones</li>
+                        <li>Exporta los cambios a JSON o PDF</li>
+                    </ol>
+                    <p><strong>Drag and Drop de Unidades:</strong></p>
+                    <ul>
+                        <li>🖱️ Arrastra el ícono ⋮⋮ para mover unidades</li>
+                        <li>⬆️ Arrastra hacia arriba para insertar antes</li>
+                        <li>⬇️ Arrastra hacia abajo para insertar después</li>
+                        <li>➡️ Arrastra al centro para hacer hijo</li>
+                        <li>🔄 Los niveles de reporte se actualizan automáticamente</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('content-area').innerHTML = helpHTML;
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // File input listener
+            document.getElementById('fileInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    FileLoader.loadFile(file);
+                }
+            });
+            
+            // Drag and drop para archivos
+            document.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    FileLoader.loadFile(files[0]);
+                }
+            });
+            
+            Utils.updateStatus('Listo para cargar archivo');
+        });
+    </script>
+</body>
+</html>
