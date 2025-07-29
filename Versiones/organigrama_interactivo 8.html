@@ -5747,31 +5747,38 @@ Campo: ${issue.field || 'N/A'}
     // Función para cargar y procesar el JSON
     async function procesarJSON(jsonText, fileName = '', source = 'file') {
       try {
+        console.log('🔍 Iniciando importación JSON mejorada...');
         mostrarAlerta('Procesando archivo JSON...', 1000);
         
-        // Limpiar cualquier otro dato relacionado en localStorage
-        for (let key in localStorage) {
-          if (key.startsWith('csvData') && key !== 'csvData') {
-            localStorage.removeItem(key);
-          }
-        }
-        
-        // Validación básica: asegurarse de que es JSON válido
+        // 1. VALIDACIÓN PREVIA DEL JSON
         let jsonData;
         try {
           jsonData = JSON.parse(jsonText);
         } catch (parseError) {
-          throw new Error('El archivo no es un JSON válido');
+          throw new Error('El archivo no es un JSON válido: ' + parseError.message);
         }
         
-        // Verificar que el JSON tiene la estructura esperada
-        if (!jsonData.unidades || !Array.isArray(jsonData.unidades)) {
-          throw new Error('El JSON debe contener un array "unidades"');
+        // 2. VALIDACIÓN DE ESTRUCTURA MEJORADA
+        const structureValidation = validateJSONStructure(jsonData);
+        if (!structureValidation.isValid) {
+          throw new Error('Estructura JSON inválida: ' + structureValidation.error);
         }
         
-        // Convertir JSON a formato CSV para compatibilidad
-        const csvData = convertirJSONaCSV(jsonData);
+        // 3. VALIDACIÓN DE METADATA SI EXISTE
+        if (jsonData.metadata) {
+          const metadataValidation = validateMetadata(jsonData.metadata);
+          if (!metadataValidation.isValid) {
+            console.warn('⚠️ Advertencia en metadata:', metadataValidation.warnings);
+          }
+        }
         
+        // 4. LIMPIAR DATOS ANTERIORES
+        limpiarDatosAnteriores();
+        
+        // 5. CONVERTIR JSON A FORMATO CSV MEJORADO
+        const csvData = convertirJSONaCSVMejorado(jsonData);
+        
+        // 6. PROCESAR DATOS
         localStorage.setItem('csvData', csvData);
         if (fileName) {
           localStorage.setItem('csvFileName', fileName);
@@ -5779,77 +5786,200 @@ Campo: ${issue.field || 'N/A'}
         originalCSV = csvData;
         const data = parseCSV(csvData);
         
-        // Guardar datos originales antes de validación
+        // 7. GUARDAR DATOS ORIGINALES
         originalDataBeforeValidation = JSON.parse(JSON.stringify(data));
         
+        // 8. CONSTRUIR ESTRUCTURA DE DATOS
         unidadesMap = groupByUnidad(data);
         allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
         treeRoots = buildTree(data);
-        lastSelected = '';
-        expandedNodes = {};
-        const treeDiv = document.getElementById('tree-container');
-        treeDiv.innerHTML = '';
-        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
-        document.getElementById('unidad-content').innerHTML = '';
+        
+        // 9. RESTAURAR ESTADO SI EXISTE EN METADATA
+        if (jsonData.metadata) {
+          restaurarEstado(jsonData.metadata);
+        } else {
+          // Estado por defecto
+          lastSelected = '';
+          expandedNodes = {};
+        }
+        
+        // 10. RENDERIZAR INTERFAZ
+        renderizarInterfaz();
+        
+        // 11. ACTUALIZAR ESTADO
         datosModificados = false;
         marcarAdminCambios(false);
         
-        // Registrar la importación
+        // 12. REGISTRAR IMPORTACIÓN
         if (fileName && fileName.trim() !== '') {
           recordImport(fileName, source);
         } else {
-          // Para datos desde localStorage, usar información guardada si existe
           loadFileInfoFromStorage();
         }
         
-        mostrarAlerta('Archivo JSON cargado correctamente', 2000);
-        
-        // VALIDACIÓN DE INTEGRIDAD AUTOMÁTICA
-        console.log('Iniciando validación automática de integridad...');
+        // 13. VALIDACIÓN POST-IMPORTACIÓN
+        console.log('🔍 Iniciando validación post-importación...');
         setTimeout(() => {
           const issues = validateDataIntegrity(data);
           
           if (issues.length > 0) {
-            console.log(`Encontrados ${issues.length} problemas de integridad`);
+            console.log(`⚠️ Encontrados ${issues.length} problemas de integridad`);
             showValidationInterface(issues);
           } else {
             console.log('✅ No se encontraron problemas de integridad');
-            // Marcar como validado si no hay problemas
             localStorage.setItem('csvValidated', 'true');
             localStorage.setItem('csvLastValidated', new Date().toISOString());
             mostrarAlerta('✅ Datos validados: Sin problemas encontrados', 3000, '#28a745');
           }
         }, 500);
         
+        // 14. MOSTRAR RESUMEN DE IMPORTACIÓN
+        mostrarResumenImportacion(jsonData, fileName);
+        
       } catch (error) {
-        console.error('Error al procesar JSON:', error);
+        console.error('❌ Error al procesar JSON:', error);
         mostrarAlerta('Error: ' + error.message, 2500, '#e74c3c');
       }
     }
 
-    // Función para convertir JSON a formato CSV
-    function convertirJSONaCSV(jsonData) {
+    // ===== FUNCIONES AUXILIARES PARA IMPORTACIÓN MEJORADA =====
+    
+    /**
+     * Valida la estructura del JSON importado
+     */
+    function validateJSONStructure(jsonData) {
+      const result = { isValid: true, error: '', warnings: [] };
+      
+      // Verificar estructura básica
+      if (!jsonData) {
+        result.isValid = false;
+        result.error = 'JSON vacío o nulo';
+        return result;
+      }
+      
+      // Verificar si es formato antiguo (solo unidades) o nuevo (con metadata)
+      if (jsonData.unidades && Array.isArray(jsonData.unidades)) {
+        // Formato nuevo con metadata
+        if (!jsonData.metadata) {
+          result.warnings.push('No se encontró metadata en el JSON');
+        }
+        
+        if (jsonData.unidades.length === 0) {
+          result.isValid = false;
+          result.error = 'El array de unidades está vacío';
+          return result;
+        }
+        
+        // Validar estructura de cada unidad
+        for (let i = 0; i < jsonData.unidades.length; i++) {
+          const unidad = jsonData.unidades[i];
+          if (!unidad.nombre) {
+            result.warnings.push(`Unidad ${i + 1}: Nombre faltante`);
+          }
+          if (!unidad.funciones || !Array.isArray(unidad.funciones)) {
+            result.warnings.push(`Unidad ${i + 1}: Funciones faltantes o inválidas`);
+          }
+        }
+        
+      } else if (Array.isArray(jsonData)) {
+        // Formato antiguo (array directo)
+        if (jsonData.length === 0) {
+          result.isValid = false;
+          result.error = 'El array JSON está vacío';
+          return result;
+        }
+        
+      } else {
+        result.isValid = false;
+        result.error = 'Formato JSON no reconocido. Se espera un objeto con "unidades" o un array';
+        return result;
+      }
+      
+      return result;
+    }
+    
+    /**
+     * Valida la metadata del JSON
+     */
+    function validateMetadata(metadata) {
+      const result = { isValid: true, warnings: [] };
+      
+      const requiredFields = ['exportDate', 'version', 'totalUnits', 'totalRecords'];
+      const optionalFields = ['csvHeaders', 'hasIssues', 'issues', 'estadisticas'];
+      
+      // Verificar campos requeridos
+      for (const field of requiredFields) {
+        if (!(field in metadata)) {
+          result.warnings.push(`Campo requerido faltante en metadata: ${field}`);
+        }
+      }
+      
+      // Verificar campos opcionales
+      for (const field of optionalFields) {
+        if (!(field in metadata)) {
+          result.warnings.push(`Campo opcional faltante en metadata: ${field}`);
+        }
+      }
+      
+      return result;
+    }
+    
+    /**
+     * Limpia datos anteriores del sistema
+     */
+    function limpiarDatosAnteriores() {
+      // Limpiar localStorage relacionado
+      for (let key in localStorage) {
+        if (key.startsWith('csvData') && key !== 'csvData') {
+          localStorage.removeItem(key);
+        }
+      }
+      
+      // Limpiar variables globales
+      lastSelected = '';
+      expandedNodes = {};
+      datosModificados = false;
+    }
+    
+    /**
+     * Convierte JSON a CSV con mejor manejo de errores
+     */
+    function convertirJSONaCSVMejorado(jsonData) {
       try {
-        const unidades = jsonData.unidades;
-        if (!unidades || !Array.isArray(unidades)) {
-          throw new Error('Formato JSON inválido: se requiere array "unidades"');
-        }
+        let unidades = [];
         
-        // Obtener headers del primer elemento o usar headers por defecto
-        let headers = [];
-        if (unidades.length > 0 && unidades[0]) {
-          headers = Object.keys(unidades[0]);
+        // Manejar diferentes formatos de JSON
+        if (jsonData.unidades && Array.isArray(jsonData.unidades)) {
+          unidades = jsonData.unidades;
+        } else if (Array.isArray(jsonData)) {
+          unidades = jsonData;
         } else {
-          // Headers por defecto si no hay datos
-          headers = ['Unidad Organizativa', 'Misión', 'Tipo de Función', 'Descripción de la Función'];
+          throw new Error('Formato JSON no reconocido');
         }
         
-        // Crear CSV
+        if (unidades.length === 0) {
+          throw new Error('No hay unidades para convertir');
+        }
+        
+        // Generar headers dinámicamente
+        const headers = generateCSVHeaders(unidades);
+        
+        // Crear filas CSV
         const csvRows = [headers.join(';')];
         
-        unidades.forEach(unidad => {
+        unidades.forEach((unidad, index) => {
           const row = headers.map(header => {
-            const value = unidad[header] || '';
+            let value = '';
+            
+            // Manejar diferentes estructuras de unidad
+            if (unidad.funciones && Array.isArray(unidad.funciones)) {
+              // Formato nuevo con funciones anidadas
+              value = extractValueFromNestedStructure(unidad, header);
+            } else {
+              // Formato plano
+              value = unidad[header] || '';
+            }
+            
             // Escapar comillas y caracteres especiales
             return `"${String(value).replace(/"/g, '""')}"`;
           });
@@ -5859,55 +5989,242 @@ Campo: ${issue.field || 'N/A'}
         return csvRows.join('\n');
         
       } catch (error) {
-        console.error('Error al convertir JSON a CSV:', error);
-        throw new Error('Error al procesar estructura JSON: ' + error.message);
+        throw new Error('Error al convertir JSON a CSV: ' + error.message);
       }
     }
+    
+    /**
+     * Genera headers CSV dinámicamente
+     */
+    function generateCSVHeaders(unidades) {
+      const allHeaders = new Set();
+      
+      unidades.forEach(unidad => {
+        if (unidad.funciones && Array.isArray(unidad.funciones)) {
+          // Para formato nuevo, extraer headers de las funciones
+          unidad.funciones.forEach(func => {
+            Object.keys(func).forEach(key => allHeaders.add(key));
+          });
+        } else {
+          // Para formato plano
+          Object.keys(unidad).forEach(key => allHeaders.add(key));
+        }
+      });
+      
+      // Headers por defecto si no se encontraron
+      if (allHeaders.size === 0) {
+        return ['Unidad Organizativa', 'Misión', 'Tipo de Función', 'Descripción de la Función'];
+      }
+      
+      return Array.from(allHeaders);
+    }
+    
+    /**
+     * Extrae valor de estructura anidada
+     */
+    function extractValueFromNestedStructure(unidad, header) {
+      // Mapear headers a campos específicos
+      const headerMapping = {
+        'Unidad Organizativa': unidad.nombre || '',
+        'Misión': unidad.mision || '',
+        'Tipo de Función': unidad.funciones && unidad.funciones.length > 0 ? unidad.funciones[0].tipo : '',
+        'Descripción de la Función': unidad.funciones && unidad.funciones.length > 0 ? unidad.funciones[0].descripcion : '',
+        'Producto Final': unidad.funciones && unidad.funciones.length > 0 ? unidad.funciones[0].productoFinal : '',
+        'Porcentaje Dedicación': unidad.funciones && unidad.funciones.length > 0 ? unidad.funciones[0].porcentajeDedicacion : ''
+      };
+      
+      return headerMapping[header] || '';
+    }
+    
+    /**
+     * Restaura el estado guardado en metadata
+     */
+    function restaurarEstado(metadata) {
+      try {
+        if (metadata.expandedNodes) {
+          expandedNodes = metadata.expandedNodes;
+        }
+        
+        if (metadata.lastSelected) {
+          lastSelected = metadata.lastSelected;
+        }
+        
+        console.log('✅ Estado restaurado desde metadata');
+      } catch (error) {
+        console.warn('⚠️ Error al restaurar estado:', error);
+        // Usar estado por defecto
+        lastSelected = '';
+        expandedNodes = {};
+      }
+    }
+    
+    /**
+     * Renderiza la interfaz con el estado restaurado
+     */
+    function renderizarInterfaz() {
+      const treeDiv = document.getElementById('tree-container');
+      treeDiv.innerHTML = '';
+      renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+      document.getElementById('unidad-content').innerHTML = '';
+    }
+    
+    /**
+     * Muestra resumen de la importación
+     */
+    function mostrarResumenImportacion(jsonData, fileName) {
+      let message = `✅ JSON importado: ${fileName}\n`;
+      
+      if (jsonData.metadata) {
+        const metadata = jsonData.metadata;
+        message += `📊 ${metadata.totalUnits || 0} unidades, ${metadata.totalRecords || 0} registros\n`;
+        
+        if (metadata.estadisticas) {
+          const stats = metadata.estadisticas;
+          message += `📈 Calidad: ${stats.qualityScore || 0}%`;
+          
+          if (metadata.hasIssues) {
+            const issues = metadata.issues || [];
+            const critical = issues.filter(i => i.type === 'error').length;
+            const warnings = issues.filter(i => i.type === 'warning').length;
+            message += `\n⚠️ ${critical} errores, ${warnings} advertencias`;
+          }
+        }
+      } else {
+        message += `📊 ${jsonData.unidades ? jsonData.unidades.length : 0} unidades importadas`;
+      }
+      
+      mostrarAlerta(message, 4000, '#27ae60');
+      
+      // Mostrar en consola
+      console.log('📊 Resumen de importación:', {
+        archivo: fileName,
+        unidades: jsonData.unidades ? jsonData.unidades.length : 0,
+        metadata: !!jsonData.metadata,
+        estadoRestaurado: !!(jsonData.metadata && jsonData.metadata.expandedNodes)
+      });
+    }
 
-    // Exportar JSON
+    // Exportar JSON - VERSIÓN MEJORADA
     function exportJSON() {
       try {
-        // Validar datos antes de exportar
+        console.log('🔍 Iniciando exportación JSON mejorada...');
+        
+        // 1. VALIDACIÓN PREVIA DE DATOS
         const allData = [].concat(...Object.values(unidadesMap));
         const issues = validateDataIntegrity(allData);
         
+        // 2. GENERAR ESTADÍSTICAS DETALLADAS
+        const stats = generateDetailedStats(allData);
+        
+        // 3. CONFIRMACIÓN SI HAY ISSUES CRÍTICOS
         if (issues.length > 0) {
-          const criticalIssues = issues.filter(i => i.type === 'error');
+          const criticalIssues = issues.filter(i => i.type === 'error').length;
+          const warnings = issues.filter(i => i.type === 'warning').length;
+          
           if (criticalIssues.length > 0) {
-            if (!confirm(`Se encontraron ${criticalIssues.length} errores críticos en los datos. ¿Desea continuar con la exportación? Se recomienda corregir los problemas primero.`)) {
+            const confirmMessage = `⚠️ Se encontraron ${criticalIssues.length} errores críticos y ${warnings.length} advertencias.\n\n¿Desea continuar con la exportación? Se recomienda corregir los problemas primero.`;
+            
+            if (!confirm(confirmMessage)) {
+              showValidationInterface(issues);
+              return;
+            }
+          } else if (warnings.length > 0) {
+            const confirmMessage = `⚠️ Se encontraron ${warnings.length} advertencias en los datos.\n\n¿Desea continuar con la exportación?`;
+            
+            if (!confirm(confirmMessage)) {
               showValidationInterface(issues);
               return;
             }
           }
         }
         
-        // Crear estructura JSON
+        // 4. CONVERTIR DATOS A FORMATO ESTRUCTURADO MEJORADO
+        const unidades = [];
+        const unitNames = Object.keys(unidadesMap);
+        
+        unitNames.forEach(unitName => {
+          const unitData = unidadesMap[unitName];
+          const funciones = [];
+          
+          unitData.forEach((func, index) => {
+            // Validación individual de cada función
+            const funcIssues = validateFunctionData(func);
+            
+            funciones.push({
+              orden: index,
+              tipo: func['Tipo de Función'] || 'Genérica',
+              descripcion: func['Descripción'] || func['Descripción de la Función'] || '',
+              productoFinal: func['Producto Final'] || '',
+              porcentajeDedicacion: func['Porcentaje Dedicación'] || '',
+              issues: funcIssues,
+              hasCompleteDescription: !!(func['Descripción'] || func['Descripción de la Función']),
+              hasProductFinal: !!func['Producto Final'],
+              hasDedicationPercentage: !!func['Porcentaje Dedicación']
+            });
+          });
+          
+          // Obtener la misión de la primera función (si existe)
+          const mision = unitData.length > 0 ? (unitData[0]['Misión'] || '') : '';
+          
+          // Calcular estadísticas de la unidad
+          const unitStats = calculateUnitStats(funciones);
+          
+          unidades.push({
+            nombre: unitName,
+            mision: mision,
+            funciones: funciones,
+            estadisticas: unitStats
+          });
+        });
+        
+        // 5. CREAR ESTRUCTURA JSON CON METADATA MEJORADA
         const jsonData = {
-          unidades: allData,
           metadata: {
             exportDate: new Date().toISOString(),
-            totalUnits: Object.keys(unidadesMap).length,
-            totalFunctions: allData.length,
+            version: "2.0",
+            totalUnits: unitNames.length,
+            totalRecords: allData.length,
+            totalFunctions: stats.totalFunctions,
+            csvHeaders: csvHeaders,
+            csvFileName: originalCSV ? originalCSV.split('/').pop() : 'unknown.csv',
+            lastExportInfo: JSON.stringify({
+              fileName: `unidades_organizativas_completo_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`,
+              timestamp: new Date().toISOString()
+            }),
             hasIssues: issues.length > 0,
             issues: issues,
-            originalCSV: originalCSV,
+            estadisticas: stats,
             datosModificados: datosModificados,
             expandedNodes: expandedNodes,
-            lastSelected: lastSelected
+            lastSelected: lastSelected,
+            exportQuality: calculateExportQuality(issues, stats)
+          },
+          data: {
+            unidades: unidades
           }
         };
         
+        // 6. VALIDACIÓN FINAL DEL JSON GENERADO
         const jsonContent = JSON.stringify(jsonData, null, 2);
+        
+        // Verificar que el JSON es válido
+        try {
+          JSON.parse(jsonContent);
+        } catch (parseError) {
+          throw new Error('Error al generar JSON válido: ' + parseError.message);
+        }
+        
+        // 7. EXPORTAR ARCHIVO
         const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         
-        // Nombre de archivo con timestamp
+        // Nombre de archivo inteligente basado en calidad
         const timestamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
-        const filename = issues.length > 0 ? 
-          `unidades_organizativas_corregido_${timestamp}.json` : 
-          `unidades_organizativas_completo_${timestamp}.json`;
+        const qualityIndicator = stats.qualityScore >= 90 ? 'completo' : 
+                               stats.qualityScore >= 70 ? 'corregido' : 'con_issues';
+        const filename = `unidades_organizativas_${qualityIndicator}_${timestamp}.json`;
         
         a.download = filename;
         document.body.appendChild(a);
@@ -5915,24 +6232,93 @@ Campo: ${issue.field || 'N/A'}
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         
-        // Registrar la exportación
+        // 8. REGISTRAR LA EXPORTACIÓN
         recordExport(filename);
         
-        // Actualizar estado
+        // 9. ACTUALIZAR ESTADO
         datosModificados = false;
         marcarAdminCambios(false);
         
-        const message = issues.length > 0 ? 
-          `✅ JSON exportado con correcciones aplicadas (${filename})` : 
-          `✅ JSON exportado correctamente (${filename})`;
+        // 10. MOSTRAR MENSAJE DE ÉXITO CON ESTADÍSTICAS
+        const message = generateExportSuccessMessage(filename, stats, issues);
+        mostrarAlerta(message, 4000, '#27ae60');
         
-        mostrarAlerta(message, 3000, '#27ae60');
+        // 11. MOSTRAR RESUMEN EN CONSOLA
+        console.log('📊 Resumen de exportación:', {
+          archivo: filename,
+          unidades: unitNames.length,
+          funciones: stats.totalFunctions,
+          calidad: stats.qualityScore + '%',
+          issues: issues.length
+        });
         
       } catch (error) {
-        console.error('Error al exportar JSON:', error);
+        console.error('❌ Error al exportar JSON:', error);
         mostrarAlerta('Error al exportar JSON: ' + error.message, 3000, '#e74c3c');
       }
     }
+
+    // ===== FUNCIONES AUXILIARES PARA EXPORTACIÓN MEJORADA =====
+    
+    /**
+     * Genera estadísticas detalladas de los datos
+     */
+    function generateDetailedStats(allData) {
+      const stats = {
+        totalFunctions: allData.length,
+        byType: {
+          generica: 0,
+          especifica: 0,
+          indicador: 0
+        },
+        quality: {
+          completeDescriptions: 0,
+          completeProductFinal: 0,
+          completeDedication: 0
+        },
+        issues: {
+          critical: 0,
+          warnings: 0
+        }
+      };
+      
+      allData.forEach(func => {
+        // Contar por tipo
+        const tipo = func['Tipo de Función'] || 'Genérica';
+        if (tipo.toLowerCase().includes('genérica')) stats.byType.generica++;
+        else if (tipo.toLowerCase().includes('específica')) stats.byType.especifica++;
+        else if (tipo.toLowerCase().includes('indicador')) stats.byType.indicador++;
+        
+        // Contar calidad
+        if (func['Descripción'] || func['Descripción de la Función']) stats.quality.completeDescriptions++;
+        if (func['Producto Final']) stats.quality.completeProductFinal++;
+        if (func['Porcentaje Dedicación']) stats.quality.completeDedication++;
+      });
+      
+      // Calcular porcentajes
+      stats.qualityScore = Math.round(
+        ((stats.quality.completeDescriptions + stats.quality.completeProductFinal + stats.quality.completeDedication) / 
+         (stats.totalFunctions * 3)) * 100
+      );
+      
+      return stats;
+    }
+    
+    /**
+     * Valida los datos de una función individual
+     */
+    
+    /**
+     * Valida los datos de una función individual
+     */
+    
+    /**
+     * Valida los datos de una función individual
+     */
+    
+    /**
+     * Valida los datos de una función individual
+     */
   </script>
 </body>
 </html>
