@@ -1192,31 +1192,46 @@
                         </div>
                     </div>
                     <h3>Funciones</h3>
-                    ${funciones.map(func => {
-                        const tipo = func['Tipo de Función'] || 'Genérica';
-                        const isIndicador = tipo.includes('Indicador');
-                        
-                        let fieldsHtml = '';
-                        
-                        if (isIndicador) {
-                            fieldsHtml = ''; // Sin mensaje adicional para indicadores
-                        } else {
-                            fieldsHtml = `
-                                <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
-                                <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                    ${funciones
+                        .sort((a, b) => {
+                            const tipoA = a['Tipo de Función'] || 'Genérica';
+                            const tipoB = b['Tipo de Función'] || 'Genérica';
+                            
+                            // Definir el orden de prioridad: Genérica (1), Específica (2), Indicador (3)
+                            const getPriority = (tipo) => {
+                                if (tipo.includes('Genérica')) return 1;
+                                if (tipo.includes('Específica')) return 2;
+                                if (tipo.includes('Indicador')) return 3;
+                                return 4; // Para cualquier otro tipo
+                            };
+                            
+                            return getPriority(tipoA) - getPriority(tipoB);
+                        })
+                        .map(func => {
+                            const tipo = func['Tipo de Función'] || 'Genérica';
+                            const isIndicador = tipo.includes('Indicador');
+                            
+                            let fieldsHtml = '';
+                            
+                            if (isIndicador) {
+                                fieldsHtml = ''; // Sin mensaje adicional para indicadores
+                            } else {
+                                fieldsHtml = `
+                                    <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
+                                    <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                                `;
+                            }
+                            
+                            return `
+                                <div class="function-item">
+                                    <span class="function-type type-${tipo.toLowerCase()}">
+                                        ${tipo}
+                                    </span>
+                                    <h4>${func['Descripción'] || 'Sin descripción'}</h4>
+                                    ${fieldsHtml}
+                                </div>
                             `;
-                        }
-                        
-                        return `
-                            <div class="function-item">
-                                <span class="function-type type-${tipo.toLowerCase()}">
-                                    ${tipo}
-                                </span>
-                                <h4>${func['Descripción'] || 'Sin descripción'}</h4>
-                                ${fieldsHtml}
-                            </div>
-                        `;
-                    }).join('')}
+                        }).join('')}
                 `;
             },
             
