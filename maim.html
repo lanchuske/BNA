@@ -628,6 +628,44 @@
         .info-section:first-of-type {
             margin-top: 10px !important;
         }
+        
+        /* Mejoras para indentado de nombres largos */
+        .tree-node-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        .tree-node-indent {
+            display: flex;
+            align-items: flex-start;
+            min-width: 20px;
+            flex-shrink: 0;
+        }
+        
+        .tree-node-text {
+            flex: 1;
+            line-height: 1.4;
+            word-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+            text-indent: 0;
+            padding-left: 0;
+        }
+        
+        .tree-node-text-multiline {
+            text-indent: 0;
+            padding-left: 0;
+            margin-left: 0;
+        }
+        
+        .tree-node-text-multiline::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
     </style>
 </head>
 <body>
@@ -857,13 +895,15 @@
                     html += `
                         <div class="tree-node ${STATE.isEditMode ? 'with-controls draggable' : ''}" data-key="${node.key}" data-nombre="${node.nombre}" draggable="${STATE.isEditMode}">
                             <div class="tree-node-content">
-                                ${indent}
-                                ${dragHandle}
-                                ${hasChildren ? 
-                                    `<span class="tree-toggle" onclick="TreeRenderer.toggleNode('${node.key}')">${isExpanded ? '▼' : '▶'}</span>` : 
-                                    '<span style="width: 20px; display: inline-block;"></span>'
-                                }
-                                <span onclick="TreeRenderer.selectNode('${node.key}')">${node.nombre}</span>
+                                <div class="tree-node-indent">
+                                    ${indent}
+                                    ${dragHandle}
+                                    ${hasChildren ? 
+                                        `<span class="tree-toggle" onclick="TreeRenderer.toggleNode('${node.key}')">${isExpanded ? '▼' : '▶'}</span>` : 
+                                        '<span style="width: 20px; display: inline-block;"></span>'
+                                    }
+                                </div>
+                                <div class="tree-node-text tree-node-text-multiline" onclick="TreeRenderer.selectNode('${node.key}')">${node.nombre}</div>
                             </div>
                             ${editControls}
                         </div>
@@ -879,7 +919,12 @@
                     if (STATE.isEditMode && isExpanded) {
                         html += `
                             <div class="tree-node add-subunit-btn" onclick="TreeRenderer.addSubUnit('${node.key}')">
-                                ${indent}  ➕ Agregar Subunidad
+                                <div class="tree-node-content">
+                                    <div class="tree-node-indent">
+                                        ${indent}  
+                                    </div>
+                                    <div class="tree-node-text">➕ Agregar Subunidad</div>
+                                </div>
                             </div>
                         `;
                     }
