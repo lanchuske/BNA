@@ -2644,12 +2644,25 @@
                     newIndex--;
                 }
 
-                console.log('Nueva posición calculada:', newIndex);
+                console.log('Cálculo de nueva posición:', {
+                    targetIndex: targetNodeInfo.index,
+                    draggedIndex: draggedNodeInfo.index,
+                    position,
+                    newIndex
+                });
 
                 // Insertar en nueva posición
                 siblings.splice(newIndex, 0, draggedNodeInfo.node);
 
                 console.log('Siblings después del reordenamiento:', siblings.map(n => n.nombre));
+
+                // Actualizar las keys de los nodos reordenados para mantener consistencia
+                siblings.forEach((sibling, index) => {
+                    const parentName = draggedNodeInfo.parent?.nombre || '';
+                    sibling.key = sibling.nombre + '|' + parentName;
+                });
+
+                console.log('Keys actualizadas después del reordenamiento:', siblings.map(n => n.key));
 
                 // Re-renderizar el árbol
                 Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
