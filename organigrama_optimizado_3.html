@@ -43,6 +43,66 @@
             margin: 10px 0; 
             padding: 15px; 
             border-radius: 0; 
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        
+        .function-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .function-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+        
+        .function-drag-handle {
+            cursor: grab;
+            color: #666;
+            font-size: 18px;
+            user-select: none;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .function-drag-handle:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        
+        .function-content {
+            flex: 1;
+        }
+        
+        .functions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .function-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        
+        .functions-container {
+            min-height: 200px;
+        }
+        
+        .functions-container.drag-mode .function-item {
+            border: 2px dashed #007bff;
+            background-color: #f8f9fa;
         }
         .function-type { display: inline-block; padding: 2px 8px; border-radius: 0; font-size: 11px; font-weight: 500; text-transform: uppercase; border: none; }
         .type-generica { background: #e3f2fd; color: #1976d2; }
@@ -1056,7 +1116,21 @@
                         li.classList.remove('drag-over');
                         const draggedKey = e.dataTransfer.getData('text/plain');
                         if (draggedKey !== node.key) {
-                            Editor.moveUnit(draggedKey, node.key);
+                            // Determinar si es reordenamiento o movimiento
+                            const [draggedName] = draggedKey.split('|');
+                            const [targetName] = node.key.split('|');
+                            
+                            // Verificar si están en el mismo nivel
+                            const draggedParent = draggedKey.includes('|') ? draggedKey.split('|')[1] : null;
+                            const targetParent = node.key.includes('|') ? node.key.split('|')[1] : null;
+                            
+                            if (draggedParent === targetParent) {
+                                // Reordenamiento en el mismo nivel
+                                Editor.reorderUnit(draggedKey, node.key, 'after');
+                            } else {
+                                // Movimiento a diferente nivel
+                                Editor.moveUnit(draggedKey, node.key);
+                            }
                         }
                     });
                 }
@@ -1191,48 +1265,181 @@
                             ${statsHtml}
                         </div>
                     </div>
-                    <h3>Funciones</h3>
-                    ${funciones
-                        .sort((a, b) => {
-                            const tipoA = a['Tipo de Función'] || 'Genérica';
-                            const tipoB = b['Tipo de Función'] || 'Genérica';
-                            
-                            // Definir el orden de prioridad: Genérica (1), Específica (2), Indicador (3)
-                            const getPriority = (tipo) => {
-                                if (tipo.includes('Genérica')) return 1;
-                                if (tipo.includes('Específica')) return 2;
-                                if (tipo.includes('Indicador')) return 3;
-                                return 4; // Para cualquier otro tipo
-                            };
-                            
-                            return getPriority(tipoA) - getPriority(tipoB);
-                        })
-                        .map(func => {
-                            const tipo = func['Tipo de Función'] || 'Genérica';
-                            const isIndicador = tipo.includes('Indicador');
-                            
-                            let fieldsHtml = '';
-                            
-                            if (isIndicador) {
-                                fieldsHtml = ''; // Sin mensaje adicional para indicadores
-                            } else {
-                                fieldsHtml = `
-                                    <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
-                                    <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                    <div class="functions-header">
+                        <h3>Funciones</h3>
+                        <div class="function-controls">
+                            <button class="btn btn-info btn-sm" onclick="toggleFunctionOrder('${unidad['Unidad Organizativa']}')">
+                                🔄 Cambiar Orden
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="saveFunctionOrder('${unidad['Unidad Organizativa']}')" style="display: none;" id="save-order-btn">
+                                💾 Guardar Orden
+                            </button>
+                        </div>
+                    </div>
+                    <div id="functions-container" class="functions-container">
+                        ${funciones
+                            .sort((a, b) => {
+                                // Primero intentar usar el orden personalizado guardado
+                                const customOrder = getCustomFunctionOrder(unidad['Unidad Organizativa']);
+                                if (customOrder) {
+                                    const indexA = customOrder.indexOf(a['Descripción'] || '');
+                                    const indexB = customOrder.indexOf(b['Descripción'] || '');
+                                    if (indexA !== -1 && indexB !== -1) {
+                                        return indexA - indexB;
+                                    }
+                                }
+                                
+                                // Si no hay orden personalizado, usar el orden por tipo
+                                const tipoA = a['Tipo de Función'] || 'Genérica';
+                                const tipoB = b['Tipo de Función'] || 'Genérica';
+                                
+                                // Definir el orden de prioridad: Genérica (1), Específica (2), Indicador (3)
+                                const getPriority = (tipo) => {
+                                    if (tipo.includes('Genérica')) return 1;
+                                    if (tipo.includes('Específica')) return 2;
+                                    if (tipo.includes('Indicador')) return 3;
+                                    return 4; // Para cualquier otro tipo
+                                };
+                                
+                                return getPriority(tipoA) - getPriority(tipoB);
+                            })
+                            .map((func, index) => {
+                                const tipo = func['Tipo de Función'] || 'Genérica';
+                                const isIndicador = tipo.includes('Indicador');
+                                
+                                let fieldsHtml = '';
+                                
+                                if (isIndicador) {
+                                    fieldsHtml = ''; // Sin mensaje adicional para indicadores
+                                } else {
+                                    fieldsHtml = `
+                                        <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
+                                        <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                                    `;
+                                }
+                                
+                                return `
+                                    <div class="function-item" draggable="true" data-index="${index}" data-descripcion="${func['Descripción'] || ''}">
+                                        <div class="function-drag-handle">⋮⋮</div>
+                                        <div class="function-content">
+                                            <span class="function-type type-${tipo.toLowerCase()}">
+                                                ${tipo}
+                                            </span>
+                                            <h4>${func['Descripción'] || 'Sin descripción'}</h4>
+                                            ${fieldsHtml}
+                                        </div>
+                                    </div>
                                 `;
-                            }
-                            
-                            return `
-                                <div class="function-item">
-                                    <span class="function-type type-${tipo.toLowerCase()}">
-                                        ${tipo}
-                                    </span>
-                                    <h4>${func['Descripción'] || 'Sin descripción'}</h4>
-                                    ${fieldsHtml}
-                                </div>
-                            `;
-                        }).join('')}
+                            }).join('')}
+                    </div>
                 `;
+                
+                // Configurar drag and drop después de renderizar
+                setTimeout(() => {
+                    this.setupDragAndDrop();
+                }, 100);
+            },
+            
+            // Funciones para manejar el orden personalizado de funciones
+            getCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                return customOrders[unidadNombre] || null;
+            },
+            
+            saveCustomFunctionOrder(unidadNombre, order) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                customOrders[unidadNombre] = order;
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            clearCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                delete customOrders[unidadNombre];
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            setupDragAndDrop() {
+                const container = document.getElementById('functions-container');
+                if (!container) return;
+                
+                let draggedElement = null;
+                
+                // Limpiar eventos anteriores si existen
+                if (container._dragStartHandler) {
+                    container.removeEventListener('dragstart', container._dragStartHandler);
+                    container.removeEventListener('dragend', container._dragEndHandler);
+                    container.removeEventListener('dragover', container._dragOverHandler);
+                    container.removeEventListener('drop', container._dropHandler);
+                }
+                
+                // Crear nuevos handlers
+                container._dragStartHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    draggedElement = e.target;
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', e.target.outerHTML);
+                };
+                
+                container._dragEndHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    e.target.classList.remove('dragging');
+                    draggedElement = null;
+                };
+                
+                container._dragOverHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    
+                    // Agregar indicador visual de drop zone
+                    const target = e.target.closest('.function-item');
+                    if (target && target !== draggedElement) {
+                        target.style.borderTop = '2px solid #007bff';
+                    }
+                };
+                
+                container._dropHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    
+                    // Limpiar indicadores visuales
+                    container.querySelectorAll('.function-item').forEach(item => {
+                        item.style.borderTop = '';
+                    });
+                    
+                    const target = e.target.closest('.function-item');
+                    if (!target || !draggedElement || target === draggedElement) return;
+                    
+                    // Obtener todos los elementos function-item
+                    const functionItems = Array.from(container.querySelectorAll('.function-item'));
+                    const draggedIndex = functionItems.indexOf(draggedElement);
+                    const targetIndex = functionItems.indexOf(target);
+                    
+                    if (draggedIndex === -1 || targetIndex === -1) return;
+                    
+                    // Mover el elemento
+                    if (draggedIndex < targetIndex) {
+                        target.parentNode.insertBefore(draggedElement, target.nextSibling);
+                    } else {
+                        target.parentNode.insertBefore(draggedElement, target);
+                    }
+                    
+                    // Actualizar índices
+                    container.querySelectorAll('.function-item').forEach((item, index) => {
+                        item.setAttribute('data-index', index);
+                    });
+                };
+                
+                // Agregar eventos
+                container.addEventListener('dragstart', container._dragStartHandler);
+                container.addEventListener('dragend', container._dragEndHandler);
+                container.addEventListener('dragover', container._dragOverHandler);
+                container.addEventListener('drop', container._dropHandler);
             },
             
             showUnidadSummary(node) {
@@ -1279,6 +1486,24 @@
                     </div>
                     ${hierarchyHtml}
                 `;
+            },
+            
+            // Funciones para manejar el orden personalizado de funciones
+            getCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                return customOrders[unidadNombre] || null;
+            },
+            
+            saveCustomFunctionOrder(unidadNombre, order) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                customOrders[unidadNombre] = order;
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            clearCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                delete customOrders[unidadNombre];
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
             },
             
             // Función para navegar a una unidad específica
@@ -1354,6 +1579,56 @@
             }
         };
 
+        // ===== FUNCIONES GLOBALES PARA ORDEN DE FUNCIONES =====
+        function toggleFunctionOrder(unidadNombre) {
+            const container = document.getElementById('functions-container');
+            const saveBtn = document.getElementById('save-order-btn');
+            
+            if (container.classList.contains('drag-mode')) {
+                // Desactivar modo drag
+                container.classList.remove('drag-mode');
+                saveBtn.style.display = 'none';
+                container.querySelectorAll('.function-item').forEach(item => {
+                    item.draggable = false;
+                });
+            } else {
+                // Activar modo drag
+                container.classList.add('drag-mode');
+                saveBtn.style.display = 'inline-block';
+                container.querySelectorAll('.function-item').forEach(item => {
+                    item.draggable = true;
+                });
+            }
+        }
+        
+        function saveFunctionOrder(unidadNombre) {
+            const container = document.getElementById('functions-container');
+            const functionItems = container.querySelectorAll('.function-item');
+            const order = Array.from(functionItems).map(item => 
+                item.getAttribute('data-descripcion')
+            );
+            
+            // Guardar en localStorage
+            const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+            customOrders[unidadNombre] = order;
+            localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            
+            // Desactivar modo drag
+            container.classList.remove('drag-mode');
+            document.getElementById('save-order-btn').style.display = 'none';
+            container.querySelectorAll('.function-item').forEach(item => {
+                item.draggable = false;
+            });
+            
+            // Mostrar mensaje de confirmación
+            alert('Orden de funciones guardado exitosamente');
+        }
+        
+        function getCustomFunctionOrder(unidadNombre) {
+            const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+            return customOrders[unidadNombre] || null;
+        }
+
         // ===== EXPORTACIÓN OPTIMIZADA =====
         const Exporter = {
             exportJSON() {
@@ -1406,18 +1681,55 @@
                             }))
                         },
                         data: {
-                            unidades: Object.entries(STATE.groupedData).map(([nombre, funciones]) => ({
-                                nombre,
-                                reportaA: funciones[0]?.['Reporta A'] || '',
-                                mision: funciones[0]?.['Misión'] || '',
-                                funciones: funciones.map((func, index) => ({
-                                    orden: index + 1,
-                                    tipo: func['Tipo de Función'] || 'Genérica',
-                                    descripcion: func['Descripción'] || '',
-                                    productoFinal: func['Producto Final'] || '',
-                                    porcentajeDedicacion: func['Porcentaje Dedicación'] || ''
-                                }))
-                            }))
+                            unidades: (() => {
+                                // Obtener orden personalizado de unidades
+                                const customUnitOrder = JSON.parse(localStorage.getItem('customUnitOrder') || '[]');
+                                let unidadesOrdenadas = Object.entries(STATE.groupedData);
+                                
+                                if (customUnitOrder.length > 0) {
+                                    // Aplicar orden personalizado de unidades
+                                    unidadesOrdenadas.sort((a, b) => {
+                                        const indexA = customUnitOrder.indexOf(a[0]);
+                                        const indexB = customUnitOrder.indexOf(b[0]);
+                                        if (indexA !== -1 && indexB !== -1) {
+                                            return indexA - indexB;
+                                        }
+                                        return 0;
+                                    });
+                                }
+                                
+                                return unidadesOrdenadas.map(([nombre, funciones]) => {
+                                    // Obtener orden personalizado si existe
+                                    const customOrder = getCustomFunctionOrder(nombre);
+                                    let funcionesOrdenadas = [...funciones];
+                                    
+                                    if (customOrder) {
+                                        // Aplicar orden personalizado
+                                        funcionesOrdenadas.sort((a, b) => {
+                                            const indexA = customOrder.indexOf(a['Descripción'] || '');
+                                            const indexB = customOrder.indexOf(b['Descripción'] || '');
+                                            if (indexA !== -1 && indexB !== -1) {
+                                                return indexA - indexB;
+                                            }
+                                            return 0;
+                                        });
+                                    }
+                                    
+                                    return {
+                                        nombre,
+                                        reportaA: funciones[0]?.['Reporta A'] || '',
+                                        mision: funciones[0]?.['Misión'] || '',
+                                        customOrder: customOrder || null,
+                                        funciones: funcionesOrdenadas.map((func, index) => ({
+                                            orden: index + 1,
+                                            tipo: func['Tipo de Función'] || 'Genérica',
+                                            descripcion: func['Descripción'] || '',
+                                            productoFinal: func['Producto Final'] || '',
+                                            porcentajeDedicacion: func['Porcentaje Dedicación'] || ''
+                                        }))
+                                    };
+                                });
+                            })()
                         },
                         history: {
                             changes: UndoManager.history.map(change => ({
@@ -2192,15 +2504,130 @@
                 // Guardar estado en localStorage
                 StorageManager.saveState();
                 
+                // Guardar orden personalizado de unidades
+                this.saveCustomUnitOrder();
+            },
+
+            // Guardar orden personalizado de unidades en localStorage
+            saveCustomUnitOrder() {
+                const customOrder = this.generateCurrentUnitOrder();
+                localStorage.setItem('customUnitOrder', JSON.stringify(customOrder));
+                console.log('Orden personalizado de unidades guardado:', customOrder);
+            },
+
+            // Obtener orden personalizado de unidades desde localStorage
+            getCustomUnitOrder() {
+                const customOrder = JSON.parse(localStorage.getItem('customUnitOrder') || '[]');
+                return customOrder;
+            },
+
+            // Generar orden actual del árbol
+            generateCurrentUnitOrder() {
+                const order = [];
+                
+                function traverseTree(nodes) {
+                    nodes.forEach(node => {
+                        order.push(node.nombre);
+                        if (node.children && node.children.length > 0) {
+                            traverseTree(node.children);
+                        }
+                    });
+                }
+                
+                if (STATE.treeRoots && STATE.treeRoots.length > 0) {
+                    traverseTree(STATE.treeRoots);
+                }
+                
+                return order;
+            },
+
+            // Limpiar orden personalizado de unidades
+            clearCustomUnitOrder() {
+                localStorage.removeItem('customUnitOrder');
+                console.log('Orden personalizado de unidades limpiado');
+            },
+
+            // Reordenar unidades en el mismo nivel
+            reorderUnit(draggedKey, targetKey, position = 'after') {
+                if (!this.isEditMode) {
+                    return;
+                }
+
+                const [draggedName] = draggedKey.split('|');
+                const [targetName] = targetKey.split('|');
+
+                if (draggedName === targetName) {
+                    return; // No hacer nada si es la misma unidad
+                }
+
+                // Encontrar los nodos
+                function findNode(nodes, key) {
+                    for (const node of nodes) {
+                        if (node.key === key) {
+                            return { node, parent: null, index: nodes.indexOf(node) };
+                        }
+                        if (node.children) {
+                            for (let i = 0; i < node.children.length; i++) {
+                                if (node.children[i].key === key) {
+                                    return { node: node.children[i], parent: node, index: i };
+                                }
+                            }
+                            const found = findNode(node.children, key);
+                            if (found) return found;
+                        }
+                    }
+                    return null;
+                }
+
+                const draggedNodeInfo = findNode(STATE.treeRoots, draggedKey);
+                const targetNodeInfo = findNode(STATE.treeRoots, targetKey);
+
+                if (!draggedNodeInfo || !targetNodeInfo) {
+                    return;
+                }
+
+                // Verificar que estén en el mismo nivel (mismo padre)
+                if (draggedNodeInfo.parent !== targetNodeInfo.parent) {
+                    return;
+                }
+
+                // Obtener la lista de nodos del mismo nivel
+                const siblings = draggedNodeInfo.parent ? 
+                    draggedNodeInfo.parent.children : STATE.treeRoots;
+
+                // Remover el nodo arrastrado
+                siblings.splice(draggedNodeInfo.index, 1);
+
+                // Calcular nueva posición
+                let newIndex = targetNodeInfo.index;
+                if (position === 'after') {
+                    newIndex++;
+                }
+                if (draggedNodeInfo.index < targetNodeInfo.index) {
+                    newIndex--;
+                }
+
+                // Insertar en nueva posición
+                siblings.splice(newIndex, 0, draggedNodeInfo.node);
+
+                // Re-renderizar el árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+
+                Utils.showAlert(`✅ Unidad "${draggedName}" reordenada!`, 'success');
+                Utils.log('Unidad reordenada', { from: draggedKey, to: targetKey, position });
+
+                // Guardar estado en localStorage
+                StorageManager.saveState();
+                
+                // Guardar orden personalizado de unidades
+                this.saveCustomUnitOrder();
+                
                 // Agregar al historial
                 UndoManager.addChange(
                     'Mover unidad',
                     `Unidad movida: ${draggedName} - Nuevo padre: ${targetName}`,
                     UndoManager.getCurrentSnapshot()
                 );
-                
-                // Re-renderizar árbol
-                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
             }
         };
 
@@ -2469,6 +2896,7 @@
                                     page-break-after: auto;
                                     margin-bottom: 15px;
                                     padding: 10px;
+                                    padding-top: 60mm; /* Espacio para el encabezado fijo */
                                 }
                                 .unit-page:last-child {
                                     page-break-after: avoid;
@@ -2477,10 +2905,15 @@
                                     page-break-before: always;
                                 }
                                 .unit-header {
+                                    position: fixed;
+                                    top: 15mm;
+                                    left: 15mm;
+                                    right: 15mm;
                                     text-align: center;
-                                    margin-bottom: 15px;
+                                    background-color: white;
                                     border-bottom: 2px solid #2c3e50;
                                     padding-bottom: 8px;
+                                    z-index: 1000;
                                 }
                                 .unit-name {
                                     font-size: 16px;
@@ -2578,9 +3011,38 @@
                                 </div>
                         `;
                         
-                        // Agrupar funciones por tipo
+                        // Obtener orden personalizado si existe
+                        const customOrder = getCustomFunctionOrder(unit['Unidad Organizativa']);
+                        let funcionesOrdenadas = [...functions];
+                        
+                        if (customOrder) {
+                            // Aplicar orden personalizado
+                            funcionesOrdenadas.sort((a, b) => {
+                                const indexA = customOrder.indexOf(a['Descripción'] || '');
+                                const indexB = customOrder.indexOf(b['Descripción'] || '');
+                                if (indexA !== -1 && indexB !== -1) {
+                                    return indexA - indexB;
+                                }
+                                return 0;
+                            });
+                        } else {
+                            // Si no hay orden personalizado, usar orden por tipo
+                            funcionesOrdenadas.sort((a, b) => {
+                                const tipoA = a['Tipo de Función'] || 'Genérica';
+                                const tipoB = b['Tipo de Función'] || 'Genérica';
+                                const getPriority = (tipo) => {
+                                    if (tipo.includes('Genérica')) return 1;
+                                    if (tipo.includes('Específica')) return 2;
+                                    if (tipo.includes('Indicador')) return 3;
+                                    return 4;
+                                };
+                                return getPriority(tipoA) - getPriority(tipoB);
+                            });
+                        }
+                        
+                        // Agrupar funciones por tipo respetando el orden personalizado
                         const functionsByType = {};
-                        functions.forEach(func => {
+                        funcionesOrdenadas.forEach(func => {
                             const type = func['Tipo de Función'];
                             if (!functionsByType[type]) {
                                 functionsByType[type] = [];
@@ -2594,36 +3056,100 @@
                         Object.keys(functionsByType).forEach(type => {
                             const typeFunctions = functionsByType[type];
                             
-                            unitContent += `
-                                <div class="table-title">Funciones ${type}</div>
-                                <table class="functions-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 40%;">Función ${type === 'Genérica' ? 'Genérica' : type === 'Específica' ? 'Específica' : type}</th>
-                                            <th style="width: 40%;">Producto Final</th>
-                                            <th style="width: 20%;">${type === 'Específica' ? '% Dedicación' : 'Tipo'}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            `;
+                            // Determinar el título y estructura de la tabla según el tipo
+                            let tableTitle, tableHeaders, tableRows;
                             
-                            typeFunctions.forEach(func => {
-                                console.log('Procesando función:', func);
-                                
-                                const functionDescription = func['Descripción'] || 'No especificada';
-                                const productFinal = func['Producto Final'] || 'No especificado';
-                                const dedicationPercent = type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type;
-                                
-                                unitContent += `
+                            if (type === 'Genérica') {
+                                // Funciones Genéricas: quitar columna Tipo
+                                tableTitle = 'Funciones Genéricas';
+                                tableHeaders = `
                                     <tr>
-                                        <td>${functionDescription}</td>
-                                        <td>${productFinal}</td>
-                                        <td style="text-align: center;">${dedicationPercent}</td>
+                                        <th style="width: 50%;">Función Genérica</th>
+                                        <th style="width: 50%;">Producto Final</th>
                                     </tr>
                                 `;
-                            });
+                                tableRows = typeFunctions.map(func => {
+                                    const functionDescription = func['Descripción'] || 'No especificada';
+                                    const productFinal = func['Producto Final'] || 'No especificado';
+                                    return `
+                                        <tr>
+                                            <td>${functionDescription}</td>
+                                            <td>${productFinal}</td>
+                                        </tr>
+                                    `;
+                                }).join('');
+                                
+                            } else if (type === 'Específica') {
+                                // Funciones Específicas: mantener estructura original
+                                tableTitle = 'Funciones Específicas';
+                                tableHeaders = `
+                                    <tr>
+                                        <th style="width: 40%;">Función Específica</th>
+                                        <th style="width: 40%;">Producto Final</th>
+                                        <th style="width: 20%;">% Dedicación</th>
+                                    </tr>
+                                `;
+                                tableRows = typeFunctions.map(func => {
+                                    const functionDescription = func['Descripción'] || 'No especificada';
+                                    const productFinal = func['Producto Final'] || 'No especificado';
+                                    const dedicationPercent = (func['Porcentaje Dedicación'] || '0') + '%';
+                                    return `
+                                        <tr>
+                                            <td>${functionDescription}</td>
+                                            <td>${productFinal}</td>
+                                            <td style="text-align: center;">${dedicationPercent}</td>
+                                        </tr>
+                                    `;
+                                }).join('');
+                                
+                            } else if (type === 'Indicador') {
+                                // Indicadores: cambiar nombre y quitar columnas Producto Final y Tipo
+                                tableTitle = 'Indicadores';
+                                tableHeaders = `
+                                    <tr>
+                                        <th style="width: 100%;">Indicador</th>
+                                    </tr>
+                                `;
+                                tableRows = typeFunctions.map(func => {
+                                    const functionDescription = func['Descripción'] || 'No especificada';
+                                    return `
+                                        <tr>
+                                            <td>${functionDescription}</td>
+                                        </tr>
+                                    `;
+                                }).join('');
+                                
+                            } else {
+                                // Otros tipos: mantener estructura original
+                                tableTitle = `Funciones ${type}`;
+                                tableHeaders = `
+                                    <tr>
+                                        <th style="width: 40%;">Función ${type}</th>
+                                        <th style="width: 40%;">Producto Final</th>
+                                        <th style="width: 20%;">Tipo</th>
+                                    </tr>
+                                `;
+                                tableRows = typeFunctions.map(func => {
+                                    const functionDescription = func['Descripción'] || 'No especificada';
+                                    const productFinal = func['Producto Final'] || 'No especificado';
+                                    return `
+                                        <tr>
+                                            <td>${functionDescription}</td>
+                                            <td>${productFinal}</td>
+                                            <td style="text-align: center;">${type}</td>
+                                        </tr>
+                                    `;
+                                }).join('');
+                            }
                             
                             unitContent += `
+                                <div class="table-title">${tableTitle}</div>
+                                <table class="functions-table">
+                                    <thead>
+                                        ${tableHeaders}
+                                    </thead>
+                                    <tbody>
+                                        ${tableRows}
                                     </tbody>
                                 </table>
                             `;
@@ -2663,32 +3189,72 @@
             getHierarchicalOrder() {
                 const orderedUnits = [];
                 
-                function traverseTree(nodes) {
-                    nodes.forEach(node => {
-                        // Obtener todos los registros para esta unidad
-                        const unitName = node.nombre;
+                // Verificar si hay orden personalizado guardado
+                const customOrder = JSON.parse(localStorage.getItem('customUnitOrder') || '[]');
+                console.log('Orden personalizado encontrado:', customOrder);
+                
+                if (customOrder.length > 0) {
+                    // Usar orden personalizado
+                    console.log('Usando orden personalizado de unidades');
+                    customOrder.forEach((unitName, index) => {
                         const unitData = STATE.groupedData[unitName];
-                        
                         if (unitData && unitData.length > 0) {
                             orderedUnits.push(unitData);
-                        }
-                        
-                        // Recorrer hijos si están expandidos
-                        if (node.children && node.children.length > 0 && STATE.expandedNodes[node.key]) {
-                            traverseTree(node.children);
+                            console.log(`${index + 1}. Agregando unidad al PDF (orden personalizado): ${unitName}`);
                         }
                     });
-                }
-                
-                // Usar el árbol actual si existe, sino construir uno
-                if (STATE.treeRoots && STATE.treeRoots.length > 0) {
-                    traverseTree(STATE.treeRoots);
                 } else {
-                    // Construir árbol temporal para obtener orden
-                    const tempTree = DataProcessor.buildTree(STATE.data);
-                    traverseTree(tempTree);
+                    // Obtener el orden exacto del árbol desde el DOM
+                    const treeContainer = document.getElementById('tree-container');
+                    if (treeContainer) {
+                        const treeNodes = treeContainer.querySelectorAll('.tree-node');
+                        console.log(`Encontrados ${treeNodes.length} nodos en el árbol`);
+                        
+                        treeNodes.forEach((nodeElement, index) => {
+                            // Obtener el nombre de la unidad desde el contenido del nodo
+                            const nodeNameElement = nodeElement.querySelector('.node-name');
+                            if (nodeNameElement) {
+                                const unitName = nodeNameElement.textContent.trim();
+                                const unitData = STATE.groupedData[unitName];
+                                if (unitData && unitData.length > 0) {
+                                    orderedUnits.push(unitData);
+                                    console.log(`${index + 1}. Agregando unidad al PDF: ${unitName}`);
+                                }
+                            }
+                        });
+                    }
+                    
+                    // Si no se pudo obtener del DOM, usar el árbol en memoria
+                    if (orderedUnits.length === 0) {
+                        console.log('No se pudo obtener orden del DOM, usando árbol en memoria');
+                        
+                        function traverseTree(nodes) {
+                            nodes.forEach(node => {
+                                const unitName = node.nombre;
+                                const unitData = STATE.groupedData[unitName];
+                                
+                                if (unitData && unitData.length > 0) {
+                                    orderedUnits.push(unitData);
+                                    console.log(`Agregando unidad al PDF: ${unitName}`);
+                                }
+                                
+                                if (node.children && node.children.length > 0) {
+                                    traverseTree(node.children);
+                                }
+                            });
+                        }
+                        
+                        if (STATE.treeRoots && STATE.treeRoots.length > 0) {
+                            traverseTree(STATE.treeRoots);
+                        } else {
+                            const tempTree = DataProcessor.buildTree(STATE.data);
+                            traverseTree(tempTree);
+                        }
+                    }
                 }
                 
+                console.log(`Orden jerárquico generado: ${orderedUnits.length} unidades`);
+                console.log('Unidades incluidas:', orderedUnits.map(unit => unit[0]['Unidad Organizativa']));
                 return orderedUnits;
             }
         };

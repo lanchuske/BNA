@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "exportDate": "2025-07-29T03:54:59.759Z",
+    "exportDate": "2025-07-29T03:47:48.278Z",
     "version": "2.0",
     "format": "optimized",
-    "totalRecords": 613,
+    "totalRecords": 618,
     "totalUnits": 42,
     "stats": {
       "totalRecords": 618,
@@ -1922,7 +1922,7 @@
         ]
       },
       {
-        "nombre": "Gerencia de Productos Financieros",
+        "nombre": "Activos",
         "reportaA": "Productos",
         "mision": "Diseñar, desarrollar, gestionar y evolucionar el portafolio de productos crediticios del Banco, asegurando su alineación con las necesidades de los distintos segmentos de clientes, la sostenibilidad financiera, el cumplimiento normativo y la eficiencia operativa. Promover productos activos accesibles, competitivos, digitalizados y con impacto productivo y social.",
         "funciones": [
@@ -1930,49 +1930,49 @@
             "orden": 1,
             "tipo": "Genérica",
             "descripcion": "Diseñar y actualizar productos crediticios del Banco. Crear y gestionar líneas de préstamos personales, hipotecarios, prendarios, consumo, productivos, con garantía o sin ella, adaptadas a los distintos perfiles de clientes (personas y empresas).",
-            "productoFinal": "Portafolio de Productos Crediticios Actualizado",
+            "productoFinal": "Portafolio de Productos Activos Vigente",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
             "tipo": "Genérica",
             "descripcion": "Monitorear la rentabilidad, riesgos y desempeño del portafolio. Analizar márgenes, tasas, condiciones, plazos, riesgos crediticios y comportamiento de la cartera para tomar decisiones informadas sobre ajustes y rediseños.",
-            "productoFinal": "Análisis de Rentabilidad y Riesgos del Portafolio",
+            "productoFinal": "Informe de Gestión de Activos",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
             "tipo": "Genérica",
             "descripcion": "Coordinar la implementación funcional de los productos. Trabajar transversalmente con Riesgos, Tecnología, Operaciones, Comercial, Jurídico y Compliance para garantizar la correcta instrumentación y operación de los productos.",
-            "productoFinal": "Implementación Coordinada de Productos",
+            "productoFinal": "Campañas de Difusión y Promoción",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
             "tipo": "Genérica",
             "descripcion": "Impulsar la digitalización y simplificación de procesos crediticios. Promover soluciones ágiles, precalificadas, 100% digitales o con onboarding simplificado para aumentar la eficiencia y accesibilidad de las líneas activas.",
-            "productoFinal": "Procesos Crediticios Digitalizados",
+            "productoFinal": "Portafolio de Productos Activos Actualizado",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
             "tipo": "Genérica",
             "descripcion": "Acompañar el desarrollo comercial y la formación técnica de la red. Brindar especificaciones funcionales, simuladores, documentación y capacitaciones a la red para asegurar una gestión homogénea, segura y efectiva de los productos activos.",
-            "productoFinal": "Capacitación y Documentación Técnica",
+            "productoFinal": "Productos de Crédito Definidos",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
             "tipo": "Específica",
             "descripcion": "Diseño y gestión del portafolio de préstamos. Préstamos personales, de consumo, hipotecarios, prendarios, para profesionales, programas sociales, estudios, mejoras del hogar, etc. Créditos con afectación de haberes, con garantía, tasa fija/variable, o líneas subsidiadas.",
-            "productoFinal": "Portafolio de Préstamos Diversificado",
+            "productoFinal": "Diseño de Productos de Crédito",
             "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
             "tipo": "Específica",
             "descripcion": "Relación con políticas públicas y programas especiales. Diseño y adecuación de líneas bajo convenios con organismos públicos, subsidios de tasa, créditos productivos, acceso a vivienda, inclusión financiera. Coordinación con Segmentos y Banca Internacional en casos de programas combinados.",
-            "productoFinal": "Programas Especiales y Convenios Públicos",
+            "productoFinal": "Programas Especiales y Políticas Públicas",
             "porcentajeDedicacion": "20"
           },
           {
@@ -1986,15 +1986,64 @@
             "orden": 9,
             "tipo": "Específica",
             "descripcion": "Automatización y transformación digital del crédito. Requerimientos para preevaluación automatizada, scoring, simuladores, onboarding digital, firma electrónica. Mejora de tiempos y experiencia en aprobación y desembolso.",
-            "productoFinal": "Procesos Crediticios Automatizados",
+            "productoFinal": "Procesos Digitalizados de Crédito",
             "porcentajeDedicacion": "20"
           },
           {
             "orden": 10,
             "tipo": "Específica",
             "descripcion": "Seguimiento de KPI's y desempeño del producto. Volumen, número de operaciones, ticket promedio, tasa de mora, margen, tasa de rechazo, canal de originación, NPS asociado.",
-            "productoFinal": "Dashboard de KPI's y Desempeño",
+            "productoFinal": "Reporte de Rentabilidad de Activos",
             "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 11,
+            "tipo": "Indicador",
+            "descripcion": "Penetración y uso por producto y segmento",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 12,
+            "tipo": "Indicador",
+            "descripcion": "Rentabilidad (margen bruto / neto) por producto",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 13,
+            "tipo": "Indicador",
+            "descripcion": "Tasa de activación / deserción por producto",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 14,
+            "tipo": "Indicador",
+            "descripcion": "% digitalización y autoservicio del producto",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 15,
+            "tipo": "Indicador",
+            "descripcion": "Reclamos asociados / NPS de producto",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 16,
+            "tipo": "Indicador",
+            "descripcion": "Tiempos de onboarding y operación",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 17,
+            "tipo": "Indicador",
+            "descripcion": "Aportes al ROE o ROA institucional",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
           }
         ]
       },
@@ -2869,103 +2918,180 @@
       {
         "nombre": "Inversiones",
         "reportaA": "Productos",
-        "mision": "Diseñar, gestionar y optimizar la oferta de productos de inversión del banco —como plazos fijos, fondos comunes y bonos— asegurando su alineación con las necesidades del mercado, la estrategia comercial, y los objetivos de captación, fidelización y retención de clientes, con una gestión eficiente de riesgos y rentabilidad.",
+        "mision": "Diseñar, coordinar y desarrollar el portafolio de productos de inversión del Banco para personas y empresas, asegurando una oferta competitiva, segura, diversificada y accesible, en línea con los perfiles de riesgo, los objetivos financieros de los clientes y el marco regulatorio vigente. Promover la educación financiera, la planificación del ahorro y la fidelización a través de soluciones de inversión simples y confiables.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Desarrollar y mantener el portafolio de productos de inversión, evaluando desempeño, riesgos y oportunidades del mercado. Coordinar con segmentos y canales para su implementación y monitoreo.",
+            "descripcion": "Diseñar y mantener la oferta de productos de inversión del Banco. Incluir instrumentos como fondos comunes de inversión (FCI), bonos, títulos públicos, ON's, CEDEAR's, cauciones, etc., adecuados a distintos perfiles de clientes y segmentos.",
             "productoFinal": "Portafolio de Inversiones Activo",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Diseñar y proponer nuevos instrumentos de inversión para personas y empresas.",
+            "tipo": "Genérica",
+            "descripcion": "Coordinar operativamente la implementación de productos con ALyCs y sociedades gerentes. Asegurar la correcta estructuración, oferta, registro y operación de productos en coordinación con Nación Bursátil, Nación Fondos y otros actores vinculados.",
             "productoFinal": "Diseño de Nuevas Alternativas de Inversión",
-            "porcentajeDedicacion": "20"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
-            "tipo": "Específica",
-            "descripcion": "Monitorear rentabilidad, riesgo y performance del portafolio de inversiones.",
+            "tipo": "Genérica",
+            "descripcion": "Promover la adopción de productos de inversión entre los clientes del Banco. Coordinar campañas, bundles y programas de educación financiera orientados a la inversión como parte de la planificación financiera de clientes.",
             "productoFinal": "Reporte de Performance de Inversiones",
-            "porcentajeDedicacion": "20"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
-            "tipo": "Específica",
-            "descripcion": "Coordinar con canales la difusión, asesoramiento y soporte comercial de los productos de inversión.",
+            "tipo": "Genérica",
+            "descripcion": "Asegurar cumplimiento regulatorio, transparencia y perfilamiento de clientes. Garantizar que todos los productos de inversión cumplan con la normativa CNV, BCRA, UIF y con procesos de evaluación del perfil del cliente inversor (suitability).",
             "productoFinal": "Campañas y Materiales de Asesoramiento",
-            "porcentajeDedicacion": "20"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
-            "tipo": "Específica",
-            "descripcion": "Evaluar tendencias de mercado y ajustar la oferta de productos en función de oportunidades macro y regulatorias.",
+            "tipo": "Genérica",
+            "descripcion": "Desarrollar capacidades de atención y asesoramiento financiero en la red. Brindar herramientas, capacitaciones y materiales para que la fuerza comercial pueda ofrecer productos de inversión en forma clara, segura y alineada al perfil de cada cliente.",
             "productoFinal": "Revisión de Estrategia de Inversión",
-            "porcentajeDedicacion": "20"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
             "tipo": "Específica",
-            "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
-            "productoFinal": "Reportes de Cumplimiento Regulatorio",
+            "descripcion": "Gestión del portafolio de productos de inversión. Fondos comunes: money market, renta fija, renta mixta, renta variable, en pesos y en dólares. Títulos públicos y privados, obligaciones negociables, CEDEAR's, cauciones, etc. Productos de inversión digital: plataformas de compra directa, simuladores.",
+            "productoFinal": "Gestión Integral del Portafolio de Inversiones",
             "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
+            "tipo": "Específica",
+            "descripcion": "Estructuración y coordinación operativa. Relación con Nación Bursátil (ALyC), Nación Fondos (sociedad gerente), CNV. Condiciones comerciales, tasas, comisiones, plazos, requisitos operativos.",
+            "productoFinal": "Coordinación Operativa con ALyCs y Sociedades Gerentes",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 8,
+            "tipo": "Específica",
+            "descripcion": "Integración con canales y digitalización. Integración de productos de inversión al Home Banking, App, y asistencia remota. Desarrollo de journeys digitales con onboarding, contratación y seguimiento.",
+            "productoFinal": "Integración Digital de Productos de Inversión",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 9,
+            "tipo": "Específica",
+            "descripcion": "Programas de activación y educación financiera. Campañas por segmento y nivel de experiencia inversora. Diseño de materiales: guías, simuladores, tutoriales, fichas técnicas. Inclusión de la inversión en bundles con productos pasivos o de ahorro.",
+            "productoFinal": "Programas de Educación Financiera y Activación",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 10,
+            "tipo": "Específica",
+            "descripcion": "Perfilamiento de clientes y cumplimiento normativo. Asegurar aplicación de procesos KYC. Integración con CRM y automatización de alertas y restricciones.",
+            "productoFinal": "Reportes de Cumplimiento Regulatorio",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 11,
             "tipo": "Indicador",
             "descripcion": "Rentabilidad promedio de los productos de inversión por tipo",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 8,
+            "orden": 12,
             "tipo": "Indicador",
             "descripcion": "Tasa de captación de nuevos inversores por producto",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 9,
+            "orden": 13,
             "tipo": "Indicador",
             "descripcion": "Volumen total de inversiones administradas",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 10,
+            "orden": 14,
             "tipo": "Indicador",
             "descripcion": "Tasa de retención de clientes inversores",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 11,
+            "orden": 15,
             "tipo": "Indicador",
             "descripcion": "Performance vs. benchmarks de mercado por producto",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 12,
+            "orden": 16,
             "tipo": "Indicador",
             "descripcion": "Número de nuevos instrumentos de inversión lanzados",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 13,
+            "orden": 17,
             "tipo": "Indicador",
             "descripcion": "Tiempo promedio de respuesta a cambios regulatorios",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 14,
+            "orden": 18,
             "tipo": "Indicador",
             "descripcion": "Porcentaje de cumplimiento de objetivos de captación",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 19,
+            "tipo": "Indicador",
+            "descripcion": "Nº de clientes inversores activos",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 20,
+            "tipo": "Indicador",
+            "descripcion": "Volumen administrado por tipo de instrumento",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 21,
+            "tipo": "Indicador",
+            "descripcion": "Rentabilidad promedio y desvíos por producto",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 22,
+            "tipo": "Indicador",
+            "descripcion": "% de clientes con perfilado completo (aptos para inversión)",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 23,
+            "tipo": "Indicador",
+            "descripcion": "% de productos de inversión contratados vía digital",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 24,
+            "tipo": "Indicador",
+            "descripcion": "NPS de clientes inversores / reclamos asociados",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 25,
+            "tipo": "Indicador",
+            "descripcion": "Participación de las inversiones en la vinculación total del cliente",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           }
@@ -2974,153 +3100,125 @@
       {
         "nombre": "Pasivos",
         "reportaA": "Productos",
-        "mision": "Gestionar el portafolio de productos de captación de fondos, garantizando su competitividad, sostenibilidad y alineamiento a los objetivos financieros y estratégicos del Banco.",
+        "mision": "Diseñar, gestionar y optimizar el portafolio de productos pasivos del Banco, incluyendo cuentas, cajas de ahorro, cuentas sueldo y plazos fijos, asegurando su competitividad, eficiencia operativa, simplicidad funcional, cumplimiento regulatorio y alineación con la estrategia de captación, vinculación y rentabilidad institucional.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Diseñar, analizar y optimizar los productos de depósitos y cuentas.",
+            "descripcion": "Diseñar y actualizar productos de captación y transaccionales. Desarrollar y mantener cuentas individuales, paquetes, cuentas sueldo, cajas de ahorro, cuentas corrientes y plazos fijos, alineados a los perfiles de clientes y segmentos.",
             "productoFinal": "Portafolio de Productos de Captación Optimizado",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Relevar requerimientos del negocio, diseñar nuevas soluciones de ahorro y cuentas.",
-            "productoFinal": "Nuevas Propuestas de Productos de Pasivo",
-            "porcentajeDedicacion": "20"
+            "tipo": "Genérica",
+            "descripcion": "Monitorear el uso, rentabilidad y costos asociados a cada producto. Evaluar márgenes, volumen, comisiones, uso efectivo, niveles de saldos y costos operativos, con foco en mejorar la eficiencia del portafolio.",
+            "productoFinal": "Informe de Desempeño y Recomendaciones",
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
-            "tipo": "Específica",
-            "descripcion": "Evaluar comportamiento de captaciones y recomendar ajustes comerciales.",
-            "productoFinal": "Informe de Desempeño y Recomendaciones",
-            "porcentajeDedicacion": "20"
-          },
-          {
-            "orden": 4,
             "tipo": "Genérica",
-            "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
+            "descripcion": "Asegurar la simplicidad operativa y el cumplimiento normativo. Definir condiciones claras, operativas y adaptadas a los requerimientos del BCRA y organismos de control. Facilitar procesos simples de apertura y mantenimiento.",
             "productoFinal": "Portafolio de Productos Pasivos",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 5,
-            "tipo": "Específica",
-            "descripcion": "Diseñar nuevos productos de ahorro, cuentas y depósitos.",
+            "orden": 4,
+            "tipo": "Genérica",
+            "descripcion": "Impulsar la digitalización de procesos y la integración con otros productos. Asegurar que la apertura y operación de productos pasivos esté disponible en canales digitales y se integre a bundles o paquetes con otros servicios.",
             "productoFinal": "Diseños de Productos Pasivos",
-            "porcentajeDedicacion": "20"
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 5,
+            "tipo": "Genérica",
+            "descripcion": "Colaborar en campañas de captación, onboarding y retención. Trabajar junto a Segmentos, Marketing y Canales en acciones para promover la apertura, activación y uso intensivo de productos pasivos, fortaleciendo la vinculación cliente–Banco.",
+            "productoFinal": "Informe de Rentabilidad de Pasivos",
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
             "tipo": "Específica",
-            "descripcion": "Monitorear rentabilidad y volumen de captación de productos vigentes.",
-            "productoFinal": "Informe de Rentabilidad de Pasivos",
+            "descripcion": "Gestión del portafolio de cuentas y depósitos. Cuentas corrientes, cajas de ahorro en pesos y dólares, cuentas sueldo, cuentas para jóvenes o jubilados, cuentas gratuitas universales. Plazos fijos tradicionales, pre-cancelables, UVA, escalonados, digitales.",
+            "productoFinal": "Gestión Integral de Cuentas y Depósitos",
             "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
             "tipo": "Específica",
-            "descripcion": "Coordinar campañas con segmentos y canales para la captación de pasivos.",
-            "productoFinal": "Ejecución de Campañas de Captación",
+            "descripcion": "Pricing y condiciones operativas. Comisiones, tasas pasivas, bonificaciones por vinculación, packs de servicios. Límites operativos, restricciones regulatorias, condiciones promocionales.",
+            "productoFinal": "Estructura de Pricing y Condiciones",
             "porcentajeDedicacion": "20"
           },
           {
             "orden": 8,
-            "tipo": "Indicador",
-            "descripcion": "Nº de cuentas activas por tipo / segmento",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Simplificación y eficiencia operativa. Reducción de requisitos de apertura, documentación mínima, mejoras en la experiencia digital de alta, cierres simplificados. Estandarización de circuitos y plantillas para toda la red.",
+            "productoFinal": "Procesos Simplificados y Eficientes",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 9,
-            "tipo": "Indicador",
-            "descripcion": "Costo operativo medio por cuenta",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Diseño de bundles y relaciones con otros productos. Integración de cuentas con tarjetas, préstamos, seguros, medios de pago y canales. Diseño de paquetes por segmento (ej. Cuenta Joven + App + Tarjeta Débito + beneficios).",
+            "productoFinal": "Bundles Integrados por Segmento",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 10,
-            "tipo": "Indicador",
-            "descripcion": "Rentabilidad neta por producto pasivo (spread – costos)",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Seguimiento de indicadores y optimización del portafolio. Saldos promedio, rentabilidad por tipo de cuenta, comisiones cobradas, uso de canales, reclamaciones. Alertas sobre cuentas inactivas, bajo saldo, alta rotación, etc.",
+            "productoFinal": "Ejecución de Campañas de Captación",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 11,
             "tipo": "Indicador",
-            "descripcion": "Tasa de activación vs. cuentas dormidas",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "Nº de cuentas activas por tipo / segmento",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 12,
             "tipo": "Indicador",
-            "descripcion": "% apertura digital vs. presencial",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "Costo operativo medio por cuenta",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 13,
             "tipo": "Indicador",
-            "descripcion": "% cuentas asociadas a bundles / paquetes integrados",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "Rentabilidad neta por producto pasivo (spread – costos)",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 14,
             "tipo": "Indicador",
-            "descripcion": "NPS asociado a apertura / uso de cuentas y plazos fijos",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "Tasa de activación vs. cuentas dormidas",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 15,
             "tipo": "Indicador",
-            "descripcion": "Nº de clientes inversores activos",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "% apertura digital vs. presencial",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 16,
             "tipo": "Indicador",
-            "descripcion": "TBD",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "% cuentas asociadas a bundles / paquetes integrados",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
-          {
+                    {
             "orden": 17,
             "tipo": "Indicador",
-            "descripcion": "Rentabilidad promedio y desvíos por producto",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
-          },
-          {
-            "orden": 18,
-            "tipo": "Indicador",
-            "descripcion": "% de clientes con perfilado completo (aptos para inversión)",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
-          },
-          {
-            "orden": 19,
-            "tipo": "Indicador",
-            "descripcion": "% de productos de inversión contratados vía digital",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
-          },
-          {
-            "orden": 20,
-            "tipo": "Indicador",
-            "descripcion": "NPS de clientes inversores / reclamos asociados",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
-            "porcentajeDedicacion": ""
-          },
-          {
-            "orden": 21,
-            "tipo": "Indicador",
-            "descripcion": "Participación de las inversiones en la vinculación total del cliente",
-            "productoFinal": "Portafolio de Productos de Captación Optimizado",
+            "descripcion": "NPS asociado a apertura / uso de cuentas y plazos fijos",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           }
         ]
@@ -3548,108 +3646,136 @@
       {
         "nombre": "Desarrollo",
         "reportaA": "Medios De Pago",
-        "mision": "Diseñar y evolucionar las soluciones tecnológicas asociadas a medios de pago, asegurando innovación, escalabilidad y cumplimiento normativo.",
+        "mision": "Diseñar, evolucionar y desarrollar nuevos productos, funcionalidades y servicios dentro del ecosistema de medios de pago del Banco, alineados a las tendencias del mercado, los cambios tecnológicos, las regulaciones vigentes y las necesidades de los distintos segmentos de clientes. Promover la innovación, la interoperabilidad y la adopción digital como eje estratégico del desarrollo comercial.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Diseñar nuevas funcionalidades, coordinar backlog con tecnología, testear soluciones.",
+            "descripcion": "Diseñar nuevos productos y soluciones de medios de pago. Desarrollar tarjetas, instrumentos digitales, servicios de pago y funcionalidades innovadoras adaptadas a cada segmento (personas, empresas, sector público).",
             "productoFinal": "Funcionalidades Liberadas por Iteración",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Liderar iniciativas de desarrollo con foco en QR, contactless y nuevas tendencias.",
+            "tipo": "Genérica",
+            "descripcion": "Explorar y adaptar tendencias tecnológicas del ecosistema de pagos. Evaluar modelos emergentes (QR interoperable, tokenización, pagos invisibles, P2P, tap to phone, pagos programados, etc.) e incorporarlos al roadmap del Banco.",
             "productoFinal": "Iniciativas de Innovación Digital",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
             "tipo": "Genérica",
-            "descripcion": "Liderar proyectos de desarrollo de nuevos medios de pago. Relevar necesidades. Diseñar funcionalidades. Acompañar la implementación técnica. Documentar los productos resultantes.",
+            "descripcion": "Coordinar el diseño funcional con Tecnología, Procesadoras y Canales. Traducir requerimientos de negocio en especificaciones técnicas viables, colaborando en todo el ciclo de desarrollo: diseño → prueba → go-live.",
             "productoFinal": "Proyectos de Desarrollo de Medios de Pago",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
-            "tipo": "Específica",
-            "descripcion": "Relevar y documentar nuevas funcionalidades requeridas por el negocio.",
+            "tipo": "Genérica",
+            "descripcion": "Asegurar el cumplimiento normativo en los nuevos desarrollos. Verificar adecuación de los nuevos productos a las normas del BCRA, UIF, PCI-DSS y regulaciones de redes y marcas internacionales.",
             "productoFinal": "Documentos de Requerimientos Funcionales",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
-            "tipo": "Específica",
-            "descripcion": "Acompañar el proceso de desarrollo tecnológico de nuevas funcionalidades.",
+            "tipo": "Genérica",
+            "descripcion": "Fomentar la adopción y el uso de nuevas soluciones de pago. Participar en el diseño de campañas, beneficios, alianzas o funcionalidades que promuevan el uso activo de las nuevas soluciones lanzadas.",
             "productoFinal": "Funcionalidades Implementadas",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
             "tipo": "Específica",
-            "descripcion": "Coordinar pruebas funcionales y validaciones de nuevas funcionalidades.",
-            "productoFinal": "Resultados de QA Funcional",
-            "porcentajeDedicacion": "25"
+            "descripcion": "Diseño funcional de nuevos productos. Nuevas tarjetas (segmentadas, digitales, prepagas, internacionales, co-branded). Soluciones digitales: pagos QR interoperables, DEBIN, billeteras propias, funcionalidades de pago en app.",
+            "productoFinal": "Diseño Funcional de Nuevos Productos",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
+            "tipo": "Específica",
+            "descripcion": "Desarrollo de features y mejoras funcionales. Tokenización, contactless, límites dinámicos, tarjetas virtuales, activación vía app, detección de fraude, autenticación fuerte. Soluciones P2P, P2M, pagos recurrentes.",
+            "productoFinal": "Desarrollo de Features y Mejoras Funcionales",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 8,
+            "tipo": "Específica",
+            "descripcion": "Exploración de alianzas e innovación aplicada. Benchmark de fintechs, billeteras, redes y casos de uso internacionales. Desarrollo de pilotos o MVPs en alianza con otros actores (comercios, universidades, gobiernos, etc.).",
+            "productoFinal": "Exploración de Alianzas e Innovación Aplicada",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 9,
+            "tipo": "Específica",
+            "descripcion": "Articulación con equipos técnicos y de negocio. Definición de requerimientos, matrices de funcionalidad, pruebas UAT, seguimiento de bugs y mejoras. Participación activa en squads o células ágiles.",
+            "productoFinal": "Articulación con Equipos Técnicos y de Negocio",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 10,
+            "tipo": "Específica",
+            "descripcion": "Onboarding comercial y go-to-market. Documentación funcional, guías comerciales, soporte a canales y productos en el lanzamiento. Monitoreo post-lanzamiento y ajustes funcionales de adopción.",
+            "productoFinal": "Resultados de QA Funcional",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 11,
             "tipo": "Indicador",
             "descripcion": "Número de funcionalidades liberadas por sprint/iteración",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 8,
+            "orden": 12,
             "tipo": "Indicador",
             "descripcion": "Tiempo promedio de desarrollo de nuevas funcionalidades",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 9,
+            "orden": 13,
             "tipo": "Indicador",
             "descripcion": "Tasa de éxito de implementación de proyectos de medios de pago",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 10,
+            "orden": 14,
             "tipo": "Indicador",
             "descripcion": "Porcentaje de cumplimiento de requerimientos funcionales",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 11,
+            "orden": 15,
             "tipo": "Indicador",
             "descripcion": "Tiempo promedio de resolución de bugs críticos",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 12,
+            "orden": 16,
             "tipo": "Indicador",
             "descripcion": "Número de iniciativas de innovación digital implementadas",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 13,
+            "orden": 17,
             "tipo": "Indicador",
             "descripcion": "Tasa de adopción de nuevas funcionalidades por usuarios",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 14,
+            "orden": 18,
             "tipo": "Indicador",
             "descripcion": "Porcentaje de proyectos entregados dentro del cronograma",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 15,
+            "orden": 19,
             "tipo": "Indicador",
             "descripcion": "Indicador de prueba para verificar actualización",
             "productoFinal": "",
@@ -3660,90 +3786,111 @@
       {
         "nombre": "Mantenimiento y Features",
         "reportaA": "Medios De Pago",
-        "mision": "Garantizar la continuidad operativa y evolución de los sistemas de medios de pago mediante mejoras correctivas, evolutivas y preventivas.",
+        "mision": "Administrar, mantener y evolucionar funcionalmente el portafolio vigente de productos de medios de pago del Banco (tarjetas de débito, crédito, prepagas y soluciones de pagos electrónicos), garantizando su disponibilidad operativa, cumplimiento normativo, estabilidad técnica y adecuación a las necesidades de los clientes y a la estrategia comercial.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
+            "descripcion": "Administrar el ciclo de vida operativo y funcional de los productos existentes. Supervisar condiciones, funcionalidades, límites, procesos, pricing, documentación y operativa de tarjetas y servicios asociados, asegurando continuidad operativa y control.",
             "productoFinal": "Backlog Técnico y Manuales Actualizados",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
+            "tipo": "Genérica",
+            "descripcion": "Asegurar el cumplimiento normativo y regulatorio del ecosistema de pagos. Mantener los productos alineados con la normativa del BCRA, UIF, SSN (para seguros asociados), redes, marcas (Visa, Mastercard), PCI-DSS y otros estándares aplicables.",
             "productoFinal": "Incidentes Reducidos y Roadmap Técnico",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
             "tipo": "Genérica",
-            "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
+            "descripcion": "Coordinar con Tecnología, Procesadoras y Redes los ajustes necesarios. Canalizar mejoras técnicas, actualizaciones de sistemas, gestión de bugs o adecuaciones regulatorias en la plataforma de medios de pago.",
             "productoFinal": "Funcionalidades Actuales y Releases Correctivos",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
-            "tipo": "Específica",
-            "descripcion": "Detectar, analizar y priorizar fallas e incidencias en plataformas de medios de pago.",
+            "tipo": "Genérica",
+            "descripcion": "Monitorear el funcionamiento y performance operativa de los productos. Analizar estadísticas clave: uso, fallas, rechazos, problemas de autorización, reclamos operativos, cumplimiento de SLA de terceros.",
             "productoFinal": "Registro y Resolución de Incidentes",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
-            "tipo": "Específica",
-            "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
+            "tipo": "Genérica",
+            "descripcion": "Contribuir al roadmap de evolución funcional. Proponer mejoras funcionales, nuevas features, simplificación de procesos y ajustes de experiencia usuario.",
             "productoFinal": "Releases Coordinados y Documentados",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
             "tipo": "Específica",
-            "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-            "productoFinal": "Backlog de Features y Priorización Aprobada",
-            "porcentajeDedicacion": "25"
+            "descripcion": "Gestión funcional de productos en operación. Tarjetas de débito, crédito, prepagas y servicios asociados. Parámetros operativos, límites, segmentación de clientes, restricciones, personalización.",
+            "productoFinal": "Gestión Funcional de Productos en Operación",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
-            "tipo": "Indicador",
-            "descripcion": "% de funcionamiento operativo sin incidentes",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Control operativo de medios de pago. Autorizaciones, cancelaciones, reposiciones, emisión, activación, tokenización, conciliación. Resolución de problemas funcionales con proveedores (ej. Prisma, Fiserv, Banelco, Link).",
+            "productoFinal": "Control Operativo de Medios de Pago",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 8,
-            "tipo": "Indicador",
-            "descripcion": "Nº de fallas operativas / rechazos por millón de transacciones",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Ajustes técnicos y regulatorios. Implementación de actualizaciones normativas del BCRA, UIF, AFIP, etc. Adaptación a reglas de marcas (Visa, Mastercard) y estándares de seguridad.",
+            "productoFinal": "Ajustes Técnicos y Regulatorios",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 9,
-            "tipo": "Indicador",
-            "descripcion": "Tiempo medio de resolución de incidentes operativos",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Monitoreo de indicadores de operación. Transacciones exitosas, fallos, autorizaciones por canal, tiempos medios, reclamos operativos, reversos.",
+            "productoFinal": "Monitoreo de Indicadores de Operación",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 10,
-            "tipo": "Indicador",
-            "descripcion": "Nº de versiones funcionales mantenidas y actualizadas",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Colaboración en roadmap funcional. Propuesta de mejoras: ampliación de límites, segmentación, tokenización, contactless, PIN digital, integración con otras plataformas.",
+            "productoFinal": "Backlog de Features y Priorización Aprobada",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 11,
             "tipo": "Indicador",
-            "descripcion": "% SLA cumplido por proveedores / redes / procesadoras",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
+            "descripcion": "% de funcionamiento operativo sin incidentes",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 12,
             "tipo": "Indicador",
-            "descripcion": "",
-            "productoFinal": "Backlog Técnico y Manuales Actualizados",
+            "descripcion": "Nº de fallas operativas / rechazos por millón de transacciones",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 13,
+            "tipo": "Indicador",
+            "descripcion": "Tiempo medio de resolución de incidentes operativos",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 14,
+            "tipo": "Indicador",
+            "descripcion": "Nº de versiones funcionales mantenidas y actualizadas",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 15,
+            "tipo": "Indicador",
+            "descripcion": "% SLA cumplido por proveedores / redes / procesadoras",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           }
         ]
@@ -3835,83 +3982,125 @@
       {
         "nombre": "Seguros",
         "reportaA": "Productos",
-        "mision": "Diseñar, administrar y promover la oferta de productos de seguros del banco, garantizando su alineación con la regulación vigente, la demanda de los segmentos y la estrategia comercial de la entidad.",
+        "mision": "Diseñar, desarrollar y coordinar la oferta de productos de seguros comercializados a través del Banco, en alianza con aseguradoras, promoviendo soluciones de protección accesibles, simples y alineadas con los perfiles y necesidades de los distintos segmentos de clientes. Maximizar el valor agregado del canal bancario como plataforma de distribución de seguros, impulsando la vinculación, la diversificación de ingresos y la fidelización.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
+            "descripcion": "Diseñar y mantener el portafolio de productos de seguros ofrecidos por el Banco. Asegurar una oferta adecuada en términos de cobertura, precio, condiciones, canales y públicos objetivo, en coordinación con las aseguradoras asociadas.",
             "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Diseñar productos de seguros asociados a productos financieros y servicios del banco.",
+            "tipo": "Genérica",
+            "descripcion": "Gestionar las alianzas estratégicas con aseguradoras. Coordinar la relación con compañías aseguradoras en lo comercial, operativo, regulatorio y estratégico, asegurando alineación con los objetivos del Banco.",
             "productoFinal": "Catálogo de Productos de Seguros",
-            "porcentajeDedicacion": "30"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
-            "tipo": "Específica",
-            "descripcion": "Evaluar resultados de las campañas de seguros, rentabilidad y siniestralidad.",
+            "tipo": "Genérica",
+            "descripcion": "Impulsar la venta de seguros en todos los canales del Banco. Diseñar campañas, bundles y programas de venta cruzada, capacitar a la red y facilitar herramientas comerciales para impulsar la comercialización de seguros.",
             "productoFinal": "Informe de Gestión de Seguros",
-            "porcentajeDedicacion": "35"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
-            "tipo": "Específica",
-            "descripcion": "Coordinar acciones comerciales con aseguradoras y áreas internas.",
+            "tipo": "Genérica",
+            "descripcion": "Asegurar el cumplimiento normativo y la experiencia del asegurado. Garantizar que todos los productos y procesos estén alineados con la normativa de la SSN (Superintendencia de Seguros de la Nación), la UIF y los estándares de protección al consumidor.",
             "productoFinal": "Campañas Coordinadas y Material Promocional",
-            "porcentajeDedicacion": "35"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
-            "tipo": "Indicador",
-            "descripcion": "Nº de pólizas emitidas / activas por tipo de seguro",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
+            "tipo": "Genérica",
+            "descripcion": "Desarrollar soluciones innovadoras y segmentadas. Incorporar seguros integrados en productos financieros (embebidos), seguros digitales, micro-seguros, coberturas personalizadas y seguros de uso flexible.",
+            "productoFinal": "Soluciones Innovadoras de Seguros",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 6,
-            "tipo": "Indicador",
-            "descripcion": "Penetración de seguros por segmento / canal",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Gestión del portafolio de seguros. Seguros de vida, accidentes personales, hogar, auto, comercio, salud, integral de tarjeta, garantía extendida, seguros para préstamos, entre otros. Diseño de condiciones comerciales, coberturas, exclusiones, límites, pricing y comisiones.",
+            "productoFinal": "Portafolio Integral de Productos de Seguros",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 7,
-            "tipo": "Indicador",
-            "descripcion": "Ingresos netos por comisiones de seguros",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Gestión de alianzas con aseguradoras. Contratación y seguimiento de convenios de comercialización. Negociación de nuevos productos, mejoras en condiciones, procesos de emisión y siniestros.",
+            "productoFinal": "Alianzas Estratégicas con Aseguradoras",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 8,
-            "tipo": "Indicador",
-            "descripcion": "Tasa de cancelación / siniestralidad / reclamos",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Campañas comerciales y venta cruzada. Integración de seguros en bundles con cuentas, préstamos o tarjetas. Diseño de campañas específicas por segmento y canal. Capacitación y soporte a la red de ventas.",
+            "productoFinal": "Campañas de Venta Cruzada y Capacitación",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 9,
-            "tipo": "Indicador",
-            "descripcion": "NPS del cliente asegurado / percepción de valor",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Digitalización y autogestión de seguros. Contratación digital de seguros a través de Home Banking / App. Visualización de pólizas, pagos, denuncias de siniestros. Desarrollo de nuevos modelos (on-demand, seguros embebidos).",
+            "productoFinal": "Plataforma Digital de Seguros",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 10,
-            "tipo": "Indicador",
-            "descripcion": "% de contratación vía canales digitales",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
-            "porcentajeDedicacion": ""
+            "tipo": "Específica",
+            "descripcion": "Cumplimiento y experiencia del cliente asegurado. Asegurar procesos simples, claros y trazables. Seguimiento de reclamos, siniestros y percepciones de clientes. Coordinación con Legales, Cumplimiento, Atención y Calidad.",
+            "productoFinal": "Gestión de Cumplimiento y Experiencia del Cliente",
+            "porcentajeDedicacion": "20"
           },
           {
             "orden": 11,
             "tipo": "Indicador",
+            "descripcion": "Nº de pólizas emitidas / activas por tipo de seguro",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 12,
+            "tipo": "Indicador",
+            "descripcion": "Penetración de seguros por segmento / canal",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 13,
+            "tipo": "Indicador",
+            "descripcion": "Ingresos netos por comisiones de seguros",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 14,
+            "tipo": "Indicador",
+            "descripcion": "Tasa de cancelación / siniestralidad / reclamos",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 15,
+            "tipo": "Indicador",
+            "descripcion": "NPS del cliente asegurado / percepción de valor",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 16,
+            "tipo": "Indicador",
+            "descripcion": "% de contratación vía canales digitales",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 17,
+            "tipo": "Indicador",
             "descripcion": "% seguros vendidos como parte de bundles",
-            "productoFinal": "Catálogo de Seguros Activos y Reportes de Gestión",
+            "productoFinal": "",
             "porcentajeDedicacion": ""
           }
         ]
@@ -3919,180 +4108,348 @@
       {
         "nombre": "Recaudaciones",
         "reportaA": "Medios De Pago",
-        "mision": "Administrar los servicios de recaudación ofrecidos por el banco, asegurando su eficiencia operativa, capilaridad, adecuación normativa y alineación con las necesidades de clientes institucionales y corporativos.",
+        "mision": "Diseñar, administrar y desarrollar soluciones de recaudación y cobranzas para empresas, sector público y organizaciones, promoviendo la eficiencia operativa, la trazabilidad, la digitalización y la integración multicanal, posicionando al Banco como socio estratégico en la gestión integral de ingresos y pagos masivos.",
         "funciones": [
           {
             "orden": 1,
             "tipo": "Genérica",
-            "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
+            "descripcion": "Gestionar la oferta de productos de recaudación del Banco. Diseñar, mantener y evolucionar soluciones de cobranzas (ventanilla, débito automático, pago por canales digitales, QR, lotes masivos, integración API, etc.) para personas jurídicas.",
             "productoFinal": "Convenios de Recaudación Activos y Reportes de Gestión",
             "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
+            "tipo": "Genérica",
+            "descripcion": "Coordinar la implementación operativa y tecnológica de los servicios. Trabajar con Tecnología, Canales y Clientes Corporativos para asegurar la integración y operación segura, eficiente y trazable de los esquemas de recaudación.",
             "productoFinal": "Matriz de Convenios Activos",
-            "porcentajeDedicacion": "35"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
-            "tipo": "Específica",
-            "descripcion": "Monitorear volúmenes de recaudación, cumplimiento operativo y desvíos.",
+            "tipo": "Genérica",
+            "descripcion": "Desarrollar propuestas comerciales y segmentadas. Diseñar paquetes de servicios y soluciones a medida para organismos públicos, empresas privadas, universidades, clubes, servicios, etc.",
             "productoFinal": "Tablero de Control de Recaudaciones",
-            "porcentajeDedicacion": "35"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
-            "tipo": "Específica",
-            "descripcion": "Coordinar acciones de integración tecnológica con entes recaudadores.",
+            "tipo": "Genérica",
+            "descripcion": "Impulsar la migración a canales digitales y autogestión. Promover soluciones que reduzcan el uso de canales presenciales, aumenten la eficiencia y mejoren la experiencia del recaudador y del pagador.",
             "productoFinal": "Interfaces Operativas Implementadas",
-            "porcentajeDedicacion": "30"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
+            "tipo": "Genérica",
+            "descripcion": "Monitorear la operación y desempeño de las recaudaciones. Evaluar volumen, cantidad de operaciones, eficiencia, cumplimiento de SLA, trazabilidad y feedback de los clientes institucionales.",
+            "productoFinal": "Monitoreo de Operación y Desempeño",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 6,
+            "tipo": "Específica",
+            "descripcion": "Gestión del portafolio de servicios de recaudación. Cobranza por ventanilla, débito automático, lotes de pagos, débitos en cuenta, servicios de recaudación interbancaria, links de pago, QR, facturación electrónica vinculada. Servicios para cobradores (comercios, asociaciones, municipios, etc.).",
+            "productoFinal": "Gestión del Portafolio de Servicios de Recaudación",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 7,
+            "tipo": "Específica",
+            "descripcion": "Diseño de soluciones personalizadas y bundles. Ofertas combinadas con cuentas corrientes, adquirencia, POS, home banking empresa, conciliación automática. Segmentación por sector (público, cooperativas, educación, salud, servicios).",
+            "productoFinal": "Diseño de Soluciones Personalizadas y Bundles",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 8,
+            "tipo": "Específica",
+            "descripcion": "Automatización, conciliación y reporting. Promoción de servicios con conciliación automática, alertas, reportes personalizables y conexión con ERP del cliente. Implementación de plataformas con gestión de archivos, APIs y notificaciones.",
+            "productoFinal": "Automatización, Conciliación y Reporting",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 9,
+            "tipo": "Específica",
+            "descripcion": "Soporte técnico y operativo a grandes recaudadores. Acompañamiento personalizado en la configuración, pruebas, seguimiento post-implementación y atención a incidentes críticos.",
+            "productoFinal": "Soporte Técnico y Operativo",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 10,
+            "tipo": "Específica",
+            "descripcion": "Cumplimiento normativo y trazabilidad. Asegurar procesos transparentes, auditables, con documentación adecuada, antifraude, integración con UIF y cumplimiento fiscal/tributario.",
+            "productoFinal": "Cumplimiento Normativo y Trazabilidad",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 11,
             "tipo": "Indicador",
             "descripcion": "Volumen total de recaudación procesada por mes",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 6,
+            "orden": 12,
             "tipo": "Indicador",
             "descripcion": "Número de convenios activos con entes recaudadores",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 7,
+            "orden": 13,
             "tipo": "Indicador",
             "descripcion": "Tasa de éxito en el procesamiento de transacciones",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 8,
+            "orden": 14,
             "tipo": "Indicador",
             "descripcion": "Tiempo promedio de resolución de incidencias operativas",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 9,
+            "orden": 15,
             "tipo": "Indicador",
             "descripcion": "Porcentaje de cumplimiento de SLA con entes recaudadores",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 10,
+            "orden": 16,
             "tipo": "Indicador",
             "descripcion": "Número de interfaces tecnológicas operativas",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 11,
+            "orden": 17,
             "tipo": "Indicador",
             "descripcion": "Tasa de adopción de nuevos servicios de recaudación",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 12,
+            "orden": 18,
             "tipo": "Indicador",
             "descripcion": "Satisfacción del cliente con los servicios de recaudación",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 19,
+            "tipo": "Indicador",
+            "descripcion": "Volumen mensual recaudado por canal y modalidad",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 20,
+            "tipo": "Indicador",
+            "descripcion": "% recaudación por canales digitales vs. presenciales",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 21,
+            "tipo": "Indicador",
+            "descripcion": "Tiempo promedio de alta / implementación de nuevos servicios",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 22,
+            "tipo": "Indicador",
+            "descripcion": "Tasa de éxito en débitos automáticos y cobranzas masivas",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 23,
+            "tipo": "Indicador",
+            "descripcion": "SLA de conciliación / procesamiento / acreditación",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 24,
+            "tipo": "Indicador",
+            "descripcion": "Nivel de satisfacción de recaudadores institucionales",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           }
         ]
       },
       {
-        "nombre": "Adquirienca",
+        "nombre": "Adquiriencia",
         "reportaA": "Medios De Pago",
-        "mision": "Desarrollar, gestionar y expandir la red de comercios adheridos al ecosistema de adquirencia del banco, promoviendo su cobertura territorial y digital, mejorando la competitividad del servicio, y maximizando el valor generado para comercios y clientes finales, en articulación con la estrategia de medios de pago.",
+        "mision": "Diseñar, desarrollar y gestionar el negocio de Adquiriencia del Banco, incluyendo la oferta de terminales físicas y virtuales, QR interoperable, soluciones de cobro y relacionamiento con comercios, promoviendo la inclusión digital, la competitividad, la eficiencia operativa y la generación de ingresos por transaccionalidad.",
         "funciones": [
           {
             "orden": 1,
-            "tipo": "Específica",
-            "descripcion": "Elaborar propuestas de expansión territorial y digital para el crecimiento de la red de adquirencia.",
+            "tipo": "Genérica",
+            "descripcion": "Diseñar la estrategia comercial y operativa del modelo de adquirencia. Definir oferta, condiciones, pricing, canales de distribución y modelo operativo para servicios de adquirencia en todos los segmentos de clientes comercios.",
             "productoFinal": "Propuesta de Cobertura y Crecimiento",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 2,
-            "tipo": "Específica",
-            "descripcion": "Monitorear indicadores de performance, retención y rentabilidad de los comercios activos.",
+            "tipo": "Genérica",
+            "descripcion": "Coordinar la operación y evolución de la red de adquirencia. Supervisar el funcionamiento de terminales POS, QR, links de pago, cobros remotos y otros servicios de aceptación de pagos.",
             "productoFinal": "Reporte de Performance de Adquirencia",
-            "porcentajeDedicacion": "25"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 3,
-            "tipo": "Específica",
-            "descripcion": "Coordinar campañas de captación, activación y fidelización de comercios, articulando con áreas de marketing y tecnología.",
+            "tipo": "Genérica",
+            "descripcion": "Impulsar la captación y vinculación de comercios. Acompañar acciones comerciales, bundles, alianzas e integraciones con herramientas que incentiven la adopción del servicio.",
             "productoFinal": "Acciones Comerciales y Campañas Ejecutadas",
-            "porcentajeDedicacion": "50"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 4,
             "tipo": "Genérica",
-            "descripcion": "Coordinar el alta de nuevos comercios, evaluar la performance comercial y la fidelización de la red. Identificar oportunidades de expansión territorial y digital.",
+            "descripcion": "Garantizar el cumplimiento normativo y la interoperabilidad. Asegurar la adecuación a la normativa del BCRA, estándares de redes, marcas y entidades regulatorias. Promover soluciones abiertas e integradas.",
             "productoFinal": "Red de Comercios Activa y Segmentada",
-            "porcentajeDedicacion": "33,3"
+            "porcentajeDedicacion": ""
           },
           {
             "orden": 5,
+            "tipo": "Genérica",
+            "descripcion": "Monitorear la performance operativa y financiera del negocio. Evaluar volúmenes transaccionados, comisiones cobradas, costos operativos, margen, tasa de retención y rentabilidad de la cartera adquirente.",
+            "productoFinal": "Monitoreo de Performance Operativa y Financiera",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 6,
+            "tipo": "Específica",
+            "descripcion": "Diseño de la oferta de adquirencia. Terminales físicas (POS), terminales móviles, QR interoperable, link de cobro, botonera digital. Esquemas de comisiones, beneficios por facturación, tasas de liquidación, bundles con cuentas o productos activos.",
+            "productoFinal": "Diseño de Oferta de Adquirencia",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 7,
+            "tipo": "Específica",
+            "descripcion": "Relación con redes, marcas y procesadoras. Coordinación operativa y técnica con Prisma, Fiserv, FirstData, Red Link, Banelco, etc. Integración con las principales marcas (Visa, Mastercard, etc.).",
+            "productoFinal": "Gestión de Relaciones con Redes y Procesadoras",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 8,
+            "tipo": "Específica",
+            "descripcion": "Estrategia de captación y fidelización de comercios. Segmentación de comercios por rubro, volumen y geografía. Acciones para fomentar inclusión de pequeños comercios y digitalización de cobros.",
+            "productoFinal": "Estrategia de Captación y Fidelización",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 9,
+            "tipo": "Específica",
+            "descripcion": "Gestión operativa y técnica de terminales. Alta, baja, reposición, soporte técnico, monitoreo de transacciones. Integración con CRM y canales de soporte.",
+            "productoFinal": "Gestión Operativa y Técnica de Terminales",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 10,
+            "tipo": "Específica",
+            "descripcion": "Monitoreo de resultados y gestión del riesgo. Análisis de volumen, tickets promedio, tasa de uso, comercios activos. Control de fraude, monitoreo de actividades sospechosas, trazabilidad.",
+            "productoFinal": "Monitoreo de Resultados y Gestión del Riesgo",
+            "porcentajeDedicacion": "20"
+          },
+          {
+            "orden": 11,
             "tipo": "Indicador",
             "descripcion": "Número de comercios activos en la red de adquirencia",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 6,
+            "orden": 12,
             "tipo": "Indicador",
             "descripcion": "Tasa de crecimiento de la red de comercios por mes",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 7,
+            "orden": 13,
             "tipo": "Indicador",
             "descripcion": "Volumen de transacciones procesadas por comercio",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 8,
+            "orden": 14,
             "tipo": "Indicador",
             "descripcion": "Tasa de retención de comercios en la red",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 9,
+            "orden": 15,
             "tipo": "Indicador",
             "descripcion": "Cobertura territorial de la red de adquirencia",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 10,
+            "orden": 16,
             "tipo": "Indicador",
             "descripcion": "Porcentaje de comercios digitalizados",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 11,
+            "orden": 17,
             "tipo": "Indicador",
             "descripcion": "Tiempo promedio de activación de nuevos comercios",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           },
           {
-            "orden": 12,
+            "orden": 18,
             "tipo": "Indicador",
             "descripcion": "Satisfacción del comercio con los servicios de adquirencia",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 19,
+            "tipo": "Indicador",
+            "descripcion": "Volumen mensual transaccionado por canal (POS / QR / link)",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 20,
+            "tipo": "Indicador",
+            "descripcion": "Comisiones generadas / ingresos netos por adquirencia",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 21,
+            "tipo": "Indicador",
+            "descripcion": "% crecimiento de comercios adheridos por mes",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 22,
+            "tipo": "Indicador",
+            "descripcion": "Tasa de retención de comercios / churn",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 23,
+            "tipo": "Indicador",
+            "descripcion": "Tiempo promedio de alta y habilitación",
+            "productoFinal": "",
+            "porcentajeDedicacion": ""
+          },
+          {
+            "orden": 24,
+            "tipo": "Indicador",
+            "descripcion": "NPS de comercios / tasa de reclamos",
             "productoFinal": "",
             "porcentajeDedicacion": ""
           }
