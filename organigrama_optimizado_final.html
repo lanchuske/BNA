@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BNA - Organigrama Optimizado (Formato Final)</title>
-    <!-- Librería para exportación a PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Librerías para exportación a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* Estilos básicos optimizados */
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
@@ -129,6 +130,22 @@
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
         }
         
         .form-group textarea {
@@ -446,7 +463,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .tree-node.delete-unit-btn:hover {
+                .tree-node.delete-unit-btn:hover {
             background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
         }
         .tree-node.edit-unit-btn {
@@ -476,6 +493,67 @@
         .tree-node-controls {
             display: flex;
             gap: 5px;
+        }
+        .info-header {
+            display: flex !important;
+            background-color: #2c5aa0 !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
+            font-size: 14px !important;
+            border-radius: 6px 6px 0 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .info-header .left-text {
+            width: 65% !important;
+            text-align: left !important;
+            padding: 10px 12px !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        .info-header .right-text {
+            width: 35% !important;
+            text-align: left !important;
+            padding: 10px 12px !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        .functions-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin-bottom: 15px !important;
+            table-layout: fixed !important;
+            box-sizing: border-box !important;
+        }
+        
+        .functions-table th,
+        .functions-table td {
+            padding: 10px 12px !important;
+            border-bottom: 1px solid #e9ecef !important;
+            font-size: 10px !important;
+            line-height: 1.3 !important;
+            word-wrap: break-word !important;
+            vertical-align: top !important;
+            box-sizing: border-box !important;
+        }
+        
+        .functions-table td:first-child {
+            width: 65% !important;
+            padding-left: 12px !important;
+        }
+        
+        .functions-table td:nth-child(2) {
+            width: 35% !important;
+            padding-left: 12px !important;
+        }
+
+        .info-section {
+            margin-bottom: 25px !important;
+            margin-top: 20px !important;
+        }
+
+        .info-section:first-of-type {
+            margin-top: 10px !important;
         }
     </style>
 </head>
@@ -713,6 +791,9 @@
                     funciones: []
                 };
                 
+                // Generar dropdown de unidades existentes (excluyendo la unidad actual)
+                const unitsDropdown = this.generateUnitsDropdown(unitKey);
+                
                 return `
                     <div class="unit-form" id="unit-form-${unitKey}">
                         <h4>${isNew ? '➕ Nueva Unidad' : '✏️ Editar Unidad'}</h4>
@@ -724,7 +805,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Reporta a:</label>
-                                <input type="text" id="reportaA-${unitKey}" value="${unitData.reportaA || ''}" placeholder="Unidad superior">
+                                <select id="reportaA-${unitKey}" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
                             </div>
                         </div>
                         
@@ -739,6 +823,41 @@
                         </div>
                     </div>
                 `;
+            },
+            
+            generateUnitsDropdown: function(excludeKey = null) {
+                if (!STATE.currentData || !STATE.currentData.hierarchy.tree) {
+                    return '';
+                }
+                
+                const units = this.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                
+                // Ordenar unidades alfabéticamente por nombre
+                units.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+                
+                let options = '';
+                
+                units.forEach(unit => {
+                    // Excluir la unidad actual si se está editando
+                    if (excludeKey && unit.key === excludeKey) {
+                        return;
+                    }
+                    
+                    const selected = unit.nombre === STATE.selectedUnit?.reportaA ? 'selected' : '';
+                    options += `<option value="${unit.nombre}" ${selected}>${unit.nombre}</option>`;
+                });
+                
+                return options;
+            },
+            
+            getAllUnitsFlat: function(nodes, units = []) {
+                nodes.forEach(node => {
+                    units.push(node);
+                    if (node.children && node.children.length > 0) {
+                        this.getAllUnitsFlat(node.children, units);
+                    }
+                });
+                return units;
             },
             
             toggleNode: function(nodeKey) {
@@ -771,6 +890,9 @@
                     form.classList.remove('show');
                 });
                 
+                // Generar dropdown de unidades existentes
+                const unitsDropdown = this.generateUnitsDropdown();
+                
                 // Crear formulario para nueva unidad raíz
                 const newUnitForm = `
                     <div class="unit-form show" id="unit-form-new-root">
@@ -783,7 +905,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Reporta a:</label>
-                                <input type="text" id="reportaA-new-root" placeholder="Unidad superior (opcional)">
+                                <select id="reportaA-new-root" class="form-control">
+                                    <option value="">Seleccionar unidad superior (opcional)...</option>
+                                    ${unitsDropdown}
+                                </select>
                             </div>
                         </div>
                         
@@ -820,6 +945,9 @@
                 const parentNode = this.findNodeByKey(STATE.currentData.hierarchy.tree, parentKey);
                 if (!parentNode) return;
                 
+                // Generar dropdown de unidades existentes
+                const unitsDropdown = this.generateUnitsDropdown();
+                
                 // Crear formulario para nueva subunidad
                 const newSubUnitForm = `
                     <div class="unit-form show" id="unit-form-new-subunit">
@@ -832,7 +960,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Reporta a:</label>
-                                <input type="text" id="reportaA-new-subunit" value="${parentNode.nombre}" readonly>
+                                <select id="reportaA-new-subunit" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
                             </div>
                         </div>
                         
@@ -1092,9 +1223,20 @@
                 
                 container.innerHTML = `
                     <div class="unit-info">
-                        <h3>🏢 ${unit.nombre}</h3>
-                        <p><strong>Reporta a:</strong> ${unit.reportaA || 'No especificado'}</p>
-                        ${unit.mision ? `<div class="mission-text"><strong>Misión:</strong> ${unit.mision}</div>` : ''}
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="flex: 1;">
+                                <h3>🏢 ${unit.nombre}</h3>
+                                <p><strong>Reporta a:</strong> ${unit.reportaA || 'No especificado'}</p>
+                                                                ${unit.mision ? `<div class="mission-text"><strong>Misión:</strong> ${unit.mision}</div>` : ''}
+                            </div>
+                            ${STATE.isEditMode ? `
+                                <div style="margin-left: 15px;">
+                                    <button class="btn btn-sm btn-warning" onclick="UnitRenderer.editCurrentUnit()" title="Editar información de la unidad">
+                                        ✏️ Editar Unidad
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                     
                     <div class="functions-header">
@@ -1109,6 +1251,11 @@
                     </div>
                     
                     ${addFunctionHTML}
+                    
+                    <!-- Formulario de edición de unidad (oculto por defecto) -->
+                    <div class="unit-form" id="unit-edit-form" style="display: none;">
+                        ${this.renderUnitEditForm(unit)}
+                    </div>
                 `;
                 
                 // Agregar drag and drop si está en modo edición
@@ -1400,6 +1547,93 @@
                 
                 const container = document.getElementById('content-area');
                 container.insertAdjacentHTML('afterbegin', statsHTML);
+            },
+            
+            renderUnitEditForm: function(unit) {
+                // Generar dropdown de unidades existentes (excluyendo la unidad actual)
+                const unitsDropdown = TreeRenderer.generateUnitsDropdown(unit.key);
+                
+                return `
+                    <div class="unit-form show" id="unit-edit-form-content">
+                        <h4>✏️ Editar Información de la Unidad</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre de la Unidad:</label>
+                                <input type="text" id="edit-nombre" value="${unit.nombre || ''}" placeholder="Nombre de la unidad">
+                            </div>
+                            <div class="form-group">
+                                <label>Reporta a:</label>
+                                <select id="edit-reportaA" class="form-control">
+                                    <option value="">Seleccionar unidad superior...</option>
+                                    ${unitsDropdown}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label>Misión:</label>
+                            <textarea id="edit-mision" placeholder="Describe la misión de la unidad...">${unit.mision || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-controls">
+                            <button class="btn btn-sm btn-success" onclick="UnitRenderer.saveUnitEdit()">💾 Guardar Cambios</button>
+                            <button class="btn btn-sm btn-secondary" onclick="UnitRenderer.cancelUnitEdit()">❌ Cancelar</button>
+                        </div>
+                    </div>
+                `;
+            },
+            
+            editCurrentUnit: function() {
+                const editForm = document.getElementById('unit-edit-form');
+                if (editForm) {
+                    editForm.style.display = 'block';
+                    editForm.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Establecer el valor seleccionado en el dropdown
+                    const reportaSelect = document.getElementById('edit-reportaA');
+                    if (reportaSelect && STATE.selectedUnit.reportaA) {
+                        reportaSelect.value = STATE.selectedUnit.reportaA;
+                    }
+                }
+            },
+            
+            saveUnitEdit: function() {
+                const unit = STATE.selectedUnit;
+                if (!unit) return;
+                
+                const unitData = {
+                    nombre: document.getElementById('edit-nombre').value.trim(),
+                    reportaA: document.getElementById('edit-reportaA').value.trim(),
+                    mision: document.getElementById('edit-mision').value.trim()
+                };
+                
+                // Validaciones
+                if (!unitData.nombre) {
+                    Utils.showAlert('❌ El nombre de la unidad es obligatorio', 'error');
+                    return;
+                }
+                
+                // Actualizar la unidad
+                Object.assign(unit, unitData);
+                
+                // Actualizar metadata
+                TreeRenderer.updateMetadata();
+                
+                // Re-renderizar la unidad
+                UnitRenderer.render(unit);
+                
+                // Re-renderizar el árbol para reflejar los cambios
+                TreeRenderer.render(STATE.currentData.hierarchy);
+                
+                Utils.showAlert('✅ Información de la unidad actualizada', 'success');
+            },
+            
+            cancelUnitEdit: function() {
+                const editForm = document.getElementById('unit-edit-form');
+                if (editForm) {
+                    editForm.style.display = 'none';
+                }
             }
         };
 
@@ -1449,75 +1683,391 @@
                     return;
                 }
                 
-                console.log('🔍 Iniciando exportación PDF...');
-                console.log('📊 Datos disponibles:', STATE.currentData);
+                console.log('🔍 Iniciando exportación PDF mejorada...');
                 
                 try {
                     // Crear contenido PDF estructurado
                     const pdfContent = this.generateStructuredPDFContent();
                     console.log('✅ Contenido PDF generado:', pdfContent.length, 'caracteres');
                     
-                    // Crear elemento temporal para el PDF
-                    const tempContainer = document.createElement('div');
-                    tempContainer.innerHTML = pdfContent;
-                    tempContainer.style.position = 'absolute';
-                    tempContainer.style.left = '-9999px';
-                    tempContainer.style.width = '210mm';
-                    tempContainer.style.fontFamily = 'Arial, sans-serif';
-                    tempContainer.style.fontSize = '12px';
-                    tempContainer.style.lineHeight = '1.4';
-                    tempContainer.style.backgroundColor = 'white';
-                    tempContainer.style.color = 'black';
-                    document.body.appendChild(tempContainer);
-                    
-                    console.log('✅ Contenedor temporal creado');
-                    
-                    const opt = {
-                        margin: [10, 10, 10, 10],
-                        filename: `organigrama_bna_${new Date().toISOString().split('T')[0]}.pdf`,
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { 
-                            scale: 2,
-                            useCORS: true,
-                            allowTaint: true,
-                            backgroundColor: '#ffffff'
-                        },
-                        jsPDF: { 
-                            unit: 'mm', 
-                            format: 'a4', 
-                            orientation: 'portrait'
-                        }
-                    };
-                    
-                    console.log('✅ Configuración PDF aplicada');
-                    console.log('📄 Iniciando generación PDF...');
-                    
-                    // Verificar que html2pdf esté disponible
-                    if (typeof html2pdf === 'undefined') {
-                        throw new Error('html2pdf no está disponible. Verifica que la librería esté cargada.');
+                    // Verificar que el contenido no esté vacío
+                    if (!pdfContent || pdfContent.trim().length === 0) {
+                        throw new Error('No hay contenido para generar el PDF');
                     }
                     
-                    html2pdf().set(opt).from(tempContainer).save().then(() => {
-                        console.log('✅ PDF generado exitosamente');
-                        document.body.removeChild(tempContainer);
-                        Utils.showAlert('✅ PDF exportado exitosamente', 'success');
-                    }).catch(error => {
-                        console.error('❌ Error al generar PDF:', error);
-                        document.body.removeChild(tempContainer);
-                        Utils.showAlert(`❌ Error al exportar PDF: ${error.message}`, 'error');
-                    });
+                    // Crear una nueva ventana para imprimir con estilos mejorados
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Organigrama BNA - ${new Date().toISOString().split('T')[0]}</title>
+                            <meta charset="UTF-8">
+                            <style>
+                                /* Estilos base para pantalla e impresión */
+                                * {
+                                    box-sizing: border-box;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                
+                                body {
+                                    font-family: Arial, Helvetica, sans-serif !important;
+                                    font-size: 12px !important;
+                                    line-height: 1.4 !important;
+                                    color: #000000 !important;
+                                    background: #ffffff !important;
+                                    margin: 20px !important;
+                                    padding: 0 !important;
+                                }
+                                
+                                /* Estilos específicos para impresión */
+                                @media print {
+                                    body {
+                                        margin: 15px !important;
+                                        font-size: 11px !important;
+                                    }
+                                    
+                                    .unit-container {
+                                        page-break-inside: avoid !important;
+                                        margin-bottom: 30px !important;
+                                    }
+                                    
+                                    .unit-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 12px !important;
+                                        margin-bottom: 20px !important;
+                                        border-radius: 4px !important;
+                                    }
+                                    
+                                    .unit-header h2 {
+                                        margin: 0 !important;
+                                        font-size: 16px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .unit-header h3 {
+                                        margin: 5px 0 0 0 !important;
+                                        font-size: 14px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .info-section {
+                                        margin-bottom: 20px !important;
+                                    }
+                                    
+                                    .info-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 8px 12px !important;
+                                        font-weight: bold !important;
+                                        border-radius: 4px 4px 0 0 !important;
+                                        font-size: 12px !important;
+                                        display: flex !important;
+                                        justify-content: space-between !important;
+                                    }
+                                    
+                                    .info-header .left-text {
+                                        flex: 1 !important;
+                                    }
+                                    
+                                    .info-header .right-text {
+                                        flex: 1 !important;
+                                        text-align: right !important;
+                                    }
+                                    
+                                    .info-content {
+                                        border: 2px solid #2c5aa0 !important;
+                                        border-top: none !important;
+                                        padding: 15px !important;
+                                        background-color: #ffffff !important;
+                                        border-left: 4px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .info-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                    }
+                                    
+                                    .info-table td {
+                                        padding: 8px 12px !important;
+                                        font-size: 11px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                    }
+                                    
+                                    .info-table td:first-child {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        width: 35% !important;
+                                    }
+                                    
+                                    .mission-content {
+                                        line-height: 1.6 !important;
+                                        font-size: 11px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .functions-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                        margin-bottom: 15px !important;
+                                    }
+                                    
+                                    .functions-table tr:first-child {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table th,
+                                    .functions-table td {
+                                        padding: 10px 12px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                        font-size: 10px !important;
+                                        line-height: 1.3 !important;
+                                        word-wrap: break-word !important;
+                                        vertical-align: top !important;
+                                    }
+                                    
+                                    .functions-table th {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .function-header-cell {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(even) {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(odd) {
+                                        background-color: #ffffff !important;
+                                    }
+                                    
+                                    .percentage-cell {
+                                        text-align: center !important;
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                    }
+                                    
+                                    .no-functions {
+                                        background-color: #f8f9fa !important;
+                                        color: #6c757d !important;
+                                        padding: 15px !important;
+                                        text-align: center !important;
+                                        border: 1px solid #dee2e6 !important;
+                                        border-radius: 4px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .page-break {
+                                        page-break-after: always !important;
+                                    }
+                                    
+                                    .separator {
+                                        margin-bottom: 30px !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        padding-bottom: 20px !important;
+                                    }
+                                }
+                                
+                                /* Estilos para vista previa en pantalla */
+                                @media screen {
+                                    body {
+                                        margin: 20px !important;
+                                        font-size: 12px !important;
+                                    }
+                                    
+                                    .unit-container {
+                                        margin-bottom: 40px !important;
+                                    }
+                                    
+                                    .unit-header {
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        padding: 15px !important;
+                                        margin-bottom: 25px !important;
+                                        border-radius: 6px !important;
+                                        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+                                    }
+                                    
+                                    .unit-header h2 {
+                                        margin: 0 !important;
+                                        font-size: 20px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .unit-header h3 {
+                                        margin: 10px 0 0 0 !important;
+                                        font-size: 18px !important;
+                                        font-weight: bold !important;
+                                    }
+                                    
+                                    .info-section {
+                                        margin-bottom: 25px !important;
+                                    }
+                                    
+                                    .info-header {
+                                        display: flex !important;
+                                        background-color: #2c5aa0 !important;
+                                        color: #ffffff !important;
+                                        font-weight: bold !important;
+                                        font-size: 14px !important;
+                                        border-radius: 6px 6px 0 0 !important;
+                                        padding: 0 !important;
+                                        margin: 0 !important;
+                                    }
+                                    
+                                    .info-header .left-text {
+                                        width: 65% !important;
+                                        text-align: left !important;
+                                        padding: 10px 12px !important;
+                                        vertical-align: top !important;
+                                        box-sizing: border-box !important;
+                                    }
+                                    
+                                    .info-header .right-text {
+                                        width: 35% !important;
+                                        text-align: left !important;
+                                        padding: 10px 12px !important;
+                                        vertical-align: top !important;
+                                        box-sizing: border-box !important;
+                                    }
+                                    
+                                    .info-content {
+                                        border: 1px solid #2c5aa0 !important;
+                                        border-top: none !important;
+                                        padding: 20px !important;
+                                        background-color: #ffffff !important;
+                                        border-left: 4px solid #2c5aa0 !important;
+                                        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+                                    }
+                                    
+                                    .info-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                    }
+                                    
+                                    .info-table td {
+                                        padding: 12px !important;
+                                        font-size: 14px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                    }
+                                    
+                                    .info-table td:first-child {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        width: 35% !important;
+                                    }
+                                    
+                                    .mission-content {
+                                        line-height: 1.7 !important;
+                                        font-size: 14px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .functions-table {
+                                        width: 100% !important;
+                                        border-collapse: collapse !important;
+                                        margin-bottom: 15px !important;
+                                    }
+                                    
+                                    .functions-table tr:first-child {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table th,
+                                    .functions-table td {
+                                        padding: 15px !important;
+                                        border-bottom: 1px solid #e9ecef !important;
+                                        font-size: 13px !important;
+                                        line-height: 1.5 !important;
+                                    }
+                                    
+                                    .functions-table th {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                    }
+                                    
+                                    .function-header-cell {
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(even) {
+                                        background-color: #f8f9fa !important;
+                                    }
+                                    
+                                    .functions-table tr:nth-child(odd) {
+                                        background-color: #ffffff !important;
+                                    }
+                                    
+                                    .percentage-cell {
+                                        text-align: center !important;
+                                        font-weight: bold !important;
+                                        color: #2c5aa0 !important;
+                                    }
+                                    
+                                    .no-functions {
+                                        background-color: #f8f9fa !important;
+                                        color: #6c757d !important;
+                                        padding: 15px !important;
+                                        text-align: center !important;
+                                        border: 1px solid #dee2e6 !important;
+                                        border-radius: 4px !important;
+                                        font-style: italic !important;
+                                    }
+                                    
+                                    .separator {
+                                        margin-bottom: 30px !important;
+                                        border-bottom: 2px solid #2c5aa0 !important;
+                                        padding-bottom: 20px !important;
+                                    }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${pdfContent}
+                        </body>
+                        </html>
+                    `);
+                    printWindow.document.close();
+                    
+                    // Esperar a que se cargue el contenido y luego imprimir
+                    printWindow.onload = function() {
+                        console.log('✅ Ventana de impresión lista con estilos mejorados');
+                        setTimeout(() => {
+                            printWindow.print();
+                            printWindow.close();
+                            Utils.showAlert('✅ PDF exportado exitosamente con diseño mejorado', 'success');
+                        }, 500);
+                    };
                     
                 } catch (error) {
                     console.error('❌ Error en exportación PDF:', error);
-                    Utils.showAlert(`❌ Error en exportación PDF: ${error.message}`, 'error');
+                    Utils.showAlert(`❌ Error al exportar PDF: ${error.message}`, 'error');
                 }
             },
             
             generateStructuredPDFContent: function() {
                 console.log('🔧 Generando contenido PDF estructurado...');
                 
+                if (!STATE.currentData || !STATE.currentData.hierarchy || !STATE.currentData.hierarchy.tree) {
+                    console.log('❌ No hay datos de hierarchy disponibles');
+                    return '';
+                }
+                
                 const units = this.getAllUnitsInOrder(STATE.currentData.hierarchy.tree);
                 console.log(`📊 Unidades encontradas: ${units.length}`);
+                console.log('📋 Primeras 3 unidades:', units.slice(0, 3).map(u => u.nombre));
                 
                 let pdfHTML = '';
                 
@@ -1526,9 +2076,12 @@
                     const unitHTML = this.generateUnitPDFContent(unit);
                     pdfHTML += unitHTML;
                     
-                    // Agregar salto de página entre unidades (excepto la última)
-                    if (index < units.length - 1) {
+                    // Agregar salto de página solo si hay más unidades y el contenido es extenso
+                    if (index < units.length - 1 && this.hasExtensiveContent(unit)) {
                         pdfHTML += '<div style="page-break-after: always;"></div>';
+                    } else if (index < units.length - 1) {
+                        // Agregar separador simple en lugar de salto de página
+                        pdfHTML += '<div style="margin-bottom: 30px; border-bottom: 2px solid #2c5aa0; padding-bottom: 20px;"></div>';
                     }
                 });
                 
@@ -1552,6 +2105,15 @@
                 return units;
             },
             
+            hasExtensiveContent: function(unit) {
+                const funciones = unit.funciones || [];
+                const totalFunctions = funciones.length;
+                const hasMission = unit.mision && unit.mision.length > 100;
+                
+                // Considerar extenso si tiene más de 5 funciones o misión larga
+                return totalFunctions > 5 || hasMission;
+            },
+            
             generateUnitPDFContent: function(unit) {
                 const funciones = unit.funciones || [];
                 const genericas = funciones.filter(f => f.tipo === 'Genérica');
@@ -1559,110 +2121,116 @@
                 const indicadores = funciones.filter(f => f.tipo === 'Indicador');
                 
                 console.log(`  📋 ${unit.nombre}: ${funciones.length} funciones (${genericas.length}G, ${especificas.length}E, ${indicadores.length}I)`);
+                console.log(`  📄 Generando HTML para unidad: ${unit.nombre}`);
                 
                 return `
-                    <div style="margin-bottom: 20px; page-break-inside: avoid; background-color: white;">
+                    <div class="unit-container">
                         <!-- Encabezado de Unidad -->
-                        <div style="background-color: #2c5aa0; color: white; padding: 10px; margin-bottom: 15px;">
-                            <h2 style="margin: 0; font-size: 16px; font-weight: bold;">Unidad Organizativa</h2>
-                            <h3 style="margin: 5px 0 0 0; font-size: 14px; font-weight: bold;">${unit.nombre}</h3>
+                        <div class="unit-header">
+                            <h2>Unidad Organizativa</h2>
+                            <h3>${unit.nombre}</h3>
                         </div>
                         
                         <!-- Información de la Unidad -->
-                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
-                            <tr>
-                                <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 33%;">Jerarquía Implícita</td>
-                                <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 33%;">Nivel de Reporte</td>
-                                <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 34%;">Fecha Aprobación</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid #ddd; padding: 8px;">${unit.reportaA || 'No especificado'}</td>
-                                <td style="border: 1px solid #ddd; padding: 8px;">1</td>
-                                <td style="border: 1px solid #ddd; padding: 8px;">${new Date().toLocaleDateString('es-ES')}</td>
-                            </tr>
-                        </table>
+                        <div class="info-section">
+                            <div class="info-header">
+                                Información de la Unidad
+                            </div>
+                            <div class="info-content">
+                                <table class="info-table">
+                                    <tr>
+                                        <td>Jerarquía Implícita:</td>
+                                        <td>${unit.reportaA || 'No especificado'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nivel de Reporte:</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha Aprobación:</td>
+                                        <td>${new Date().toLocaleDateString('es-ES')}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         
                         <!-- Misión -->
                         ${unit.mision ? `
-                            <div style="margin-bottom: 15px;">
-                                <div style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold;">
+                            <div class="info-section">
+                                <div class="info-header">
                                     Misión
                                 </div>
-                                <div style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9;">
-                                    ${unit.mision}
+                                <div class="info-content">
+                                    <div class="mission-content">
+                                        ${unit.mision}
+                                    </div>
                                 </div>
                             </div>
                         ` : ''}
                         
                         <!-- Funciones Genéricas -->
                         ${genericas.length > 0 ? `
-                            <div style="margin-bottom: 15px;">
-                                <div style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold;">
-                                    Funciones Genéricas
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Genéricas</span>
+                                    <span class="right-text">Producto Final</span>
                                 </div>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 70%;">Funciones Genéricas</td>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 30%;">Producto Final</td>
-                                    </tr>
-                                    ${genericas.map(func => `
-                                        <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.descripcion || ''}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.productoFinal || 'N/A'}</td>
-                                        </tr>
-                                    `).join('')}
-                                </table>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${genericas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
                             </div>
                         ` : ''}
                         
                         <!-- Funciones Específicas -->
                         ${especificas.length > 0 ? `
-                            <div style="margin-bottom: 15px;">
-                                <div style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold;">
-                                    Funciones Específicas
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Específicas</span>
+                                    <span class="right-text">Producto Final</span>
                                 </div>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 50%;">Funciones Específicas</td>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 30%;">Producto Final</td>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 20%;">% Dedicación</td>
-                                    </tr>
-                                    ${especificas.map(func => `
-                                        <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.descripcion || ''}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.productoFinal || 'N/A'}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: center;">${func.porcentajeDedicacion || ''}</td>
-                                        </tr>
-                                    `).join('')}
-                                </table>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${especificas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                                <td class="percentage-cell">${func.porcentajeDedicacion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
                             </div>
                         ` : ''}
                         
                         <!-- Indicadores -->
                         ${indicadores.length > 0 ? `
-                            <div style="margin-bottom: 15px;">
-                                <div style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold;">
+                            <div class="info-section">
+                                <div class="info-header">
                                     Indicadores
                                 </div>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 70%;">Indicadores</td>
-                                        <td style="background-color: #2c5aa0; color: white; padding: 8px; font-weight: bold; width: 30%;">Producto Final</td>
-                                    </tr>
-                                    ${indicadores.map(func => `
-                                        <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.descripcion || ''}</td>
-                                            <td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;">${func.productoFinal || 'N/A'}</td>
-                                        </tr>
-                                    `).join('')}
-                                </table>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${indicadores.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
                             </div>
                         ` : ''}
                         
                         ${genericas.length === 0 && especificas.length === 0 && indicadores.length === 0 ? `
-                            <div style="margin-bottom: 15px;">
-                                <div style="background-color: #f8f9fa; color: #6c757d; padding: 10px; text-align: center; border: 1px solid #dee2e6;">
-                                    <em>No hay funciones definidas para esta unidad</em>
+                            <div class="info-section">
+                                <div class="no-functions">
+                                    No hay funciones definidas para esta unidad
                                 </div>
                             </div>
                         ` : ''}
