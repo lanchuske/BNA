@@ -1120,17 +1120,21 @@
                             const [draggedName, draggedParent] = draggedKey.split('|');
                             const [targetName, targetParent] = node.key.split('|');
                             
+                            // Normalizar padres (convertir string vacío a null)
+                            const normalizedDraggedParent = draggedParent || null;
+                            const normalizedTargetParent = targetParent || null;
+                            
                             console.log('Drop detectado:', {
                                 draggedKey,
                                 targetKey: node.key,
                                 draggedName,
-                                draggedParent,
+                                draggedParent: normalizedDraggedParent,
                                 targetName,
-                                targetParent
+                                targetParent: normalizedTargetParent
                             });
                             
                             // Verificar si están en el mismo nivel (mismo padre)
-                            if (draggedParent === targetParent) {
+                            if (normalizedDraggedParent === normalizedTargetParent) {
                                 console.log('Reordenamiento en el mismo nivel');
                                 // Reordenamiento en el mismo nivel
                                 Editor.reorderUnit(draggedKey, node.key, 'after');
@@ -2598,13 +2602,27 @@
                 }
 
                 console.log('Nodos encontrados:', {
-                    dragged: { parent: draggedNodeInfo.parent?.nombre, index: draggedNodeInfo.index },
-                    target: { parent: targetNodeInfo.parent?.nombre, index: targetNodeInfo.index }
+                    dragged: { 
+                        parent: draggedNodeInfo.parent?.nombre || 'RAÍZ', 
+                        index: draggedNodeInfo.index,
+                        key: draggedKey
+                    },
+                    target: { 
+                        parent: targetNodeInfo.parent?.nombre || 'RAÍZ', 
+                        index: targetNodeInfo.index,
+                        key: targetKey
+                    }
                 });
 
                 // Verificar que estén en el mismo nivel (mismo padre)
-                if (draggedNodeInfo.parent !== targetNodeInfo.parent) {
-                    console.log('Los nodos no están en el mismo nivel');
+                const draggedParentName = draggedNodeInfo.parent?.nombre || null;
+                const targetParentName = targetNodeInfo.parent?.nombre || null;
+                
+                if (draggedParentName !== targetParentName) {
+                    console.log('Los nodos no están en el mismo nivel', {
+                        draggedParent: draggedParentName,
+                        targetParent: targetParentName
+                    });
                     return;
                 }
 
