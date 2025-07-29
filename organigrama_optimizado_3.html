@@ -1026,6 +1026,33 @@
                     return !parentExists;
                 });
                 
+                // Ordenar raíces por orden personalizado si está disponible
+                roots.sort((a, b) => {
+                    const orderA = a.funciones[0] && a.funciones[0]['Orden Personalizado'] ? 
+                        parseInt(a.funciones[0]['Orden Personalizado']) : 999;
+                    const orderB = b.funciones[0] && b.funciones[0]['Orden Personalizado'] ? 
+                        parseInt(b.funciones[0]['Orden Personalizado']) : 999;
+                    return orderA - orderB;
+                });
+                
+                // Ordenar hijos de cada nodo por orden personalizado
+                const sortChildren = (node) => {
+                    if (node.children && node.children.length > 0) {
+                        node.children.sort((a, b) => {
+                            const orderA = a.funciones[0] && a.funciones[0]['Orden Personalizado'] ? 
+                                parseInt(a.funciones[0]['Orden Personalizado']) : 999;
+                            const orderB = b.funciones[0] && b.funciones[0]['Orden Personalizado'] ? 
+                                parseInt(b.funciones[0]['Orden Personalizado']) : 999;
+                            return orderA - orderB;
+                        });
+                        
+                        // Ordenar recursivamente los hijos de los hijos
+                        node.children.forEach(sortChildren);
+                    }
+                };
+                
+                roots.forEach(sortChildren);
+                
                 return roots;
             },
             
@@ -1809,6 +1836,16 @@
                     const headers = lines[0].split(';').map(h => h.trim().replace(/"/g, ''));
                     const data = [];
                     
+                    // Verificar si existe columna de orden personalizado
+                    const hasOrderColumn = headers.some(header => header === 'Orden Personalizado');
+                    const orderColumnIndex = headers.findIndex(header => header === 'Orden Personalizado');
+                    
+                    console.log('Procesando CSV:', {
+                        hasOrderColumn,
+                        orderColumnIndex,
+                        headers: headers
+                    });
+                    
                     for (let i = 1; i < lines.length; i++) {
                         if (lines[i].trim()) {
                             const values = lines[i].split(';').map(v => v.trim().replace(/"/g, ''));
@@ -1816,6 +1853,15 @@
                             headers.forEach((header, index) => {
                                 row[header] = values[index] || '';
                             });
+                            
+                            // Agregar orden personalizado si existe
+                            if (hasOrderColumn && orderColumnIndex >= 0) {
+                                const orderValue = values[orderColumnIndex] ? parseInt(values[orderColumnIndex]) : 999;
+                                row['Orden Personalizado'] = orderValue;
+                            } else {
+                                row['Orden Personalizado'] = 999; // Valor por defecto
+                            }
+                            
                             data.push(row);
                         }
                     }
