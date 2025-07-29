@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Renderizado Áreas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-container { border: 2px solid #ccc; padding: 20px; margin: 20px 0; }
+        .tree-container { border: 1px solid #ddd; padding: 10px; min-height: 200px; }
+        .tree-node { padding: 5px; margin: 2px 0; cursor: pointer; }
+        .tree-node:hover { background: #f0f0f0; }
+        .btn { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Renderizado de Áreas</h1>
+    
+    <div class="test-container">
+        <h2>Datos de Prueba</h2>
+        <button class="btn" onclick="loadTestData()">Cargar Datos de Prueba</button>
+        <button class="btn" onclick="testRenderTree()">Probar Renderizado</button>
+        <button class="btn" onclick="clearTree()">Limpiar Árbol</button>
+        
+        <div id="status" class="status"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Árbol Renderizado</h2>
+        <div id="tree-container" class="tree-container">
+            <p>El árbol aparecerá aquí...</p>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Log de Diagnóstico</h2>
+        <div id="log" style="background: #f8f9fa; padding: 10px; height: 200px; overflow-y: auto; font-family: monospace; font-size: 12px;"></div>
+    </div>
+
+    <script>
+        // Simular el estado global
+        const STATE = {
+            data: [],
+            treeRoots: [],
+            expandedNodes: {},
+            lastSelected: null
+        };
+
+        // Función de logging
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span style="color: #666;">[${timestamp}]</span> <span style="color: ${type === 'error' ? 'red' : type === 'success' ? 'green' : 'blue'};">${message}</span>`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // Función para mostrar estado
+        function showStatus(message, type = 'success') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        // Datos de prueba
+        const testData = [
+            {
+                'Unidad Organizativa': 'Gerencia General',
+                'Reporta A': '',
+                'Misión': 'Dirigir la organización',
+                'Tipo de Función': 'Genérica',
+                'Descripción': 'Función de dirección general',
+                'Producto Final': 'Plan estratégico',
+                'Porcentaje Dedicación': '100'
+            },
+            {
+                'Unidad Organizativa': 'Gerencia de Operaciones',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Gestionar operaciones',
+                'Tipo de Función': 'Específica',
+                'Descripción': 'Función de operaciones',
+                'Producto Final': 'Reporte de operaciones',
+                'Porcentaje Dedicación': '80'
+            },
+            {
+                'Unidad Organizativa': 'Gerencia de Operaciones',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Gestionar operaciones',
+                'Tipo de Función': 'Indicador',
+                'Descripción': 'Indicador de eficiencia',
+                'Producto Final': '',
+                'Porcentaje Dedicación': ''
+            },
+            {
+                'Unidad Organizativa': 'Gerencia de Finanzas',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Gestionar finanzas',
+                'Tipo de Función': 'Específica',
+                'Descripción': 'Función de finanzas',
+                'Producto Final': 'Reporte financiero',
+                'Porcentaje Dedicación': '90'
+            }
+        ];
+
+        // Función para construir el árbol
+        function buildTree(data) {
+            log('Construyendo árbol...');
+            
+            // Agrupar por unidad organizativa
+            const grouped = {};
+            data.forEach(item => {
+                const unidad = item['Unidad Organizativa'];
+                if (!grouped[unidad]) {
+                    grouped[unidad] = {
+                        nombre: unidad,
+                        reportaA: item['Reporta A'],
+                        funciones: []
+                    };
+                }
+                grouped[unidad].funciones.push({
+                    tipo: item['Tipo de Función'],
+                    descripcion: item['Descripción'],
+                    productoFinal: item['Producto Final'],
+                    porcentajeDedicacion: item['Porcentaje Dedicación']
+                });
+            });
+
+            // Construir jerarquía
+            const roots = [];
+            const children = {};
+
+            Object.values(grouped).forEach(unidad => {
+                const key = unidad.nombre;
+                const node = {
+                    key: key,
+                    nombre: unidad.nombre,
+                    reportaA: unidad.reportaA,
+                    funciones: unidad.funciones,
+                    children: []
+                };
+
+                if (!unidad.reportaA || unidad.reportaA.trim() === '') {
+                    roots.push(node);
+                } else {
+                    if (!children[unidad.reportaA]) {
+                        children[unidad.reportaA] = [];
+                    }
+                    children[unidad.reportaA].push(node);
+                }
+            });
+
+            // Asignar hijos
+            Object.keys(children).forEach(parentKey => {
+                const parent = [...roots, ...Object.values(children).flat()].find(n => n.key === parentKey);
+                if (parent) {
+                    parent.children = children[parentKey];
+                }
+            });
+
+            log(`Árbol construido: ${roots.length} raíces`);
+            return roots;
+        }
+
+        // Función para renderizar el árbol
+        function renderTree(nodes, container) {
+            log('Renderizando árbol...');
+            container.innerHTML = '';
+            
+            if (!nodes || nodes.length === 0) {
+                container.innerHTML = '<p>No hay nodos para mostrar</p>';
+                return;
+            }
+
+            const ul = document.createElement('ul');
+            ul.style.listStyle = 'none';
+            ul.style.paddingLeft = '20px';
+
+            nodes.forEach(node => {
+                const li = document.createElement('li');
+                li.className = 'tree-node';
+                li.setAttribute('data-key', node.key);
+                
+                const hasChildren = node.children && node.children.length > 0;
+                const icon = hasChildren ? '📁' : '📄';
+                
+                li.innerHTML = `
+                    <span style="margin-right: 5px;">${icon}</span>
+                    <span>${node.nombre}</span>
+                    <span style="color: #666; font-size: 12px;">(${node.funciones.length} funciones)</span>
+                `;
+                
+                li.onclick = () => {
+                    log(`Nodo seleccionado: ${node.nombre}`);
+                    showStatus(`Seleccionado: ${node.nombre}`, 'success');
+                };
+
+                ul.appendChild(li);
+
+                // Renderizar hijos si existen
+                if (hasChildren) {
+                    const childUl = document.createElement('ul');
+                    childUl.style.listStyle = 'none';
+                    childUl.style.paddingLeft = '20px';
+                    childUl.style.display = 'none';
+                    
+                    node.children.forEach(child => {
+                        const childLi = document.createElement('li');
+                        childLi.className = 'tree-node';
+                        childLi.setAttribute('data-key', child.key);
+                        childLi.innerHTML = `
+                            <span style="margin-right: 5px;">📄</span>
+                            <span>${child.nombre}</span>
+                            <span style="color: #666; font-size: 12px;">(${child.funciones.length} funciones)</span>
+                        `;
+                        childLi.onclick = () => {
+                            log(`Nodo hijo seleccionado: ${child.nombre}`);
+                            showStatus(`Seleccionado: ${child.nombre}`, 'success');
+                        };
+                        childUl.appendChild(childLi);
+                    });
+                    
+                    ul.appendChild(childUl);
+                    
+                    // Toggle para expandir/colapsar
+                    li.onclick = (e) => {
+                        e.stopPropagation();
+                        const isVisible = childUl.style.display !== 'none';
+                        childUl.style.display = isVisible ? 'none' : 'block';
+                        li.querySelector('span').textContent = isVisible ? '📁' : '📂';
+                        log(`${isVisible ? 'Colapsado' : 'Expandido'}: ${node.nombre}`);
+                    };
+                }
+            });
+
+            container.appendChild(ul);
+            log(`Árbol renderizado: ${nodes.length} nodos principales`);
+        }
+
+        // Función para cargar datos de prueba
+        function loadTestData() {
+            log('Cargando datos de prueba...');
+            STATE.data = testData;
+            STATE.treeRoots = buildTree(testData);
+            showStatus(`Datos cargados: ${testData.length} registros`, 'success');
+            log('Datos de prueba cargados exitosamente');
+        }
+
+        // Función para probar renderizado
+        function testRenderTree() {
+            log('Probando renderizado...');
+            const container = document.getElementById('tree-container');
+            
+            if (!STATE.treeRoots || STATE.treeRoots.length === 0) {
+                showStatus('No hay datos para renderizar. Carga datos primero.', 'error');
+                log('Error: No hay datos para renderizar');
+                return;
+            }
+
+            try {
+                renderTree(STATE.treeRoots, container);
+                showStatus('Árbol renderizado exitosamente', 'success');
+            } catch (error) {
+                showStatus(`Error al renderizar: ${error.message}`, 'error');
+                log(`Error al renderizar: ${error.message}`);
+            }
+        }
+
+        // Función para limpiar árbol
+        function clearTree() {
+            log('Limpiando árbol...');
+            const container = document.getElementById('tree-container');
+            container.innerHTML = '<p>El árbol aparecerá aquí...</p>';
+            STATE.treeRoots = [];
+            showStatus('Árbol limpiado', 'success');
+        }
+
+        // Inicialización
+        log('Página de prueba inicializada');
+        showStatus('Listo para pruebas', 'success');
+    </script>
+</body>
+</html> 

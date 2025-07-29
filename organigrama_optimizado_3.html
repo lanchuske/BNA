@@ -1340,7 +1340,24 @@
                 container.innerHTML = '';
                 const ul = document.createElement('ul');
                 ul.className = 'tree-list';
-                nodes.forEach(node => this.renderNode(node, ul));
+                
+                nodes.forEach(node => {
+                    const li = document.createElement('li');
+                    li.className = 'tree-node';
+                    li.setAttribute('data-key', node.key);
+                    
+                    const hasChildren = node.children && node.children.length > 0;
+                    const icon = hasChildren ? '📁' : '📄';
+                    
+                    li.innerHTML = `
+                        <span class="node-icon">${icon}</span>
+                        <span class="node-name">${node.nombre}</span>
+                        <span style="color: #666; font-size: 12px;">(${node.funciones.length} funciones)</span>
+                    `;
+                    
+                    ul.appendChild(li);
+                });
+                
                 container.appendChild(ul);
             },
             
@@ -1463,9 +1480,14 @@
                         childrenContainer.style.marginLeft = `${(level + 1) * 20}px`;
                         
                         node.children.forEach(child => {
-                            this.renderNode(child, childrenContainer, level + 1);
+                            const childLi = this.renderNode(child, childrenContainer, level + 1);
+                            if (childLi) childrenContainer.appendChild(childLi);
                         });
+                        
+                        li.appendChild(childrenContainer);
                     }
+                    
+                    return li;
                 },
 
                 // Nueva función para mostrar indicadores de reordenamiento
@@ -1490,9 +1512,6 @@
                     
                     node.classList.add('drag-over');
                 },
-                
-                container.appendChild(li);
-            },
             
             toggleNode(nodeKey) {
                 const isExpanded = STATE.expandedNodes[nodeKey];
