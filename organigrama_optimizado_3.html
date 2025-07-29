@@ -682,6 +682,269 @@
             font-style: italic;
         }
     </style>
+    <style>
+        /* Estilos mejorados para drag & drop */
+        .tree-node {
+            position: relative;
+            padding: 8px 12px;
+            margin: 2px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .tree-node:hover {
+            background: #f8f9fa;
+            border-color: #007bff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .tree-node.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .tree-node.drag-over {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            border-style: dashed;
+            transform: scale(1.02);
+        }
+
+        .tree-node.drag-over::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px dashed #2196f3;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .drag-handle:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+            color: #495057;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+            background: #dee2e6;
+        }
+
+        .node-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            gap: 8px;
+        }
+
+        .node-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .tree-node:hover .node-actions {
+            opacity: 1;
+        }
+
+        .edit-mode .tree-node {
+            border-left: 4px solid #28a745;
+        }
+
+        .edit-mode .tree-node:hover {
+            border-left-color: #20c997;
+        }
+
+        /* Indicadores visuales para reordenamiento */
+        .reorder-indicator {
+            position: absolute;
+            height: 3px;
+            background: #28a745;
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 1001;
+            transition: all 0.2s ease;
+        }
+
+        .reorder-indicator.top {
+            top: -2px;
+            left: 0;
+            right: 0;
+        }
+
+        .reorder-indicator.bottom {
+            bottom: -2px;
+            left: 0;
+            right: 0;
+        }
+
+        /* Mejoras en botones */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        /* Mejoras en el contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Mejoras en el árbol */
+        .tree-container {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .tree-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tree-list .tree-list {
+            margin-left: 20px;
+            border-left: 2px solid #e9ecef;
+            padding-left: 15px;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tree-node {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Tooltips para mejor UX */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -1085,6 +1348,7 @@
                 const li = document.createElement('li');
                 li.className = 'tree-node';
                 li.setAttribute('data-key', node.key);
+                li.draggable = Editor.isEditMode;
                 
                 const hasChildren = node.children && node.children.length > 0;
                 const isExpanded = STATE.expandedNodes[node.key];
@@ -1097,17 +1361,20 @@
                 const icon = hasChildren ? (isExpanded ? '📂' : '📁') : '📄';
                 const toggleIcon = hasChildren ? (isExpanded ? '[–]' : '[+]') : '';
                 
-                // Controles de edición (solo en modo edición)
-                const editControls = Editor.isEditMode ? `
-                    <div class="edit-controls">
-                        <span class="drag-handle" draggable="true" title="Arrastrar">⋮⋮</span>
-                        <button class="edit-btn" onclick="event.stopPropagation(); Editor.editUnit(${JSON.stringify(node)})" title="Editar">✏️</button>
-                        <button class="delete-btn edit-btn" onclick="event.stopPropagation(); Editor.deleteUnit('${node.key}')" title="Eliminar">🗑️</button>
-                    </div>
-                ` : '';
+                // Controles de edición mejorados (solo en modo edición)
+                let editControls = '';
+                if (Editor.isEditMode) {
+                    editControls = `
+                        <div class="node-actions">
+                            <span class="drag-handle tooltip" data-tooltip="Arrastrar para reordenar" title="Arrastrar para reordenar">⋮⋮</span>
+                            <button class="btn btn-warning tooltip" data-tooltip="Editar unidad" onclick="event.stopPropagation(); Editor.editUnit(${JSON.stringify(node)})" title="Editar">✏️</button>
+                            <button class="btn btn-danger tooltip" data-tooltip="Eliminar unidad" onclick="event.stopPropagation(); Editor.deleteUnit('${node.key}')" title="Eliminar">🗑️</button>
+                        </div>
+                    `;
+                }
                 
                 nodeContent.innerHTML = `
-                    <span class="node-toggle" onclick="event.stopPropagation(); toggleNode('${node.key}')">
+                    <span class="node-toggle tooltip" data-tooltip="${hasChildren ? (isExpanded ? 'Colapsar' : 'Expandir') : ''}" onclick="event.stopPropagation(); toggleNode('${node.key}')">
                         ${toggleIcon}
                     </span>
                     <span class="node-icon">${icon}</span>
@@ -1115,32 +1382,45 @@
                     ${editControls}
                 `;
                 
-                // Configurar drag & drop
+                // Configurar drag & drop mejorado
                 if (Editor.isEditMode) {
-                    const dragHandle = nodeContent.querySelector('.drag-handle');
-                    if (dragHandle) {
-                        dragHandle.addEventListener('dragstart', (e) => {
-                            e.dataTransfer.setData('text/plain', node.key);
-                            li.classList.add('dragging');
-                        });
-                        
-                        dragHandle.addEventListener('dragend', () => {
-                            li.classList.remove('dragging');
-                        });
-                    }
+                    li.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', node.key);
+                        e.dataTransfer.effectAllowed = 'move';
+                        li.classList.add('dragging');
+                        console.log('🎯 Drag iniciado:', node.key);
+                    });
+                    
+                    li.addEventListener('dragend', (e) => {
+                        li.classList.remove('dragging');
+                        // Limpiar indicadores
+                        document.querySelectorAll('.reorder-indicator').forEach(ind => ind.remove());
+                        console.log('✅ Drag terminado:', node.key);
+                    });
                     
                     li.addEventListener('dragover', (e) => {
                         e.preventDefault();
-                        li.classList.add('drag-over');
+                        e.dataTransfer.dropEffect = 'move';
+                        
+                        // Mostrar indicador de posición
+                        this.showReorderIndicator(li, e);
                     });
                     
-                    li.addEventListener('dragleave', () => {
+                    li.addEventListener('dragleave', (e) => {
                         li.classList.remove('drag-over');
+                        // Limpiar indicadores si no estamos sobre el nodo
+                        if (!li.contains(e.relatedTarget)) {
+                            li.querySelectorAll('.reorder-indicator').forEach(ind => ind.remove());
+                        }
                     });
                     
                     li.addEventListener('drop', (e) => {
                         e.preventDefault();
                         li.classList.remove('drag-over');
+                        
+                        // Limpiar indicadores
+                        li.querySelectorAll('.reorder-indicator').forEach(ind => ind.remove());
+                        
                         const draggedKey = e.dataTransfer.getData('text/plain');
                         if (draggedKey !== node.key) {
                             // Determinar si es reordenamiento o movimiento
@@ -1151,7 +1431,7 @@
                             const normalizedDraggedParent = draggedParent || null;
                             const normalizedTargetParent = targetParent || null;
                             
-                            console.log('Drop detectado:', {
+                            console.log('🎯 Drop detectado:', {
                                 draggedKey,
                                 targetKey: node.key,
                                 draggedName,
@@ -1162,11 +1442,11 @@
                             
                             // Verificar si están en el mismo nivel (mismo padre)
                             if (normalizedDraggedParent === normalizedTargetParent) {
-                                console.log('Reordenamiento en el mismo nivel');
+                                console.log('🔄 Reordenamiento en el mismo nivel');
                                 // Reordenamiento en el mismo nivel
                                 Editor.reorderUnit(draggedKey, node.key, 'after');
                             } else {
-                                console.log('Movimiento a diferente nivel');
+                                console.log('📦 Movimiento a diferente nivel');
                                 // Movimiento a diferente nivel
                                 Editor.moveUnit(draggedKey, node.key);
                             }
@@ -1174,20 +1454,42 @@
                     });
                 }
                 
-                li.appendChild(nodeContent);
-                
-                // Hijos expandidos
-                if (hasChildren && isExpanded) {
-                    const childrenContainer = document.createElement('ul');
-                    childrenContainer.className = 'tree-children';
-                    childrenContainer.style.marginLeft = `${(level + 1) * 20}px`;
+                                    li.appendChild(nodeContent);
                     
-                    node.children.forEach(child => {
-                        this.renderNode(child, childrenContainer, level + 1);
-                    });
+                    // Hijos expandidos
+                    if (hasChildren && isExpanded) {
+                        const childrenContainer = document.createElement('ul');
+                        childrenContainer.className = 'tree-children';
+                        childrenContainer.style.marginLeft = `${(level + 1) * 20}px`;
+                        
+                        node.children.forEach(child => {
+                            this.renderNode(child, childrenContainer, level + 1);
+                        });
+                    }
+                },
+
+                // Nueva función para mostrar indicadores de reordenamiento
+                showReorderIndicator(node, event) {
+                    // Limpiar indicadores existentes
+                    node.querySelectorAll('.reorder-indicator').forEach(ind => ind.remove());
                     
-                    li.appendChild(childrenContainer);
-                }
+                    const rect = node.getBoundingClientRect();
+                    const mouseY = event.clientY;
+                    const nodeCenterY = rect.top + rect.height / 2;
+                    
+                    const indicator = document.createElement('div');
+                    indicator.className = 'reorder-indicator';
+                    
+                    if (mouseY < nodeCenterY) {
+                        indicator.classList.add('top');
+                        node.insertBefore(indicator, node.firstChild);
+                    } else {
+                        indicator.classList.add('bottom');
+                        node.appendChild(indicator);
+                    }
+                    
+                    node.classList.add('drag-over');
+                },
                 
                 container.appendChild(li);
             },
