@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Rediseño Vertical - Organigrama</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: #f5f5f5; 
+        }
+        
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        
+        .header { 
+            padding: 20px; 
+            border-bottom: 1px solid #eee; 
+            text-align: center;
+        }
+        
+        .controls { 
+            padding: 20px; 
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+        
+        .btn { 
+            padding: 12px 20px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+        
+        .btn-primary { 
+            background: #007bff; 
+            color: white; 
+        }
+        
+        .btn-success { 
+            background: #28a745; 
+            color: white; 
+        }
+        
+        .btn-warning { 
+            background: #ffc107; 
+            color: #212529; 
+        }
+        
+        .main-content {
+            display: flex; 
+            flex-direction: column;
+            height: 70vh;
+            gap: 20px;
+        }
+        
+        .tree-container { 
+            width: 100%; 
+            border-bottom: 2px solid #eee; 
+            overflow-y: auto; 
+            padding: 20px; 
+            background: #fafafa;
+            border-radius: 8px;
+            max-height: 40vh;
+            min-height: 200px;
+        }
+        
+        .content-area { 
+            flex: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tree-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .tree-node { 
+            cursor: pointer; 
+            padding: 15px 20px; 
+            margin: 5px; 
+            border-radius: 8px; 
+            border: 2px solid #e0e0e0;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            min-width: 180px;
+            max-width: 250px;
+            min-height: 80px;
+            position: relative;
+        }
+        
+        .tree-node:hover { 
+            background: #f8f9fa; 
+            border-color: #007bff;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        
+        .tree-node.selected { 
+            background: #e3f2fd; 
+            border-color: #2196f3;
+            box-shadow: 0 6px 16px rgba(33, 150, 243, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .node-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .node-content:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .node-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .node-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.3;
+            text-align: center;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+        
+        .node-function-count {
+            background: #f8f9fa;
+            color: #666;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+            border: 1px solid #e9ecef;
+            margin-top: 5px;
+        }
+        
+        .tree-children {
+            display: none;
+        }
+        
+        .tree-toggle {
+            display: none;
+        }
+        
+        .tree-navigation-info {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1976d2;
+            text-align: center;
+        }
+        
+        .tree-navigation-info h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .tree-navigation-info p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        
+        .unidad-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .unidad-header h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .unidad-stats {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .unidad-stats p {
+            margin: 5px 0;
+            font-weight: 500;
+        }
+        
+        .function-item { 
+            border: 1px solid #e0e0e0; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 8px; 
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .function-type { 
+            display: inline-block; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: 500; 
+            text-transform: uppercase; 
+            border: none; 
+        }
+        
+        .type-generica { 
+            background: #e3f2fd; 
+            color: #1976d2; 
+        }
+        
+        .type-especifica { 
+            background: #f3e5f5; 
+            color: #7b1fa2; 
+        }
+        
+        .type-indicador { 
+            background: #e8f5e8; 
+            color: #388e3c; 
+        }
+        
+        .alert { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+        }
+        
+        .alert-success { 
+            background: #d4edda; 
+            color: #155724; 
+            border: 1px solid #c3e6cb; 
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .hidden { 
+            display: none; 
+        }
+        
+        @media (max-width: 768px) {
+            .tree-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tree-node {
+                min-width: 200px;
+                max-width: 300px;
+            }
+            
+            .main-content {
+                height: auto;
+                min-height: 70vh;
+            }
+            
+            .tree-container {
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Prueba Rediseño Vertical - Organigrama</h1>
+            <p>Verificando que los cambios del rediseño vertical están correctamente aplicados</p>
+        </div>
+        
+        <div class="controls">
+            <button id="ejecutarPrueba" class="btn btn-primary">🧪 Ejecutar Prueba Completa</button>
+            <button id="cargarDatosEjemplo" class="btn btn-success">📊 Cargar Datos de Ejemplo</button>
+            <button id="verificarLayout" class="btn btn-warning">📐 Verificar Layout</button>
+        </div>
+
+        <div class="main-content">
+            <div id="tree-container" class="tree-container">
+                <div style="text-align: center; padding: 20px; color: #666;">
+                    <h3>📊 Organigrama</h3>
+                    <p>Cargue datos de ejemplo para ver el organigrama</p>
+                </div>
+            </div>
+            <div id="unidad-content" class="content-area">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    <h3>📋 Detalles de la Unidad</h3>
+                    <p>Seleccione una unidad del organigrama para ver sus detalles y funciones</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="resultados" class="alert hidden"></div>
+    </div>
+
+    <script>
+        // Simulación de datos de ejemplo
+        const datosEjemplo = [
+            {
+                'Unidad Organizativa': 'Gerencia General',
+                'Reporta A': '',
+                'Misión': 'Dirigir la organización estratégicamente',
+                'Tipo de Función': 'Genérica',
+                'Descripción': 'Función de dirección general',
+                'Producto Final': 'Dirección estratégica',
+                'Porcentaje Dedicación': '100%'
+            },
+            {
+                'Unidad Organizativa': 'Recursos Humanos',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Gestionar el capital humano',
+                'Tipo de Función': 'Específica',
+                'Descripción': 'Gestión de personal y desarrollo',
+                'Producto Final': 'Personal capacitado',
+                'Porcentaje Dedicación': '80%'
+            },
+            {
+                'Unidad Organizativa': 'Finanzas',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Administrar recursos financieros',
+                'Tipo de Función': 'Específica',
+                'Descripción': 'Control financiero y contable',
+                'Producto Final': 'Estados financieros',
+                'Porcentaje Dedicación': '90%'
+            },
+            {
+                'Unidad Organizativa': 'Tecnología',
+                'Reporta A': 'Gerencia General',
+                'Misión': 'Gestionar sistemas tecnológicos',
+                'Tipo de Función': 'Específica',
+                'Descripción': 'Desarrollo y mantenimiento IT',
+                'Producto Final': 'Sistemas operativos',
+                'Porcentaje Dedicación': '85%'
+            }
+        ];
+
+        // Simulación del estado global
+        const STATE = {
+            data: [],
+            treeRoots: [],
+            groupedData: {}
+        };
+
+        // Función para procesar datos de ejemplo
+        function procesarDatosEjemplo() {
+            STATE.data = datosEjemplo;
+            
+            // Simular agrupación por unidad
+            const grouped = {};
+            datosEjemplo.forEach(row => {
+                const unidad = row['Unidad Organizativa'];
+                if (!grouped[unidad]) grouped[unidad] = [];
+                grouped[unidad].push(row);
+            });
+            STATE.groupedData = grouped;
+            
+            // Crear nodos raíz
+            STATE.treeRoots = Object.entries(grouped).map(([nombre, funciones]) => ({
+                key: nombre,
+                nombre: nombre,
+                funciones: funciones,
+                children: []
+            }));
+            
+            return STATE.treeRoots;
+        }
+
+        // Función para renderizar el árbol
+        function renderizarArbol(nodes) {
+            const container = document.getElementById('tree-container');
+            container.innerHTML = '';
+            
+            // Agregar información de navegación
+            const navInfo = document.createElement('div');
+            navInfo.className = 'tree-navigation-info';
+            navInfo.innerHTML = `
+                <h4>📊 Organigrama - Unidades Principales</h4>
+                <p><strong>Unidades principales:</strong> ${nodes.length}</p>
+                <p><strong>Total unidades:</strong> ${nodes.length}</p>
+                <p><strong>Total funciones:</strong> ${nodes.reduce((sum, node) => sum + (node.funciones ? node.funciones.length : 0), 0)}</p>
+                <p><strong>Nivel máximo:</strong> 1</p>
+            `;
+            container.appendChild(navInfo);
+            
+            // Crear lista de tarjetas
+            const ul = document.createElement('ul');
+            ul.className = 'tree-list';
+            
+            nodes.forEach(node => {
+                const li = document.createElement('li');
+                li.className = 'tree-node';
+                li.setAttribute('data-key', node.key);
+                
+                const functionCount = node.funciones ? node.funciones.length : 0;
+                const icon = functionCount > 0 ? '🏢' : '📄';
+                const functionCountHtml = functionCount > 0 ? 
+                    `<span class="node-function-count">${functionCount} func.</span>` : '';
+                
+                const displayName = node.nombre.length > 20 ? 
+                    node.nombre.substring(0, 17) + '...' : node.nombre;
+                
+                li.innerHTML = `
+                    <div class="node-content">
+                        <span class="node-icon">${icon}</span>
+                        <span class="node-name" title="${node.nombre}">${displayName}</span>
+                        ${functionCountHtml}
+                    </div>
+                `;
+                
+                // Agregar evento de clic
+                li.querySelector('.node-content').onclick = () => seleccionarUnidad(node);
+                
+                ul.appendChild(li);
+            });
+            
+            container.appendChild(ul);
+        }
+
+        // Función para seleccionar unidad
+        function seleccionarUnidad(node) {
+            // Limpiar selección anterior
+            document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
+            
+            // Seleccionar nodo actual
+            const selectedElement = document.querySelector(`[data-key="${node.key}"]`);
+            if (selectedElement) {
+                selectedElement.classList.add('selected');
+            }
+            
+            // Mostrar detalles
+            mostrarDetallesUnidad(node);
+        }
+
+        // Función para mostrar detalles
+        function mostrarDetallesUnidad(node) {
+            const container = document.getElementById('unidad-content');
+            
+            if (node.funciones && node.funciones.length > 0) {
+                const unidad = node.funciones[0];
+                
+                container.innerHTML = `
+                    <div class="unidad-header">
+                        <h2>${unidad['Unidad Organizativa']}</h2>
+                        ${unidad['Misión'] ? `<p><strong>Misión:</strong> ${unidad['Misión']}</p>` : ''}
+                        ${unidad['Reporta A'] ? `<p><strong>Reporta a:</strong> ${unidad['Reporta A']}</p>` : ''}
+                    </div>
+                    <div class="unidad-stats">
+                        <p><strong>Total funciones:</strong> ${node.funciones.length}</p>
+                        <p><strong>Tipo de funciones:</strong> ${getTiposFunciones(node.funciones)}</p>
+                    </div>
+                    <div class="functions-container">
+                        ${node.funciones.map((func, index) => {
+                            const tipo = func['Tipo de Función'] || 'Genérica';
+                            return `
+                                <div class="function-item">
+                                    <div class="function-content">
+                                        <span class="function-type type-${tipo.toLowerCase()}">
+                                            ${tipo}
+                                        </span>
+                                        <h4>${func['Descripción'] || 'Sin descripción'}</h4>
+                                        ${func['Producto Final'] ? `<p><strong>Producto Final:</strong> ${func['Producto Final']}</p>` : ''}
+                                        ${func['Porcentaje Dedicación'] ? `<p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación']}</p>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="unidad-header">
+                        <h2>${node.nombre}</h2>
+                    </div>
+                    <div class="unidad-stats">
+                        <p><strong>Esta unidad no tiene funciones asignadas</strong></p>
+                        <p>Seleccione otra unidad para ver sus funciones</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Función para obtener tipos de funciones
+        function getTiposFunciones(funciones) {
+            const types = {};
+            funciones.forEach(func => {
+                const tipo = func['Tipo de Función'] || 'Genérica';
+                types[tipo] = (types[tipo] || 0) + 1;
+            });
+            return Object.entries(types).map(([tipo, count]) => `${tipo}: ${count}`).join(', ');
+        }
+
+        // Event listeners
+        document.getElementById('cargarDatosEjemplo').addEventListener('click', function() {
+            const nodes = procesarDatosEjemplo();
+            renderizarArbol(nodes);
+            mostrarResultado('✅ Datos de ejemplo cargados correctamente', 'success');
+        });
+
+        document.getElementById('ejecutarPrueba').addEventListener('click', function() {
+            // Cargar datos primero si no están cargados
+            if (STATE.treeRoots.length === 0) {
+                procesarDatosEjemplo();
+                renderizarArbol(STATE.treeRoots);
+            }
+            
+            // Ejecutar pruebas después de un breve delay
+            setTimeout(() => {
+                if (window.PruebaRedisenoVertical) {
+                    window.PruebaRedisenoVertical.ejecutarPruebaCompleta();
+                } else {
+                    mostrarResultado('⚠️ Script de pruebas no disponible', 'warning');
+                }
+            }, 500);
+        });
+
+        document.getElementById('verificarLayout').addEventListener('click', function() {
+            const mainContent = document.querySelector('.main-content');
+            const computedStyle = window.getComputedStyle(mainContent);
+            const flexDirection = computedStyle.flexDirection;
+            
+            if (flexDirection === 'column') {
+                mostrarResultado('✅ Layout vertical correcto', 'success');
+            } else {
+                mostrarResultado('❌ Layout no es vertical', 'warning');
+            }
+        });
+
+        function mostrarResultado(mensaje, tipo) {
+            const resultados = document.getElementById('resultados');
+            resultados.textContent = mensaje;
+            resultados.className = `alert alert-${tipo}`;
+            resultados.classList.remove('hidden');
+            
+            setTimeout(() => {
+                resultados.classList.add('hidden');
+            }, 3000);
+        }
+
+        console.log('🧪 Página de prueba cargada. Use los botones para verificar el rediseño vertical.');
+    </script>
+    
+    <!-- Incluir el script de pruebas -->
+    <script src="prueba_rediseno_vertical.js"></script>
+</body>
+</html>

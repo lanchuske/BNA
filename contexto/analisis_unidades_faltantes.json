@@ -1,0 +1,50 @@
+{
+  "fecha": "2025-07-29T15:31:28.144Z",
+  "unidadesFaltantes": [
+    "Coordinacion del Negocio",
+    "Customer ingigth",
+    "Experiencia al cliente",
+    "Gestin operativa sucursales",
+    "Gestion Comercial",
+    "REginales"
+  ],
+  "recomendaciones": [
+    {
+      "unidadFaltante": "Coordinacion del Negocio",
+      "recomendacion": "Posible duplicado o variación de \"Coordinación Del Negocio Y Datos\"",
+      "unidadSugerida": "Coordinación Del Negocio Y Datos",
+      "accion": "Verificar si es la misma unidad con nombre ligeramente diferente"
+    },
+    {
+      "unidadFaltante": "Customer ingigth",
+      "recomendacion": "Posible variación de \"Customer Insights & Analytics\"",
+      "unidadSugerida": "Customer Insights & Analytics",
+      "accion": "Verificar si es la misma unidad con nombre corregido"
+    },
+    {
+      "unidadFaltante": "Experiencia al cliente",
+      "recomendacion": "Posible nueva unidad o variación de funciones existentes",
+      "unidadSugerida": null,
+      "accion": "Evaluar si debe agregarse como nueva unidad o integrarse en funciones existentes"
+    },
+    {
+      "unidadFaltante": "Gestin operativa sucursales",
+      "recomendacion": "Posible variación de funciones operativas existentes",
+      "unidadSugerida": null,
+      "accion": "Evaluar si debe agregarse como nueva unidad o integrarse en funciones de Canales"
+    },
+    {
+      "unidadFaltante": "Gestion Comercial",
+      "recomendacion": "Posible variación de funciones comerciales existentes",
+      "unidadSugerida": null,
+      "accion": "Evaluar si debe agregarse como nueva unidad o integrarse en funciones de Segmentos"
+    },
+    {
+      "unidadFaltante": "REginales",
+      "recomendacion": "Posible variación de \"Regionales\"",
+      "unidadSugerida": "Regionales",
+      "accion": "Verificar si es la misma unidad con nombre ligeramente diferente"
+    }
+  ],
+  "resumen": "Se analizaron 6 unidades faltantes y se generaron 6 recomendaciones"
+}

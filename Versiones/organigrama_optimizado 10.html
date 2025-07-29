@@ -1,0 +1,3240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magna Partners - Analizador de Organigramas</title>
+    <!-- Librería para exportación a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Estilos básicos optimizados */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { padding: 20px; border-bottom: 1px solid #eee; }
+        .controls { padding: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .btn:active { transform: translateY(0); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
+        .btn-success { background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%); color: white; }
+        .btn-success:hover { background: linear-gradient(135deg, #4a9a23 0%, #97d5b8 100%); }
+        .btn-warning { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
+        .btn-warning:hover { background: linear-gradient(135deg, #e085e8 0%, #e54b5f 100%); }
+        .btn-danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; }
+        .btn-danger:hover { background: linear-gradient(135deg, #ff5252 0%, #e64a19 100%); }
+        .btn-info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .btn-info:hover { background: linear-gradient(135deg, #4a9bfe 0%, #00e6f2 100%); }
+        .btn-secondary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-secondary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
+        .main-content { display: flex; height: 600px; }
+        .tree-container { width: 300px; border-right: 1px solid #eee; overflow-y: auto; padding: 20px; }
+        .content-area { flex: 1; padding: 20px; overflow-y: auto; }
+        .tree-node { cursor: pointer; padding: 5px; margin: 2px 0; border-radius: 4px; }
+        .tree-node:hover { background: #f8f9fa; }
+        .tree-node.selected { background: #007bff; color: white; }
+        .tree-toggle { margin-right: 5px; }
+        .alert { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .hidden { display: none; }
+        .function-item { 
+            border: none; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 0; 
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        
+        .function-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .function-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+        
+        .function-drag-handle {
+            cursor: grab;
+            color: #666;
+            font-size: 18px;
+            user-select: none;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .function-drag-handle:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        
+        .function-content {
+            flex: 1;
+        }
+        
+        .functions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .function-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        
+        .functions-container {
+            min-height: 200px;
+        }
+        
+        .functions-container.drag-mode .function-item {
+            border: 2px dashed #007bff;
+            background-color: #f8f9fa;
+        }
+        .function-type { display: inline-block; padding: 2px 8px; border-radius: 0; font-size: 11px; font-weight: 500; text-transform: uppercase; border: none; }
+        .type-generica { background: #e3f2fd; color: #1976d2; }
+        .type-especifica { background: #f3e5f5; color: #7b1fa2; }
+        .type-indicador { background: #e8f5e8; color: #388e3c; }
+        
+        /* Estilos para modo edición */
+        .edit-mode-btn.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Estilos para grupos de botones */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .controls {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        /* Estilos para header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+    <style>
+            /* ===== ESTILOS OPTIMIZADOS CON JERARQUÍAS ===== */
+            .tree-container {
+                max-height: 70vh;
+                overflow-y: auto;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 15px;
+                background: #fafafa;
+            }
+            
+            .tree-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .tree-children {
+                list-style: none;
+                padding-left: 25px;
+                margin: 5px 0;
+                border-left: 2px solid #e0e0e0;
+            }
+            
+            .tree-node {
+                margin: 2px 0;
+                padding: 4px 8px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                border: none;
+            }
+            
+            .tree-node:hover {
+                background-color: #f5f5f5;
+            }
+            
+            .tree-node.selected {
+                background-color: #e3f2fd;
+                border: none;
+            }
+            
+            .node-content {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                border: none;
+            }
+            
+            .node-content:hover {
+                background-color: #f0f8ff;
+            }
+            
+            .node-toggle {
+                font-family: monospace;
+                font-weight: bold;
+                color: #666;
+                cursor: pointer;
+                user-select: none;
+                min-width: 20px;
+                text-align: center;
+                border: none;
+                background: none;
+            }
+            
+            .node-toggle:hover {
+                color: #2196f3;
+            }
+            
+            .node-icon {
+                font-size: 16px;
+            }
+            
+            .node-name {
+                font-weight: 500;
+                color: #333;
+                flex: 1;
+            }
+            
+            .hierarchy-info {
+                font-size: 12px;
+                color: #666;
+                font-style: italic;
+            }
+            
+            .func-count {
+                font-size: 12px;
+                color: #888;
+                background: none;
+                padding: 2px 6px;
+                border-radius: 0;
+                font-weight: 500;
+                border: none;
+            }
+            
+            .tree-children {
+                list-style: none;
+                padding-left: 0;
+                margin: 4px 0;
+                border-left: none;
+                margin-left: 20px;
+            }
+            
+            .tree-children .tree-children {
+                border-left: none;
+            }
+            
+            .unidad-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .unidad-header h2 {
+                margin: 0 0 10px 0;
+                font-size: 24px;
+            }
+            
+            .unidad-header p {
+                margin: 5px 0;
+                opacity: 0.9;
+            }
+            
+            .unidad-stats {
+                background: #f8f9fa;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border-left: 4px solid #2196f3;
+            }
+            
+            .unidad-stats p {
+                margin: 5px 0;
+                font-weight: 500;
+            }
+            
+            .function-item {
+                background: white;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 15px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+            
+            .function-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            }
+            
+            .function-type {
+                display: inline-block;
+                padding: 2px 8px;
+                border-radius: 0;
+                font-size: 11px;
+                font-weight: 500;
+                text-transform: uppercase;
+                border: none;
+            }
+            
+            .type-genérica {
+                background: none;
+                color: #1976d2;
+            }
+            
+            .type-específica {
+                background: none;
+                color: #388e3c;
+            }
+            
+            .type-indicador {
+                background: none;
+                color: #f57c00;
+            }
+            
+            .function-item h4 {
+                margin: 10px 0;
+                color: #333;
+                font-size: 16px;
+            }
+            
+            .function-item p {
+                margin: 8px 0;
+                color: #666;
+                font-size: 14px;
+            }
+            
+            .subunidad-item {
+                background: #f8f9fa;
+                border: 1px solid #dee2e6;
+                border-radius: 6px;
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .subunidad-item h4 {
+                margin: 0 0 8px 0;
+                color: #495057;
+                font-size: 16px;
+            }
+            
+            .subunidad-item p {
+                margin: 4px 0;
+                color: #6c757d;
+                font-size: 13px;
+            }
+            
+            .content-area {
+                background: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+            
+            .alert {
+                padding: 12px 16px;
+                border-radius: 6px;
+                margin: 10px 0;
+                font-weight: 500;
+            }
+            
+            .alert.success {
+                background: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            
+            .alert.warning {
+                background: #fff3cd;
+                color: #856404;
+                border: 1px solid #ffeaa7;
+            }
+            
+            .alert.error {
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+            
+            .hidden {
+                display: none !important;
+            }
+            
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .main-content {
+                    flex-direction: column;
+                }
+                
+                .tree-container, .content-area {
+                    max-height: 50vh;
+                }
+                
+                .tree-children {
+                    padding-left: 15px;
+                }
+                
+                .unidad-header {
+                    padding: 15px;
+                }
+                
+                .unidad-header h2 {
+                    font-size: 20px;
+                }
+            }
+            .type-stats {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .type-stat {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 1px solid #e0e0e0;
+            }
+            
+            .stat-count {
+                font-size: 12px;
+                color: #666;
+                font-weight: 500;
+            }
+            
+            .function-item em {
+                color: #666;
+                font-style: italic;
+                font-size: 13px;
+            }
+            .subunidad-item.clickable {
+                cursor: pointer;
+                transition: all 0.2s ease;
+                position: relative;
+                border: none;
+            }
+            
+            .subunidad-item.clickable:hover {
+                background-color: #f8f9fa;
+                border: none;
+                transform: translateX(5px);
+            }
+            
+            .subunidad-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+            
+            .subunidad-header h4 {
+                margin: 0;
+                color: #333;
+                font-size: 16px;
+            }
+            
+            .subunidad-details {
+                margin-bottom: 8px;
+            }
+            
+            .navigate-icon {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #2196f3;
+                font-size: 18px;
+                font-weight: bold;
+                opacity: 0.7;
+                transition: opacity 0.2s ease;
+            }
+            
+            .subunidad-item.clickable:hover .navigate-icon {
+                opacity: 1;
+            }
+            
+            .hierarchy-navigation {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hierarchy-info {
+                background: none;
+                border: none;
+                border-radius: 0;
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .hierarchy-info h4 {
+                margin: 0 0 8px 0;
+                color: #1976d2;
+                font-size: 14px;
+            }
+            
+            .hierarchy-info p {
+                margin: 4px 0;
+                font-size: 13px;
+                color: #666;
+            }
+    </style>
+    <style>
+        .alert.hidden { display: none; }
+        
+        /* Estilos para el modal de historial */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            text-align: right;
+        }
+        
+        .history-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .history-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .history-item.selected {
+            background: #2196f3;
+            color: white;
+            border-color: #1976d2;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .history-action {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .history-item.selected .history-action {
+            color: white;
+        }
+        
+        .history-time {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .history-item.selected .history-time {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .history-details {
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .history-item.selected .history-details {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .history-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .undo-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        
+        .undo-btn:hover {
+            background: #c82333;
+        }
+        
+        .undo-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .no-history {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Magna Partners - Analizador de Organigramas</h1>
+        </header>
+        
+        <div class="controls">
+            <input type="file" id="fileInput" accept=".csv,.json" class="hidden">
+            <div class="button-group">
+                <button id="browseBtn" class="btn btn-primary">📁 Cargar Archivo</button>
+                <button id="exportBtn" class="btn btn-success">📤 Exportar JSON</button>
+                <button id="validateBtn" class="btn btn-warning">🔍 Validar Datos</button>
+                <button onclick="Importer.loadSavedData()" class="btn btn-info">📂 Cargar Datos Guardados</button>
+                <button onclick="Importer.clearSavedData()" class="btn btn-secondary">🗑️ Limpiar Datos</button>
+            </div>
+            <div class="button-group">
+                <button onclick="Editor.createNewUnit()" class="btn btn-primary">➕ Crear Unidad</button>
+                <button onclick="toggleEditMode()" class="btn btn-secondary edit-mode-btn">✏️ Modo Edición</button>
+                <button onclick="PDFExporter.exportToPDF()" class="btn btn-danger">📄 Exportar PDF</button>
+                <button onclick="UndoManager.showHistory()" class="btn btn-warning">↶ Historial (10)</button>
+            </div>
+            <div id="saveIndicator" class="alert hidden"></div>
+        </div>
+
+        <div class="main-content">
+            <div id="tree-container" class="tree"></div>
+            <div id="unidad-content" class="section"></div>
+            
+            <!-- Modal para historial de cambios -->
+            <div id="historyModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>📋 Historial de Cambios (Últimos 10)</h3>
+                        <span class="close" onclick="UndoManager.hideHistory()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div id="historyList"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="UndoManager.hideHistory()" class="btn btn-secondary">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CONFIGURACIÓN GLOBAL OPTIMIZADA =====
+        const CONFIG = {
+            VERSION: '2.0',
+            SUPPORTED_FORMATS: ['csv', 'json'],
+            VALIDATION_RULES: {
+                REQUIRED_FIELDS: ['Unidad Organizativa', 'Tipo de Función'],
+                FUNCTION_TYPES: ['Genérica', 'Específica', 'Indicador']
+            }
+        };
+
+        // ===== ESTADO GLOBAL OPTIMIZADO =====
+        const STATE = {
+            data: [],
+            headers: [],
+            treeRoots: [],
+            expandedNodes: JSON.parse(localStorage.getItem('expandedNodes') || '{}'),
+            lastSelected: '',
+            groupedData: {},
+            validationIssues: [],
+            exportQuality: 0,
+            totalFunctions: 0,
+            totalUnits: 0,
+            stats: {
+                byType: { generica: 0, especifica: 0, indicador: 0 },
+                quality: { complete: 0, incomplete: 0 },
+                qualityScore: 0
+            }
+        };
+
+        // ===== UTILIDADES OPTIMIZADAS =====
+        const Utils = {
+            showAlert(message, type = 'info', duration = 3000) {
+                const indicator = document.getElementById('saveIndicator');
+                indicator.textContent = message;
+                indicator.className = `alert alert-${type === 'error' ? 'error' : 'success'} show`;
+                setTimeout(() => indicator.classList.remove('show'), duration);
+            },
+
+            log(message, data = null) {
+                console.log(`[${new Date().toLocaleTimeString()}] ${message}`, data || '');
+            },
+
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        };
+
+        // ===== VALIDACIÓN OPTIMIZADA =====
+        const Validator = {
+            validateData(data) {
+                const issues = [];
+                let totalRecords = 0;
+                let completeRecords = 0;
+                let validationByType = {
+                    'Genérica': { total: 0, complete: 0 },
+                    'Específica': { total: 0, complete: 0 },
+                    'Indicador': { total: 0, complete: 0 }
+                };
+
+                data.forEach((row, index) => {
+                    totalRecords++;
+                    let rowIssues = [];
+                    let isComplete = true;
+
+                    // Validar campos obligatorios
+                    if (!row['Unidad Organizativa'] || row['Unidad Organizativa'].trim() === '') {
+                        rowIssues.push('Unidad Organizativa vacía');
+                        isComplete = false;
+                    }
+
+                    if (!row['Descripción'] || row['Descripción'].trim() === '') {
+                        rowIssues.push('Descripción vacía');
+                        isComplete = false;
+                    }
+
+                    if (!row['Tipo de Función'] || row['Tipo de Función'].trim() === '') {
+                        rowIssues.push('Tipo de Función vacío');
+                        isComplete = false;
+                    }
+
+                    // Validación específica por tipo
+                    const tipo = row['Tipo de Función'] || '';
+                    
+                    if (tipo.includes('Genérica')) {
+                        validationByType['Genérica'].total++;
+                        
+                        // Genéricas requieren Producto Final pero NO Dedicación
+                        if (!row['Producto Final'] || row['Producto Final'].trim() === '') {
+                            rowIssues.push('Genérica: Producto Final requerido');
+                            isComplete = false;
+                        }
+                        
+                        // Si tiene dedicación, es info (no error)
+                        if (row['Porcentaje Dedicación'] && row['Porcentaje Dedicación'].trim() !== '') {
+                            rowIssues.push('Genérica: No requiere Porcentaje Dedicación');
+                        }
+                        
+                        if (isComplete) validationByType['Genérica'].complete++;
+                        
+                    } else if (tipo.includes('Específica')) {
+                        validationByType['Específica'].total++;
+                        
+                        // Específicas requieren Producto Final Y Dedicación
+                        if (!row['Producto Final'] || row['Producto Final'].trim() === '') {
+                            rowIssues.push('Específica: Producto Final requerido');
+                            isComplete = false;
+                        }
+                        
+                        if (!row['Porcentaje Dedicación'] || row['Porcentaje Dedicación'].trim() === '') {
+                            rowIssues.push('Específica: Porcentaje Dedicación requerido');
+                            isComplete = false;
+                        }
+                        
+                        if (isComplete) validationByType['Específica'].complete++;
+                        
+                    } else if (tipo.includes('Indicador')) {
+                        validationByType['Indicador'].total++;
+                        
+                        // Indicadores NO requieren Producto Final ni Dedicación
+                        if (row['Producto Final'] && row['Producto Final'].trim() !== '') {
+                            rowIssues.push('Indicador: No requiere Producto Final');
+                        }
+                        
+                        if (row['Porcentaje Dedicación'] && row['Porcentaje Dedicación'].trim() !== '') {
+                            rowIssues.push('Indicador: No requiere Porcentaje Dedicación');
+                        }
+                        
+                        if (isComplete) validationByType['Indicador'].complete++;
+                    }
+
+                    if (rowIssues.length > 0) {
+                        issues.push({
+                            row: index + 1,
+                            unidad: row['Unidad Organizativa'] || 'Sin unidad',
+                            tipo: row['Tipo de Función'] || 'Sin tipo',
+                            issues: rowIssues
+                        });
+                    }
+
+                    if (isComplete) completeRecords++;
+                });
+
+                const qualityScore = totalRecords > 0 ? Math.round((completeRecords / totalRecords) * 100) : 0;
+
+                return {
+                    issues,
+                    stats: {
+                        totalRecords,
+                        completeRecords,
+                        qualityScore,
+                        validationByType
+                    }
+                };
+            },
+
+            generateStats(data) {
+                const stats = {
+                    totalRecords: data.length,
+                    byType: { generica: 0, especifica: 0, indicador: 0 },
+                    quality: { complete: 0, incomplete: 0 },
+                    validationByType: {
+                        generica: { complete: 0, incomplete: 0 },
+                        especifica: { complete: 0, incomplete: 0 },
+                        indicador: { complete: 0, incomplete: 0 }
+                    }
+                };
+
+                data.forEach(row => {
+                    const tipo = row['Tipo de Función'] || 'Genérica';
+                    const descripcion = row['Descripción'] || '';
+                    
+                    if (tipo.includes('Genérica')) {
+                        stats.byType.generica++;
+                        const isComplete = descripcion && row['Producto Final'] && row['Porcentaje Dedicación'];
+                        if (isComplete) {
+                            stats.quality.complete++;
+                            stats.validationByType.generica.complete++;
+                        } else {
+                            stats.quality.incomplete++;
+                            stats.validationByType.generica.incomplete++;
+                        }
+                    } else if (tipo.includes('Específica')) {
+                        stats.byType.especifica++;
+                        const isComplete = descripcion && row['Producto Final'] && row['Porcentaje Dedicación'];
+                        if (isComplete) {
+                            stats.quality.complete++;
+                            stats.validationByType.especifica.complete++;
+                        } else {
+                            stats.quality.incomplete++;
+                            stats.validationByType.especifica.incomplete++;
+                        }
+                    } else if (tipo.includes('Indicador')) {
+                        stats.byType.indicador++;
+                        const isComplete = descripcion; // Solo requiere descripción
+                        if (isComplete) {
+                            stats.quality.complete++;
+                            stats.validationByType.indicador.complete++;
+                        } else {
+                            stats.quality.incomplete++;
+                            stats.validationByType.indicador.incomplete++;
+                        }
+                    }
+                });
+
+                stats.qualityScore = Math.round((stats.quality.complete / stats.totalRecords) * 100);
+                return stats;
+            }
+        };
+
+        // ===== PROCESAMIENTO DE DATOS OPTIMIZADO =====
+        const DataProcessor = {
+            parseCSV(csvText) {
+                const lines = csvText.trim().split('\n');
+                const headers = lines[0].split(';').map(h => h.replace(/"/g, ''));
+                const data = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const values = lines[i].split(';').map(v => v.replace(/"/g, ''));
+                    const row = {};
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] || '';
+                    });
+                    data.push(row);
+                }
+                
+                return { data, headers };
+            },
+            
+            groupByUnidad(data) {
+                const grouped = {};
+                data.forEach(row => {
+                    const unidad = row['Unidad Organizativa'];
+                    if (!grouped[unidad]) grouped[unidad] = [];
+                    grouped[unidad].push(row);
+                });
+                return grouped;
+            },
+            
+            // Función mejorada para construir árbol con jerarquías
+            buildTree(data) {
+                const nodeMap = {};
+                
+                // Crear nodos para cada unidad organizativa única
+                data.forEach(item => {
+                    const nombre = item['Unidad Organizativa'];
+                    const parent = item['Reporta A'] || '';
+                    const key = nombre + '|' + parent;
+                    
+                    if (!nodeMap[key]) {
+                        nodeMap[key] = { 
+                            key, 
+                            nombre, 
+                            parent, 
+                            children: [], 
+                            item,
+                            funciones: []
+                        };
+                    }
+                    nodeMap[key].funciones.push(item);
+                });
+                
+                // Relacionar hijos con padres - incluir TODOS los niveles
+                Object.values(nodeMap).forEach(node => {
+                    if (node.parent) {
+                        // Buscar el nodo padre exacto
+                        const parentKey = Object.keys(nodeMap).find(k => {
+                            const [parentName, parentParent] = k.split('|');
+                            return parentName === node.parent;
+                        });
+                        
+                        if (parentKey && nodeMap[parentKey]) {
+                            nodeMap[parentKey].children.push(node);
+                        }
+                    }
+                });
+                
+                // Encontrar raíces (nodos sin padre o con padre que no existe)
+                const roots = Object.values(nodeMap).filter(node => {
+                    if (!node.parent) return true;
+                    
+                    const parentExists = Object.keys(nodeMap).some(k => {
+                        const [parentName] = k.split('|');
+                        return parentName === node.parent;
+                    });
+                    
+                    return !parentExists;
+                });
+                
+                return roots;
+            },
+            
+            // Función para agrupar por jerarquía completa
+            groupByHierarchy(data) {
+                const grouped = {};
+                data.forEach(row => {
+                    const unidad = row['Unidad Organizativa'];
+                    const reportaA = row['Reporta A'] || '';
+                    const key = unidad + '|' + reportaA;
+                    
+                    if (!grouped[key]) grouped[key] = [];
+                    grouped[key].push(row);
+                });
+                return grouped;
+            }
+        };
+        
+        // ===== RENDERIZADO OPTIMIZADO CON JERARQUÍAS =====
+        const Renderer = {
+            renderTree(nodes, container) {
+                container.innerHTML = '';
+                const ul = document.createElement('ul');
+                ul.className = 'tree-list';
+                nodes.forEach(node => this.renderNode(node, ul));
+                container.appendChild(ul);
+            },
+            
+            renderNode(node, container, level = 0) {
+                const li = document.createElement('li');
+                li.className = 'tree-node';
+                li.setAttribute('data-key', node.key);
+                
+                const hasChildren = node.children && node.children.length > 0;
+                const isExpanded = STATE.expandedNodes[node.key];
+                
+                const nodeContent = document.createElement('div');
+                nodeContent.className = 'node-content';
+                nodeContent.onclick = () => this.selectNode(node);
+                
+                // Icono y nombre
+                const icon = hasChildren ? (isExpanded ? '📂' : '📁') : '📄';
+                const toggleIcon = hasChildren ? (isExpanded ? '[–]' : '[+]') : '';
+                
+                // Controles de edición (solo en modo edición)
+                const editControls = Editor.isEditMode ? `
+                    <div class="edit-controls">
+                        <span class="drag-handle" draggable="true" title="Arrastrar">⋮⋮</span>
+                        <button class="edit-btn" onclick="event.stopPropagation(); Editor.editUnit(${JSON.stringify(node)})" title="Editar">✏️</button>
+                        <button class="delete-btn edit-btn" onclick="event.stopPropagation(); Editor.deleteUnit('${node.key}')" title="Eliminar">🗑️</button>
+                    </div>
+                ` : '';
+                
+                nodeContent.innerHTML = `
+                    <span class="node-toggle" onclick="event.stopPropagation(); toggleNode('${node.key}')">
+                        ${toggleIcon}
+                    </span>
+                    <span class="node-icon">${icon}</span>
+                    <span class="node-name">${node.nombre}</span>
+                    ${editControls}
+                `;
+                
+                // Configurar drag & drop
+                if (Editor.isEditMode) {
+                    const dragHandle = nodeContent.querySelector('.drag-handle');
+                    if (dragHandle) {
+                        dragHandle.addEventListener('dragstart', (e) => {
+                            e.dataTransfer.setData('text/plain', node.key);
+                            li.classList.add('dragging');
+                        });
+                        
+                        dragHandle.addEventListener('dragend', () => {
+                            li.classList.remove('dragging');
+                        });
+                    }
+                    
+                    li.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        li.classList.add('drag-over');
+                    });
+                    
+                    li.addEventListener('dragleave', () => {
+                        li.classList.remove('drag-over');
+                    });
+                    
+                    li.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        li.classList.remove('drag-over');
+                        const draggedKey = e.dataTransfer.getData('text/plain');
+                        if (draggedKey !== node.key) {
+                            Editor.moveUnit(draggedKey, node.key);
+                        }
+                    });
+                }
+                
+                li.appendChild(nodeContent);
+                
+                // Hijos expandidos
+                if (hasChildren && isExpanded) {
+                    const childrenContainer = document.createElement('ul');
+                    childrenContainer.className = 'tree-children';
+                    childrenContainer.style.marginLeft = `${(level + 1) * 20}px`;
+                    
+                    node.children.forEach(child => {
+                        this.renderNode(child, childrenContainer, level + 1);
+                    });
+                    
+                    li.appendChild(childrenContainer);
+                }
+                
+                container.appendChild(li);
+            },
+            
+            toggleNode(nodeKey) {
+                const isExpanded = STATE.expandedNodes[nodeKey];
+                
+                if (isExpanded) {
+                    delete STATE.expandedNodes[nodeKey];
+                } else {
+                    STATE.expandedNodes[nodeKey] = true;
+                }
+                
+                // Re-renderizar el árbol
+                this.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                
+                // Guardar estado en localStorage
+                StorageManager.saveState();
+            },
+            
+            selectNode(node) {
+                STATE.lastSelected = node.key;
+                
+                // Limpiar selección anterior
+                document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
+                
+                // Seleccionar nodo actual
+                const selectedElement = document.querySelector(`[data-key="${node.key}"]`);
+                if (selectedElement) {
+                    selectedElement.classList.add('selected');
+                }
+                
+                // Mostrar contenido
+                if (node.funciones && node.funciones.length > 0) {
+                    this.showUnidad(node.funciones);
+                } else if (node.children && node.children.length > 0) {
+                    this.showUnidadSummary(node);
+                }
+            },
+            
+            showFunction(func) {
+                const container = document.getElementById('unidad-content');
+                const tipo = func['Tipo de Función'] || 'Genérica';
+                
+                let fieldsHtml = '';
+                
+                if (tipo.includes('Específica')) {
+                    // Solo Específicas muestran Producto Final y Dedicación
+                    fieldsHtml = `
+                        <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
+                        <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                    `;
+                } else if (tipo.includes('Genérica')) {
+                    // Genéricas solo muestran Producto Final
+                    fieldsHtml = `
+                        <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
+                    `;
+                } else if (tipo.includes('Indicador')) {
+                    // Indicadores NO muestran Producto Final ni Dedicación
+                    fieldsHtml = '';
+                }
+                
+                container.innerHTML = `
+                    <div class="function-item">
+                        <span class="function-type type-${tipo.toLowerCase()}">
+                            ${tipo}
+                        </span>
+                        <h4>${func['Descripción'] || 'Sin descripción'}</h4>
+                        ${fieldsHtml}
+                    </div>
+                `;
+            },
+            
+            showUnidad(funciones) {
+                const container = document.getElementById('unidad-content');
+                const unidad = funciones[0];
+                
+                // Agrupar funciones por tipo para mostrar estadísticas
+                const statsByType = {};
+                funciones.forEach(func => {
+                    const tipo = func['Tipo de Función'] || 'Genérica';
+                    if (!statsByType[tipo]) statsByType[tipo] = [];
+                    statsByType[tipo].push(func);
+                });
+                
+                const statsHtml = Object.entries(statsByType).map(([tipo, funcs]) => {
+                    const tipoLower = tipo.toLowerCase();
+                    const isIndicador = tipo.includes('Indicador');
+                    const completeCount = funcs.filter(f => {
+                        if (isIndicador) {
+                            return f['Descripción'] && f['Descripción'].trim() !== '';
+                        } else {
+                            return f['Descripción'] && f['Producto Final'] && f['Porcentaje Dedicación'];
+                        }
+                    }).length;
+                    
+                    return `
+                        <div class="type-stat">
+                            <span class="function-type type-${tipoLower}">${tipo}</span>
+                            <span class="stat-count">${funcs.length} funciones (${completeCount} completas)</span>
+                        </div>
+                    `;
+                }).join('');
+                
+                container.innerHTML = `
+                    <div class="unidad-header">
+                        <h2>${unidad['Unidad Organizativa']}</h2>
+                        ${unidad['Misión'] ? `<p><strong>Misión:</strong> ${unidad['Misión']}</p>` : ''}
+                        ${unidad['Reporta A'] ? `<p><strong>Reporta a:</strong> ${unidad['Reporta A']}</p>` : ''}
+                    </div>
+                    <div class="unidad-stats">
+                        <p><strong>Total funciones:</strong> ${funciones.length}</p>
+                        <div class="type-stats">
+                            ${statsHtml}
+                        </div>
+                    </div>
+                    <div class="functions-header">
+                        <h3>Funciones</h3>
+                        <div class="function-controls">
+                            <button class="btn btn-info btn-sm" onclick="toggleFunctionOrder('${unidad['Unidad Organizativa']}')">
+                                🔄 Cambiar Orden
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="saveFunctionOrder('${unidad['Unidad Organizativa']}')" style="display: none;" id="save-order-btn">
+                                💾 Guardar Orden
+                            </button>
+                        </div>
+                    </div>
+                    <div id="functions-container" class="functions-container">
+                        ${funciones
+                            .sort((a, b) => {
+                                // Primero intentar usar el orden personalizado guardado
+                                const customOrder = getCustomFunctionOrder(unidad['Unidad Organizativa']);
+                                if (customOrder) {
+                                    const indexA = customOrder.indexOf(a['Descripción'] || '');
+                                    const indexB = customOrder.indexOf(b['Descripción'] || '');
+                                    if (indexA !== -1 && indexB !== -1) {
+                                        return indexA - indexB;
+                                    }
+                                }
+                                
+                                // Si no hay orden personalizado, usar el orden por tipo
+                                const tipoA = a['Tipo de Función'] || 'Genérica';
+                                const tipoB = b['Tipo de Función'] || 'Genérica';
+                                
+                                // Definir el orden de prioridad: Genérica (1), Específica (2), Indicador (3)
+                                const getPriority = (tipo) => {
+                                    if (tipo.includes('Genérica')) return 1;
+                                    if (tipo.includes('Específica')) return 2;
+                                    if (tipo.includes('Indicador')) return 3;
+                                    return 4; // Para cualquier otro tipo
+                                };
+                                
+                                return getPriority(tipoA) - getPriority(tipoB);
+                            })
+                            .map((func, index) => {
+                                const tipo = func['Tipo de Función'] || 'Genérica';
+                                const isIndicador = tipo.includes('Indicador');
+                                
+                                let fieldsHtml = '';
+                                
+                                if (isIndicador) {
+                                    fieldsHtml = ''; // Sin mensaje adicional para indicadores
+                                } else {
+                                    fieldsHtml = `
+                                        <p><strong>Producto Final:</strong> ${func['Producto Final'] || 'No especificado'}</p>
+                                        <p><strong>Dedicación:</strong> ${func['Porcentaje Dedicación'] || 'No especificado'}</p>
+                                    `;
+                                }
+                                
+                                return `
+                                    <div class="function-item" draggable="true" data-index="${index}" data-descripcion="${func['Descripción'] || ''}">
+                                        <div class="function-drag-handle">⋮⋮</div>
+                                        <div class="function-content">
+                                            <span class="function-type type-${tipo.toLowerCase()}">
+                                                ${tipo}
+                                            </span>
+                                            <h4>${func['Descripción'] || 'Sin descripción'}</h4>
+                                            ${fieldsHtml}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                    </div>
+                `;
+                
+                // Configurar drag and drop después de renderizar
+                setTimeout(() => {
+                    this.setupDragAndDrop();
+                }, 100);
+            },
+            
+            // Funciones para manejar el orden personalizado de funciones
+            getCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                return customOrders[unidadNombre] || null;
+            },
+            
+            saveCustomFunctionOrder(unidadNombre, order) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                customOrders[unidadNombre] = order;
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            clearCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                delete customOrders[unidadNombre];
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            setupDragAndDrop() {
+                const container = document.getElementById('functions-container');
+                if (!container) return;
+                
+                let draggedElement = null;
+                
+                // Limpiar eventos anteriores si existen
+                if (container._dragStartHandler) {
+                    container.removeEventListener('dragstart', container._dragStartHandler);
+                    container.removeEventListener('dragend', container._dragEndHandler);
+                    container.removeEventListener('dragover', container._dragOverHandler);
+                    container.removeEventListener('drop', container._dropHandler);
+                }
+                
+                // Crear nuevos handlers
+                container._dragStartHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    draggedElement = e.target;
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', e.target.outerHTML);
+                };
+                
+                container._dragEndHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    e.target.classList.remove('dragging');
+                    draggedElement = null;
+                };
+                
+                container._dragOverHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    
+                    // Agregar indicador visual de drop zone
+                    const target = e.target.closest('.function-item');
+                    if (target && target !== draggedElement) {
+                        target.style.borderTop = '2px solid #007bff';
+                    }
+                };
+                
+                container._dropHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    
+                    // Limpiar indicadores visuales
+                    container.querySelectorAll('.function-item').forEach(item => {
+                        item.style.borderTop = '';
+                    });
+                    
+                    const target = e.target.closest('.function-item');
+                    if (!target || !draggedElement || target === draggedElement) return;
+                    
+                    // Obtener todos los elementos function-item
+                    const functionItems = Array.from(container.querySelectorAll('.function-item'));
+                    const draggedIndex = functionItems.indexOf(draggedElement);
+                    const targetIndex = functionItems.indexOf(target);
+                    
+                    if (draggedIndex === -1 || targetIndex === -1) return;
+                    
+                    // Mover el elemento
+                    if (draggedIndex < targetIndex) {
+                        target.parentNode.insertBefore(draggedElement, target.nextSibling);
+                    } else {
+                        target.parentNode.insertBefore(draggedElement, target);
+                    }
+                    
+                    // Actualizar índices
+                    container.querySelectorAll('.function-item').forEach((item, index) => {
+                        item.setAttribute('data-index', index);
+                    });
+                };
+                
+                // Agregar eventos
+                container.addEventListener('dragstart', container._dragStartHandler);
+                container.addEventListener('dragend', container._dragEndHandler);
+                container.addEventListener('dragover', container._dragOverHandler);
+                container.addEventListener('drop', container._dropHandler);
+            },
+            
+            showUnidadSummary(node) {
+                const container = document.getElementById('unidad-content');
+                const totalFunciones = node.children.reduce((sum, child) => sum + (child.funciones ? child.funciones.length : 0), 0);
+                
+                // Obtener todas las unidades hijas que reportan a esta unidad
+                const unidadesHijas = node.children.map(child => ({
+                    nombre: child.nombre,
+                    reportaA: child.parent,
+                    tipo: child.funciones && child.funciones.length > 0 ?
+                        child.funciones[0]['Tipo de Función'] || 'Genérica' : 'Sin funciones'
+                }));
+                
+                const hierarchyHtml = `
+                    <div class="hierarchy-info">
+                        <h4>📋 Unidades que Reportan a ${node.nombre}</h4>
+                        <p><strong>Total de unidades hijas:</strong> ${node.children.length}</p>
+                        <div class="hierarchy-navigation">
+                            ${unidadesHijas.map(hija => `
+                                <div class="subunidad-item clickable" onclick="navegarAUnidad('${hija.nombre}')">
+                                    <div class="subunidad-header">
+                                        <h4>${hija.nombre}</h4>
+                                        <span class="navigate-icon">→</span>
+                                    </div>
+                                    <div class="subunidad-details">
+                                        <p><strong>Reporta a:</strong> ${hija.reportaA || 'Sin reporte'}</p>
+                                        <p><strong>Tipo:</strong> ${hija.tipo}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML = `
+                    <div class="unidad-header">
+                        <h2>${node.nombre}</h2>
+                        <p><strong>Unidad padre con ${node.children.length} subunidades que le reportan</strong></p>
+                    </div>
+                    <div class="unidad-stats">
+                        <p><strong>Subunidades que reportan:</strong> ${node.children.length}</p>
+                        <p><strong>Total funciones de subunidades:</strong> ${totalFunciones}</p>
+                    </div>
+                    ${hierarchyHtml}
+                `;
+            },
+            
+            // Funciones para manejar el orden personalizado de funciones
+            getCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                return customOrders[unidadNombre] || null;
+            },
+            
+            saveCustomFunctionOrder(unidadNombre, order) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                customOrders[unidadNombre] = order;
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            clearCustomFunctionOrder(unidadNombre) {
+                const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+                delete customOrders[unidadNombre];
+                localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            },
+            
+            setupDragAndDrop() {
+                const container = document.getElementById('functions-container');
+                if (!container) return;
+                
+                let draggedElement = null;
+                
+                // Limpiar eventos anteriores si existen
+                if (container._dragStartHandler) {
+                    container.removeEventListener('dragstart', container._dragStartHandler);
+                    container.removeEventListener('dragend', container._dragEndHandler);
+                    container.removeEventListener('dragover', container._dragOverHandler);
+                    container.removeEventListener('drop', container._dropHandler);
+                }
+                
+                // Crear nuevos handlers
+                container._dragStartHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    draggedElement = e.target;
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', e.target.outerHTML);
+                };
+                
+                container._dragEndHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    if (!e.target.classList.contains('function-item')) return;
+                    
+                    e.target.classList.remove('dragging');
+                    draggedElement = null;
+                };
+                
+                container._dragOverHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    
+                    // Agregar indicador visual de drop zone
+                    const target = e.target.closest('.function-item');
+                    if (target && target !== draggedElement) {
+                        target.style.borderTop = '2px solid #007bff';
+                    }
+                };
+                
+                container._dropHandler = (e) => {
+                    if (!container.classList.contains('drag-mode')) return;
+                    e.preventDefault();
+                    
+                    // Limpiar indicadores visuales
+                    container.querySelectorAll('.function-item').forEach(item => {
+                        item.style.borderTop = '';
+                    });
+                    
+                    const target = e.target.closest('.function-item');
+                    if (!target || !draggedElement || target === draggedElement) return;
+                    
+                    // Obtener todos los elementos function-item
+                    const functionItems = Array.from(container.querySelectorAll('.function-item'));
+                    const draggedIndex = functionItems.indexOf(draggedElement);
+                    const targetIndex = functionItems.indexOf(target);
+                    
+                    if (draggedIndex === -1 || targetIndex === -1) return;
+                    
+                    // Mover el elemento
+                    if (draggedIndex < targetIndex) {
+                        target.parentNode.insertBefore(draggedElement, target.nextSibling);
+                    } else {
+                        target.parentNode.insertBefore(draggedElement, target);
+                    }
+                    
+                    // Actualizar índices
+                    container.querySelectorAll('.function-item').forEach((item, index) => {
+                        item.setAttribute('data-index', index);
+                    });
+                };
+                
+                // Agregar eventos
+                container.addEventListener('dragstart', container._dragStartHandler);
+                container.addEventListener('dragend', container._dragEndHandler);
+                container.addEventListener('dragover', container._dragOverHandler);
+                container.addEventListener('drop', container._dropHandler);
+            },
+            
+            // Función para navegar a una unidad específica
+            navegarAUnidad(nombreUnidad) {
+                // Buscar la unidad en el árbol
+                function buscarUnidad(nodos, nombre) {
+                    for (const nodo of nodos) {
+                        if (nodo.nombre === nombre) {
+                            return nodo;
+                        }
+                        if (nodo.children) {
+                            const encontrado = buscarUnidad(nodo.children, nombre);
+                            if (encontrado) return encontrado;
+                        }
+                    }
+                    return null;
+                }
+                
+                const unidadEncontrada = buscarUnidad(STATE.treeRoots, nombreUnidad);
+                if (unidadEncontrada) {
+                    // Expandir todos los nodos padres para mostrar la jerarquía
+                    this.expandirPadres(unidadEncontrada);
+                    
+                    // Seleccionar la unidad
+                    this.selectNode(unidadEncontrada);
+                    
+                    // Scroll al elemento en el árbol
+                    const elementoArbol = document.querySelector(`[data-key="${unidadEncontrada.key}"]`);
+                    if (elementoArbol) {
+                        elementoArbol.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            },
+            
+            // Función para expandir todos los nodos padres
+            expandirPadres(nodo) {
+                if (nodo.parent) {
+                    // Buscar el nodo padre
+                    function buscarPadre(nodos, nombrePadre) {
+                        for (const n of nodos) {
+                            if (n.nombre === nombrePadre) {
+                                return n;
+                            }
+                            if (n.children) {
+                                const encontrado = buscarPadre(n.children, nombrePadre);
+                                if (encontrado) return encontrado;
+                            }
+                        }
+                        return null;
+                    }
+                    
+                    const padre = buscarPadre(STATE.treeRoots, nodo.parent);
+                    if (padre) {
+                        // Expandir el padre
+                        STATE.expandedNodes[padre.key] = true;
+                        
+                        // Recursivamente expandir padres del padre
+                        this.expandirPadres(padre);
+                    }
+                }
+                
+                // Re-renderizar el árbol
+                this.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+            },
+            
+            getFunctionTypes(funciones) {
+                const types = {};
+                funciones.forEach(func => {
+                    const tipo = func['Tipo de Función'] || 'Genérica';
+                    types[tipo] = (types[tipo] || 0) + 1;
+                });
+                return Object.entries(types).map(([tipo, count]) => `${tipo}: ${count}`).join(', ');
+            }
+        };
+
+        // ===== FUNCIONES GLOBALES PARA ORDEN DE FUNCIONES =====
+        function toggleFunctionOrder(unidadNombre) {
+            const container = document.getElementById('functions-container');
+            const saveBtn = document.getElementById('save-order-btn');
+            
+            if (container.classList.contains('drag-mode')) {
+                // Desactivar modo drag
+                container.classList.remove('drag-mode');
+                saveBtn.style.display = 'none';
+                container.querySelectorAll('.function-item').forEach(item => {
+                    item.draggable = false;
+                });
+            } else {
+                // Activar modo drag
+                container.classList.add('drag-mode');
+                saveBtn.style.display = 'inline-block';
+                container.querySelectorAll('.function-item').forEach(item => {
+                    item.draggable = true;
+                });
+            }
+        }
+        
+        function saveFunctionOrder(unidadNombre) {
+            const container = document.getElementById('functions-container');
+            const functionItems = container.querySelectorAll('.function-item');
+            const order = Array.from(functionItems).map(item => 
+                item.getAttribute('data-descripcion')
+            );
+            
+            // Guardar en localStorage
+            const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+            customOrders[unidadNombre] = order;
+            localStorage.setItem('customFunctionOrders', JSON.stringify(customOrders));
+            
+            // Desactivar modo drag
+            container.classList.remove('drag-mode');
+            document.getElementById('save-order-btn').style.display = 'none';
+            container.querySelectorAll('.function-item').forEach(item => {
+                item.draggable = false;
+            });
+            
+            // Mostrar mensaje de confirmación
+            alert('Orden de funciones guardado exitosamente');
+        }
+        
+        function getCustomFunctionOrder(unidadNombre) {
+            const customOrders = JSON.parse(localStorage.getItem('customFunctionOrders') || '{}');
+            return customOrders[unidadNombre] || null;
+        }
+
+        // ===== EXPORTACIÓN OPTIMIZADA =====
+        const Exporter = {
+            exportJSON() {
+                try {
+                    Utils.log('Iniciando exportación JSON optimizada...');
+                    
+                    if (!STATE.data || STATE.data.length === 0) {
+                        Utils.showAlert('No hay datos para exportar. Cargue un archivo primero.', 'warning');
+                        return;
+                    }
+                    
+                    const allData = [].concat(...Object.values(STATE.groupedData));
+                    const validation = Validator.validateData(allData);
+                    const issues = validation.issues || [];
+                    const stats = validation.stats || {};
+
+                    // Confirmar si hay issues críticos
+                    const criticalIssues = issues.filter(i => i.issues && i.issues.some(issue => issue.includes('requerido')));
+                    if (criticalIssues.length > 0) {
+                        if (!confirm(`Se encontraron ${criticalIssues.length} errores críticos. ¿Continuar?`)) {
+                            return;
+                        }
+                    }
+
+                    // Estructura JSON optimizada con jerarquía completa e historial
+                    const jsonData = {
+                        metadata: {
+                            exportDate: new Date().toISOString(),
+                            version: CONFIG.VERSION,
+                            format: 'optimized',
+                            totalRecords: allData.length,
+                            totalUnits: Object.keys(STATE.groupedData).length,
+                            stats: stats,
+                            issues: issues,
+                            qualityScore: stats.qualityScore || 0,
+                            historyIncluded: true
+                        },
+                        hierarchy: {
+                            tree: STATE.treeRoots.map(node => ({
+                                key: node.key,
+                                nombre: node.nombre,
+                                reportaA: node.funciones[0]?.['Reporta A'] || '',
+                                mision: node.funciones[0]?.['Misión'] || '',
+                                children: node.children.map(child => ({
+                                    key: child.key,
+                                    nombre: child.nombre,
+                                    reportaA: child.funciones[0]?.['Reporta A'] || '',
+                                    mision: child.funciones[0]?.['Misión'] || ''
+                                }))
+                            }))
+                        },
+                        data: {
+                            unidades: Object.entries(STATE.groupedData).map(([nombre, funciones]) => {
+                                // Obtener orden personalizado si existe
+                                const customOrder = getCustomFunctionOrder(nombre);
+                                let funcionesOrdenadas = [...funciones];
+                                
+                                if (customOrder) {
+                                    // Aplicar orden personalizado
+                                    funcionesOrdenadas.sort((a, b) => {
+                                        const indexA = customOrder.indexOf(a['Descripción'] || '');
+                                        const indexB = customOrder.indexOf(b['Descripción'] || '');
+                                        if (indexA !== -1 && indexB !== -1) {
+                                            return indexA - indexB;
+                                        }
+                                        return 0;
+                                    });
+                                }
+                                
+                                return {
+                                    nombre,
+                                    reportaA: funciones[0]?.['Reporta A'] || '',
+                                    mision: funciones[0]?.['Misión'] || '',
+                                    customOrder: customOrder || null,
+                                    funciones: funcionesOrdenadas.map((func, index) => ({
+                                        orden: index + 1,
+                                        tipo: func['Tipo de Función'] || 'Genérica',
+                                        descripcion: func['Descripción'] || '',
+                                        productoFinal: func['Producto Final'] || '',
+                                        porcentajeDedicacion: func['Porcentaje Dedicación'] || ''
+                                    }))
+                                };
+                            })
+                        },
+                        history: {
+                            changes: UndoManager.history.map(change => ({
+                                id: change.id,
+                                action: change.action,
+                                details: change.details,
+                                timestamp: change.timestamp,
+                                canUndo: change.canUndo
+                            })),
+                            totalChanges: UndoManager.history.length,
+                            maxHistory: UndoManager.maxHistory,
+                            exportDate: new Date().toISOString()
+                        }
+                    };
+
+                    const jsonContent = JSON.stringify(jsonData, null, 2);
+                    const blob = new Blob([jsonContent], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `magna_partners_organigrama_${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+
+                    Utils.showAlert(`✅ JSON exportado (${stats.totalRecords} registros, ${stats.qualityScore}% calidad, ${UndoManager.history.length} cambios en historial)`, 'success');
+                    Utils.log('Exportación optimizada completada', { 
+                        stats, 
+                        issues: issues.length,
+                        hierarchy: STATE.treeRoots.length,
+                        units: Object.keys(STATE.groupedData).length,
+                        historyChanges: UndoManager.history.length
+                    });
+
+                } catch (error) {
+                    Utils.log('Error en exportación optimizada', error);
+                    Utils.showAlert(`Error: ${error.message}`, 'error');
+                }
+            }
+        };
+
+        // ===== IMPORTACIÓN OPTIMIZADA =====
+        const Importer = {
+            processFile(file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const extension = file.name.split('.').pop().toLowerCase();
+                    
+                    if (extension === 'csv') {
+                        this.processCSV(content, file.name);
+                    } else if (extension === 'json') {
+                        this.processJSON(content, file.name);
+                    } else {
+                        Utils.showAlert('Formato de archivo no soportado. Use CSV o JSON.', 'error');
+                    }
+                }.bind(this);
+                
+                reader.readAsText(file);
+            },
+            
+            processCSV(content, filename) {
+                try {
+                    const lines = content.split('\n');
+                    const headers = lines[0].split(';').map(h => h.trim().replace(/"/g, ''));
+                    const data = [];
+                    
+                    for (let i = 1; i < lines.length; i++) {
+                        if (lines[i].trim()) {
+                            const values = lines[i].split(';').map(v => v.trim().replace(/"/g, ''));
+                            const row = {};
+                            headers.forEach((header, index) => {
+                                row[header] = values[index] || '';
+                            });
+                            data.push(row);
+                        }
+                    }
+                    
+                    // Contar unidades únicas correctamente
+                    const unidadesUnicas = new Set();
+                    data.forEach(item => {
+                        if (item['Unidad Organizativa'] && item['Unidad Organizativa'].trim()) {
+                            unidadesUnicas.add(item['Unidad Organizativa'].trim());
+                        }
+                    });
+                    
+                    // Procesar datos
+                    STATE.data = data;
+                    STATE.groupedData = DataProcessor.groupByUnidad(data);
+                    STATE.treeRoots = DataProcessor.buildTree(data);
+                    
+                    // Guardar estado
+                    StorageManager.saveState();
+                    
+                    // Agregar al historial
+                    UndoManager.addChange(
+                        'Cargar archivo CSV',
+                        `Archivo: ${filename} - ${data.length} registros, ${Object.keys(STATE.groupedData).length} unidades`,
+                        UndoManager.getCurrentSnapshot()
+                    );
+                    
+                    // Renderizar
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                    
+                    Utils.showAlert(`✅ CSV cargado: ${data.length} registros, ${unidadesUnicas.size} unidades`, 'success');
+                    Utils.log('CSV procesado exitosamente', { data: data.length, units: unidadesUnicas.size });
+                    
+                } catch (error) {
+                    Utils.showAlert('Error al procesar el archivo CSV: ' + error.message, 'error');
+                    Utils.log('Error procesando CSV', error);
+                }
+            },
+            
+            processJSON(content) {
+                try {
+                    const jsonData = JSON.parse(content);
+                    
+                    let data = [];
+                    let stats = {};
+                    let hierarchy = {};
+                    let historyLoaded = false;
+                    
+                    // Detectar formato y procesar según corresponda
+                    if (jsonData.data && jsonData.data.unidades) {
+                        // Formato optimizado
+                        Utils.log('Detectado formato JSON optimizado');
+                        
+                        // Convertir de formato optimizado a datos planos
+                        jsonData.data.unidades.forEach(unidad => {
+                            unidad.funciones.forEach(func => {
+                                data.push({
+                                    'Unidad Organizativa': unidad.nombre,
+                                    'Reporta A': unidad.reportaA || '',
+                                    'Misión': unidad.mision || '',
+                                    'Tipo de Función': func.tipo || 'Genérica',
+                                    'Descripción': func.descripcion || '',
+                                    'Producto Final': func.productoFinal || '',
+                                    'Porcentaje Dedicación': func.porcentajeDedicacion || ''
+                                });
+                            });
+                        });
+                        
+                        // Extraer estadísticas si están disponibles
+                        if (jsonData.metadata && jsonData.metadata.stats) {
+                            stats = jsonData.metadata.stats;
+                        }
+                        
+                        // Extraer jerarquía si está disponible
+                        if (jsonData.hierarchy && jsonData.hierarchy.tree) {
+                            hierarchy = jsonData.hierarchy;
+                        }
+                        
+                        // Cargar historial si está disponible
+                        if (jsonData.history && jsonData.history.changes) {
+                            try {
+                                // Limpiar historial actual
+                                UndoManager.history = [];
+                                
+                                // Cargar historial del JSON
+                                jsonData.history.changes.forEach(change => {
+                                    UndoManager.history.push({
+                                        id: change.id,
+                                        action: change.action,
+                                        details: change.details,
+                                        timestamp: new Date(change.timestamp),
+                                        canUndo: change.canUndo,
+                                        dataSnapshot: null // No incluimos snapshots en la exportación por seguridad
+                                    });
+                                });
+                                
+                                // Guardar historial en localStorage
+                                UndoManager.saveHistory();
+                                historyLoaded = true;
+                                
+                                Utils.log('Historial cargado desde JSON', { 
+                                    changes: jsonData.history.changes.length,
+                                    totalChanges: jsonData.history.totalChanges
+                                });
+                            } catch (historyError) {
+                                Utils.log('Error al cargar historial desde JSON', historyError);
+                            }
+                        }
+                        
+                    } else if (jsonData.unidades) {
+                        // Formato legacy
+                        Utils.log('Detectado formato JSON legacy');
+                        
+                        jsonData.unidades.forEach(unidad => {
+                            unidad.funciones.forEach(func => {
+                                data.push({
+                                    'Unidad Organizativa': unidad.nombre,
+                                    'Reporta A': unidad.reportaA || '',
+                                    'Misión': unidad.mision || '',
+                                    'Tipo de Función': func.tipo || 'Genérica',
+                                    'Descripción': func.descripcion || '',
+                                    'Producto Final': func.productoFinal || '',
+                                    'Porcentaje Dedicación': func.porcentajeDedicacion || ''
+                                });
+                            });
+                        });
+                        
+                    } else {
+                        throw new Error('Formato JSON no reconocido. Use el formato optimizado o legacy.');
+                    }
+                    
+                    if (data.length === 0) {
+                        throw new Error('No se encontraron datos válidos en el archivo JSON');
+                    }
+                    
+                    // Contar unidades únicas
+                    const unidadesUnicas = new Set();
+                    data.forEach(item => {
+                        if (item['Unidad Organizativa'] && item['Unidad Organizativa'].trim()) {
+                            unidadesUnicas.add(item['Unidad Organizativa'].trim());
+                        }
+                    });
+                    
+                    STATE.data = data;
+                    STATE.headers = Object.keys(data[0] || {});
+                    
+                    // Validar datos
+                    const validation = Validator.validateData(data);
+                    STATE.validationIssues = validation.issues;
+                    STATE.stats = validation.stats;
+                    STATE.exportQuality = validation.stats.qualityScore;
+                    STATE.totalFunctions = validation.stats.totalRecords;
+                    STATE.totalUnits = unidadesUnicas.size;
+                    
+                    // Construir árbol con jerarquías
+                    STATE.treeRoots = DataProcessor.buildTree(data);
+                    STATE.groupedData = DataProcessor.groupByUnidad(data);
+                    
+                    // Renderizar
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                    
+                    // Guardar estado en localStorage
+                    StorageManager.saveState();
+                    
+                    // Mensaje de éxito con información del historial
+                    const historyMessage = historyLoaded ? `, ${jsonData.history.changes.length} cambios en historial` : '';
+                    Utils.showAlert(`✅ JSON cargado: ${data.length} registros, ${unidadesUnicas.size} unidades${historyMessage}`, 'success');
+                    Utils.log('JSON procesado exitosamente', { 
+                        data: data.length, 
+                        units: unidadesUnicas.size,
+                        format: jsonData.metadata?.format || 'legacy',
+                        hasHierarchy: !!hierarchy.tree,
+                        historyLoaded: historyLoaded,
+                        historyChanges: historyLoaded ? jsonData.history.changes.length : 0
+                    });
+                    
+                } catch (error) {
+                    Utils.showAlert('Error al procesar el archivo JSON: ' + error.message, 'error');
+                    Utils.log('Error procesando JSON', error);
+                }
+            },
+            
+            loadSavedData() {
+                if (StorageManager.loadState()) {
+                    Utils.showAlert('✅ Datos cargados desde el almacenamiento local.', 'success');
+                    Utils.log('Datos cargados desde localStorage');
+                } else {
+                    Utils.showAlert('No hay datos guardados para cargar.', 'warning');
+                    Utils.log('No hay datos guardados para cargar');
+                }
+            },
+            
+            clearSavedData() {
+                if (confirm('¿Estás seguro de que quieres eliminar todos los datos guardados? Esta acción no se puede deshacer.')) {
+                    if (StorageManager.clearState()) {
+                        Utils.showAlert('✅ Datos eliminados de localStorage.', 'success');
+                        Utils.log('Datos eliminados de localStorage');
+                        // Re-renderizar el árbol vacío
+                        Renderer.renderTree([], document.getElementById('tree-container'));
+                        document.getElementById('unidad-content').innerHTML = '<p>Seleccione una unidad para ver sus funciones</p>';
+                    } else {
+                        Utils.showAlert('Error al eliminar datos de localStorage.', 'error');
+                        Utils.log('Error al eliminar datos de localStorage');
+                    }
+                }
+            }
+        };
+
+        // ===== LOCALSTORAGE PERSISTENCE =====
+        const StorageManager = {
+            saveState() {
+                try {
+                    const stateToSave = {
+                        data: STATE.data,
+                        headers: STATE.headers,
+                        treeRoots: STATE.treeRoots,
+                        groupedData: STATE.groupedData,
+                        validationIssues: STATE.validationIssues,
+                        exportQuality: STATE.exportQuality,
+                        totalFunctions: STATE.totalFunctions,
+                        totalUnits: STATE.totalUnits,
+                        stats: STATE.stats,
+                        expandedNodes: STATE.expandedNodes,
+                        lastSelected: STATE.lastSelected,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('magnaPartnersOrganigram', JSON.stringify(stateToSave));
+                    Utils.log('Estado guardado en localStorage', { timestamp: stateToSave.timestamp });
+                } catch (error) {
+                    Utils.log('Error guardando en localStorage', error);
+                }
+            },
+            
+            loadState() {
+                try {
+                    const savedState = localStorage.getItem('magnaPartnersOrganigram');
+                    if (savedState) {
+                        const parsedState = JSON.parse(savedState);
+                        
+                        // Restaurar estado
+                        STATE.data = parsedState.data || [];
+                        STATE.headers = parsedState.headers || [];
+                        STATE.treeRoots = parsedState.treeRoots || [];
+                        STATE.groupedData = parsedState.groupedData || {};
+                        STATE.validationIssues = parsedState.validationIssues || [];
+                        STATE.exportQuality = parsedState.exportQuality || 0;
+                        STATE.totalFunctions = parsedState.totalFunctions || 0;
+                        STATE.totalUnits = parsedState.totalUnits || 0;
+                        STATE.stats = parsedState.stats || {};
+                        STATE.expandedNodes = parsedState.expandedNodes || {};
+                        STATE.lastSelected = parsedState.lastSelected || null;
+                        
+                        // Re-renderizar si hay datos
+                        if (STATE.data.length > 0) {
+                            Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                            Utils.showAlert(`✅ Datos restaurados: ${STATE.data.length} registros, ${STATE.totalUnits} unidades`, 'success');
+                            Utils.log('Estado restaurado desde localStorage', { 
+                                timestamp: parsedState.timestamp,
+                                records: STATE.data.length,
+                                units: STATE.totalUnits
+                            });
+                        }
+                        
+                        return true;
+                    }
+                } catch (error) {
+                    Utils.log('Error cargando desde localStorage', error);
+                }
+                return false;
+            },
+            
+            clearState() {
+                try {
+                    localStorage.removeItem('magnaPartnersOrganigram');
+                    Utils.log('Estado eliminado de localStorage');
+                    return true;
+                } catch (error) {
+                    Utils.log('Error eliminando localStorage', error);
+                    return false;
+                }
+            },
+            
+            getStateInfo() {
+                try {
+                    const savedState = localStorage.getItem('magnaPartnersOrganigram');
+                    if (savedState) {
+                        const parsedState = JSON.parse(savedState);
+                        return {
+                            hasData: true,
+                            records: parsedState.data ? parsedState.data.length : 0,
+                            units: parsedState.totalUnits || 0,
+                            timestamp: parsedState.timestamp,
+                            quality: parsedState.exportQuality || 0
+                        };
+                    }
+                } catch (error) {
+                    Utils.log('Error obteniendo info de localStorage', error);
+                }
+                return { hasData: false };
+            }
+        };
+
+        // ===== EDITOR DE UNIDADES =====
+        const Editor = {
+            isEditMode: false,
+            newUnitData: null,
+
+            toggleEditMode() {
+                this.isEditMode = !this.isEditMode;
+                const editModeBtn = document.querySelector('.btn-secondary');
+                if (this.isEditMode) {
+                    editModeBtn.textContent = '✅ Modo Edición';
+                    editModeBtn.classList.add('btn-success');
+                    editModeBtn.classList.remove('btn-secondary');
+                } else {
+                    editModeBtn.textContent = '✏️ Modo Edición';
+                    editModeBtn.classList.remove('btn-success');
+                    editModeBtn.classList.add('btn-secondary');
+                }
+                Utils.log('Modo de edición alternado', { isEditMode: this.isEditMode });
+            },
+
+            createNewUnit() {
+                if (!this.isEditMode) {
+                    Utils.showAlert('Primero, active el modo de edición.', 'warning');
+                    return;
+                }
+
+                this.newUnitData = {
+                    'Unidad Organizativa': '',
+                    'Reporta A': '',
+                    'Misión': '',
+                    'Tipo de Función': 'Genérica',
+                    'Descripción': '',
+                    'Producto Final': '',
+                    'Porcentaje Dedicación': ''
+                };
+                this.showEditForm();
+            },
+
+            showEditForm() {
+                const unidadContent = document.getElementById('unidad-content');
+                unidadContent.innerHTML = `
+                    <h3>Nueva Unidad</h3>
+                    <form id="newUnitForm">
+                        <div class="form-group">
+                            <label for="newUnitName">Nombre de la Unidad:</label>
+                            <input type="text" id="newUnitName" name="Unidad Organizativa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitReportaA">Reporta a:</label>
+                            <input type="text" id="newUnitReportaA" name="Reporta A">
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitMision">Misión:</label>
+                            <textarea id="newUnitMision" name="Misión"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitTipo">Tipo de Función:</label>
+                            <select id="newUnitTipo" name="Tipo de Función">
+                                <option value="Genérica">Genérica</option>
+                                <option value="Específica">Específica</option>
+                                <option value="Indicador">Indicador</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitDescripcion">Descripción:</label>
+                            <textarea id="newUnitDescripcion" name="Descripción" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitProductoFinal">Producto Final:</label>
+                            <input type="text" id="newUnitProductoFinal" name="Producto Final">
+                        </div>
+                        <div class="form-group">
+                            <label for="newUnitPorcentajeDedicacion">Porcentaje Dedicación:</label>
+                            <input type="text" id="newUnitPorcentajeDedicacion" name="Porcentaje Dedicación">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Unidad</button>
+                        <button type="button" class="btn btn-secondary" onclick="Editor.cancelEdit()">Cancelar</button>
+                    </form>
+                `;
+
+                document.getElementById('newUnitForm').addEventListener('submit', this.handleNewUnitSubmit.bind(this));
+            },
+
+            handleNewUnitSubmit(event) {
+                event.preventDefault();
+                const form = event.target;
+                const newUnit = {};
+                for (const input of form.elements) {
+                    if (input.type !== 'submit' && input.type !== 'button') {
+                        newUnit[input.name] = input.value;
+                    }
+                }
+
+                if (newUnit['Unidad Organizativa'].trim() === '') {
+                    Utils.showAlert('El nombre de la unidad no puede estar vacío.', 'error');
+                    return;
+                }
+
+                if (newUnit['Tipo de Función'] === 'Específica' && (!newUnit['Producto Final'] || newUnit['Producto Final'].trim() === '')) {
+                    Utils.showAlert('Para una función Específica, el Producto Final es obligatorio.', 'error');
+                    return;
+                }
+
+                if (newUnit['Tipo de Función'] === 'Específica' && (!newUnit['Porcentaje Dedicación'] || newUnit['Porcentaje Dedicación'].trim() === '')) {
+                    Utils.showAlert('Para una función Específica, el Porcentaje de Dedicación es obligatorio.', 'error');
+                    return;
+                }
+
+                if (newUnit['Tipo de Función'] === 'Indicador' && (newUnit['Producto Final'] || newUnit['Porcentaje Dedicación'])) {
+                    Utils.showAlert('Para una función Indicador, no se permite Producto Final ni Porcentaje de Dedicación.', 'error');
+                    return;
+                }
+
+                // Agregar la nueva unidad al árbol
+                const newNode = {
+                    key: newUnit['Unidad Organizativa'] + '|' + newUnit['Reporta A'],
+                    nombre: newUnit['Unidad Organizativa'],
+                    parent: newUnit['Reporta A'],
+                    children: [],
+                    item: newUnit,
+                    funciones: []
+                };
+
+                // Encontrar el nodo padre en el árbol actual
+                function findParentNode(nodes, parentName) {
+                    for (const node of nodes) {
+                        if (node.nombre === parentName) {
+                            return node;
+                        }
+                        if (node.children) {
+                            const found = findParentNode(node.children, parentName);
+                            if (found) return found;
+                        }
+                    }
+                    return null;
+                }
+
+                const parentNode = findParentNode(STATE.treeRoots, newUnit['Reporta A']);
+
+                if (parentNode) {
+                    parentNode.children.push(newNode);
+                    STATE.treeRoots.push(newNode); // Asegurarse de que la nueva unidad sea raíz si no tiene padre
+                } else {
+                    // Si el padre no existe, la unidad se convierte en raíz
+                    STATE.treeRoots.push(newNode);
+                }
+
+                // Actualizar la agrupación por unidad
+                const unidadKey = newUnit['Unidad Organizativa'];
+                if (!STATE.groupedData[unidadKey]) {
+                    STATE.groupedData[unidadKey] = [];
+                }
+                STATE.groupedData[unidadKey].push(newUnit);
+
+                // Re-renderizar el árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+
+                // Limpiar el formulario
+                form.reset();
+                Utils.showAlert('✅ Unidad creada con éxito!', 'success');
+                Utils.log('Unidad creada', newUnit);
+
+                // Guardar estado en localStorage
+                StorageManager.saveState();
+
+                // Agregar nueva unidad al estado
+                STATE.data.push(newUnit);
+                STATE.groupedData = DataProcessor.groupByUnidad(STATE.data);
+                STATE.treeRoots = DataProcessor.buildTree(STATE.data);
+                
+                // Guardar estado
+                StorageManager.saveState();
+                
+                // Agregar al historial
+                UndoManager.addChange(
+                    'Crear nueva unidad',
+                    `Unidad creada: ${newUnit['Unidad Organizativa']} - Reporta a: ${newUnit['Reporta A'] || 'Ninguno'}`,
+                    UndoManager.getCurrentSnapshot()
+                );
+                
+                // Re-renderizar árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+            },
+
+            cancelEdit() {
+                this.newUnitData = null;
+                document.getElementById('unidad-content').innerHTML = '<p>Seleccione una unidad para ver sus funciones</p>';
+            },
+
+            editUnit(node) {
+                if (!this.isEditMode) {
+                    Utils.showAlert('Primero, active el modo de edición.', 'warning');
+                    return;
+                }
+
+                this.newUnitData = node.item;
+                this.showEditForm();
+            },
+
+            deleteUnit(nodeKey) {
+                if (!this.isEditMode) {
+                    Utils.showAlert('Primero, active el modo de edición.', 'warning');
+                    return;
+                }
+
+                if (!confirm('¿Está seguro de que desea eliminar esta unidad? Esta acción no se puede deshacer.')) {
+                    return;
+                }
+
+                // Encontrar y eliminar el nodo del árbol
+                function removeNodeFromTree(nodes, key) {
+                    for (let i = 0; i < nodes.length; i++) {
+                        if (nodes[i].key === key) {
+                            // Mover los hijos al padre (si existe)
+                            const node = nodes[i];
+                            if (node.children && node.children.length > 0) {
+                                // Buscar el padre
+                                const parent = findParentNode(STATE.treeRoots, node.nombre);
+                                if (parent) {
+                                    parent.children.push(...node.children);
+                                    // Actualizar el reportaA de los hijos
+                                    node.children.forEach(child => {
+                                        child.parent = parent.nombre;
+                                        child.key = child.nombre + '|' + parent.nombre;
+                                        // Actualizar las funciones
+                                        if (child.funciones) {
+                                            child.funciones.forEach(func => {
+                                                func['Reporta A'] = parent.nombre;
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    // Si no hay padre, los hijos se convierten en raíz
+                                    STATE.treeRoots.push(...node.children);
+                                    node.children.forEach(child => {
+                                        child.parent = '';
+                                        child.key = child.nombre + '|';
+                                        if (child.funciones) {
+                                            child.funciones.forEach(func => {
+                                                func['Reporta A'] = '';
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                            nodes.splice(i, 1);
+                            return true;
+                        }
+                        if (nodes[i].children) {
+                            if (removeNodeFromTree(nodes[i].children, key)) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+                function findParentNode(nodes, childName) {
+                    for (const node of nodes) {
+                        if (node.children) {
+                            for (const child of node.children) {
+                                if (child.nombre === childName) {
+                                    return node;
+                                }
+                            }
+                            const found = findParentNode(node.children, childName);
+                            if (found) return found;
+                        }
+                    }
+                    return null;
+                }
+
+                if (removeNodeFromTree(STATE.treeRoots, nodeKey)) {
+                    // Actualizar groupedData
+                    const [nodeName] = nodeKey.split('|');
+                    if (STATE.groupedData[nodeName]) {
+                        delete STATE.groupedData[nodeName];
+                    }
+
+                    // Re-renderizar el árbol
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+
+                    Utils.showAlert('✅ Unidad eliminada con éxito!', 'success');
+                    Utils.log('Unidad eliminada', { nodeKey });
+
+                    // Guardar estado en localStorage
+                    StorageManager.saveState();
+                    
+                    // Agregar al historial
+                    UndoManager.addChange(
+                        'Eliminar unidad',
+                        `Unidad eliminada: ${nodeName} - ${node.funciones.length} funciones eliminadas`,
+                        UndoManager.getCurrentSnapshot()
+                    );
+                    
+                    // Re-renderizar árbol
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                } else {
+                    Utils.showAlert('❌ No se pudo encontrar la unidad para eliminar.', 'error');
+                }
+            },
+
+            moveUnit(draggedKey, targetKey) {
+                if (!this.isEditMode) {
+                    return;
+                }
+
+                const [draggedName] = draggedKey.split('|');
+                const [targetName] = targetKey.split('|');
+
+                if (draggedName === targetName) {
+                    Utils.showAlert('No se puede mover una unidad sobre sí misma.', 'warning');
+                    return;
+                }
+
+                // Verificar que no se cree una referencia circular
+                function isDescendant(nodes, parentName, childName) {
+                    for (const node of nodes) {
+                        if (node.nombre === parentName) {
+                            if (node.children) {
+                                for (const child of node.children) {
+                                    if (child.nombre === childName || isDescendant([child], child.nombre, childName)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+                if (isDescendant(STATE.treeRoots, draggedName, targetName)) {
+                    Utils.showAlert('No se puede mover una unidad padre dentro de su hijo (referencia circular).', 'error');
+                    return;
+                }
+
+                // Encontrar el nodo arrastrado
+                function findNode(nodes, key) {
+                    for (const node of nodes) {
+                        if (node.key === key) {
+                            return { node, parent: null, index: nodes.indexOf(node) };
+                        }
+                        if (node.children) {
+                            for (let i = 0; i < node.children.length; i++) {
+                                if (node.children[i].key === key) {
+                                    return { node: node.children[i], parent: node, index: i };
+                                }
+                            }
+                            const found = findNode(node.children, key);
+                            if (found) return found;
+                        }
+                    }
+                    return null;
+                }
+
+                const draggedNodeInfo = findNode(STATE.treeRoots, draggedKey);
+                const targetNodeInfo = findNode(STATE.treeRoots, targetKey);
+
+                if (!draggedNodeInfo || !targetNodeInfo) {
+                    Utils.showAlert('No se pudieron encontrar las unidades especificadas.', 'error');
+                    return;
+                }
+
+                // Remover el nodo de su ubicación actual
+                if (draggedNodeInfo.parent) {
+                    draggedNodeInfo.parent.children.splice(draggedNodeInfo.index, 1);
+                } else {
+                    STATE.treeRoots.splice(draggedNodeInfo.index, 1);
+                }
+
+                // Actualizar el nodo arrastrado
+                const draggedNode = draggedNodeInfo.node;
+                draggedNode.parent = targetName;
+                draggedNode.key = draggedName + '|' + targetName;
+
+                // Actualizar las funciones del nodo arrastrado
+                if (draggedNode.funciones) {
+                    draggedNode.funciones.forEach(func => {
+                        func['Reporta A'] = targetName;
+                    });
+                }
+
+                // Agregar el nodo como hijo del objetivo
+                if (!targetNodeInfo.node.children) {
+                    targetNodeInfo.node.children = [];
+                }
+                targetNodeInfo.node.children.push(draggedNode);
+
+                // Re-renderizar el árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+
+                Utils.showAlert(`✅ Unidad "${draggedName}" movida bajo "${targetName}"!`, 'success');
+                Utils.log('Unidad movida', { from: draggedKey, to: targetKey });
+
+                // Guardar estado en localStorage
+                StorageManager.saveState();
+                
+                // Agregar al historial
+                UndoManager.addChange(
+                    'Mover unidad',
+                    `Unidad movida: ${draggedName} - Nuevo padre: ${targetName}`,
+                    UndoManager.getCurrentSnapshot()
+                );
+                
+                // Re-renderizar árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+            }
+        };
+
+        // ===== EVENT LISTENERS OPTIMIZADOS =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar historial desde localStorage
+            UndoManager.loadHistory();
+            
+            // Hacer funciones disponibles globalmente
+            window.navegarAUnidad = function(nombreUnidad) {
+                Renderer.navegarAUnidad(nombreUnidad);
+            };
+            
+            window.toggleNode = function(nodeKey) {
+                const isExpanded = STATE.expandedNodes[nodeKey];
+                
+                if (isExpanded) {
+                    delete STATE.expandedNodes[nodeKey];
+                } else {
+                    STATE.expandedNodes[nodeKey] = true;
+                }
+                
+                // Re-renderizar el árbol
+                Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                
+                // Guardar estado en localStorage
+                StorageManager.saveState();
+            };
+            
+            // Función para alternar modo de edición en el contenedor
+            window.toggleEditMode = function() {
+                Editor.toggleEditMode();
+                const container = document.querySelector('.main-content');
+                const editBtn = document.querySelector('.edit-mode-btn');
+                
+                if (Editor.isEditMode) {
+                    container.classList.add('edit-mode');
+                    editBtn.classList.add('active');
+                    editBtn.innerHTML = '✅ Salir Edición';
+                } else {
+                    container.classList.remove('edit-mode');
+                    editBtn.classList.remove('active');
+                    editBtn.innerHTML = '✏️ Modo Edición';
+                }
+                
+                // Re-renderizar para mostrar/ocultar controles
+                if (STATE.treeRoots.length > 0) {
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                }
+            };
+            
+            // Intentar cargar datos guardados al iniciar
+            const stateInfo = StorageManager.getStateInfo();
+            if (stateInfo.hasData) {
+                console.log('Datos guardados encontrados:', stateInfo);
+                if (confirm(`Se encontraron datos guardados (${stateInfo.records} registros, ${stateInfo.units} unidades). ¿Deseas cargarlos?`)) {
+                    StorageManager.loadState();
+                }
+            }
+            
+            // File input
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                Importer.processFile(file);
+            });
+            
+            // Browse button
+            document.getElementById('browseBtn').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+            
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', function() {
+                if (STATE.data.length === 0) {
+                    Utils.showAlert('No hay datos para exportar', 'warning');
+                    return;
+                }
+                Exporter.exportJSON();
+            });
+            
+            // Validate button
+            document.getElementById('validateBtn').addEventListener('click', function() {
+                if (STATE.data.length === 0) {
+                    Utils.showAlert('No hay datos para validar', 'warning');
+                    return;
+                }
+                
+                const validation = Validator.validateData(STATE.data);
+                const message = `Validación completada:\n` +
+                    `• Total registros: ${validation.stats.totalRecords}\n` +
+                    `• Calidad general: ${validation.stats.qualityScore}%\n` +
+                    `• Issues detectados: ${validation.issues.length}`;
+                
+                Utils.showAlert(message, validation.issues.length === 0 ? 'success' : 'warning');
+                Utils.log('Validación ejecutada', validation);
+            });
+            
+            // Drag and drop
+            const dropZone = document.body;
+            
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZone.style.backgroundColor = '#f0f8ff';
+            });
+            
+            dropZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                dropZone.style.backgroundColor = '';
+            });
+            
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.style.backgroundColor = '';
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    if (file.name.endsWith('.csv') || file.name.endsWith('.json')) {
+                        Importer.processFile(file);
+                    } else {
+                        Utils.showAlert('Solo se aceptan archivos CSV o JSON', 'error');
+                    }
+                }
+            });
+        });
+
+        // ===== EXPORTADOR PDF =====
+        const PDFExporter = {
+            exportToPDF() {
+                try {
+                    console.log('Iniciando exportación a PDF...');
+                    
+                    // Verificar si la librería está disponible
+                    if (typeof html2pdf === 'undefined') {
+                        throw new Error('Librería html2pdf.js no está disponible. Verifique su conexión a internet.');
+                    }
+                    
+                    // Verificar si hay datos para exportar
+                    if (!STATE.data || STATE.data.length === 0) {
+                        Utils.showAlert('No hay datos para exportar a PDF.', 'warning');
+                        return;
+                    }
+                    
+                    // Crear el contenido HTML para el PDF
+                    const pdfContent = this.generatePDFContent();
+                    
+                    // Configurar opciones de PDF optimizadas
+                    const pdfOptions = {
+                        margin: [15, 15, 15, 15],
+                        filename: `magna_partners_organigrama_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+                        image: { type: 'jpeg', quality: 0.95 },
+                        html2canvas: { 
+                            scale: 1.5,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#ffffff',
+                            logging: false
+                        },
+                        jsPDF: { 
+                            unit: 'mm', 
+                            format: 'a4', 
+                            orientation: 'portrait',
+                            compress: true
+                        }
+                    };
+                    
+                    console.log('Configurando exportación PDF con opciones:', pdfOptions);
+                    
+                    // Intentar exportación con manejo de errores mejorado
+                    const pdfPromise = html2pdf()
+                        .from(pdfContent)
+                        .set(pdfOptions)
+                        .save();
+                    
+                    // Manejar la promesa de exportación
+                    pdfPromise.then(() => {
+                        console.log('PDF exportado exitosamente');
+                        Utils.showAlert('✅ PDF exportado correctamente', 'success');
+                        Utils.log('PDF exportado', { format: 'PDF', units: Object.keys(STATE.groupedData).length });
+                    }).catch((error) => {
+                        console.error('Error en la promesa de exportación PDF:', error);
+                        Utils.showAlert('Error al generar PDF: ' + error.message, 'error');
+                        
+                        // Intentar fallback con configuración más simple
+                        this.tryFallbackExport(pdfContent);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error al exportar PDF:', error);
+                    Utils.showAlert('Error al exportar PDF: ' + error.message, 'error');
+                    
+                    // Intentar fallback
+                    this.tryFallbackExport();
+                }
+            },
+            
+            tryFallbackExport(pdfContent = null) {
+                try {
+                    console.log('Intentando exportación de fallback...');
+                    
+                    const content = pdfContent || this.generatePDFContent();
+                    
+                    // Configuración más simple para fallback
+                    const fallbackOptions = {
+                        margin: [10, 10, 10, 10],
+                        filename: `magna_partners_organigrama_fallback_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+                        image: { type: 'jpeg', quality: 0.8 },
+                        html2canvas: { 
+                            scale: 1,
+                            useCORS: true,
+                            allowTaint: true
+                        },
+                        jsPDF: { 
+                            unit: 'mm', 
+                            format: 'a4', 
+                            orientation: 'portrait' 
+                        }
+                    };
+                    
+                    html2pdf().from(content).set(fallbackOptions).save().then(() => {
+                        console.log('Exportación de fallback exitosa');
+                        Utils.showAlert('✅ PDF exportado (modo fallback)', 'success');
+                    }).catch((fallbackError) => {
+                        console.error('Error en fallback:', fallbackError);
+                        Utils.showAlert('❌ No se pudo exportar PDF. Verifique su navegador y conexión.', 'error');
+                    });
+                    
+                } catch (error) {
+                    console.error('Error en fallback:', error);
+                    Utils.showAlert('❌ Error crítico en exportación PDF', 'error');
+                }
+            },
+            
+            generatePDFContent() {
+                try {
+                    // Obtener datos en orden jerárquico del árbol
+                    const units = this.getHierarchicalOrder();
+                    
+                    if (!units || units.length === 0) {
+                        throw new Error('No hay datos disponibles para exportar');
+                    }
+                    
+                    console.log(`Generando PDF para ${units.length} unidades en orden jerárquico`);
+                    
+                    let pdfHTML = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <style>
+                                @page {
+                                    size: A4;
+                                    margin: 15mm;
+                                }
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    font-size: 11px;
+                                    line-height: 1.3;
+                                    color: #333;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                .unit-page {
+                                    page-break-after: auto;
+                                    margin-bottom: 15px;
+                                    padding: 10px;
+                                }
+                                .unit-page:last-child {
+                                    page-break-after: avoid;
+                                }
+                                .page-break {
+                                    page-break-before: always;
+                                }
+                                .unit-header {
+                                    text-align: center;
+                                    margin-bottom: 15px;
+                                    border-bottom: 2px solid #2c3e50;
+                                    padding-bottom: 8px;
+                                }
+                                .unit-name {
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #2c3e50;
+                                    margin-bottom: 8px;
+                                    word-wrap: break-word;
+                                }
+                                .unit-metadata {
+                                    font-size: 9px;
+                                    color: #666;
+                                    margin-bottom: 12px;
+                                }
+                                .mission-section {
+                                    margin-bottom: 15px;
+                                }
+                                .mission-title {
+                                    font-size: 12px;
+                                    font-weight: bold;
+                                    color: #2c3e50;
+                                    margin-bottom: 6px;
+                                }
+                                .mission-content {
+                                    font-size: 10px;
+                                    text-align: justify;
+                                    padding: 8px;
+                                    background-color: #f8f9fa;
+                                    border-left: 3px solid #3498db;
+                                    word-wrap: break-word;
+                                }
+                                .functions-table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    margin-bottom: 15px;
+                                    font-size: 10px;
+                                }
+                                .functions-table th {
+                                    background-color: #2c3e50;
+                                    color: white;
+                                    padding: 8px;
+                                    text-align: left;
+                                    font-weight: bold;
+                                }
+                                .functions-table td {
+                                    padding: 6px 8px;
+                                    border: 1px solid #ddd;
+                                    vertical-align: top;
+                                }
+                                .functions-table tr:nth-child(even) {
+                                    background-color: #f8f9fa;
+                                }
+                                .table-title {
+                                    font-size: 12px;
+                                    font-weight: bold;
+                                    color: #2c3e50;
+                                    margin: 15px 0 8px 0;
+                                }
+                                .footer {
+                                    position: fixed;
+                                    bottom: 10mm;
+                                    left: 20mm;
+                                    right: 20mm;
+                                    text-align: center;
+                                    font-size: 8px;
+                                    color: #666;
+                                    border-top: 1px solid #ddd;
+                                    padding-top: 5px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                    `;
+                    
+                    units.forEach((unitData, index) => {
+                        const unit = unitData[0];
+                        const functions = unitData.filter(row => row['Tipo de Función'] && row['Tipo de Función'] !== '');
+                        
+                        console.log(`Procesando unidad: ${unit['Unidad Organizativa']}`);
+                        console.log(`Funciones encontradas: ${functions.length}`);
+                        
+                        // Generar el contenido de esta unidad
+                        let unitContent = `
+                            <div class="unit-page">
+                                <div class="unit-header">
+                                    <div class="unit-name">${unit['Unidad Organizativa']}</div>
+                                    <div class="unit-metadata">
+                                        <strong>Reporta a:</strong> ${unit['Reporta A'] || 'N/A'} | 
+                                        <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}
+                                    </div>
+                                </div>
+                                
+                                <div class="mission-section">
+                                    <div class="mission-title">Misión</div>
+                                    <div class="mission-content">${unit['Misión'] || 'No especificada'}</div>
+                                </div>
+                        `;
+                        
+                        // Agrupar funciones por tipo
+                        const functionsByType = {};
+                        functions.forEach(func => {
+                            const type = func['Tipo de Función'];
+                            if (!functionsByType[type]) {
+                                functionsByType[type] = [];
+                            }
+                            functionsByType[type].push(func);
+                        });
+                        
+                        console.log('Tipos de funciones encontrados:', Object.keys(functionsByType));
+                        
+                        // Generar tablas para cada tipo de función
+                        Object.keys(functionsByType).forEach(type => {
+                            const typeFunctions = functionsByType[type];
+                            
+                            unitContent += `
+                                <div class="table-title">Funciones ${type}</div>
+                                <table class="functions-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40%;">Función ${type === 'Genérica' ? 'Genérica' : type === 'Específica' ? 'Específica' : type}</th>
+                                            <th style="width: 40%;">Producto Final</th>
+                                            <th style="width: 20%;">${type === 'Específica' ? '% Dedicación' : 'Tipo'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+                            
+                            typeFunctions.forEach(func => {
+                                console.log('Procesando función:', func);
+                                
+                                const functionDescription = func['Descripción'] || 'No especificada';
+                                const productFinal = func['Producto Final'] || 'No especificado';
+                                const dedicationPercent = type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type;
+                                
+                                unitContent += `
+                                    <tr>
+                                        <td>${functionDescription}</td>
+                                        <td>${productFinal}</td>
+                                        <td style="text-align: center;">${dedicationPercent}</td>
+                                    </tr>
+                                `;
+                            });
+                            
+                            unitContent += `
+                                    </tbody>
+                                </table>
+                            `;
+                        });
+                        
+                        unitContent += `
+                            </div>
+                        `;
+                        
+                        // Solo agregar salto de página si no es la primera unidad
+                        if (index > 0) {
+                            pdfHTML += '<div class="page-break"></div>';
+                        }
+                        
+                        pdfHTML += unitContent;
+                    });
+                    
+                    pdfHTML += `
+                        <div class="footer">
+                            Magna Partners - Analizador de Organigramas | 
+                            Generado el ${new Date().toLocaleDateString('es-ES')} a las ${new Date().toLocaleTimeString('es-ES')} | 
+                            Total de unidades: ${units.length}
+                        </div>
+                        </body>
+                        </html>
+                    `;
+                    
+                    console.log('Contenido PDF generado exitosamente');
+                    return pdfHTML;
+                    
+                } catch (error) {
+                    console.error('Error al generar contenido PDF:', error);
+                    throw new Error(`Error al generar contenido PDF: ${error.message}`);
+                }
+            },
+            
+            getHierarchicalOrder() {
+                const orderedUnits = [];
+                
+                function traverseTree(nodes) {
+                    nodes.forEach(node => {
+                        // Obtener todos los registros para esta unidad
+                        const unitName = node.nombre;
+                        const unitData = STATE.groupedData[unitName];
+                        
+                        if (unitData && unitData.length > 0) {
+                            orderedUnits.push(unitData);
+                        }
+                        
+                        // Recorrer hijos si están expandidos
+                        if (node.children && node.children.length > 0 && STATE.expandedNodes[node.key]) {
+                            traverseTree(node.children);
+                        }
+                    });
+                }
+                
+                // Usar el árbol actual si existe, sino construir uno
+                if (STATE.treeRoots && STATE.treeRoots.length > 0) {
+                    traverseTree(STATE.treeRoots);
+                } else {
+                    // Construir árbol temporal para obtener orden
+                    const tempTree = DataProcessor.buildTree(STATE.data);
+                    traverseTree(tempTree);
+                }
+                
+                return orderedUnits;
+            }
+        };
+
+        // ===== GESTOR DE DESHACER =====
+        const UndoManager = {
+            history: [],
+            maxHistory: 10,
+            
+            // Agregar cambio al historial
+            addChange(action, details, dataSnapshot) {
+                const change = {
+                    id: Date.now(),
+                    action: action,
+                    details: details,
+                    timestamp: new Date(),
+                    dataSnapshot: JSON.parse(JSON.stringify(dataSnapshot)), // Deep copy
+                    canUndo: true
+                };
+                
+                this.history.unshift(change);
+                
+                // Mantener solo los últimos 10 cambios
+                if (this.history.length > this.maxHistory) {
+                    this.history = this.history.slice(0, this.maxHistory);
+                }
+                
+                // Guardar en localStorage
+                this.saveHistory();
+                
+                console.log(`Cambio agregado al historial: ${action}`, change);
+                Utils.log(`Cambio agregado: ${action}`, { action, details });
+            },
+            
+            // Deshacer un cambio específico
+            undoChange(changeId) {
+                const changeIndex = this.history.findIndex(change => change.id === changeId);
+                
+                if (changeIndex === -1) {
+                    Utils.showAlert('No se encontró el cambio para deshacer', 'error');
+                    return;
+                }
+                
+                const change = this.history[changeIndex];
+                
+                try {
+                    // Restaurar el snapshot de datos
+                    STATE.data = change.dataSnapshot.data || [];
+                    STATE.groupedData = change.dataSnapshot.groupedData || {};
+                    STATE.treeRoots = change.dataSnapshot.treeRoots || [];
+                    STATE.expandedNodes = change.dataSnapshot.expandedNodes || {};
+                    
+                    // Re-renderizar el árbol
+                    Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
+                    
+                    // Remover el cambio del historial
+                    this.history.splice(changeIndex, 1);
+                    this.saveHistory();
+                    
+                    // Actualizar la interfaz
+                    this.updateHistoryDisplay();
+                    
+                    Utils.showAlert(`✅ Cambio deshecho: ${change.action}`, 'success');
+                    Utils.log(`Cambio deshecho: ${change.action}`, { action: change.action, details: change.details });
+                    
+                } catch (error) {
+                    console.error('Error al deshacer cambio:', error);
+                    Utils.showAlert('Error al deshacer el cambio', 'error');
+                }
+            },
+            
+            // Mostrar historial
+            showHistory() {
+                const modal = document.getElementById('historyModal');
+                const historyList = document.getElementById('historyList');
+                
+                if (this.history.length === 0) {
+                    historyList.innerHTML = '<div class="no-history">No hay cambios en el historial</div>';
+                } else {
+                    this.updateHistoryDisplay();
+                }
+                
+                modal.style.display = 'block';
+            },
+            
+            // Ocultar historial
+            hideHistory() {
+                const modal = document.getElementById('historyModal');
+                modal.style.display = 'none';
+            },
+            
+            // Actualizar la visualización del historial
+            updateHistoryDisplay() {
+                const historyList = document.getElementById('historyList');
+                
+                historyList.innerHTML = this.history.map(change => {
+                    const timeStr = this.formatTime(change.timestamp);
+                    
+                    return `
+                        <div class="history-item" data-change-id="${change.id}">
+                            <div class="history-header">
+                                <span class="history-action">${change.action}</span>
+                                <span class="history-time">${timeStr}</span>
+                            </div>
+                            <div class="history-details">${change.details}</div>
+                            <div class="history-actions">
+                                <button class="undo-btn" onclick="UndoManager.undoChange(${change.id})" 
+                                        ${!change.canUndo ? 'disabled' : ''}>
+                                    ↶ Deshacer
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            },
+            
+            // Formatear tiempo
+            formatTime(timestamp) {
+                const now = new Date();
+                const diff = now - timestamp;
+                const minutes = Math.floor(diff / (1000 * 60));
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                
+                if (minutes < 1) {
+                    return 'Hace menos de 1 minuto';
+                } else if (minutes < 60) {
+                    return `Hace ${minutes} minuto${minutes !== 1 ? 's' : ''}`;
+                } else if (hours < 24) {
+                    return `Hace ${hours} hora${hours !== 1 ? 's' : ''}`;
+                } else {
+                    return timestamp.toLocaleString('es-ES', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+            },
+            
+            // Guardar historial en localStorage
+            saveHistory() {
+                try {
+                    localStorage.setItem('undoHistory', JSON.stringify(this.history));
+                } catch (error) {
+                    console.error('Error al guardar historial:', error);
+                }
+            },
+            
+            // Cargar historial desde localStorage
+            loadHistory() {
+                try {
+                    const savedHistory = localStorage.getItem('undoHistory');
+                    if (savedHistory) {
+                        this.history = JSON.parse(savedHistory);
+                        console.log(`Historial cargado: ${this.history.length} cambios`);
+                    }
+                } catch (error) {
+                    console.error('Error al cargar historial:', error);
+                    this.history = [];
+                }
+            },
+            
+            // Limpiar historial
+            clearHistory() {
+                this.history = [];
+                this.saveHistory();
+                console.log('Historial limpiado');
+            },
+            
+            // Obtener snapshot actual de datos
+            getCurrentSnapshot() {
+                return {
+                    data: STATE.data,
+                    groupedData: STATE.groupedData,
+                    treeRoots: STATE.treeRoots,
+                    expandedNodes: STATE.expandedNodes
+                };
+            }
+        };
+
+        // ===== EVENT LISTENERS OPTIMIZADOS =====
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{
+  "fecha": "2025-07-29T15:32:08.799Z",
+  "totalUnidadesProcesadas": 6,
+  "totalActualizaciones": 30,
+  "unidadesActualizadas": [
+    {
+      "unidadOriginal": "Coordinacion del Negocio",
+      "unidadActualizada": "Coordinación Del Negocio Y Datos",
+      "actualizaciones": [
+        "Función específica agregada: Seguimiento de KPI’s estratégicos de Clientes\nSupe...",
+        "Función específica agregada: Desarrollo y evolución de tableros ejecutivos\nDise...",
+        "Función específica agregada: Coordinación de proyectos estratégicos (PMO SGP Cl...",
+        "Función específica agregada: Gestión documental y metodológica\nDiseñar template...",
+        "Función específica agregada: Producción de informes ejecutivos y regulatorios\nE..."
+      ]
+    },
+    {
+      "unidadOriginal": "Customer ingigth",
+      "unidadActualizada": "Customer Insights & Analytics",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Modelos predictivos y prescriptivos\nModelos de pro...",
+        "Función específica agregada: Estrategia de medición de experiencia cliente (CX)...",
+        "Función específica agregada: Dashboards y tableros ejecutivos de clientes\nRepor...",
+        "Función específica agregada: Investigación de mercado y benchmark\nEstudios ad-h..."
+      ]
+    },
+    {
+      "unidadOriginal": "Experiencia al cliente",
+      "unidadActualizada": "Experiencia Del Cliente Y Modelo De Atención",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Diseño y mejora de journeys prioritarios\nMapeo y r...",
+        "Función específica agregada: Seguimiento y mejora de indicadores de experiencia...",
+        "Función específica agregada: Estrategia de gestión de la voz del cliente (VoC)\n...",
+        "Función específica agregada: Capacitación y acompañamiento a la red\nCreación de..."
+      ]
+    },
+    {
+      "unidadOriginal": "Gestin operativa sucursales",
+      "unidadActualizada": "Gestión Operativa De Sucursales",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Coordinación de procesos y circuitos administrativ...",
+        "Función específica agregada: Seguimiento de indicadores y control de gestión op...",
+        "Función específica agregada: Gestión del recurso operativo y de infraestructura...",
+        "Función específica agregada: Capacitación y soporte técnico a la red\nElaborar y..."
+      ]
+    },
+    {
+      "unidadOriginal": "Gestion Comercial",
+      "unidadActualizada": "Gestión Comercial",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Monitoreo de KPI’s y performance comercial\nSeguimi...",
+        "Función específica agregada: Soporte directo a regiones y sucursales\nCanal únic...",
+        "Función específica agregada: Seguimiento y cierre de campañas\nSupervisión del c...",
+        "Función específica agregada: Gestión de capacidades y herramientas comerciales\n..."
+      ]
+    },
+    {
+      "unidadOriginal": "REginales",
+      "unidadActualizada": "Regionales",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Despliegue y seguimiento de campañas y acciones co...",
+        "Función específica agregada: Análisis de cobertura y estructura de red\nMonitore...",
+        "Función específica agregada: Gestión de desempeño y clima organizacional\nPartic...",
+        "Función específica agregada: Gestión de riesgos operativos y cumplimiento norma..."
+      ]
+    }
+  ],
+  "resumen": "Se procesaron 6 unidades faltantes y se realizaron 30 actualizaciones"
+}

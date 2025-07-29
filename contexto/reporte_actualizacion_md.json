@@ -1,0 +1,102 @@
+{
+  "fecha": "2025-07-29T15:29:54.286Z",
+  "totalArchivosMD": 16,
+  "totalActualizaciones": 49,
+  "unidadesActualizadas": [
+    {
+      "unidad": "Comunicaciones Y Eventos",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Diseño de protocolos y herramientas de atención\nSc...",
+        "Función específica agregada: Análisis de la voz del cliente y mejora continua\nA...",
+        "Función específica agregada: Supervisión de calidad de atención\nEscucha de llam...",
+        "Función específica agregada: Interacción con otras áreas operativas y comercial..."
+      ]
+    },
+    {
+      "unidad": "Banca Digital",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Seguimiento y optimización de performance digital\n...",
+        "Función específica agregada: Desarrollo de funcionalidades y journeys digitales...",
+        "Función específica agregada: Fomento de adopción y capacitación en canales digi...",
+        "Función específica agregada: Integración con la estrategia multicanal del Banco..."
+      ]
+    },
+    {
+      "unidad": "Coordinación Del Negocio Y Datos",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Seguimiento de indicadores y performance\nMonitorea...",
+        "Función específica agregada: Desarrollo de tableros y reportes de gestión\nCrear...",
+        "Función específica agregada: Análisis de comportamiento y segmentación dinámica...",
+        "Función específica agregada: Gestión del portafolio de proyectos del área Clien...",
+        "Función específica agregada: Producción de informes ejecutivos y regulatorios\nP...",
+        "Función específica agregada: Documentación, metodologías y mejores prácticas\nDe..."
+      ]
+    },
+    {
+      "unidad": "Alianzas y Patrocinios",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Gestión y ejecución de patrocinios estratégicos\nCu...",
+        "Función específica agregada: Procesos de evaluación y decisión\nMetodología de a...",
+        "Función específica agregada: Relación con los aliados estratégicos\nAcompañamien...",
+        "Función específica agregada: Medición y documentación\nRegistro de acuerdos acti..."
+      ]
+    },
+    {
+      "unidad": "Branding y Comunicaciones",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Comunicación institucional multicanal\nMensajes cla...",
+        "Función específica agregada: Apoyo comunicacional a productos y segmentos\nGener...",
+        "Función específica agregada: Relación con áreas institucionales y stakeholders\n...",
+        "Función específica agregada: Supervisión de campañas y control de calidad\nAcomp..."
+      ]
+    },
+    {
+      "unidad": "Marketing",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Gestión de comunicación digital\nAdministrar conten...",
+        "Función específica agregada: Desarrollo y producción de materiales instituciona...",
+        "Función específica agregada: Investigación de mercado y escucha activa del clie...",
+        "Función específica agregada: Relación con medios, comunicación institucional y ...",
+        "Función específica agregada: Patrocinios y eventos de posicionamiento instituci..."
+      ]
+    },
+    {
+      "unidad": "CAC",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Diseño de protocolos y herramientas de atención\nSc...",
+        "Función específica agregada: Análisis de la voz del cliente y mejora continua\nA...",
+        "Función específica agregada: Supervisión de calidad de atención\nEscucha de llam...",
+        "Función específica agregada: Interacción con otras áreas operativas y comercial..."
+      ]
+    },
+    {
+      "unidad": "Canales",
+      "actualizaciones": [
+        "Misión actualizada con información más detallada",
+        "Función específica agregada: Planificación y evolución de la red de sucursales\n...",
+        "Función específica agregada: Gestión de banca digital y autoservicio\nCoordinar ...",
+        "Función específica agregada: Gestión del contact center y atención remota\nSuper...",
+        "Función específica agregada: Diseño y mejora de journeys multicanal\nColaborar e...",
+        "Función específica agregada: Análisis de cobertura y eficiencia operativa\nMonit...",
+        "Función específica agregada: Seguridad, accesibilidad y cumplimiento normativo\n..."
+      ]
+    },
+    {
+      "unidad": "Marketing",
+      "actualizaciones": [
+        "Función específica agregada: Optimización del embudo digital de captación y act...",
+        "Función específica agregada: Monitoreo de performance y reporting\nDashboards en...",
+        "Función específica agregada: Automatización y personalización de comunicaciones...",
+        "Función específica agregada: Gestión de canales digitales propios y pagos\nSitio..."
+      ]
+    }
+  ],
+  "resumen": "Se procesaron 16 archivos MD y se realizaron 49 actualizaciones en 9 unidades"
+}
