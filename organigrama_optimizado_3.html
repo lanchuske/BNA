@@ -1117,17 +1117,25 @@
                         const draggedKey = e.dataTransfer.getData('text/plain');
                         if (draggedKey !== node.key) {
                             // Determinar si es reordenamiento o movimiento
-                            const [draggedName] = draggedKey.split('|');
-                            const [targetName] = node.key.split('|');
+                            const [draggedName, draggedParent] = draggedKey.split('|');
+                            const [targetName, targetParent] = node.key.split('|');
                             
-                            // Verificar si están en el mismo nivel
-                            const draggedParent = draggedKey.includes('|') ? draggedKey.split('|')[1] : null;
-                            const targetParent = node.key.includes('|') ? node.key.split('|')[1] : null;
+                            console.log('Drop detectado:', {
+                                draggedKey,
+                                targetKey: node.key,
+                                draggedName,
+                                draggedParent,
+                                targetName,
+                                targetParent
+                            });
                             
+                            // Verificar si están en el mismo nivel (mismo padre)
                             if (draggedParent === targetParent) {
+                                console.log('Reordenamiento en el mismo nivel');
                                 // Reordenamiento en el mismo nivel
                                 Editor.reorderUnit(draggedKey, node.key, 'after');
                             } else {
+                                console.log('Movimiento a diferente nivel');
                                 // Movimiento a diferente nivel
                                 Editor.moveUnit(draggedKey, node.key);
                             }
@@ -2560,6 +2568,8 @@
                     return; // No hacer nada si es la misma unidad
                 }
 
+                console.log('Reordenando unidades:', { draggedKey, targetKey, position });
+
                 // Encontrar los nodos
                 function findNode(nodes, key) {
                     for (const node of nodes) {
@@ -2583,17 +2593,26 @@
                 const targetNodeInfo = findNode(STATE.treeRoots, targetKey);
 
                 if (!draggedNodeInfo || !targetNodeInfo) {
+                    console.log('No se encontraron los nodos para reordenar');
                     return;
                 }
 
+                console.log('Nodos encontrados:', {
+                    dragged: { parent: draggedNodeInfo.parent?.nombre, index: draggedNodeInfo.index },
+                    target: { parent: targetNodeInfo.parent?.nombre, index: targetNodeInfo.index }
+                });
+
                 // Verificar que estén en el mismo nivel (mismo padre)
                 if (draggedNodeInfo.parent !== targetNodeInfo.parent) {
+                    console.log('Los nodos no están en el mismo nivel');
                     return;
                 }
 
                 // Obtener la lista de nodos del mismo nivel
                 const siblings = draggedNodeInfo.parent ? 
                     draggedNodeInfo.parent.children : STATE.treeRoots;
+
+                console.log('Siblings antes del reordenamiento:', siblings.map(n => n.nombre));
 
                 // Remover el nodo arrastrado
                 siblings.splice(draggedNodeInfo.index, 1);
@@ -2607,8 +2626,12 @@
                     newIndex--;
                 }
 
+                console.log('Nueva posición calculada:', newIndex);
+
                 // Insertar en nueva posición
                 siblings.splice(newIndex, 0, draggedNodeInfo.node);
+
+                console.log('Siblings después del reordenamiento:', siblings.map(n => n.nombre));
 
                 // Re-renderizar el árbol
                 Renderer.renderTree(STATE.treeRoots, document.getElementById('tree-container'));
@@ -2624,8 +2647,8 @@
                 
                 // Agregar al historial
                 UndoManager.addChange(
-                    'Mover unidad',
-                    `Unidad movida: ${draggedName} - Nuevo padre: ${targetName}`,
+                    'Reordenar unidad',
+                    `Unidad reordenada: ${draggedName} - Nueva posición: ${targetName}`,
                     UndoManager.getCurrentSnapshot()
                 );
             }
