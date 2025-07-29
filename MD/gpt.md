@@ -170,3 +170,103 @@ Este es un ejemplo de cómo está estructurada cada unidad organizativa en el ar
 }
 ```
 
+
+## Anexo: JSON completo exportado
+
+```json
+{
+  "metadata": {
+    "exportDate": "2025-07-29T20:56:29.645Z",
+    "version": "2.16-funciones-genericas-corregidas-2025-07-29-unidades-agregadas-duplicados-eliminados-productos-finales-pendientes-productos-finales-incorrectos-correcciones-automaticas-head-segmentos-unificado-errores-redondeo-corregidos-errores-redondeo-corregidos-errores-especificos-corregidos-exported",
+    "format": "hierarchy-only",
+    "totalRecords": 601,
+    "totalUnits": 45,
+    "stats": {
+      "totalRecords": 890,
+      "completeRecords": 890,
+      "qualityScore": 100,
+      "validationByType": {
+        "Genérica": {
+          "total": 111,
+          "complete": 111
+        },
+        "Específica": {
+          "total": 344,
+          "complete": 344
+        },
+        "Indicador": {
+          "total": 336,
+          "complete": 336
+        }
+      },
+      "totalUnits": null
+    },
+    "issues": [],
+    "qualityScore": 100,
+    "historyIncluded": true,
+    "actualizado": "2025-07-29T17:42:52.911Z",
+    "notes": [
+      "Archivo optimizado eliminando duplicaciones entre hierarchy y data",
+      "Migradas 36 funciones adicionales de Canales desde data a hierarchy",
+      "Mantenidas las misiones más detalladas de hierarchy",
+      "Eliminada sección data para evitar inconsistencias",
+      "Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores",
+      "Corregidas 11 funciones genéricas que tenían porcentajes de dedicación"
+    ]
+  }
+}
+```
+
+
+## Anexo: Ejemplo de Unidad Organizativa (estructura JSON completa)
+
+```json
+{
+  "unit_id": "12",
+  "parent_unit_id": "11",
+  "name": "Banca Digital",
+  "mission": "Desarrollar y optimizar los canales digitales del Banco asegurando funcionalidad, adopción y experiencia cliente.",
+  "generic_functions": [
+    "Gestión de canales",
+    "Adopción digital",
+    "Coordinación tecnológica",
+    "Monitoreo",
+    "Coherencia multicanal"
+  ],
+  "specific_functions": [
+    {
+      "description": "Gestión de performance de canales digitales",
+      "product": "Performance y crecimiento digital",
+      "dedication": 30
+    },
+    {
+      "description": "Seguimiento de estabilidad y performance técnica",
+      "product": "Alertas y métricas de performance",
+      "dedication": 20
+    },
+    {
+      "description": "Mejoras en los journeys digitales",
+      "product": "Journeys optimizados",
+      "dedication": 20
+    },
+    {
+      "description": "Capacitación e impulso de uso de canales",
+      "product": "Acciones de formación y adopción",
+      "dedication": 20
+    },
+    {
+      "description": "Integración y coherencia multicanal",
+      "product": "Modelo multicanal coherente",
+      "dedication": 10
+    }
+  ],
+  "indicators": [
+    "% de operaciones digitales",
+    "Tasa de uso recurrente",
+    "Errores técnicos por canal",
+    "NPS digital",
+    "Tiempo de respuesta digital"
+  ]
+}
+```
+

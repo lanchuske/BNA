@@ -560,8 +560,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏢 BNA - Organigrama Optimizado</h1>
-            <p>Formato Final - Hierarchy Only</p>
+            <h1>🏢 BNA</h1>
         </div>
         
         <div class="controls">
@@ -633,6 +632,28 @@
                 container.insertBefore(alertDiv, container.firstChild);
                 
                 setTimeout(() => alertDiv.remove(), 5000);
+            },
+            
+            calcularNivelReporte: function(unit, allUnits) {
+                // Si es SGP Clientes, nivel 2
+                if (unit.nombre === 'SGP Clientes') {
+                    return 2;
+                }
+                
+                // Si no tiene reportaA, es nivel 1
+                if (!unit.reportaA) {
+                    return 1;
+                }
+                
+                // Buscar la unidad superior
+                const unidadSuperior = allUnits.find(u => u.nombre === unit.reportaA);
+                if (!unidadSuperior) {
+                    return 1;
+                }
+                
+                // Calcular recursivamente el nivel de la unidad superior
+                const nivelSuperior = this.calcularNivelReporte(unidadSuperior, allUnits);
+                return nivelSuperior + 1;
             },
             
             log: function(message, data = null) {
@@ -809,6 +830,24 @@
                                     <option value="">Seleccionar unidad superior...</option>
                                     ${unitsDropdown}
                                 </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jerarquía:</label>
+                                <select id="jerarquia-${unitKey}" class="form-control">
+                                    <option value="">Seleccionar jerarquía...</option>
+                                    <option value="GG" ${unitData.jerarquia === 'GG' ? 'selected' : ''}>GG</option>
+                                    <option value="SGP" ${unitData.jerarquia === 'SGP' ? 'selected' : ''}>SGP</option>
+                                    <option value="SG" ${unitData.jerarquia === 'SG' ? 'selected' : ''}>SG</option>
+                                    <option value="GD" ${unitData.jerarquia === 'GD' ? 'selected' : ''}>GD</option>
+                                    <option value="SGD" ${unitData.jerarquia === 'SGD' ? 'selected' : ''}>SGD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nivel de Reporte:</label>
+                                <input type="number" id="nivelReporte-${unitKey}" value="${unitData.nivelReporte || ''}" placeholder="Nivel de reporte" min="1">
                             </div>
                         </div>
                         
@@ -1001,9 +1040,14 @@
                 const unitData = {
                     nombre: document.getElementById(`nombre-${unitKey}`).value.trim(),
                     reportaA: document.getElementById(`reportaA-${unitKey}`).value.trim(),
+                    jerarquia: document.getElementById(`jerarquia-${unitKey}`).value.trim(),
                     mision: document.getElementById(`mision-${unitKey}`).value.trim(),
                     funciones: []
                 };
+                
+                // Calcular automáticamente el nivel de reporte
+                const allUnits = TreeRenderer.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                unitData.nivelReporte = Utils.calcularNivelReporte(unitData, allUnits);
                 
                 // Validaciones
                 if (!unitData.nombre) {
@@ -1227,7 +1271,9 @@
                             <div style="flex: 1;">
                                 <h3>🏢 ${unit.nombre}</h3>
                                 <p><strong>Reporta a:</strong> ${unit.reportaA || 'No especificado'}</p>
-                                                                ${unit.mision ? `<div class="mission-text"><strong>Misión:</strong> ${unit.mision}</div>` : ''}
+                                <p><strong>Jerarquía:</strong> ${unit.jerarquia || 'No especificada'}</p>
+                                <p><strong>Nivel de Reporte:</strong> ${unit.nivelReporte || 'No especificado'}</p>
+                                ${unit.mision ? `<div class="mission-text"><strong>Misión:</strong> ${unit.mision}</div>` : ''}
                             </div>
                             ${STATE.isEditMode ? `
                                 <div style="margin-left: 15px;">
@@ -1240,7 +1286,7 @@
                     </div>
                     
                     <div class="functions-header">
-                        <h3>📋 Funciones (${(unit.funciones || []).length})</h3>
+                        <h3></h3>
                         <div class="function-controls">
                             ${STATE.isEditMode ? '<button class="btn btn-sm btn-success" onclick="UnitRenderer.addNewFunction()">➕ Agregar Función</button>' : ''}
                         </div>
@@ -1289,7 +1335,6 @@
                                 <div>
                                     <span class="function-type ${typeClass}">${func.tipo || 'Genérica'}</span>
                                     ${percentageHTML}
-                                    <span class="function-order">#${func.orden || index + 1}</span>
                                 </div>
                                 <div class="function-description">${func.descripcion || 'Sin descripción'}</div>
                                 <div class="function-details">
@@ -1571,6 +1616,24 @@
                             </div>
                         </div>
                         
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jerarquía:</label>
+                                <select id="edit-jerarquia" class="form-control">
+                                    <option value="">Seleccionar jerarquía...</option>
+                                    <option value="GG" ${unit.jerarquia === 'GG' ? 'selected' : ''}>GG</option>
+                                    <option value="SGP" ${unit.jerarquia === 'SGP' ? 'selected' : ''}>SGP</option>
+                                    <option value="SG" ${unit.jerarquia === 'SG' ? 'selected' : ''}>SG</option>
+                                    <option value="GD" ${unit.jerarquia === 'GD' ? 'selected' : ''}>GD</option>
+                                    <option value="SGD" ${unit.jerarquia === 'SGD' ? 'selected' : ''}>SGD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nivel de Reporte:</label>
+                                <input type="number" id="edit-nivelReporte" value="${unit.nivelReporte || ''}" placeholder="Nivel de reporte" min="1">
+                            </div>
+                        </div>
+                        
                         <div class="form-group full-width">
                             <label>Misión:</label>
                             <textarea id="edit-mision" placeholder="Describe la misión de la unidad...">${unit.mision || ''}</textarea>
@@ -1605,8 +1668,13 @@
                 const unitData = {
                     nombre: document.getElementById('edit-nombre').value.trim(),
                     reportaA: document.getElementById('edit-reportaA').value.trim(),
+                    jerarquia: document.getElementById('edit-jerarquia').value.trim(),
                     mision: document.getElementById('edit-mision').value.trim()
                 };
+                
+                // Calcular automáticamente el nivel de reporte
+                const allUnits = TreeRenderer.getAllUnitsFlat(STATE.currentData.hierarchy.tree);
+                unitData.nivelReporte = Utils.calcularNivelReporte(unitData, allUnits);
                 
                 // Validaciones
                 if (!unitData.nombre) {
@@ -2139,12 +2207,12 @@
                             <div class="info-content">
                                 <table class="info-table">
                                     <tr>
-                                        <td>Jerarquía Implícita:</td>
-                                        <td>${unit.reportaA || 'No especificado'}</td>
+                                        <td>Jerarquía:</td>
+                                        <td>${unit.jerarquia || 'No especificada'}</td>
                                     </tr>
                                     <tr>
                                         <td>Nivel de Reporte:</td>
-                                        <td>1</td>
+                                        <td>${unit.nivelReporte || 'No especificado'}</td>
                                     </tr>
                                     <tr>
                                         <td>Fecha Aprobación:</td>

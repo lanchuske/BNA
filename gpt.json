@@ -448,35 +448,35 @@
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Operación diaria",
+                    "descripcion": "Administrar la operación diaria del centro de atención, supervisando llamadas, recursos, herramientas y cumplimiento de niveles de servicio.",
                     "productoFinal": "",
                     "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 2,
                     "tipo": "Genérica",
-                    "descripcion": "Protocolos de atención",
+                    "descripcion": "Definir y mantener actualizados los protocolos, guiones y scripts de atención para asegurar interacciones claras, consistentes y efectivas.",
                     "productoFinal": "",
                     "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 3,
                     "tipo": "Genérica",
-                    "descripcion": "Monitoreo de performance",
+                    "descripcion": "Monitorear la performance operativa y la calidad de atención, analizando indicadores clave como TMO, tasa de abandono y resolución en primer contacto.",
                     "productoFinal": "",
                     "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 4,
                     "tipo": "Genérica",
-                    "descripcion": "Desarrollo de agentes",
+                    "descripcion": "Desarrollar al equipo de agentes y supervisores mediante capacitación continua, coaching y evaluación de desempeño.",
                     "productoFinal": "",
                     "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 5,
                     "tipo": "Genérica",
-                    "descripcion": "Mejora digital",
+                    "descripcion": "Colaborar en la identificación e implementación de mejoras digitales, promoviendo el autoservicio y la migración a canales digitales.",
                     "productoFinal": "",
                     "porcentajeDedicacion": ""
                   },
