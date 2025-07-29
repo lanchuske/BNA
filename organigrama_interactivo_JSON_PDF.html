@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Organigrama BNA - JSON & PDF</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 2em; 
+            background: #f8f9fa;
+        }
+        .header {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 2em; 
+            font-weight: bold; 
+            margin-bottom: 0.2em;
+            color: #2c3e50;
+        }
+        .controls {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .file-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .file-input-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .file-input-row input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .browse-btn {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .browse-btn:hover {
+            background: #2980b9;
+        }
+        .load-btn {
+            padding: 12px 24px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .load-btn:hover {
+            background: #229954;
+        }
+        .export-btn {
+            padding: 12px 24px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .export-btn:hover {
+            background: #c0392b;
+        }
+        .export-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .status {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .status-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .status-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .tree {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .tree ul {
+            padding-left: 20px;
+            border-left: 1px solid #ddd;
+            margin: 0;
+        }
+        .tree li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0.2em 0 0.2em 1em;
+            position: relative;
+        }
+        .tree li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.2em;
+            width: 1em;
+            height: 0;
+            border-top: 1px solid #ddd;
+        }
+        .tree span.node {
+            cursor: pointer;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+            font-weight: 500;
+        }
+        .tree span.node.selected, .tree span.node:hover {
+            background: #3498db;
+            color: #fff;
+        }
+        .tree .toggle {
+            cursor: pointer;
+            font-size: 12px;
+            color: #3498db;
+            margin-right: 8px;
+            user-select: none;
+        }
+        .content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-top: 2em;
+        }
+        .info-line {
+            margin-bottom: 0.5em;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .mission-label {
+            font-weight: bold;
+            margin-top: 1em;
+            color: #2c3e50;
+        }
+        .mission-box {
+            margin-bottom: 1.5em;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+        .func-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1em;
+            margin-bottom: 1.5em;
+        }
+        .func-table th, .func-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .func-table th {
+            background: #e0eaf3;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .func-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .func-section-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: #2c3e50;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        #fileInput {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Organigrama BNA - JSON & PDF</div>
+        <p style="color: #666; margin: 0;">Carga archivos JSON y exporta a PDF</p>
+    </div>
+
+    <div class="controls">
+        <div class="file-input-container">
+            <div class="file-input-row">
+                <input type="file" id="fileInput" accept=".json" style="display:none">
+                <button id="browseBtn" class="browse-btn">📁 Examinar JSON...</button>
+                <input type="text" id="filePath" placeholder="Ruta del archivo JSON">
+            </div>
+            <button id="loadFileBtn" class="load-btn">📥 Cargar Archivo</button>
+            <button id="exportPdfBtn" class="export-btn" disabled>📄 Exportar PDF</button>
+        </div>
+    </div>
+
+    <div class="status">
+        <div class="status-item">
+            <span class="status-label">📥 Última Importación:</span>
+            <span id="lastImportFile">Ningún archivo cargado</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">📤 Última Exportación:</span>
+            <span id="lastExportFile">Sin exportaciones</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">💾 Estado Actual:</span>
+            <span id="dataStatus">Sin datos cargados</span>
+        </div>
+    </div>
+
+    <div id="tree-container" class="tree" style="display: none;">
+        <!-- Aquí se renderizará el árbol organizacional -->
+    </div>
+
+    <div id="unidad-content" class="content" style="display: none;">
+        <!-- Aquí se mostrará el contenido de la unidad seleccionada -->
+    </div>
+
+    <div id="alert-container"></div>
+
+    <!-- Librerías para exportación a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // Variables globales
+        let unidadesMap = {};
+        let treeRoots = [];
+        let lastSelected = '';
+        let expandedNodes = {};
+        let csvHeaders = [];
+
+        // Función para mostrar alertas
+        function mostrarAlerta(mensaje, tipo = 'info', duracion = 3000) {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert ${tipo}`;
+            alert.textContent = mensaje;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, duracion);
+        }
+
+        // Función para procesar JSON
+        async function procesarJSON(jsonText, fileName = '') {
+            try {
+                mostrarAlerta('Procesando archivo JSON...', 'info');
+                
+                // Validación básica: asegurarse de que es JSON válido
+                let jsonData;
+                try {
+                    jsonData = JSON.parse(jsonText);
+                } catch (parseError) {
+                    throw new Error('El archivo no es un JSON válido');
+                }
+                
+                // Verificar que el JSON tiene la estructura esperada
+                if (!jsonData.unidades || !Array.isArray(jsonData.unidades)) {
+                    throw new Error('El JSON debe contener un array "unidades"');
+                }
+                
+                // Convertir JSON a formato CSV para compatibilidad
+                const csvData = convertirJSONaCSV(jsonData);
+                
+                // Procesar datos
+                const data = parseCSV(csvData);
+                unidadesMap = groupByUnidad(data);
+                allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
+                treeRoots = buildTree(data);
+                lastSelected = '';
+                expandedNodes = {};
+                
+                // Renderizar árbol
+                const treeDiv = document.getElementById('tree-container');
+                treeDiv.innerHTML = '';
+                renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
+                treeDiv.style.display = 'block';
+                
+                // Actualizar estado
+                document.getElementById('exportPdfBtn').disabled = false;
+                document.getElementById('lastImportFile').textContent = fileName || 'Archivo JSON';
+                document.getElementById('dataStatus').textContent = `Datos cargados: ${Object.keys(unidadesMap).length} unidades`;
+                
+                mostrarAlerta('Archivo JSON cargado correctamente', 'success');
+                
+            } catch (error) {
+                console.error('Error al procesar JSON:', error);
+                mostrarAlerta('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Función para convertir JSON a formato CSV
+        function convertirJSONaCSV(jsonData) {
+            try {
+                const unidades = jsonData.unidades;
+                if (!unidades || !Array.isArray(unidades)) {
+                    throw new Error('Formato JSON inválido: se requiere array "unidades"');
+                }
+                
+                // Obtener headers del primer elemento o usar headers por defecto
+                let headers = [];
+                if (unidades.length > 0 && unidades[0]) {
+                    headers = Object.keys(unidades[0]);
+                } else {
+                    // Headers por defecto si no hay datos
+                    headers = ['Unidad Organizativa', 'Misión', 'Tipo de Función', 'Descripción de la Función'];
+                }
+                
+                // Crear CSV
+                const csvRows = [headers.join(';')];
+                
+                unidades.forEach(unidad => {
+                    const row = headers.map(header => {
+                        const value = unidad[header] || '';
+                        // Escapar comillas y caracteres especiales
+                        return `"${String(value).replace(/"/g, '""')}"`;
+                    });
+                    csvRows.push(row.join(';'));
+                });
+                
+                return csvRows.join('\n');
+                
+            } catch (error) {
+                console.error('Error al convertir JSON a CSV:', error);
+                throw new Error('Error al procesar estructura JSON: ' + error.message);
+            }
+        }
+
+        // Función para parsear CSV
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            if (lines.length < 2) {
+                throw new Error('El archivo CSV debe tener al menos una línea de encabezados y una línea de datos');
+            }
+            
+            const headers = lines[0].split(';').map(h => h.trim().replace(/"/g, ''));
+            csvHeaders = headers;
+            
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(';').map(v => v.trim().replace(/"/g, ''));
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index] || '';
+                });
+                data.push(row);
+            }
+            
+            return data;
+        }
+
+        // Función para agrupar por unidad
+        function groupByUnidad(data) {
+            const grupos = {};
+            data.forEach(row => {
+                const unidad = row['Unidad Organizativa'];
+                if (!grupos[unidad]) {
+                    grupos[unidad] = [];
+                }
+                grupos[unidad].push(row);
+            });
+            return grupos;
+        }
+
+        // Función para construir árbol
+        function buildTree(data) {
+            const unidades = [...new Set(data.map(row => row['Unidad Organizativa']))];
+            const unidadesMap = {};
+            
+            // Crear nodos para todas las unidades
+            unidades.forEach(unidad => {
+                unidadesMap[unidad] = {
+                    name: unidad,
+                    children: [],
+                    data: data.filter(row => row['Unidad Organizativa'] === unidad)
+                };
+            });
+            
+            // Construir jerarquía
+            const roots = [];
+            unidades.forEach(unidad => {
+                const row = data.find(r => r['Unidad Organizativa'] === unidad);
+                if (row) {
+                    const reportaA = row['Reporta a'] || '';
+                    if (!reportaA || reportaA === unidad) {
+                        roots.push(unidadesMap[unidad]);
+                    } else {
+                        const parent = unidadesMap[reportaA];
+                        if (parent) {
+                            parent.children.push(unidadesMap[unidad]);
+                        } else {
+                            roots.push(unidadesMap[unidad]);
+                        }
+                    }
+                }
+            });
+            
+            return roots;
+        }
+
+        // Función para renderizar árbol
+        function renderTree(nodes, container, onSelect, selectedKey) {
+            const ul = document.createElement('ul');
+            
+            nodes.forEach(node => {
+                const li = document.createElement('li');
+                const toggle = document.createElement('span');
+                toggle.className = 'toggle';
+                toggle.textContent = node.children.length > 0 ? '[+]' : '';
+                toggle.onclick = () => toggleNode(node, toggle);
+                
+                const span = document.createElement('span');
+                span.className = 'node';
+                span.textContent = node.name;
+                span.onclick = () => onSelect(node.name);
+                
+                if (selectedKey === node.name) {
+                    span.classList.add('selected');
+                }
+                
+                li.appendChild(toggle);
+                li.appendChild(span);
+                
+                if (node.children.length > 0) {
+                    const childContainer = document.createElement('div');
+                    childContainer.style.display = 'none';
+                    childContainer.className = 'children';
+                    renderTree(node.children, childContainer, onSelect, selectedKey);
+                    li.appendChild(childContainer);
+                }
+                
+                ul.appendChild(li);
+            });
+            
+            container.appendChild(ul);
+        }
+
+        // Función para alternar nodos
+        function toggleNode(node, toggle) {
+            const children = toggle.parentNode.querySelector('.children');
+            if (children) {
+                const isVisible = children.style.display !== 'none';
+                children.style.display = isVisible ? 'none' : 'block';
+                toggle.textContent = isVisible ? '[+]' : '[–]';
+            }
+        }
+
+        // Función para seleccionar unidad
+        function selectUnidad(key) {
+            showUnidad(unidadesMap[key]);
+            lastSelected = key;
+            
+            // Actualizar selección visual
+            document.querySelectorAll('.node').forEach(node => {
+                node.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        // Función para mostrar unidad
+        function showUnidad(unidadData) {
+            if (!unidadData || unidadData.length === 0) return;
+            
+            const unidad = unidadData[0];
+            const contentDiv = document.getElementById('unidad-content');
+            
+            let html = `
+                <div class="section">
+                    <div class="info-line">
+                        <span class="info-label">Unidad Organizativa:</span> ${unidad['Unidad Organizativa'] || 'N/A'}
+                    </div>
+                    <div class="info-line">
+                        <span class="info-label">Jerarquía:</span> ${unidad['Jerarquía'] || 'N/A'}
+                    </div>
+                    <div class="info-line">
+                        <span class="info-label">Reporta a:</span> ${unidad['Reporta a'] || 'N/A'}
+                    </div>
+                </div>
+            `;
+            
+            if (unidad['Misión']) {
+                html += `
+                    <div class="section">
+                        <div class="mission-label">Misión:</div>
+                        <div class="mission-box">${unidad['Misión']}</div>
+                    </div>
+                `;
+            }
+            
+            // Agrupar funciones por tipo
+            const funciones = unidadData.filter(row => row['Tipo de Función']);
+            const funcionesGenericas = funciones.filter(f => f['Tipo de Función'].toLowerCase().includes('genérica'));
+            const funcionesEspecificas = funciones.filter(f => f['Tipo de Función'].toLowerCase().includes('específica'));
+            
+            if (funcionesGenericas.length > 0) {
+                html += `
+                    <div class="section">
+                        <div class="func-section-title">Funciones Genéricas:</div>
+                        <table class="func-table">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Producto Final</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                funcionesGenericas.forEach(func => {
+                    html += `
+                        <tr>
+                            <td>${func['Descripción'] || 'N/A'}</td>
+                            <td>${func['Producto Final'] || 'N/A'}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            if (funcionesEspecificas.length > 0) {
+                html += `
+                    <div class="section">
+                        <div class="func-section-title">Funciones Específicas:</div>
+                        <table class="func-table">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Producto Final</th>
+                                    <th>Porcentaje Dedicación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                funcionesEspecificas.forEach(func => {
+                    html += `
+                        <tr>
+                            <td>${func['Descripción'] || 'N/A'}</td>
+                            <td>${func['Producto Final'] || 'N/A'}</td>
+                            <td>${func['Porcentaje Dedicación'] || 'N/A'}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            contentDiv.innerHTML = html;
+            contentDiv.style.display = 'block';
+        }
+
+        // Función para exportar PDF
+        function exportToPDF() {
+            try {
+                if (!unidadesMap || Object.keys(unidadesMap).length === 0) {
+                    mostrarAlerta('No hay datos para exportar', 'error');
+                    return;
+                }
+
+                mostrarAlerta('Generando PDF...', 'info');
+
+                // Crear contenido HTML para el PDF
+                const pdfContent = generatePDFContent();
+                
+                // Configurar opciones de PDF
+                const pdfOptions = {
+                    margin: [10, 10, 10, 10],
+                    filename: `organigrama_bna_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                };
+
+                // Generar PDF
+                html2pdf()
+                    .from(pdfContent)
+                    .set(pdfOptions)
+                    .save()
+                    .then(() => {
+                        mostrarAlerta('✅ PDF exportado correctamente', 'success');
+                        document.getElementById('lastExportFile').textContent = `organigrama_bna_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`;
+                    })
+                    .catch((error) => {
+                        console.error('Error al generar PDF:', error);
+                        mostrarAlerta('Error al generar PDF: ' + error.message, 'error');
+                    });
+
+            } catch (error) {
+                console.error('Error al exportar PDF:', error);
+                mostrarAlerta('Error al exportar PDF: ' + error.message, 'error');
+            }
+        }
+
+        // Función para generar contenido HTML del PDF
+        function generatePDFContent() {
+            const units = Object.keys(unidadesMap);
+            
+            let pdfHTML = `
+                <html>
+                <head>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .page-break { page-break-after: always; }
+                        .unit-section { margin-bottom: 30px; }
+                        .unit-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+                        .unit-info { margin-bottom: 15px; }
+                        .info-label { font-weight: bold; }
+                        .mission-box { background: #f8f9fa; padding: 10px; border-left: 4px solid #3498db; margin: 10px 0; }
+                        .func-table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                        .func-table th, .func-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        .func-table th { background: #e0eaf3; font-weight: bold; }
+                        .func-section-title { font-weight: bold; font-size: 14px; margin: 15px 0 5px 0; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .header h1 { color: #2c3e50; margin-bottom: 5px; }
+                        .header p { color: #666; margin: 0; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Organigrama BNA</h1>
+                        <p>Estructura Organizacional - ${new Date().toLocaleDateString()}</p>
+                    </div>
+            `;
+
+            units.forEach((unitName, index) => {
+                const unitData = unidadesMap[unitName];
+                if (unitData && unitData.length > 0) {
+                    const unit = unitData[0];
+                    
+                    let unitContent = `
+                        <div class="unit-section">
+                            <div class="unit-title">${unit['Unidad Organizativa']}</div>
+                            <div class="unit-info">
+                                <div><span class="info-label">Jerarquía:</span> ${unit['Jerarquía'] || 'N/A'}</div>
+                                <div><span class="info-label">Reporta a:</span> ${unit['Reporta a'] || 'N/A'}</div>
+                            </div>
+                    `;
+                    
+                    if (unit['Misión']) {
+                        unitContent += `
+                            <div class="mission-box">
+                                <div><span class="info-label">Misión:</span></div>
+                                <div>${unit['Misión']}</div>
+                            </div>
+                        `;
+                    }
+                    
+                    // Funciones genéricas
+                    const funcionesGenericas = unitData.filter(row => 
+                        row['Tipo de Función'] && row['Tipo de Función'].toLowerCase().includes('genérica')
+                    );
+                    
+                    if (funcionesGenericas.length > 0) {
+                        unitContent += `
+                            <div class="func-section-title">Funciones Genéricas:</div>
+                            <table class="func-table">
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Producto Final</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+                        
+                        funcionesGenericas.forEach(func => {
+                            unitContent += `
+                                <tr>
+                                    <td>${func['Descripción'] || 'N/A'}</td>
+                                    <td>${func['Producto Final'] || 'N/A'}</td>
+                                </tr>
+                            `;
+                        });
+                        
+                        unitContent += `
+                                </tbody>
+                            </table>
+                        `;
+                    }
+                    
+                    // Funciones específicas
+                    const funcionesEspecificas = unitData.filter(row => 
+                        row['Tipo de Función'] && row['Tipo de Función'].toLowerCase().includes('específica')
+                    );
+                    
+                    if (funcionesEspecificas.length > 0) {
+                        unitContent += `
+                            <div class="func-section-title">Funciones Específicas:</div>
+                            <table class="func-table">
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Producto Final</th>
+                                        <th>Porcentaje Dedicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+                        
+                        funcionesEspecificas.forEach(func => {
+                            unitContent += `
+                                <tr>
+                                    <td>${func['Descripción'] || 'N/A'}</td>
+                                    <td>${func['Producto Final'] || 'N/A'}</td>
+                                    <td>${func['Porcentaje Dedicación'] || 'N/A'}</td>
+                                </tr>
+                            `;
+                        });
+                        
+                        unitContent += `
+                                </tbody>
+                            </table>
+                        `;
+                    }
+                    
+                    unitContent += `</div>`;
+                    
+                    // Agregar salto de página si no es la última unidad
+                    if (index < units.length - 1) {
+                        unitContent += '<div class="page-break"></div>';
+                    }
+                    
+                    pdfHTML += unitContent;
+                }
+            });
+            
+            pdfHTML += `
+                </body>
+                </html>
+            `;
+            
+            return pdfHTML;
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event listener para el botón Browse
+            document.getElementById('browseBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const fileInput = document.getElementById('fileInput');
+                fileInput.click();
+            });
+
+            // Event listener para el input file
+            document.getElementById('fileInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    document.getElementById('filePath').value = file.name;
+                    
+                    if (!file.name.toLowerCase().endsWith('.json')) {
+                        mostrarAlerta('Por favor seleccione un archivo JSON', 'error');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        procesarJSON(evt.target.result, file.name);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Event listener para cargar archivo por ruta
+            document.getElementById('loadFileBtn').addEventListener('click', async function() {
+                const filePath = document.getElementById('filePath').value.trim();
+                if (!filePath) {
+                    mostrarAlerta('Por favor ingrese una ruta de archivo', 'error');
+                    return;
+                }
+
+                if (!filePath.toLowerCase().endsWith('.json')) {
+                    mostrarAlerta('La ruta debe ser de un archivo JSON', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) throw new Error('No se pudo acceder al archivo');
+                    const jsonText = await response.text();
+                    procesarJSON(jsonText, filePath);
+                } catch (error) {
+                    console.error('Error al cargar el archivo:', error);
+                    mostrarAlerta('No se pudo abrir el archivo. Verifique la ruta.', 'error');
+                }
+            });
+
+            // Event listener para exportar PDF
+            document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
+        });
+    </script>
+</body>
+</html>

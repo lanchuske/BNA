@@ -1310,6 +1310,10 @@
             }
         }
     </style>
+    <!-- Librerías para exportación a PDF con fallbacks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <h1 style="display:inline-block;">Unidades Organizativas BNA</h1>
@@ -1338,12 +1342,12 @@
                 <div id="dataStatus" style="color:#333;font-size:0.85em;">Datos desde localStorage</div>
               </div>
             </div>
-            <label style="font-weight:bold;">Cargar Archivo:</label><br>
+            <label style="font-weight:bold;">Cargar CSV:</label><br>
             <div class="file-input-container">
               <div class="file-input-row">
-                <input type="file" id="fileInput" accept=".csv,.json" style="display:none">
+                <input type="file" id="fileInput" accept=".csv" style="display:none">
                 <button id="browseBtn" class="browse-btn">Examinar...</button>
-                <input type="text" id="filePath" placeholder="Ruta del archivo CSV o JSON">
+                <input type="text" id="filePath" placeholder="Ruta del archivo CSV">
               </div>
               <button id="loadFileBtn" class="edit-btn" style="margin-top:6px;width:100%;">Cargar Archivo</button>
             </div>
@@ -1352,7 +1356,7 @@
             <button id="recentChangesBtn" class="edit-btn">📋 Últimos Cambios</button>
             <button id="validateIntegrityBtn" class="edit-btn">🔍 Validación de Integridad</button>
             <button id="exportBtn" class="edit-btn">Exportar CSV</button>
-            <button id="exportJsonBtn" class="edit-btn" style="background:#27ae60;color:#fff;">📊 Exportar JSON</button>
+            <button id="exportPdfBtn" class="edit-btn" style="background:#e74c3c;color:#fff;">📄 Exportar PDF</button>
             <button id="helpBtn" class="edit-btn" style="background:#6c5ce7;color:#fff;">❓ Ayuda</button>
           </div>
         </div>
@@ -1442,9 +1446,9 @@
                     <div id="help-file-management" class="help-section">
                         <h3>📁 Gestión de Archivos</h3>
                         
-                        <h4>📥 Cargar Archivo:</h4>
+                        <h4>📥 Cargar Archivo CSV:</h4>
                         <ol>
-                            <li>Haz clic en <strong>"Examinar..."</strong> para seleccionar un archivo CSV o JSON</li>
+                            <li>Haz clic en <strong>"Examinar..."</strong> para seleccionar un archivo CSV</li>
                             <li>O ingresa manualmente la ruta del archivo en el campo de texto</li>
                             <li>Haz clic en <strong>"Cargar Archivo"</strong></li>
                             <li>El sistema validará automáticamente la integridad de los datos</li>
@@ -1462,23 +1466,6 @@
                             <li><code>Producto Final</code> - Resultado esperado</li>
                             <li><code>Porcentaje Dedicación</code> - Solo para funciones específicas</li>
                         </ul>
-                        
-                        <h4>📋 Formato del Archivo JSON:</h4>
-                        <p>El archivo debe tener la siguiente estructura:</p>
-                        <pre><code>{
-  "unidades": [
-    {
-      "Unidad Organizativa": "Nombre de la unidad",
-      "Jerarquía": "1",
-      "Reporta a": "",
-      "Misión": "Descripción de la misión",
-      "Tipo de Función": "Genérica",
-      "Descripción": "Descripción de la función",
-      "Producto Final": "Resultado esperado",
-      "Porcentaje Dedicación": ""
-    }
-  ]
-}</code></pre>
                         
                         <h4>💾 Estado de Datos:</h4>
                         <p>El panel muestra información sobre:</p>
@@ -1663,6 +1650,10 @@
                             <li>El nombre incluye la fecha y hora de exportación</li>
                         </ol>
                         
+                        <h4>📄 Exportar a PDF:</h4>
+                        <ol>
+                            <li>Haz clic en <strong>"📄 Exportar PDF"</strong></li>
+                            <li>Se generará automáticamente un archivo PDF</li>
                             <li>Cada unidad organizativa ocupará una página separada</li>
                             <li>Incluye misión, funciones genéricas y específicas</li>
                             <li>Formato profesional con tablas estructuradas</li>
@@ -3880,7 +3871,7 @@ Campo: ${issue.field || 'N/A'}
         updateFileInfo(); // Actualizar información de archivos
         
         // Guardar automáticamente en localStorage si hay cambios
-        if (datosModificados) {
+        if (datosModificados && editMode) {
           try {
             localStorage.setItem('csvData', actual);
             localStorage.setItem('csvLastSaved', new Date().toISOString());
@@ -4166,31 +4157,8 @@ Campo: ${issue.field || 'N/A'}
           html += `<div class="percentage-info ${alertClass}">${validacion.message}</div>`;
         }
       }
-      
-      // Indicadores sugeridos para seguimiento (KPI's)
-      const indicadores = unidadArr.filter(u => (u['Tipo de Función'] || '').toLowerCase().includes('indicador'));
-      html += `<div class="func-section-title">Indicadores sugeridos para seguimiento (KPI's)`;
-      if (editMode) {
-        html += `<span class="add-func" onclick="window.addFuncRow('indicador')">+ Agregar</span>`;
-        html += `<span class="copy-func" onclick="window.showCopyOptions('indicador')">📋 Copiar de Unidad</span>`;
-      }
-      html += `</div>`;
-      html += `<table class="func-table"><thead><tr><th>Descripción</th>${editMode ? '<th></th>' : ''}</tr></thead><tbody id="indicador-func-tbody">`;
-      indicadores.forEach((u, idx) => {
-        if (!editMode) {
-          html += `<tr draggable="true" data-func-type="indicador" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span>${u['Descripción'] || ''}</td></tr>`;
-        } else {
-          html += `<tr draggable="true" data-func-type="indicador" data-idx="${idx}"><td><span class="drag-handle">⋮⋮</span><textarea data-func-type="indicador" data-idx="${idx}" data-field="Descripción" rows="2" style="width:98%">${u['Descripción'] || ''}</textarea></td><td><span class="delete-func" onclick="window.deleteFuncRow('indicador',${idx})">✕</span></td></tr>`;
-        }
-      });
-      html += `</tbody></table>`;
       document.getElementById('unidad-content').innerHTML = html;
-      if (editMode) attachEditHandlers(base, genericas, especificas, indicadores);
-      
-      // Mostrar información de jerarquía si es una unidad raíz
-      if (!base['Reporta A'] || base['Reporta A'].trim() === '') {
-        mostrarInfoJerarquia();
-      }
+      if (editMode) attachEditHandlers(base, genericas, especificas);
       
       // Configurar drag and drop para las funciones
       setupDragAndDrop();
@@ -4221,7 +4189,7 @@ Campo: ${issue.field || 'N/A'}
     
     // Función para configurar drag and drop
     function setupDragAndDrop() {
-      const tbodyElements = document.querySelectorAll('#gen-func-tbody, #espec-func-tbody, #indicador-func-tbody');
+      const tbodyElements = document.querySelectorAll('#gen-func-tbody, #espec-func-tbody');
       
       tbodyElements.forEach(tbody => {
         const rows = tbody.querySelectorAll('tr');
@@ -4303,23 +4271,16 @@ Campo: ${issue.field || 'N/A'}
       const functions = currentUnit.filter(u => {
         if (draggedType === 'gen') {
           return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
-        } else if (draggedType === 'espec') {
+        } else {
           return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
-        } else if (draggedType === 'indicador') {
-          return (u['Tipo de Función'] || '').toLowerCase().includes('indicador');
         }
       });
       
       if (draggedIndex === targetIndex) return;
       
       // Guardar estado para deshacer
-      let functionTypeName = '';
-      if (draggedType === 'gen') functionTypeName = 'funciones genéricas';
-      else if (draggedType === 'espec') functionTypeName = 'funciones específicas';
-      else if (draggedType === 'indicador') functionTypeName = 'indicadores';
-      
-      saveUndoState('reorder_functions', `Reordenar ${functionTypeName}`);
-      addToChangeHistory('reorder_functions', `Reordenar ${functionTypeName}`, {
+      saveUndoState('reorder_functions', `Reordenar funciones ${draggedType === 'gen' ? 'genéricas' : 'específicas'}`);
+      addToChangeHistory('reorder_functions', `Reordenar funciones ${draggedType === 'gen' ? 'genéricas' : 'específicas'}`, {
         functionType: draggedType,
         draggedIndex: draggedIndex,
         targetIndex: targetIndex
@@ -4383,25 +4344,12 @@ Campo: ${issue.field || 'N/A'}
       optionsDiv.style.padding = '20px';
       optionsDiv.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
       
-      let titleText = '';
-      let descriptionText = '';
-      if (funcType === 'gen') {
-        titleText = '🔄 Copiar funciones genéricas';
-        descriptionText = 'Selecciona la unidad organizativa de la cual quieres copiar funciones:';
-      } else if (funcType === 'espec') {
-        titleText = '🔄 Copiar funciones específicas';
-        descriptionText = 'Selecciona la unidad organizativa de la cual quieres copiar funciones:';
-      } else if (funcType === 'indicador') {
-        titleText = '🔄 Copiar indicadores';
-        descriptionText = 'Selecciona la unidad organizativa de la cual quieres copiar indicadores:';
-      }
-      
       let optionsHTML = `
         <div style="font-weight:bold;margin-bottom:12px;border-bottom:2px solid #3498db;padding-bottom:8px;color:#2c3e50;font-size:16px;">
-          ${titleText}
+          🔄 Copiar funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'}
         </div>
         <div style="margin-bottom:12px;color:#7f8c8d;font-size:14px;">
-          ${descriptionText}
+          Selecciona la unidad organizativa de la cual quieres copiar funciones:
         </div>
         <div style="margin-bottom:15px;">
           <select id="sourceUnitSelect" style="width:100%;padding:8px;border:1px solid #bdc3c7;border-radius:4px;font-size:14px;">
@@ -4484,22 +4432,15 @@ Campo: ${issue.field || 'N/A'}
       const functions = selectedUnit.filter(u => {
         if (funcType === 'gen') {
           return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
-        } else if (funcType === 'espec') {
+        } else {
           return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
-        } else if (funcType === 'indicador') {
-          return (u['Tipo de Función'] || '').toLowerCase().includes('indicador');
         }
       });
-      
-      let itemTypeName = '';
-      if (funcType === 'gen') itemTypeName = 'funciones genéricas';
-      else if (funcType === 'espec') itemTypeName = 'funciones específicas';
-      else if (funcType === 'indicador') itemTypeName = 'indicadores';
       
       if (functions.length === 0) {
         functionsContainer.innerHTML = `
           <div style="text-align:center;color:#e67e22;padding:15px;background:#fef9e7;border:1px solid #f39c12;border-radius:4px;">
-            📋 No hay ${itemTypeName} en "${unitName}"
+            📋 No hay funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'} en "${unitName}"
           </div>
         `;
         return;
@@ -4507,12 +4448,12 @@ Campo: ${issue.field || 'N/A'}
       
       let functionsHTML = `
         <div style="font-weight:bold;margin-bottom:10px;color:#2c3e50;">
-          📋 ${itemTypeName.charAt(0).toUpperCase() + itemTypeName.slice(1)} disponibles en "${unitName}":
+          📋 Funciones ${funcType === 'gen' ? 'genéricas' : 'específicas'} disponibles en "${unitName}":
         </div>
         <div style="margin-bottom:10px;">
           <label style="display:flex;align-items:center;gap:8px;font-weight:500;color:#2c3e50;">
             <input type="checkbox" id="select-all-${unitKey}-${funcType}" onchange="toggleSelectAll('${unitKey}', '${funcType}', ${functions.length})">
-            <span>✅ Seleccionar todos los ${funcType === 'indicador' ? 'indicadores' : 'funciones'}</span>
+            <span>✅ Seleccionar todas las funciones</span>
           </label>
         </div>
         <div style="max-height:250px;overflow-y:auto;border:1px solid #ecf0f1;border-radius:4px;padding:5px;">
@@ -4591,10 +4532,8 @@ Campo: ${issue.field || 'N/A'}
       const sourceFunctions = sourceUnit.filter(u => {
         if (funcType === 'gen') {
           return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
-        } else if (funcType === 'espec') {
+        } else {
           return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
-        } else if (funcType === 'indicador') {
-          return (u['Tipo de Función'] || '').toLowerCase().includes('indicador');
         }
       });
       
@@ -4626,19 +4565,10 @@ Campo: ${issue.field || 'N/A'}
       
       selectedFunctions.forEach(({ function: func, index }) => {
         const newFunction = { ...currentUnit[0] };
-        if (funcType === 'gen') {
-          newFunction['Tipo de Función'] = 'Genérica';
-          newFunction['Descripción'] = func['Descripción'] || '';
-          newFunction['Producto Final'] = func['Producto Final'] || '';
-        } else if (funcType === 'espec') {
-          newFunction['Tipo de Función'] = 'Específica';
-          newFunction['Descripción'] = func['Descripción'] || '';
-          newFunction['Producto Final'] = func['Producto Final'] || '';
-          newFunction['Porcentaje Dedicación'] = func['Porcentaje Dedicación'] || '';
-        } else if (funcType === 'indicador') {
-          newFunction['Tipo de Función'] = 'Indicador';
-          newFunction['Descripción'] = func['Descripción'] || '';
-        }
+        newFunction['Tipo de Función'] = funcType === 'gen' ? 'Genérica' : 'Específica';
+        newFunction['Descripción'] = func['Descripción'] || '';
+        newFunction['Producto Final'] = func['Producto Final'] || '';
+        newFunction['Porcentaje Dedicación'] = funcType === 'espec' ? (func['Porcentaje Dedicación'] || '') : '';
         
         unidadesMap[lastSelected].push(newFunction);
         copiedCount++;
@@ -4651,13 +4581,8 @@ Campo: ${issue.field || 'N/A'}
       closeCopyOptions();
       
       // Mostrar confirmación
-      let functionTypeText = '';
-      if (funcType === 'gen') functionTypeText = 'genérica(s)';
-      else if (funcType === 'espec') functionTypeText = 'específica(s)';
-      else if (funcType === 'indicador') functionTypeText = 'indicador(es)';
-      
-      const itemType = funcType === 'indicador' ? 'indicador(es)' : `función(es) ${functionTypeText}`;
-      mostrarAlerta(`✅ ${copiedCount} ${itemType} copiado(s) desde "${sourceUnitName}"`, 3000, '#27ae60');
+      const functionTypeText = funcType === 'gen' ? 'genérica(s)' : 'específica(s)';
+      mostrarAlerta(`✅ ${copiedCount} función(es) ${functionTypeText} copiada(s) desde "${sourceUnitName}"`, 3000, '#27ae60');
     }
     
     // Función para copiar todas las funciones
@@ -4666,20 +4591,13 @@ Campo: ${issue.field || 'N/A'}
       const sourceFunctions = sourceUnit.filter(u => {
         if (funcType === 'gen') {
           return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
-        } else if (funcType === 'espec') {
+        } else {
           return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
-        } else if (funcType === 'indicador') {
-          return (u['Tipo de Función'] || '').toLowerCase().includes('indicador');
         }
       });
       
-      let itemTypeName = '';
-      if (funcType === 'gen') itemTypeName = 'funciones genéricas';
-      else if (funcType === 'espec') itemTypeName = 'funciones específicas';
-      else if (funcType === 'indicador') itemTypeName = 'indicadores';
-      
       if (sourceFunctions.length === 0) {
-        mostrarAlerta(`No hay ${itemTypeName} para copiar`, 2000, '#e74c3c');
+        mostrarAlerta('No hay funciones para copiar', 2000, '#e74c3c');
         return;
       }
       
@@ -4701,10 +4619,8 @@ Campo: ${issue.field || 'N/A'}
       const sourceFunctions = sourceUnit.filter(u => {
         if (funcType === 'gen') {
           return (u['Tipo de Función'] || '').toLowerCase().includes('gen');
-        } else if (funcType === 'espec') {
+        } else {
           return (u['Tipo de Función'] || '').toLowerCase().includes('espec');
-        } else if (funcType === 'indicador') {
-          return (u['Tipo de Función'] || '').toLowerCase().includes('indicador');
         }
       });
       
@@ -4752,7 +4668,7 @@ Campo: ${issue.field || 'N/A'}
       const shortDesc = funcDesc.length > 30 ? funcDesc.substring(0, 30) + '...' : funcDesc;
       mostrarAlerta(`✅ Función "${shortDesc}" copiada desde "${sourceUnitName}"`, 3000, '#27ae60');
     }
-    function attachEditHandlers(base, genericas, especificas, indicadores) {
+    function attachEditHandlers(base, genericas, especificas) {
       // Corrección ortográfica y actualización en blur/change
       document.querySelectorAll('#edit-nombre, #edit-jerarquia, #edit-nivel, #uqrd, #edit-mision').forEach(input => {
         // Evento input para guardado en tiempo real
@@ -4804,36 +4720,15 @@ Campo: ${issue.field || 'N/A'}
       document.getElementById('edit-reporta').addEventListener('change', function() {
         const oldKey = base['Unidad Organizativa'] + '|' + (base['Reporta A'] || '');
         const newReporta = this.value;
-        const oldReporta = base['Reporta A'];
-        
-        // Validar el cambio de jerarquía
-        if (!validarCambioJerarquia(base['Unidad Organizativa'], newReporta)) {
-          // Restaurar el valor anterior
-          this.value = oldReporta;
-          return;
-        }
-        
         base['Reporta A'] = newReporta;
         const newKey = base['Unidad Organizativa'] + '|' + (newReporta || '');
         
         if (newKey !== oldKey) {
-          // Guardar estado para deshacer
-          saveUndoState('change_parent', `Cambiar jerarquía: "${base['Unidad Organizativa']}" ahora reporta a "${newReporta || 'Ninguno'}"`);
-          addToChangeHistory('change_parent', `Cambiar jerarquía: "${base['Unidad Organizativa']}" ahora reporta a "${newReporta || 'Ninguno'}"`, {
-            unitName: base['Unidad Organizativa'],
-            oldParent: oldReporta,
-            newParent: newReporta
-          });
-          
           unidadesMap[newKey] = unidadesMap[oldKey];
           delete unidadesMap[oldKey];
           unidadesMap[newKey].forEach(u => u['Reporta A'] = newReporta);
           lastSelected = newKey;
           allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-          
-          // Recalcular niveles jerárquicos automáticamente
-          recalcularNivelesJerarquicos();
-          
           treeRoots = buildTree([].concat(...Object.values(unidadesMap)));
           
           const treeDiv = document.getElementById('tree-container');
@@ -4864,8 +4759,6 @@ Campo: ${issue.field || 'N/A'}
               const validacion = validarPorcentajesEspecificas(especificas);
               mostrarValidacionPorcentajes(validacion);
             }
-          } else if (type === 'indicador') {
-            indicadores[idx][field] = this.value;
           }
           
           if (editMode) {
@@ -4879,193 +4772,6 @@ Campo: ${issue.field || 'N/A'}
         });
       });
     }
-    
-    // Función para recalcular niveles jerárquicos automáticamente
-    function recalcularNivelesJerarquicos() {
-      console.log('🔄 Recalculando niveles jerárquicos...');
-      
-      // Obtener todas las unidades
-      const allUnits = [].concat(...Object.values(unidadesMap));
-      
-      // Crear mapa de unidades por nombre para acceso rápido
-      const unitsByName = {};
-      allUnits.forEach(unit => {
-        const key = unit['Unidad Organizativa'] + '|' + (unit['Reporta A'] || '');
-        unitsByName[unit['Unidad Organizativa']] = unit;
-      });
-      
-      // Función para calcular nivel de una unidad recursivamente
-      function calcularNivel(unitName, visited = new Set()) {
-        if (visited.has(unitName)) {
-          console.warn('⚠️ Ciclo detectado en jerarquía:', unitName);
-          return 1; // Nivel mínimo para evitar ciclos infinitos
-        }
-        
-        visited.add(unitName);
-        const unit = unitsByName[unitName];
-        
-        if (!unit) {
-          console.warn('⚠️ Unidad no encontrada:', unitName);
-          return 1;
-        }
-        
-        const parentName = unit['Reporta A'];
-        
-        // Si no tiene padre, es nivel 1 (raíz)
-        if (!parentName || parentName.trim() === '') {
-          return 1;
-        }
-        
-        // Si el padre no existe, es nivel 1
-        if (!unitsByName[parentName]) {
-          console.warn('⚠️ Padre no encontrado:', parentName, 'para unidad:', unitName);
-          return 1;
-        }
-        
-        // Calcular nivel del padre + 1
-        const parentLevel = calcularNivel(parentName, visited);
-        return parentLevel + 1;
-      }
-      
-      // Calcular niveles para todas las unidades
-      let cambiosRealizados = 0;
-      allUnits.forEach(unit => {
-        const nuevoNivel = calcularNivel(unit['Unidad Organizativa']);
-        const nivelActual = unit['Nivel Jerárquico Calculado'];
-        
-        if (nuevoNivel.toString() !== nivelActual) {
-          console.log(`📊 "${unit['Unidad Organizativa']}": Nivel ${nivelActual} → ${nuevoNivel}`);
-          unit['Nivel Jerárquico Calculado'] = nuevoNivel.toString();
-          cambiosRealizados++;
-        }
-      });
-      
-      if (cambiosRealizados > 0) {
-        console.log(`✅ ${cambiosRealizados} niveles jerárquicos actualizados automáticamente`);
-        mostrarAlerta(`🔄 ${cambiosRealizados} niveles jerárquicos recalculados automáticamente`, 3000, '#3498db');
-      } else {
-        console.log('✅ No se requirieron cambios en niveles jerárquicos');
-      }
-      
-      // Detectar unidades que se convirtieron en raíz
-      detectarUnidadesRaiz();
-    }
-    
-    // Función para validar cambios de jerarquía
-    function validarCambioJerarquia(unitName, newParent) {
-      const allUnits = [].concat(...Object.values(unidadesMap));
-      
-      // Verificar que no se cree un ciclo
-      if (newParent && newParent.trim() !== '') {
-        const visited = new Set();
-        visited.add(unitName);
-        
-        function detectarCiclo(parentName) {
-          if (visited.has(parentName)) {
-            return true; // Ciclo detectado
-          }
-          
-          visited.add(parentName);
-          const parentUnit = allUnits.find(u => u['Unidad Organizativa'] === parentName);
-          
-          if (!parentUnit) {
-            return false; // Padre no encontrado, no es ciclo
-          }
-          
-          const grandParent = parentUnit['Reporta A'];
-          if (!grandParent || grandParent.trim() === '') {
-            return false; // Llegamos a una raíz, no hay ciclo
-          }
-          
-          return detectarCiclo(grandParent);
-        }
-        
-        if (detectarCiclo(newParent)) {
-          mostrarAlerta(`❌ Error: No se puede crear un ciclo jerárquico`, 3000, '#e74c3c');
-          return false;
-        }
-      }
-      
-      return true;
-    }
-    
-    // Función para detectar unidades que se convirtieron en raíz
-    function detectarUnidadesRaiz() {
-      const allUnits = [].concat(...Object.values(unidadesMap));
-      const unidadesRaiz = allUnits.filter(unit => 
-        !unit['Reporta A'] || unit['Reporta A'].trim() === ''
-      );
-      
-      if (unidadesRaiz.length > 0) {
-        console.log('🏛️ Unidades raíz detectadas:', unidadesRaiz.map(u => u['Unidad Organizativa']));
-        
-        // Verificar si hay múltiples raíces y mostrar advertencia
-        if (unidadesRaiz.length > 1) {
-          const raizNames = unidadesRaiz.map(u => u['Unidad Organizativa']).join(', ');
-          mostrarAlerta(`⚠️ Múltiples unidades raíz detectadas: ${raizNames}`, 4000, '#f39c12');
-        }
-        
-        // Verificar si las unidades hijas bajaron correctamente de nivel
-        const unidadesConHijos = unidadesRaiz.filter(raiz => {
-          const hijos = allUnits.filter(unit => unit['Reporta A'] === raiz['Unidad Organizativa']);
-          return hijos.length > 0;
-        });
-        
-        if (unidadesConHijos.length > 0) {
-          unidadesConHijos.forEach(raiz => {
-            const hijos = allUnits.filter(unit => unit['Reporta A'] === raiz['Unidad Organizativa']);
-            console.log(`📋 "${raiz['Unidad Organizativa']}" es raíz con ${hijos.length} hijos:`, 
-              hijos.map(h => `${h['Unidad Organizativa']} (Nivel ${h['Nivel Jerárquico Calculado']})`));
-          });
-        }
-      }
-    }
-    
-    // Función para mostrar información de jerarquía en la interfaz
-    function mostrarInfoJerarquia() {
-      const allUnits = [].concat(...Object.values(unidadesMap));
-      const unidadesRaiz = allUnits.filter(unit => 
-        !unit['Reporta A'] || unit['Reporta A'].trim() === ''
-      );
-      
-      if (unidadesRaiz.length > 0) {
-        let infoHTML = `
-          <div style="background:#e8f4fd;border:1px solid #3498db;border-radius:4px;padding:10px;margin:10px 0;">
-            <div style="font-weight:bold;color:#2c3e50;margin-bottom:8px;">
-              🏛️ Unidades Raíz (Nivel 1)
-            </div>
-            <div style="font-size:14px;color:#34495e;">
-        `;
-        
-        unidadesRaiz.forEach((raiz, index) => {
-          const hijos = allUnits.filter(unit => unit['Reporta A'] === raiz['Unidad Organizativa']);
-          infoHTML += `
-            <div style="margin:5px 0;">
-              <strong>${raiz['Unidad Organizativa']}</strong>
-              ${hijos.length > 0 ? ` (${hijos.length} unidades hijas)` : ' (sin unidades hijas)'}
-            </div>
-          `;
-        });
-        
-        infoHTML += `
-            </div>
-            <div style="font-size:12px;color:#7f8c8d;margin-top:8px;">
-              💡 Las unidades raíz no reportan a nadie y son el nivel jerárquico más alto
-            </div>
-          </div>
-        `;
-        
-        // Insertar después del título de la unidad
-        const unidadContent = document.getElementById('unidad-content');
-        if (unidadContent) {
-          const titleElement = unidadContent.querySelector('.title');
-          if (titleElement) {
-            titleElement.insertAdjacentHTML('afterend', infoHTML);
-          }
-        }
-      }
-    }
-    
     function autocompletarUnidadesReportan() {
       // Mapear hijos por padre y contar ocurrencias por nombre
       const hijosPorPadre = {};
@@ -5114,13 +4820,8 @@ Campo: ${issue.field || 'N/A'}
     }
     // Agregar/eliminar funciones
     window.addFuncRow = function(type) {
-      let functionTypeName = '';
-      if (type === 'gen') functionTypeName = 'genérica';
-      else if (type === 'espec') functionTypeName = 'específica';
-      else if (type === 'indicador') functionTypeName = 'indicador';
-      
-      saveUndoState('add_function', `Agregar ${type === 'indicador' ? 'indicador' : 'función ' + functionTypeName}`);
-      addToChangeHistory('add_function', `Agregar ${type === 'indicador' ? 'indicador' : 'función ' + functionTypeName}`, {
+      saveUndoState('add_function', `Agregar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      addToChangeHistory('add_function', `Agregar función ${type === 'gen' ? 'genérica' : 'específica'}`, {
         functionType: type,
         unitName: unidadesMap[lastSelected] ? unidadesMap[lastSelected][0]['Unidad Organizativa'] : 'N/A'
       });
@@ -5128,22 +4829,15 @@ Campo: ${issue.field || 'N/A'}
       const base = unidadesMap[lastSelected][0];
       if (type === 'gen') {
         unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Genérica', 'Descripción': '', 'Producto Final': '' });
-      } else if (type === 'espec') {
+      } else {
         unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Específica', 'Descripción': '', 'Producto Final': '', 'Porcentaje Dedicación': '' });
-      } else if (type === 'indicador') {
-        unidadesMap[lastSelected].push({ ...base, 'Tipo de Función': 'Indicador', 'Descripción': '' });
       }
       showUnidad(unidadesMap[lastSelected]);
       compararCSVActualConOriginal && compararCSVActualConOriginal();
     };
     window.deleteFuncRow = function(type, idx) {
-      let functionTypeName = '';
-      if (type === 'gen') functionTypeName = 'genérica';
-      else if (type === 'espec') functionTypeName = 'específica';
-      else if (type === 'indicador') functionTypeName = 'indicador';
-      
-      saveUndoState('delete_function', `Eliminar ${type === 'indicador' ? 'indicador' : 'función ' + functionTypeName}`);
-      addToChangeHistory('delete_function', `Eliminar ${type === 'indicador' ? 'indicador' : 'función ' + functionTypeName}`, {
+      saveUndoState('delete_function', `Eliminar función ${type === 'gen' ? 'genérica' : 'específica'}`);
+      addToChangeHistory('delete_function', `Eliminar función ${type === 'gen' ? 'genérica' : 'específica'}`, {
         functionType: type,
         functionIndex: idx,
         unitName: unidadesMap[lastSelected] ? unidadesMap[lastSelected][0]['Unidad Organizativa'] : 'N/A'
@@ -5152,8 +4846,7 @@ Campo: ${issue.field || 'N/A'}
       let arr = unidadesMap[lastSelected];
       let filtered = arr.filter(u => {
         if (type === 'gen') return !(u['Tipo de Función'].toLowerCase().includes('gen') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('gen')).indexOf(u) === idx);
-        else if (type === 'espec') return !(u['Tipo de Función'].toLowerCase().includes('espec') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('espec')).indexOf(u) === idx);
-        else if (type === 'indicador') return !(u['Tipo de Función'].toLowerCase().includes('indicador') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('indicador')).indexOf(u) === idx);
+        else return !(u['Tipo de Función'].toLowerCase().includes('espec') && arr.filter(x => x['Tipo de Función'].toLowerCase().includes('espec')).indexOf(u) === idx);
       });
       unidadesMap[lastSelected] = filtered;
       showUnidad(unidadesMap[lastSelected]);
@@ -5303,7 +4996,7 @@ Campo: ${issue.field || 'N/A'}
       }
     });
     document.getElementById('exportBtn').addEventListener('click', exportCSV);
-    document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
+    document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
     document.getElementById('undoBtn').addEventListener('click', undoLastAction);
     
     // Event listeners para el sistema de validación
@@ -5384,7 +5077,7 @@ Campo: ${issue.field || 'N/A'}
       console.log('DOM Content Loaded - Initializing application');
       
       // Verificar que todos los elementos necesarios estén disponibles
-      const requiredElements = ['fileInput', 'browseBtn', 'filePath', 'loadFileBtn', 'editModeBtn', 'undoBtn', 'exportBtn', 'exportJsonBtn', ''];
+      const requiredElements = ['fileInput', 'browseBtn', 'filePath', 'loadFileBtn', 'editModeBtn', 'undoBtn', 'exportBtn', 'exportPdfBtn'];
       const missingElements = [];
       
       requiredElements.forEach(id => {
@@ -5533,9 +5226,9 @@ Campo: ${issue.field || 'N/A'}
         
         console.log('File selected:', file.name, 'Size:', file.size, 'Type:', file.type);
         
-        if (!file.name.toLowerCase().endsWith('.csv') && !file.name.toLowerCase().endsWith('.json')) {
+        if (!file.name.toLowerCase().endsWith('.csv')) {
           console.error('Invalid file type:', file.name);
-          mostrarAlerta('Por favor seleccione un archivo CSV o JSON', 2000, '#e74c3c');
+          mostrarAlerta('Por favor seleccione un archivo CSV', 2000, '#e74c3c');
           return;
         }
         
@@ -5549,12 +5242,8 @@ Campo: ${issue.field || 'N/A'}
         
         const reader = new FileReader();
         reader.onload = function(evt) {
-          console.log('File read successfully, processing...');
-          if (file.name.toLowerCase().endsWith('.json')) {
-            procesarJSON(evt.target.result, file.name);
-          } else {
-            procesarCSV(evt.target.result, file.name);
-          }
+          console.log('File read successfully, processing CSV...');
+          procesarCSV(evt.target.result, file.name);
         };
         reader.onerror = function(err) {
           console.error('FileReader error:', err);
@@ -5589,8 +5278,8 @@ Campo: ${issue.field || 'N/A'}
         return;
       }
 
-      if (!filePath.toLowerCase().endsWith('.csv') && !filePath.toLowerCase().endsWith('.json')) {
-        mostrarAlerta('La ruta debe ser de un archivo CSV o JSON', 2000, '#e74c3c');
+      if (!filePath.toLowerCase().endsWith('.csv')) {
+        mostrarAlerta('La ruta debe ser de un archivo CSV', 2000, '#e74c3c');
         return;
       }
 
@@ -5604,14 +5293,9 @@ Campo: ${issue.field || 'N/A'}
         }
         const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error('No se pudo acceder al archivo');
-        const fileText = await response.text();
+        const csvText = await response.text();
         const fileName = filePath.split('/').pop() || filePath.split('\\').pop() || filePath;
-        
-        if (filePath.toLowerCase().endsWith('.json')) {
-          procesarJSON(fileText, fileName, 'path');
-        } else {
-          procesarCSV(fileText, fileName, 'path');
-        }
+        procesarCSV(csvText, fileName, 'path');
       } catch (error) {
         console.error('Error al cargar el archivo:', error);
         mostrarAlerta('No se pudo abrir el archivo. Intente con otra ruta o use Browse.', 2500, '#e74c3c');
@@ -5744,195 +5428,375 @@ Campo: ${issue.field || 'N/A'}
       }
     });
     
-    // Función para cargar y procesar el JSON
-    async function procesarJSON(jsonText, fileName = '', source = 'file') {
+    // Función para exportar a PDF con múltiples fallbacks
+    function exportToPDF() {
       try {
-        mostrarAlerta('Procesando archivo JSON...', 1000);
+        console.log('Iniciando exportación a PDF...');
         
-        // Limpiar cualquier otro dato relacionado en localStorage
-        for (let key in localStorage) {
-          if (key.startsWith('csvData') && key !== 'csvData') {
-            localStorage.removeItem(key);
-          }
+        // Verificar si la librería está disponible
+        if (typeof html2pdf === 'undefined') {
+          throw new Error('Librería html2pdf.js no está disponible. Verifique su conexión a internet.');
         }
         
-        // Validación básica: asegurarse de que es JSON válido
-        let jsonData;
-        try {
-          jsonData = JSON.parse(jsonText);
-        } catch (parseError) {
-          throw new Error('El archivo no es un JSON válido');
-        }
+        // Crear el contenido HTML para el PDF
+        const pdfContent = generatePDFContent();
         
-        // Verificar que el JSON tiene la estructura esperada
-        if (!jsonData.unidades || !Array.isArray(jsonData.unidades)) {
-          throw new Error('El JSON debe contener un array "unidades"');
-        }
-        
-        // Convertir JSON a formato CSV para compatibilidad
-        const csvData = convertirJSONaCSV(jsonData);
-        
-        localStorage.setItem('csvData', csvData);
-        if (fileName) {
-          localStorage.setItem('csvFileName', fileName);
-        }
-        originalCSV = csvData;
-        const data = parseCSV(csvData);
-        
-        // Guardar datos originales antes de validación
-        originalDataBeforeValidation = JSON.parse(JSON.stringify(data));
-        
-        unidadesMap = groupByUnidad(data);
-        allUnidades = Object.keys(unidadesMap).map(k => unidadesMap[k][0]['Unidad Organizativa']);
-        treeRoots = buildTree(data);
-        lastSelected = '';
-        expandedNodes = {};
-        const treeDiv = document.getElementById('tree-container');
-        treeDiv.innerHTML = '';
-        renderTree(treeRoots, treeDiv, selectUnidad, lastSelected);
-        document.getElementById('unidad-content').innerHTML = '';
-        datosModificados = false;
-        marcarAdminCambios(false);
-        
-        // Registrar la importación
-        if (fileName && fileName.trim() !== '') {
-          recordImport(fileName, source);
-        } else {
-          // Para datos desde localStorage, usar información guardada si existe
-          loadFileInfoFromStorage();
-        }
-        
-        mostrarAlerta('Archivo JSON cargado correctamente', 2000);
-        
-        // VALIDACIÓN DE INTEGRIDAD AUTOMÁTICA
-        console.log('Iniciando validación automática de integridad...');
-        setTimeout(() => {
-          const issues = validateDataIntegrity(data);
-          
-          if (issues.length > 0) {
-            console.log(`Encontrados ${issues.length} problemas de integridad`);
-            showValidationInterface(issues);
-          } else {
-            console.log('✅ No se encontraron problemas de integridad');
-            // Marcar como validado si no hay problemas
-            localStorage.setItem('csvValidated', 'true');
-            localStorage.setItem('csvLastValidated', new Date().toISOString());
-            mostrarAlerta('✅ Datos validados: Sin problemas encontrados', 3000, '#28a745');
-          }
-        }, 500);
-        
-      } catch (error) {
-        console.error('Error al procesar JSON:', error);
-        mostrarAlerta('Error: ' + error.message, 2500, '#e74c3c');
-      }
-    }
-
-    // Función para convertir JSON a formato CSV
-    function convertirJSONaCSV(jsonData) {
-      try {
-        const unidades = jsonData.unidades;
-        if (!unidades || !Array.isArray(unidades)) {
-          throw new Error('Formato JSON inválido: se requiere array "unidades"');
-        }
-        
-        // Obtener headers del primer elemento o usar headers por defecto
-        let headers = [];
-        if (unidades.length > 0 && unidades[0]) {
-          headers = Object.keys(unidades[0]);
-        } else {
-          // Headers por defecto si no hay datos
-          headers = ['Unidad Organizativa', 'Misión', 'Tipo de Función', 'Descripción de la Función'];
-        }
-        
-        // Crear CSV
-        const csvRows = [headers.join(';')];
-        
-        unidades.forEach(unidad => {
-          const row = headers.map(header => {
-            const value = unidad[header] || '';
-            // Escapar comillas y caracteres especiales
-            return `"${String(value).replace(/"/g, '""')}"`;
-          });
-          csvRows.push(row.join(';'));
-        });
-        
-        return csvRows.join('\n');
-        
-      } catch (error) {
-        console.error('Error al convertir JSON a CSV:', error);
-        throw new Error('Error al procesar estructura JSON: ' + error.message);
-      }
-    }
-
-    // Exportar JSON
-    function exportJSON() {
-      try {
-        // Validar datos antes de exportar
-        const allData = [].concat(...Object.values(unidadesMap));
-        const issues = validateDataIntegrity(allData);
-        
-        if (issues.length > 0) {
-          const criticalIssues = issues.filter(i => i.type === 'error');
-          if (criticalIssues.length > 0) {
-            if (!confirm(`Se encontraron ${criticalIssues.length} errores críticos en los datos. ¿Desea continuar con la exportación? Se recomienda corregir los problemas primero.`)) {
-              showValidationInterface(issues);
-              return;
-            }
-          }
-        }
-        
-        // Crear estructura JSON
-        const jsonData = {
-          unidades: allData,
-          metadata: {
-            exportDate: new Date().toISOString(),
-            totalUnits: Object.keys(unidadesMap).length,
-            totalFunctions: allData.length,
-            hasIssues: issues.length > 0,
-            issues: issues,
-            originalCSV: originalCSV,
-            datosModificados: datosModificados,
-            expandedNodes: expandedNodes,
-            lastSelected: lastSelected
+        // Configurar opciones de PDF optimizadas
+        const pdfOptions = {
+          margin: [15, 15, 15, 15],
+          filename: `organigrama_bna_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { 
+            scale: 1.5,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            logging: false
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
           }
         };
         
-        const jsonContent = JSON.stringify(jsonData, null, 2);
-        const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
+        console.log('Configurando exportación PDF con opciones:', pdfOptions);
         
-        // Nombre de archivo con timestamp
-        const timestamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
-        const filename = issues.length > 0 ? 
-          `unidades_organizativas_corregido_${timestamp}.json` : 
-          `unidades_organizativas_completo_${timestamp}.json`;
+        // Intentar exportación con manejo de errores mejorado
+        const pdfPromise = html2pdf()
+          .from(pdfContent)
+          .set(pdfOptions)
+          .save();
         
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        // Registrar la exportación
-        recordExport(filename);
-        
-        // Actualizar estado
-        datosModificados = false;
-        marcarAdminCambios(false);
-        
-        const message = issues.length > 0 ? 
-          `✅ JSON exportado con correcciones aplicadas (${filename})` : 
-          `✅ JSON exportado correctamente (${filename})`;
-        
-        mostrarAlerta(message, 3000, '#27ae60');
+        // Manejar la promesa de exportación
+        pdfPromise.then(() => {
+          console.log('PDF exportado exitosamente');
+          mostrarAlerta('✅ PDF exportado correctamente', 3000, '#27ae60');
+          addToChangeHistory('export_pdf', 'Exportar organigrama a PDF', { format: 'PDF', units: Object.keys(unidadesMap).length });
+        }).catch((error) => {
+          console.error('Error en la promesa de exportación PDF:', error);
+          mostrarAlerta('Error al generar PDF: ' + error.message, 3000, '#e74c3c');
+          
+          // Intentar fallback con configuración más simple
+          tryFallbackExport(pdfContent);
+        });
         
       } catch (error) {
-        console.error('Error al exportar JSON:', error);
-        mostrarAlerta('Error al exportar JSON: ' + error.message, 3000, '#e74c3c');
+        console.error('Error al exportar PDF:', error);
+        mostrarAlerta('Error al exportar PDF: ' + error.message, 3000, '#e74c3c');
+        
+        // Intentar fallback
+        tryFallbackExport();
       }
     }
-  </script>
+    
+    // Función de fallback para exportación PDF
+    function tryFallbackExport(pdfContent = null) {
+      try {
+        console.log('Intentando exportación de fallback...');
+        
+        const content = pdfContent || generatePDFContent();
+        
+        // Configuración más simple para fallback
+        const fallbackOptions = {
+          margin: [10, 10, 10, 10],
+          filename: `organigrama_bna_fallback_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`,
+          image: { type: 'jpeg', quality: 0.8 },
+          html2canvas: { 
+            scale: 1,
+            useCORS: true,
+            allowTaint: true
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait' 
+          }
+        };
+        
+        html2pdf().from(content).set(fallbackOptions).save().then(() => {
+          console.log('Exportación de fallback exitosa');
+          mostrarAlerta('✅ PDF exportado (modo fallback)', 3000, '#f39c12');
+        }).catch((fallbackError) => {
+          console.error('Error en fallback:', fallbackError);
+          mostrarAlerta('❌ No se pudo exportar PDF. Verifique su navegador y conexión.', 5000, '#e74c3c');
+        });
+        
+      } catch (error) {
+        console.error('Error en fallback:', error);
+        mostrarAlerta('❌ Error crítico en exportación PDF', 5000, '#e74c3c');
+      }
+    }
+    
+    // Función para obtener el orden jerárquico del árbol
+    function getHierarchicalOrder() {
+      const orderedUnits = [];
+      
+      function traverseTree(nodes) {
+        nodes.forEach(node => {
+          // Obtener todos los registros para esta unidad
+          const unitKey = node.key;
+          const unitData = unidadesMap[unitKey];
+          
+          if (unitData && unitData.length > 0) {
+            orderedUnits.push(unitData);
+          }
+          
+          // Recorrer hijos si están expandidos
+          if (node.children && node.children.length > 0 && expandedNodes[node.key]) {
+            traverseTree(node.children);
+          }
+        });
+      }
+      
+      // Usar el árbol actual si existe, sino construir uno
+      if (treeRoots && treeRoots.length > 0) {
+        traverseTree(treeRoots);
+      } else {
+        // Construir árbol temporal para obtener orden
+        const tempTree = buildTree([].concat(...Object.values(unidadesMap)));
+        traverseTree(tempTree);
+      }
+      
+      return orderedUnits;
+    }
+    
+    // Función para generar el contenido HTML del PDF con mejor manejo de errores
+    function generatePDFContent() {
+      try {
+        // Obtener datos en orden jerárquico del árbol
+        const units = getHierarchicalOrder();
+        
+        if (!units || units.length === 0) {
+          throw new Error('No hay datos disponibles para exportar');
+        }
+        
+        console.log(`Generando PDF para ${units.length} unidades en orden jerárquico`);
+        console.log('Orden de unidades:', units.map(u => u[0]['Unidad Organizativa']));
+        console.log('Estructura de datos de ejemplo:', units[0]);
+        
+        let pdfHTML = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <style>
+              @page {
+                size: A4;
+                margin: 15mm;
+              }
+              body {
+                font-family: Arial, sans-serif;
+                font-size: 11px;
+                line-height: 1.3;
+                color: #333;
+                margin: 0;
+                padding: 0;
+              }
+                          .unit-page {
+              page-break-after: auto;
+              margin-bottom: 15px;
+              padding: 10px;
+            }
+            .unit-page:last-child {
+              page-break-after: avoid;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+              .unit-header {
+                text-align: center;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #2c3e50;
+                padding-bottom: 8px;
+              }
+              .unit-name {
+                font-size: 16px;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+              }
+              .unit-metadata {
+                font-size: 9px;
+                color: #666;
+                margin-bottom: 12px;
+              }
+              .mission-section {
+                margin-bottom: 15px;
+              }
+              .mission-title {
+                font-size: 12px;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 6px;
+              }
+              .mission-content {
+                font-size: 10px;
+                text-align: justify;
+                padding: 8px;
+                background-color: #f8f9fa;
+                border-left: 3px solid #3498db;
+                word-wrap: break-word;
+              }
+              .functions-table {
+                width: 100%;
+                border-collapse: collapse;
+              margin-bottom: 15px;
+              font-size: 10px;
+            }
+            .functions-table th {
+              background-color: #2c3e50;
+              color: white;
+              padding: 8px;
+              text-align: left;
+              font-weight: bold;
+            }
+            .functions-table td {
+              padding: 6px 8px;
+              border: 1px solid #ddd;
+              vertical-align: top;
+            }
+            .functions-table tr:nth-child(even) {
+              background-color: #f8f9fa;
+            }
+            .table-title {
+              font-size: 12px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin: 15px 0 8px 0;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+            .footer {
+              position: fixed;
+              bottom: 10mm;
+              left: 20mm;
+              right: 20mm;
+              text-align: center;
+              font-size: 8px;
+              color: #666;
+              border-top: 1px solid #ddd;
+              padding-top: 5px;
+            }
+          </style>
+        </head>
+        <body>
+      `;
+      
+      let currentPageContent = '';
+      
+      units.forEach((unitData, index) => {
+        const unit = unitData[0];
+        // Incluir todas las funciones, no solo las genéricas y específicas
+        const functions = unitData.filter(row => row['Tipo de Función'] && row['Tipo de Función'] !== '');
+        
+        console.log(`Procesando unidad: ${unit['Unidad Organizativa']}`);
+        console.log(`Funciones encontradas: ${functions.length}`);
+        
+        // Generar el contenido de esta unidad
+        let unitContent = `
+          <div class="unit-page">
+            <div class="unit-header">
+              <div class="unit-name">${unit['Unidad Organizativa']}</div>
+              <div class="unit-metadata">
+                <strong>Jerarquía:</strong> ${unit['Jerarquía']} | 
+                <strong>Nivel:</strong> ${unit['Nivel Jerárquico Calculado'] || unit['Nivel']} | 
+                <strong>Reporta a:</strong> ${unit['Reporta A'] || 'N/A'} | 
+                <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}
+              </div>
+            </div>
+            
+            <div class="mission-section">
+              <div class="mission-title">Misión</div>
+              <div class="mission-content">${unit['Misión'] || 'No especificada'}</div>
+            </div>
+        `;
+        
+        // Agrupar funciones por tipo
+        const functionsByType = {};
+        functions.forEach(func => {
+          const type = func['Tipo de Función'];
+          if (!functionsByType[type]) {
+            functionsByType[type] = [];
+          }
+          functionsByType[type].push(func);
+        });
+        
+        console.log('Tipos de funciones encontrados:', Object.keys(functionsByType));
+        
+        // Generar tablas para cada tipo de función
+        Object.keys(functionsByType).forEach(type => {
+          const typeFunctions = functionsByType[type];
+          
+          unitContent += `
+            <div class="table-title">Funciones ${type}</div>
+            <table class="functions-table">
+              <thead>
+                <tr>
+                  <th style="width: 40%;">Función ${type === 'Genérica' ? 'Genérica' : type === 'Específica' ? 'Específica' : type}</th>
+                  <th style="width: 40%;">Producto Final</th>
+                  <th style="width: 20%;">${type === 'Específica' ? '% Dedicación' : 'Tipo'}</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          
+          typeFunctions.forEach(func => {
+            console.log('Procesando función:', func);
+            
+            // Usar el campo 'Descripción' que es el que contiene la función
+            const functionDescription = func['Descripción'] || 'No especificada';
+            const productFinal = func['Producto Final'] || 'No especificado';
+            const dedicationPercent = type === 'Específica' ? (func['Porcentaje Dedicación'] || '0') + '%' : type;
+            
+            unitContent += `
+              <tr>
+                <td>${functionDescription}</td>
+                <td>${productFinal}</td>
+                <td style="text-align: center;">${dedicationPercent}</td>
+              </tr>
+            `;
+          });
+          
+          unitContent += `
+              </tbody>
+            </table>
+          `;
+        });
+        
+        unitContent += `
+          </div>
+        `;
+        
+        // Solo agregar salto de página si no es la primera unidad
+        if (index > 0) {
+          pdfHTML += '<div class="page-break"></div>';
+        }
+        
+        pdfHTML += unitContent;
+      });
+      
+      pdfHTML += `
+          <div class="footer">
+            Organigrama BNA - Generado el ${new Date().toLocaleDateString('es-ES')} a las ${new Date().toLocaleTimeString('es-ES')} | 
+            Total de unidades: ${units.length}
+          </div>
+        </body>
+        </html>
+      `;
+      
+      console.log('Contenido PDF generado exitosamente');
+      return pdfHTML;
+      
+      } catch (error) {
+        console.error('Error al generar contenido PDF:', error);
+        throw new Error(`Error al generar contenido PDF: ${error.message}`);
+      }
+    }
+
+    </script>
 </body>
-</html>
+</html> 
