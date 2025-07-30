@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  magna-partners:
+    build: .
+    container_name: magna-partners-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SESSION_SECRET=magna-partners-secret-key-2024
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - magna-network
+
+  # Optional: Add Redis for session storage in production
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: magna-partners-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - magna-network
+
+networks:
+  magna-network:
+    driver: bridge
+
+# volumes:
+#   redis_data: 

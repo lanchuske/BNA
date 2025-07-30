@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>Magna Partners</h2>
+                </div>
+                <div class="nav-menu">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#servicios" class="nav-link">Servicios</a>
+                    <a href="#nosotros" class="nav-link">Nosotros</a>
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                    <% if (user) { %>
+                        <a href="/dashboard" class="nav-link btn-dashboard">Dashboard</a>
+                    <% } else { %>
+                        <a href="/login" class="nav-link btn-login">Iniciar Sesión</a>
+                    <% } %>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Consultoría Estratégica <span class="highlight">que Transforma</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Ayudamos a las organizaciones a optimizar su estructura organizacional, 
+                    mejorar procesos y alcanzar resultados excepcionales a través de 
+                    herramientas innovadoras y metodologías probadas.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">Conoce Nuestros Servicios</a>
+                    <a href="/login" class="btn btn-secondary">Acceso Consultores</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-graphic">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones integrales para optimizar tu organización</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Análisis Organizacional</h3>
+                    <p>Evaluamos la estructura actual de tu organización para identificar oportunidades de mejora y optimización.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Herramientas Digitales</h3>
+                    <p>Plataforma avanzada con herramientas para crear, analizar y exportar organigramas profesionales.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Optimización de Procesos</h3>
+                    <p>Identificamos y mejoramos los procesos críticos para aumentar la eficiencia operativa.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Gestión del Talento</h3>
+                    <p>Desarrollamos estrategias para atraer, retener y desarrollar el mejor talento en tu organización.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovación Estratégica</h3>
+                    <p>Impulsamos la innovación y transformación digital para mantener tu organización competitiva.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Reportes Profesionales</h3>
+                    <p>Generamos reportes detallados y presentaciones ejecutivas de alta calidad para la toma de decisiones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Herramientas Section -->
+    <section class="tools">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestras Herramientas</h2>
+                <p>Plataforma digital avanzada para consultores</p>
+            </div>
+            <div class="tools-showcase">
+                <div class="tool-item">
+                    <div class="tool-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Organigrama Inteligente</h3>
+                    <p>Crea y visualiza organigramas complejos con funciones, indicadores y productos finales detallados.</p>
+                    <ul class="tool-features">
+                        <li><i class="fas fa-check"></i> Estructura jerárquica completa</li>
+                        <li><i class="fas fa-check"></i> Funciones específicas y genéricas</li>
+                        <li><i class="fas fa-check"></i> Indicadores de desempeño</li>
+                        <li><i class="fas fa-check"></i> Exportación a PDF profesional</li>
+                    </ul>
+                </div>
+                <div class="tool-item">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Análisis de Datos</h3>
+                    <p>Herramientas avanzadas para analizar la estructura organizacional y generar insights valiosos.</p>
+                    <ul class="tool-features">
+                        <li><i class="fas fa-check"></i> Análisis de dedicación</li>
+                        <li><i class="fas fa-check"></i> Distribución de funciones</li>
+                        <li><i class="fas fa-check"></i> Reportes ejecutivos</li>
+                        <li><i class="fas fa-check"></i> Dashboards interactivos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nosotros Section -->
+    <section id="nosotros" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre Magna Partners</h2>
+                    <p>Somos una consultoría estratégica especializada en optimización organizacional. Nuestro equipo de expertos combina años de experiencia con herramientas tecnológicas avanzadas para ofrecer soluciones que realmente transforman las organizaciones.</p>
+                    <p>Nuestra misión es ayudar a las empresas a alcanzar su máximo potencial a través de estructuras organizacionales eficientes, procesos optimizados y estrategias claras.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Proyectos Completados</p>
+                        </div>
+                        <div class="stat">
+                            <h3>25+</h3>
+                            <p>Clientes Satisfechos</p>
+                        </div>
+                        <div class="stat">
+                            <h3>95%</h3>
+                            <p>Tasa de Éxito</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-graphic">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para Transformar tu Organización?</h2>
+                <p>Únete a nuestros consultores y accede a herramientas profesionales que marcan la diferencia.</p>
+                <div class="cta-buttons">
+                    <a href="/login" class="btn btn-primary">Acceso Consultores</a>
+                    <a href="#contacto" class="btn btn-outline">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contacto</h2>
+                <p>Estamos aquí para ayudarte</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@magnapartners.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>+54 11 1234-5678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Oficina</h4>
+                            <p>Buenos Aires, Argentina</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Magna Partners</h3>
+                    <p>Consultoría estratégica que transforma organizaciones a través de herramientas innovadoras y metodologías probadas.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#servicios">Análisis Organizacional</a></li>
+                        <li><a href="#servicios">Herramientas Digitales</a></li>
+                        <li><a href="#servicios">Optimización de Procesos</a></li>
+                        <li><a href="#servicios">Gestión del Talento</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Herramientas</h4>
+                    <ul>
+                        <li><a href="/login">Organigrama Inteligente</a></li>
+                        <li><a href="/login">Análisis de Datos</a></li>
+                        <li><a href="/login">Reportes Profesionales</a></li>
+                        <li><a href="/login">Dashboard Ejecutivo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@magnapartners.com</li>
+                        <li><i class="fas fa-phone"></i> +54 11 1234-5678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Magna Partners. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/landing.js"></script>
+</body>
+</html> 

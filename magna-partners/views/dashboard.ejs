@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2><i class="fas fa-chart-network"></i> Magna Partners</h2>
+                </div>
+                <div class="nav-menu">
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <%= user.name %>
+                    </span>
+                    <a href="/logout" class="nav-link btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Bienvenido, <%= user.name %></h1>
+                <p>Accede a las herramientas profesionales de Magna Partners</p>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <% if (success_msg && success_msg.length > 0) { %>
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> <%= success_msg %>
+                </div>
+            <% } %>
+
+            <% if (error_msg && error_msg.length > 0) { %>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i> <%= error_msg %>
+                </div>
+            <% } %>
+
+            <!-- Tools Grid -->
+            <div class="tools-grid">
+                <!-- Organigrama Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon-large">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Organigrama Inteligente</h3>
+                    <p>Crea, visualiza y exporta organigramas profesionales con funciones detalladas, indicadores y productos finales.</p>
+                    <div class="tool-features-list">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Estructura jerárquica completa</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Funciones específicas y genéricas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Indicadores de desempeño</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Exportación a PDF profesional</span>
+                        </div>
+                    </div>
+                    <a href="/organigrama" class="btn btn-primary tool-btn">
+                        <i class="fas fa-arrow-right"></i> Acceder a Organigrama
+                    </a>
+                </div>
+
+                <!-- Análisis de Datos Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon-large">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Análisis de Datos</h3>
+                    <p>Herramientas avanzadas para analizar la estructura organizacional y generar insights valiosos.</p>
+                    <div class="tool-features-list">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Análisis de dedicación</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Distribución de funciones</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Reportes ejecutivos</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Dashboards interactivos</span>
+                        </div>
+                    </div>
+                    <a href="/organigrama" class="btn btn-secondary tool-btn">
+                        <i class="fas fa-arrow-right"></i> Acceder a Análisis
+                    </a>
+                </div>
+
+                <!-- Reportes Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon-large">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Reportes Profesionales</h3>
+                    <p>Genera reportes detallados y presentaciones ejecutivas de alta calidad para la toma de decisiones.</p>
+                    <div class="tool-features-list">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Reportes personalizados</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Presentaciones ejecutivas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Gráficos interactivos</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Exportación múltiple</span>
+                        </div>
+                    </div>
+                    <a href="/organigrama" class="btn btn-outline tool-btn">
+                        <i class="fas fa-arrow-right"></i> Acceder a Reportes
+                    </a>
+                </div>
+
+                <!-- Configuración Tool -->
+                <div class="tool-card">
+                    <div class="tool-icon-large">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Configuración</h3>
+                    <p>Gestiona tu perfil, preferencias y configuraciones de la plataforma.</p>
+                    <div class="tool-features-list">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Perfil de usuario</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Preferencias de trabajo</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Configuración de herramientas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Historial de actividades</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-outline tool-btn disabled">
+                        <i class="fas fa-lock"></i> Próximamente
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <h3>Resumen de Actividad</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Archivos Procesados</h4>
+                            <p class="stat-number">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>PDFs Generados</h4>
+                            <p class="stat-number">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Tiempo de Sesión</h4>
+                            <p class="stat-number">0 min</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2c5aa0;
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .tool-icon-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2c5aa0, #667eea);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .tool-features-list {
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .feature i {
+            color: #28a745;
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+            min-width: 16px;
+        }
+
+        .tool-btn {
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .tool-btn.disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .tool-btn.disabled:hover {
+            background: #6c757d;
+            transform: none;
+        }
+
+        .quick-stats {
+            margin-top: 3rem;
+        }
+
+        .quick-stats h3 {
+            color: #2c5aa0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: #2c5aa0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .stat-content h4 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-number {
+            color: #2c5aa0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .user-info {
+                font-size: 0.9rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html> 
