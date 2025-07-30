@@ -1,0 +1,105 @@
+{
+  "fecha_actualizacion": "2025-01-30T14:15:00.000Z",
+  "tarea": "Ordenamiento de funciones por tipo en organigrama",
+  "estado": "COMPLETADO_MULTIPLE_VERSIONS_WITH_WEB_CORRECTION",
+  "criterio_ordenamiento": [
+    "Funciones Genéricas (primero)",
+    "Funciones Específicas (segundo)", 
+    "Indicadores (tercero)"
+  ],
+  "versiones_procesadas": [
+    {
+      "version": "4",
+      "archivo_original": "organigrama_bna_2025-07-30-4.json",
+      "archivo_resultado": "organigrama_bna_2025-07-30-4_ordenado.json",
+      "estadisticas": {
+        "unidades_procesadas": 41,
+        "funciones_totales": 834,
+        "funciones_por_tipo": {
+          "Genérica": 213,
+          "Específica": 276,
+          "Indicador": 345
+        }
+      },
+      "validacion": {
+        "estado": "EXITOSA",
+        "unidades_ordenadas": 41,
+        "funciones_ordenadas": 834,
+        "errores": 0
+      }
+    },
+    {
+      "version": "5",
+      "archivo_original": "organigrama_bna_2025-07-30-5.json",
+      "archivo_resultado": "organigrama_bna_2025-07-30-5_ordenado.json",
+      "estadisticas": {
+        "unidades_procesadas": 41,
+        "funciones_totales": 816,
+        "funciones_por_tipo": {
+          "Genérica": 213,
+          "Específica": 274,
+          "Indicador": 329
+        }
+      },
+      "validacion": {
+        "estado": "EXITOSA",
+        "unidades_ordenadas": 41,
+        "funciones_ordenadas": 816,
+        "errores": 0
+      }
+    },
+    {
+      "version": "6",
+      "archivo_original": "organigrama_bna_2025-07-30-6.json",
+      "archivo_resultado": "organigrama_bna_2025-07-30-6_ordenado.json",
+      "estadisticas": {
+        "unidades_procesadas": 40,
+        "funciones_totales": 796,
+        "funciones_por_tipo": {
+          "Genérica": 209,
+          "Específica": 268,
+          "Indicador": 319
+        }
+      },
+      "validacion": {
+        "estado": "EXITOSA",
+        "unidades_ordenadas": 40,
+        "funciones_ordenadas": 796,
+        "errores": 0
+      }
+    }
+  ],
+  "correccion_aplicacion_web": {
+    "problema": "Pérdida de ordenamiento por tipo al editar funciones en la aplicación web",
+    "archivo_original": "maim_2.html",
+    "archivo_corregido": "maim_2_corregido.html",
+    "script_correccion": "scripts/corregir_ordenamiento_funciones_web.js",
+    "descripcion_problema": "La función saveFunction solo ordenaba por número de orden, no por tipo de función",
+    "solucion": "Se agregó función ordenarFuncionesPorTipo() que mantiene el criterio: Genéricas → Específicas → Indicadores",
+    "estado": "CORREGIDO",
+    "verificacion": {
+      "funcion_agregada": true,
+      "funcion_utilizada": true,
+      "comentario_correccion": true
+    }
+  },
+  "scripts_creados": [
+    "scripts/ordenar_funciones_por_tipo.js",
+    "test/validar_ordenamiento_funciones.js",
+    "scripts/corregir_ordenamiento_funciones_web.js"
+  ],
+  "notas_generadas": [
+    "notas/3001-01-Ordenamiento_Funciones_Por_Tipo.md",
+    "notas/3001-02-Ordenamiento_Funciones_Version_5.md",
+    "notas/3001-03-Ordenamiento_Funciones_Version_6.md",
+    "notas/3001-04-Correccion_Ordenamiento_Funciones_Web.md"
+  ],
+  "resumen_final": {
+    "total_versiones_procesadas": 3,
+    "total_funciones_ordenadas": 2446,
+    "total_unidades_procesadas": 122,
+    "problema_web_identificado": true,
+    "problema_web_corregido": true,
+    "aplicacion_web_mejorada": true
+  }
+} 
