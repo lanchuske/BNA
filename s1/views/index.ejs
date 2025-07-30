@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Organigrama Local</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Organigrama Local</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="jsonfile" accept=".json" required>
+    <button type="submit">Cargar JSON</button>
+  </form>
+  
+  <% if (data) { %>
+    <form action="/export-pdf" method="get" style="margin-top:20px;">
+      <button type="submit">Exportar a PDF</button>
+    </form>
+    
+    <div class="organigrama-container">
+      <% if (data.hierarchy && data.hierarchy.tree) { %>
+        <% 
+        function getAllUnits(nodes, units = []) {
+          nodes.forEach(node => {
+            units.push(node);
+            if (node.children && node.children.length > 0) {
+              getAllUnits(node.children, units);
+            }
+          });
+          return units;
+        }
+        
+        const units = getAllUnits(data.hierarchy.tree);
+        %>
+        
+        <% units.forEach((unit, index) => { %>
+          <div class="unidad-organizativa">
+            <% if (index > 0) { %>
+              <div class="page-break"></div>
+            <% } %>
+            
+            <!-- Encabezado de Unidad Optimizado -->
+            <div class="unit-header-compact">
+              <div class="unit-header-left">
+                <div class="unit-name"><%= unit.nombre %></div>
+                <div class="unit-jerarquia"><%= unit.jerarquia || '' %></div>
+              </div>
+              <div class="unit-header-right">
+                <div><span class="unit-meta-label">Nivel de Reporte:</span> <span class="unit-meta-value"><%= unit.nivelReporte || 'No especificado' %></span></div>
+                <div><span class="unit-meta-label">Fecha Aprobación:</span> <span class="unit-meta-value"><%= new Date().toLocaleDateString('es-ES') %></span></div>
+              </div>
+              <% if (unit.mision) { %>
+                <div class="unit-mision"><%= unit.mision %></div>
+              <% } %>
+            </div>
+            
+            <!-- Funciones Genéricas -->
+            <% 
+            const funciones = unit.funciones || [];
+            const genericas = funciones.filter(f => f.tipo === 'Genérica');
+            const especificas = funciones.filter(f => f.tipo === 'Específica');
+            const indicadores = funciones.filter(f => f.tipo === 'Indicador');
+            %>
+            
+            <% if (genericas.length > 0) { %>
+              <div class="info-section">
+                <div class="info-header">
+                  <span class="left-text">Funciones Genéricas</span>
+                  <span class="right-text">Producto Final</span>
+                </div>
+                <div class="info-content">
+                  <table class="functions-table">
+                    <% genericas.forEach((func, index) => { %>
+                      <tr>
+                        <td><%= func.descripcion || '' %></td>
+                        <td class="right-align"><%= func.productoFinal || 'N/A' %></td>
+                      </tr>
+                    <% }); %>
+                  </table>
+                </div>
+              </div>
+            <% } %>
+            
+            <!-- Funciones Específicas -->
+            <% if (especificas.length > 0) { %>
+              <div class="info-section">
+                <div class="info-header">
+                  <span class="left-text">Funciones Específicas</span>
+                  <span class="right-text">Producto Final</span>
+                  <span class="center-text">% Dedicación</span>
+                </div>
+                <div class="info-content">
+                  <table class="functions-table">
+                    <% especificas.forEach((func, index) => { %>
+                      <tr>
+                        <td><%= func.descripcion || '' %></td>
+                        <td class="right-align"><%= func.productoFinal || 'N/A' %></td>
+                        <td class="center-align"><%= func.porcentajeDedicacion || '' %></td>
+                      </tr>
+                    <% }); %>
+                  </table>
+                </div>
+              </div>
+            <% } %>
+            
+            <!-- Indicadores -->
+            <% if (indicadores.length > 0) { %>
+              <div class="info-section">
+                <div class="info-header">Indicadores</div>
+                <div class="info-content">
+                  <div class="indicadores-grid">
+                    <% indicadores.forEach((func, index) => { %>
+                      <div class="indicador-item"><%= func.descripcion || '' %></div>
+                    <% }); %>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+            
+            <% if (genericas.length === 0 && especificas.length === 0 && indicadores.length === 0) { %>
+              <div class="info-section">
+                <div class="no-functions">No hay funciones definidas para esta unidad</div>
+              </div>
+            <% } %>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div style="margin-top:30px;">
+          <h2>Vista previa del JSON cargado</h2>
+          <pre><%= JSON.stringify(data, null, 2) %></pre>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</body>
+</html> 

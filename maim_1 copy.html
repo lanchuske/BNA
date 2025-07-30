@@ -666,236 +666,6 @@
             display: block;
             clear: both;
         }
-
-        @media print {
-          body {
-            background: #fff !important;
-            color: #000 !important;
-            font-family: Arial, Helvetica, sans-serif !important;
-            font-size: 10pt !important;
-            margin: 2mm !important;
-            padding: 0 !important;
-            width: 210mm;
-            min-height: 297mm;
-            box-sizing: border-box;
-          }
-          .container {
-            box-shadow: none !important;
-            border-radius: 0 !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #fff !important;
-          }
-          .header, .controls, .status-bar, .tree-container, .main-content > .tree-container, .btn, .file-input-wrapper, .file-input-label, .alert, .info, .success, .error, .info-header, .info-section, .functions-header, .functions-container, .unit-form, .edit-mode-btn, .btn-sm, .btn-primary, .btn-success, .btn-warning, .btn-danger, .btn-info, .btn-secondary, .status-bar, .file-input, .file-input-label, .main-content > .tree-container, .main-content > .controls, .main-content > .status-bar {
-            display: none !important;
-            visibility: hidden !important;
-            height: 0 !important;
-            width: 0 !important;
-            overflow: hidden !important;
-          }
-          .content-area {
-            padding: 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-            background: #fff !important;
-          }
-          .unidad-organizativa {
-            margin: 0 0 10px 0 !important;
-            padding: 0 0 8px 0 !important;
-            min-height: 0 !important;
-            page-break-inside: avoid !important;
-            width: 100% !important;
-          }
-          .page-break {
-            display: block !important;
-            page-break-before: always !important;
-            height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            background: none !important;
-          }
-          .unit-header {
-            padding: 6px 0 4px 0 !important;
-            margin-bottom: 8px !important;
-          }
-          .info-section {
-            margin-bottom: 8px !important;
-          }
-          .info-header {
-            padding: 4px 8px !important;
-            font-size: 10pt !important;
-          }
-          .info-content, .functions-table, .info-table {
-            padding: 4px !important;
-            font-size: 9pt !important;
-          }
-          .functions-table td, .info-table td {
-            padding: 3px 6px !important;
-            font-size: 9pt !important;
-          }
-        }
-        /* Encabezado compacto para impresión y pantalla */
-        .unit-header-compact {
-          background: #2c5aa0;
-          color: #fff;
-          border-radius: 8px;
-          padding: 16px 20px 14px 20px;
-          margin-bottom: 10px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: flex-start;
-        }
-        .unit-header-left {
-          flex: 2 1 300px;
-          min-width: 220px;
-        }
-        .unit-title {
-          font-size: 2em;
-          font-weight: 900;
-          margin-bottom: 2px;
-          word-break: break-word;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-        .unit-jerarquia {
-          font-size: 1.1em;
-          font-weight: 400;
-          color: #c6d6f2;
-          margin-bottom: 6px;
-        }
-        .unit-header-right {
-          flex: 1 1 180px;
-          min-width: 140px;
-          text-align: right;
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-          align-items: flex-end;
-        }
-        .unit-meta-label {
-          font-weight: 600;
-          color: #e0e8f5;
-          font-size: 1em;
-        }
-        .unit-meta-value {
-          font-weight: 400;
-          color: #fff;
-          font-size: 1em;
-        }
-        .unit-mision {
-          margin-top: 10px;
-          font-size: 1.08em;
-          font-style: italic;
-          color: #e0e8f5;
-          line-height: 1.4;
-          width: 100%;
-        }
-        @media print {
-          .unit-header-compact {
-            padding: 10px 12px 8px 12px !important;
-            margin-bottom: 6px !important;
-            border-radius: 6px !important;
-          }
-          .unit-title {
-            font-size: 1.5em !important;
-            margin-bottom: 2px !important;
-          }
-          .unit-jerarquia {
-            font-size: 1em !important;
-            margin-bottom: 4px !important;
-          }
-          .unit-header-right {
-            font-size: 0.98em !important;
-            min-width: 100px !important;
-          }
-          .unit-mision {
-            font-size: 0.98em !important;
-            margin-top: 6px !important;
-            color: #e0e8f5 !important;
-          }
-        }
-        .info-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .info-header .left-text {
-          flex: 1;
-          text-align: left;
-        }
-        .info-header .right-text {
-          flex: 1;
-          text-align: right;
-        }
-        /* Mejorar alineación de encabezados de tabla */
-        .functions-table th,
-        .functions-table td {
-          text-align: left;
-        }
-        .functions-table th.right-align,
-        .functions-table td.right-align {
-          text-align: right;
-        }
-        .info-content, .functions-table, .info-table {
-          border: 1.5px solid #2c5aa0 !important;
-          border-radius: 4px !important;
-        }
-        .functions-table th, .functions-table td, .info-table th, .info-table td {
-          border-bottom: 1px solid #e9ecef !important;
-        }
-        @media print {
-          .info-content, .functions-table, .info-table {
-            border: 1.5px solid #2c5aa0 !important;
-            border-radius: 4px !important;
-          }
-          .functions-table th, .functions-table td, .info-table th, .info-table td {
-            border-bottom: 1px solid #e9ecef !important;
-          }
-        }
-        .indicadores-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 8px 24px;
-          margin: 0;
-          padding: 0;
-          grid-auto-flow: row;
-        }
-        .indicador-item {
-          background: #f8f9fa;
-          border-radius: 3px;
-          padding: 6px 10px;
-          font-size: 0.98em;
-          border: 1px solid #e9ecef;
-          margin-bottom: 0;
-        }
-        @media print {
-          .indicadores-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 6px 16px !important;
-          }
-          .indicador-item {
-            font-size: 0.95em !important;
-            padding: 4px 8px !important;
-          }
-        }
-        /* Agrega estilos para la misión dentro del encabezado azul: */
-        .unit-header-compact .unit-mision {
-          margin-top: 8px;
-          font-size: 1em;
-          font-style: italic;
-          color: #e0e8f5;
-          line-height: 1.4;
-        }
-        @media print {
-          .unit-header-compact .unit-mision {
-            font-size: 0.98em !important;
-            margin-top: 6px !important;
-            color: #e0e8f5 !important;
-          }
-        }
     </style>
 </head>
 <body>
@@ -2931,25 +2701,38 @@
             
             generateStructuredPDFContent: function() {
                 console.log('🔧 Generando contenido PDF estructurado...');
+                
                 if (!STATE.currentData || !STATE.currentData.hierarchy || !STATE.currentData.hierarchy.tree) {
                     console.log('❌ No hay datos de hierarchy disponibles');
                     return '';
                 }
+                
                 const units = this.getAllUnitsInOrder(STATE.currentData.hierarchy.tree);
                 console.log(`📊 Unidades encontradas: ${units.length}`);
                 console.log('📋 Primeras 3 unidades:', units.slice(0, 3).map(u => u.nombre));
+                
                 let pdfHTML = '';
+                
                 units.forEach((unit, index) => {
-                    if (index > 0) {
-                        pdfHTML += '<div class="page-break"></div>';
+                    console.log(`📋 Procesando unidad ${index + 1}/${units.length}: ${unit.nombre}`);
+                    const unitHTML = this.generateUnitPDFContent(unit);
+                    pdfHTML += unitHTML;
+                    
+                    // Agregar salto de página solo si hay más unidades y el contenido es extenso
+                    if (index < units.length - 1 && this.hasExtensiveContent(unit)) {
+                        pdfHTML += '<div style="page-break-after: always;"></div>';
+                    } else if (index < units.length - 1) {
+                        // Agregar separador simple en lugar de salto de página
+                        pdfHTML += '<div style="margin-bottom: 30px; border-bottom: 2px solid #2c5aa0; padding-bottom: 20px;"></div>';
                     }
-                    pdfHTML += `<div class="unidad-organizativa">${this.generateUnitPDFContent(unit)}</div>`;
                 });
+                
                 const finalHTML = `
                     <div style="font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; background-color: white; color: black;">
                         ${pdfHTML}
                     </div>
                 `;
+                
                 console.log('✅ Contenido PDF generado exitosamente');
                 return finalHTML;
             },
@@ -2978,91 +2761,122 @@
                 const genericas = funciones.filter(f => f.tipo === 'Genérica');
                 const especificas = funciones.filter(f => f.tipo === 'Específica');
                 const indicadores = funciones.filter(f => f.tipo === 'Indicador');
-                // Encabezado compacto tipo maqueta
-                const unitHeader = `
-                  <div class="unit-header-compact">
-                    <div class="unit-header-left">
-                      <div class="unit-title">${unit.nombre}</div>
-                      <div class="unit-jerarquia">${unit.jerarquia || ''}</div>
-                    </div>
-                    <div class="unit-header-right">
-                      <div><span class="unit-meta-label">Nivel de Reporte:</span> <span class="unit-meta-value">${unit.nivelReporte || 'No especificado'}</span></div>
-                      <div><span class="unit-meta-label">Fecha Aprobación:</span> <span class="unit-meta-value">${new Date().toLocaleDateString('es-ES')}</span></div>
-                    </div>
-                    ${unit.mision ? `<div class="unit-mision">${unit.mision}</div>` : ''}
-                  </div>
-                `;
-                // Indicadores en dos columnas balanceadas
-                let indicadoresHTML = '';
-                if (indicadores.length > 0) {
-                  indicadoresHTML = `
-                    <div class="info-section">
-                      <div class="info-header">Indicadores</div>
-                      <div class="info-content">
-                        <div class="indicadores-grid">
-                          ${indicadores.map(func => `
-                            <div class="indicador-item">${func.descripcion || ''}</div>
-                          `).join('')}
-                        </div>
-                      </div>
-                    </div>
-                  `;
-                }
+                
+                console.log(`  📋 ${unit.nombre}: ${funciones.length} funciones (${genericas.length}G, ${especificas.length}E, ${indicadores.length}I)`);
+                console.log(`  📄 Generando HTML para unidad: ${unit.nombre}`);
+                
                 return `
-                  ${unitHeader}
-                  <!-- Funciones Genéricas -->
-                  ${genericas.length > 0 ? `
-                    <div class="info-section">
-                      <div class="info-header">
-                        <span class="left-text">Funciones Genéricas</span>
-                        <span class="right-text">Producto Final</span>
-                      </div>
-                      <div class="info-content">
-                        <table class="functions-table">
-                          <tr>
-                            <th>Descripción</th>
-                            <th class="right-align">Producto Final</th>
-                          </tr>
-                          ${genericas.map((func, index) => `
-                            <tr>
-                              <td>${func.descripcion || ''}</td>
-                              <td class="right-align">${func.productoFinal || 'N/A'}</td>
-                            </tr>
-                          `).join('')}
-                        </table>
-                      </div>
+                    <div class="unit-container">
+                        <!-- Encabezado de Unidad -->
+                        <div class="unit-header">
+                            <h2>Unidad Organizativa</h2>
+                            <h3>${unit.nombre}</h3>
+                        </div>
+                        
+                        <!-- Información de la Unidad -->
+                        <div class="info-section">
+                            <div class="info-header">
+                                Información de la Unidad
+                            </div>
+                            <div class="info-content">
+                                <table class="info-table">
+                                    <tr>
+                                        <td>Jerarquía:</td>
+                                        <td>${unit.jerarquia || 'No especificada'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nivel de Reporte:</td>
+                                        <td>${unit.nivelReporte || 'No especificado'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha Aprobación:</td>
+                                        <td>${new Date().toLocaleDateString('es-ES')}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Misión -->
+                        ${unit.mision ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    Misión
+                                </div>
+                                <div class="info-content">
+                                    <div class="mission-content">
+                                        ${unit.mision}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Funciones Genéricas -->
+                        ${genericas.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Genéricas</span>
+                                    <span class="right-text">Producto Final</span>
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${genericas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Funciones Específicas -->
+                        ${especificas.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    <span class="left-text">Funciones Específicas</span>
+                                    <span class="right-text">Producto Final</span>
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${especificas.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                                <td>${func.productoFinal || 'N/A'}</td>
+                                                <td class="percentage-cell">${func.porcentajeDedicacion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Indicadores -->
+                        ${indicadores.length > 0 ? `
+                            <div class="info-section">
+                                <div class="info-header">
+                                    Indicadores
+                                </div>
+                                <div class="info-content">
+                                    <table class="functions-table">
+                                        ${indicadores.map((func, index) => `
+                                            <tr>
+                                                <td>${func.descripcion || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </table>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${genericas.length === 0 && especificas.length === 0 && indicadores.length === 0 ? `
+                            <div class="info-section">
+                                <div class="no-functions">
+                                    No hay funciones definidas para esta unidad
+                                </div>
+                            </div>
+                        ` : ''}
                     </div>
-                  ` : ''}
-                  <!-- Funciones Específicas -->
-                  ${especificas.length > 0 ? `
-                    <div class="info-section">
-                      <div class="info-header">
-                        <span class="left-text">Funciones Específicas</span>
-                        <span class="right-text">Producto Final</span>
-                      </div>
-                      <div class="info-content">
-                        <table class="functions-table">
-                          <tr>
-                            <th>Descripción</th>
-                            <th class="right-align">Producto Final</th>
-                          </tr>
-                          ${especificas.map((func, index) => `
-                            <tr>
-                              <td>${func.descripcion || ''}</td>
-                              <td class="right-align">${func.productoFinal || 'N/A'}</td>
-                            </tr>
-                          `).join('')}
-                        </table>
-                      </div>
-                    </div>
-                  ` : ''}
-                  <!-- Indicadores -->
-                  ${indicadoresHTML}
-                  ${(genericas.length === 0 && especificas.length === 0 && indicadores.length === 0) ? `
-                    <div class="info-section">
-                      <div class="no-functions">No hay funciones definidas para esta unidad</div>
-                    </div>
-                  ` : ''}
                 `;
             }
         };
