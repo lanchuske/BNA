@@ -1,7 +1,7 @@
 {
   "fecha_actualizacion": "2025-01-30T14:15:00.000Z",
   "tarea": "Ordenamiento de funciones por tipo en organigrama",
-  "estado": "COMPLETADO_MULTIPLE_VERSIONS_WITH_WEB_CORRECTION",
+  "estado": "COMPLETADO_MULTIPLE_VERSIONS_WITH_WEB_CORRECTION_AND_UNIT_UPDATES",
   "criterio_ordenamiento": [
     "Funciones Genéricas (primero)",
     "Funciones Específicas (segundo)", 
@@ -94,12 +94,150 @@
     "notas/3001-03-Ordenamiento_Funciones_Version_6.md",
     "notas/3001-04-Correccion_Ordenamiento_Funciones_Web.md"
   ],
+  "actualizaciones_unidades_desde_md": {
+    "cac": {
+      "fecha": "2025-01-30T16:30:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-8.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-9.json",
+      "md_fuente": "MD/8 CAC.md",
+      "script": "scripts/actualizar_cac_desde_md.js",
+      "cambios": [
+        "Misión actualizada según MD",
+        "5 funciones genéricas agregadas",
+        "5 funciones específicas con porcentajes correctos (100%)",
+        "4 indicadores agregados",
+        "Descripciones mejoradas con detalles del MD"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "canales": {
+      "fecha": "2025-01-30T17:00:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-9.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-10.json",
+      "md_fuente": "MD/A canales.md",
+      "script": "scripts/actualizar_canales_desde_md.js",
+      "cambios": [
+        "Misión actualizada según MD",
+        "6 funciones genéricas (incluyendo función faltante)",
+        "7 funciones específicas con porcentajes corregidos (100%)",
+        "5 funciones extra eliminadas",
+        "Porcentajes corregidos de 120% a 100%",
+        "8 indicadores mantenidos"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "banca_digital": {
+      "fecha": "2025-01-30T17:45:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-10.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-11.json",
+      "md_fuente": "MD/A.1 Banca Digital.md",
+      "script": "scripts/actualizar_banca_digital_desde_md.js",
+      "cambios": [
+        "Misión actualizada según MD",
+        "Función extra eliminada",
+        "Porcentajes corregidos de 65% a 100%",
+        "5 funciones específicas con porcentajes correctos",
+        "Descripciones mejoradas con detalles del MD",
+        "Productos finales actualizados"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "experiencia_cliente": {
+      "fecha": "2025-01-30T18:00:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-11.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-12.json",
+      "md_fuente": "MD/A.2 Experiencia del Cliente y Modelo de Atención.md",
+      "script": "scripts/actualizar_experiencia_cliente_desde_md.js",
+      "cambios": [
+        "Misión completada según MD",
+        "Función genérica extra eliminada",
+        "Función específica extra eliminada",
+        "Porcentajes corregidos de 110% a 100%",
+        "Campos incorrectos removidos",
+        "Estructura de datos limpiada",
+        "Descripciones mejoradas con detalles del MD"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "gestion_comercial": {
+      "fecha": "2025-01-30T18:15:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-12.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-13.json",
+      "md_fuente": "MD/A.3 Gestion Comercial.md",
+      "script": "scripts/actualizar_gestion_comercial_desde_md.js",
+      "cambios": [
+        "Misión actualizada según MD",
+        "2 funciones genéricas extra eliminadas",
+        "Función específica extra eliminada",
+        "Porcentajes corregidos de 90% a 100%",
+        "Terminología unificada (bundles)",
+        "Descripciones mejoradas con detalles del MD",
+        "Productos finales actualizados"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "gestion_operativa_sucursales": {
+      "fecha": "2025-01-30T18:30:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-13.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-14.json",
+      "md_fuente": "MD/A.4 Gestion operativa sucursales.md",
+      "script": "scripts/actualizar_gestion_operativa_sucursales_desde_md.js",
+      "cambios": [
+        "Misión completada según MD",
+        "2 funciones genéricas extra eliminadas",
+        "4 funciones específicas extra eliminadas",
+        "Porcentajes corregidos de 90% a 100%",
+        "Estructura de datos limpiada (versiones anteriores eliminadas)",
+        "Descripciones mejoradas con detalles del MD",
+        "Productos finales actualizados"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "regionales": {
+      "fecha": "2025-01-30T18:45:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-14.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-15.json",
+      "md_fuente": "MD/A.5 Rginales.md",
+      "script": "scripts/actualizar_regionales_desde_md.js",
+      "cambios": [
+        "Misión verificada (idéntica al MD)",
+        "Función genérica extra eliminada",
+        "5 funciones específicas extra eliminadas",
+        "Porcentajes corregidos (20% cada una)",
+        "Estructura de datos limpiada (versiones anteriores eliminadas)",
+        "Campos corregidos (strings a números)",
+        "Descripciones mejoradas con detalles del MD",
+        "Productos finales actualizados"
+      ],
+      "estado": "COMPLETADO"
+    },
+    "activos": {
+      "fecha": "2025-01-30T19:00:00.000Z",
+      "archivo_origen": "organigrama_bna_2025-07-30-15.json",
+      "archivo_destino": "organigrama_bna_2025-07-30-16.json",
+      "md_fuente": "MD/B.1 Activos.md",
+      "script": "scripts/actualizar_activos_desde_md.js",
+      "cambios": [
+        "Misión completada según MD (agregada segunda parte)",
+        "Estructura de datos limpiada (versiones anteriores eliminadas)",
+        "Productos finales corregidos (específicos y completos)",
+        "Campos corregidos (strings a números)",
+        "Descripciones verificadas con detalles del MD",
+        "Indicadores mantenidos relevantes",
+        "Porcentajes verificados (20% cada función específica)"
+      ],
+      "estado": "COMPLETADO"
+    }
+  },
   "resumen_final": {
     "total_versiones_procesadas": 3,
     "total_funciones_ordenadas": 2446,
     "total_unidades_procesadas": 122,
     "problema_web_identificado": true,
     "problema_web_corregido": true,
-    "aplicacion_web_mejorada": true
+    "aplicacion_web_mejorada": true,
+    "unidades_actualizadas_desde_md": 8,
+    "archivos_md_procesados": 8,
+    "scripts_actualizacion_creados": 8
   }
 } 

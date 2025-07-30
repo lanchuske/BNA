@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "exportDate": "2025-07-30T13:59:44.144Z",
-    "version": "2.16-funciones-genericas-corregidas-2025-07-29-unidades-agregadas-duplicados-eliminados-productos-finales-pendientes-productos-finales-incorrectos-correcciones-automaticas-head-segmentos-unificado-errores-redondeo-corregidos-errores-redondeo-corregidos-errores-especificos-corregidos-exported-exported-indicadores-corregidos-porcentajes-funciones-especificas-corregidos-coordinacion-negocio-datos-corregida-porcentajes-finales-corregidos-redistribucion-final-porcentajes-4-a-5-corregidos-suma-final-ajustada-with-hierarchy-fields-exported-edited-exported-edited-edited-edited-edited-edited-exported-edited-exported-edited-edited-edited-exported",
+    "exportDate": "2025-07-30T16:53:42.728Z",
+    "version": "2.16-funciones-genericas-corregidas-2025-07-29-unidades-agregadas-duplicados-eliminados-productos-finales-pendientes-productos-finales-incorrectos-correcciones-automaticas-head-segmentos-unificado-errores-redondeo-corregidos-errores-redondeo-corregidos-errores-especificos-corregidos-exported-exported-indicadores-corregidos-porcentajes-funciones-especificas-corregidos-coordinacion-negocio-datos-corregida-porcentajes-finales-corregidos-redistribucion-final-porcentajes-4-a-5-corregidos-suma-final-ajustada-with-hierarchy-fields-exported-edited-exported-edited-edited-edited-edited-edited-exported-edited-exported-edited-edited-edited-exported-edited-exported-edited-edited-edited-exported-edited-edited-exported-exported",
     "format": "hierarchy-only",
     "totalRecords": 601,
-    "totalUnits": 41,
+    "totalUnits": 40,
     "stats": {
       "totalRecords": 890,
       "completeRecords": 890,
@@ -29,9 +29,9 @@
     "qualityScore": 100,
     "historyIncluded": true,
     "actualizado": "2025-07-29T22:04:29.389Z",
-    "notes": "Archivo optimizado eliminando duplicaciones entre hierarchy y data,Migradas 36 funciones adicionales de Canales desde data a hierarchy,Mantenidas las misiones más detalladas de hierarchy,Eliminada sección data para evitar inconsistencias,Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores,Corregidas 11 funciones genéricas que tenían porcentajes de dedicación,Corregidos 21 indicadores con porcentaje de dedicación,Corregidos 0 indicadores con producto final,Corregidos porcentajes en 13 unidades,Ajustados 172 funciones específicas a múltiplos de 5%,Corregida unidad Coordinación Del Negocio Y Datos - porcentajes redistribuidos,Corregidos 10 porcentajes a múltiplos de 5%,Redistribución final de porcentajes en Coordinación Del Negocio Y Datos,Corregidos 10 porcentajes de 4% a 5%,Ajuste final de suma en Coordinación Del Negocio Y Datos\n- Agregados campos jerarquia y nivelReporte a todas las unidades\n- Corregidos problemas identificados por Alejandro Cid y Dario\n- Movida unidad CAC de Segmento Personas a Canales\n- Agregada unidad Comunicaciones Y Eventos a Segmento Personas\n- Corregidos indicadores de SGP Clientes\n- Completada unidad Head De Segmentos Empresas\n- Eliminadas duplicaciones en Canales, Marketing y Coordinación Del Negocio Y Datos\n- Actualizada unidad Head De Segmentos Empresas con información detallada del archivo de Alejandro\n- Agregadas 18 funciones completas (5 genéricas, 5 específicas, 8 indicadores)\n- Incluidos porcentajes de dedicación correctos (20% cada función específica)\n- Incorporada misión actualizada\n- Eliminadas duplicaciones en unidades de Canales\n- Funciones reordenadas y optimizadas\n- Mejorada consistencia en el contenido\n- Eliminadas duplicaciones en unidades de Marketing\n- Funciones reordenadas y optimizadas\n- Mejorada consistencia en el contenido de Marketing",
-    "lastUpdate": "2025-07-30T00:49:22.024Z",
-    "lastModified": "2025-07-30T13:51:17.424Z"
+    "notes": "Archivo optimizado eliminando duplicaciones entre hierarchy y data,Migradas 36 funciones adicionales de Canales desde data a hierarchy,Mantenidas las misiones más detalladas de hierarchy,Eliminada sección data para evitar inconsistencias,Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores,Corregidas 11 funciones genéricas que tenían porcentajes de dedicación,Corregidos 21 indicadores con porcentaje de dedicación,Corregidos 0 indicadores con producto final,Corregidos porcentajes en 13 unidades,Ajustados 172 funciones específicas a múltiplos de 5%,Corregida unidad Coordinación Del Negocio Y Datos - porcentajes redistribuidos,Corregidos 10 porcentajes a múltiplos de 5%,Redistribución final de porcentajes en Coordinación Del Negocio Y Datos,Corregidos 10 porcentajes de 4% a 5%,Ajuste final de suma en Coordinación Del Negocio Y Datos\n- Agregados campos jerarquia y nivelReporte a todas las unidades\n- Corregidos problemas identificados por Alejandro Cid y Dario\n- Movida unidad CAC de Segmento Personas a Canales\n- Agregada unidad Comunicaciones Y Eventos a Segmento Personas\n- Corregidos indicadores de SGP Clientes\n- Completada unidad Head De Segmentos Empresas\n- Eliminadas duplicaciones en Canales, Marketing y Coordinación Del Negocio Y Datos\n- Actualizada unidad Head De Segmentos Empresas con información detallada del archivo de Alejandro\n- Agregadas 18 funciones completas (5 genéricas, 5 específicas, 8 indicadores)\n- Incluidos porcentajes de dedicación correctos (20% cada función específica)\n- Incorporada misión actualizada\n- Eliminadas duplicaciones en unidades de Canales\n- Funciones reordenadas y optimizadas\n- Mejorada consistencia en el contenido\n- Eliminadas duplicaciones en unidades de Marketing\n- Funciones reordenadas y optimizadas\n- Mejorada consistencia en el contenido de Marketing\n- Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores\n- Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores\n- Funciones reordenadas por tipo: Genéricas, Específicas, Indicadores\n- Actualizada unidad CAC con funciones completas del MD\n- Corregidos porcentajes de dedicación (100% en específicas)\n- Agregadas 5 funciones genéricas y 5 específicas\n- Incluidos 4 indicadores basados en MD\n- Actualizada unidad Canales con funciones completas del MD\n- Corregidos porcentajes de dedicación (100% en específicas)\n- Eliminadas 5 funciones extra que no estaban en MD\n- Agregada función 'Asegurar experiencia homogénea'\n- Incluidos 8 indicadores relevantes",
+    "lastUpdate": "2025-07-30T17:45:33.904Z",
+    "lastModified": "2025-07-30T17:45:33.909Z"
   },
   "hierarchy": {
     "tree": [
@@ -176,107 +176,108 @@
                   },
                   {
                     "orden": 2,
-                    "tipo": "Indicador",
-                    "descripcion": "Medir la efectividad de la propuesta de valor en términos de adopción por parte de los clientes personas."
+                    "tipo": "Genérica",
+                    "descripcion": "Desarrollar guías, criterios y metas por subsegmento para orientar las acciones comerciales, la evolución de productos, las campañas de marketing y el trabajo de la red.",
+                    "productoFinal": "Establecer lineamientos comerciales y objetivos estratégicos."
                   },
                   {
                     "orden": 3,
+                    "tipo": "Genérica",
+                    "descripcion": "Crear combinaciones de productos (cuenta + tarjeta + seguro + préstamo, etc.) y beneficios (bonificaciones, sorteos, programas de puntos) alineados con cada segmento objetivo.",
+                    "productoFinal": "Impulsar paquetes, programas y beneficios adaptados al perfil del cliente."
+                  },
+                  {
+                    "orden": 4,
+                    "tipo": "Genérica",
+                    "descripcion": "Acompañar la evolución del cliente con propuestas ajustadas a cada etapa de su ciclo de vida, con foco en la retención, el desarrollo y el aumento del valor de vida del cliente (CLV).",
+                    "productoFinal": "Promover acciones que maximicen la vinculación y la rentabilidad del cliente."
+                  },
+                  {
+                    "orden": 5,
+                    "tipo": "Genérica",
+                    "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
+                    "productoFinal": "Desarrollar una visión integral por subsegmento.",
+                    "versionAnterior": {
+                      "orden": 5,
+                      "tipo": "Genérica",
+                      "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
+                      "productoFinal": "Producto concreto del área."
+                    },
+                    "porcentajeDedicacion": ""
+                  },
+                  {
+                    "orden": 1,
                     "tipo": "Específica",
                     "descripcion": "Diseñar la propuesta de valor segmentada según perfiles de clientes personas. Tomar insights y propuestas de valor del mercado y de los clientes actuales.",
                     "productoFinal": "Diseño de Propuesta de Valor por Subsegmento.",
                     "porcentajeDedicacion": "20"
                   },
                   {
-                    "orden": 4,
-                    "tipo": "Genérica",
-                    "descripcion": "Desarrollar guías, criterios y metas por subsegmento para orientar las acciones comerciales, la evolución de productos, las campañas de marketing y el trabajo de la red.",
-                    "productoFinal": "Establecer lineamientos comerciales y objetivos estratégicos."
-                  },
-                  {
-                    "orden": 5,
+                    "orden": 2,
                     "tipo": "Específica",
                     "descripcion": "Definir ejes comerciales prioritarios y segmentar público objetivo.",
                     "productoFinal": "Matriz de Propuesta de Valor.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 6,
-                    "tipo": "Indicador",
-                    "descripcion": "Medir la satisfacción del cliente con la propuesta de valor implementada."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Crear combinaciones de productos (cuenta + tarjeta + seguro + préstamo, etc.) y beneficios (bonificaciones, sorteos, programas de puntos) alineados con cada segmento objetivo.",
-                    "productoFinal": "Impulsar paquetes, programas y beneficios adaptados al perfil del cliente."
-                  },
-                  {
-                    "orden": 8,
+                    "orden": 3,
                     "tipo": "Específica",
                     "descripcion": "Coordinar la implementación de la propuesta en colaboración con áreas clave.",
                     "productoFinal": "Plan de Implementación Coordinado.",
                     "porcentajeDedicacion": 20
                   },
                   {
-                    "orden": 9,
-                    "tipo": "Indicador",
-                    "descripcion": "Evaluar la efectividad de la segmentación de clientes personas."
-                  },
-                  {
-                    "orden": 10,
-                    "tipo": "Genérica",
-                    "descripcion": "Acompañar la evolución del cliente con propuestas ajustadas a cada etapa de su ciclo de vida, con foco en la retención, el desarrollo y el aumento del valor de vida del cliente (CLV).",
-                    "productoFinal": "Promover acciones que maximicen la vinculación y la rentabilidad del cliente."
-                  },
-                  {
-                    "orden": 11,
+                    "orden": 4,
                     "tipo": "Específica",
                     "descripcion": "Definir y liderar la implantación del modelo de atención por segmentos en todos los canales Definir modelos de contacto, triggers de seguimiento, momentos clave del ciclo de vida. Estrategia de comunicación segmentada.",
                     "productoFinal": "Modelo de atención y relacionamiento.",
                     "porcentajeDedicacion": 20
                   },
                   {
-                    "orden": 12,
-                    "tipo": "Indicador",
-                    "descripcion": "Monitorear la adopción de nuevos productos y servicios por parte de clientes personas."
-                  },
-                  {
-                    "orden": 13,
-                    "tipo": "Genérica",
-                    "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
-                    "productoFinal": "a una visión integral por subsegmento.",
-                    "versionAnterior": {
-                      "orden": 5,
-                      "tipo": "Genérica",
-                      "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
-                      "productoFinal": "Producto concreto del área."
-                    }
-                  },
-                  {
-                    "orden": 14,
+                    "orden": 5,
                     "tipo": "Específica",
                     "descripcion": "Revisar y actualizar criterios de segmentación de personas (edad, ingresos, actividad, hábitos digitales, comportamiento, etc.). Construir perfiles estratégicos (“personas arquetipo”) para orientar el diseño de acciones comerciales y de productos.",
                     "productoFinal": "Segmentación estratégica y definición de perfiles de cliente.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 15,
-                    "tipo": "Indicador",
-                    "descripcion": "Medir el impacto de las estrategias comerciales en la retención de clientes."
-                  },
-                  {
-                    "orden": 16,
+                    "orden": 6,
                     "tipo": "Específica",
                     "descripcion": "Liderar el diseño y ejecución de campañas desde la lógica de subsegmentos, asegurando mensajes, canales y beneficios adaptados. Medir impacto de campañas sobre los subgrupos objetivo.",
                     "productoFinal": "Liderar campañas y lanzamientos con enfoque segmentado.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 17,
+                    "orden": 7,
                     "tipo": "Específica",
                     "descripcion": "Analizar productos por cliente, ingresos, costos, niveles de interacción y evolución del CLV. Proponer ajustes estratégicos a la oferta o a las condiciones por subgrupo.",
                     "productoFinal": "Monitoreo de profundidad de relación y rentabilidad por subsegmento.",
                     "porcentajeDedicacion": 10
+                  },
+                  {
+                    "orden": 1,
+                    "tipo": "Indicador",
+                    "descripcion": "Medir la efectividad de la propuesta de valor en términos de adopción por parte de los clientes personas."
+                  },
+                  {
+                    "orden": 2,
+                    "tipo": "Indicador",
+                    "descripcion": "Medir la satisfacción del cliente con la propuesta de valor implementada."
+                  },
+                  {
+                    "orden": 3,
+                    "tipo": "Indicador",
+                    "descripcion": "Evaluar la efectividad de la segmentación de clientes personas."
+                  },
+                  {
+                    "orden": 4,
+                    "tipo": "Indicador",
+                    "descripcion": "Monitorear la adopción de nuevos productos y servicios por parte de clientes personas."
+                  },
+                  {
+                    "orden": 5,
+                    "tipo": "Indicador",
+                    "descripcion": "Medir el impacto de las estrategias comerciales en la retención de clientes."
                   }
                 ],
                 "jerarquia": "SG",
@@ -328,9 +329,9 @@
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Definir promociones, beneficios, features y combinaciones de productos y servicios alineadas con el perfil del subsegmento. Trabajar junto a Productos, Medios de Pago, Canales y Marketing para su implementación.",
-                    "productoFinal": "Canales y Marketing para su implementación.",
-                    "porcentajeDedicacion": 20,
+                    "descripcion": "Definir combinaciones de productos y servicios alineadas con el perfil del subsegmento. Trabajar junto a Productos, Medios de Pago, Canales y Marketing para su implementación.",
+                    "productoFinal": "Oferta de productos y servicios ajustada al segmento",
+                    "porcentajeDedicacion": "20",
                     "versionAnterior": {
                       "orden": 7,
                       "tipo": "Específica",
@@ -373,32 +374,22 @@
                   {
                     "orden": 3,
                     "tipo": "Indicador",
-                    "descripcion": "Número de acciones comerciales ejecutadas exitosamente."
+                    "descripcion": "Tiempo promedio de respuesta a desvíos comerciales."
                   },
                   {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de respuesta a desvíos comerciales."
+                    "descripcion": "Satisfacción del cliente por subsegmento."
                   },
                   {
                     "orden": 5,
                     "tipo": "Indicador",
-                    "descripcion": "Satisfacción del cliente por subsegmento."
+                    "descripcion": "ROI de las acciones comerciales por subsegmento."
                   },
                   {
                     "orden": 6,
                     "tipo": "Indicador",
-                    "descripcion": "ROI de las acciones comerciales por subsegmento."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
                     "descripcion": "Número de propuestas de valor mejoradas implementadas."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de alineamiento estratégico entre subsegmentos."
                   }
                 ],
                 "jerarquia": "SG",
@@ -623,7 +614,7 @@
             "key": "Segmento Empresas|SGP Clientes",
             "nombre": "Segmento Empresas",
             "reportaA": "SGP Clientes",
-            "mision": "Liderar la estrategia del negocio de Empresas, garantizando la definición y alineación de las propuestas de valor para los distintos segmentos, productos, canales y servicios.",
+            "mision": "Liderar la estrategia del negocio de Empresas, garantizando la definición y alineación de las propuestas de valor para los distintos segmentos, productos, canales y servicios. Asegurar la articulación efectiva de las unidades bajo su responsabilidad, promoviendo una gestión orientada al cliente, basada en datos, ágil, eficiente e innovadora, alineada con los objetivos estratégicos institucionales. Maximizar el valor al cliente, la rentabilidad sostenible, y la competitividad de la oferta de productos y servicios en los segmentos de Banca Empresas.",
             "funciones": [
               {
                 "orden": 1,
@@ -666,42 +657,28 @@
                 "tipo": "Específica",
                 "descripcion": "Desarrollar y coordinar la implementación de la propuesta de valor para Empresas.",
                 "productoFinal": "Propuesta de Valor Segmento Empresas.",
-                "porcentajeDedicacion": 20
+                "porcentajeDedicacion": "25"
               },
               {
                 "orden": 2,
                 "tipo": "Específica",
                 "descripcion": "Elaborar y ejecutar el plan de negocios para el segmento Empresas.",
                 "productoFinal": "Plan de Negocios del Segmento Empresas.",
-                "porcentajeDedicacion": 20
+                "porcentajeDedicacion": "25"
               },
               {
                 "orden": 3,
                 "tipo": "Específica",
                 "descripcion": "Supervisar ejecución de las áreas bajo su órbita y evaluar impacto comercial. Supervisar la performance del negocio de Empresas y coordinar acciones de mejora.",
                 "productoFinal": "Performance y Ajustes.",
-                "porcentajeDedicacion": 20
+                "porcentajeDedicacion": "25"
               },
               {
                 "orden": 4,
                 "tipo": "Específica",
                 "descripcion": "Proponer y gestionar mejoras en la oferta de valor y la experiencia de los clientes del segmento. Gestionar propuestas de mejora y productos diferenciados.",
                 "productoFinal": "Propuestas de mejora de la Propuesta de Valor.",
-                "porcentajeDedicacion": 20
-              },
-              {
-                "orden": 5,
-                "tipo": "Específica",
-                "descripcion": "Monitorear resultados comerciales, comunicar e impulsar acciones de mejora continua.",
-                "productoFinal": "e impulsar acciones de mejora continua.",
-                "porcentajeDedicacion": 20,
-                "versionAnterior": {
-                  "orden": 11,
-                  "tipo": "Específica",
-                  "descripcion": "Monitorear resultados comerciales, comunicar e impulsar acciones de mejora continua.",
-                  "productoFinal": "Informes de Seguimiento Estratégico.",
-                  "porcentajeDedicacion": 20
-                }
+                "porcentajeDedicacion": "25"
               },
               {
                 "orden": 1,
@@ -737,41 +714,6 @@
                 "orden": 7,
                 "tipo": "Indicador",
                 "descripcion": "% empresas vinculadas a programas públicos o financiamiento especial."
-              },
-              {
-                "orden": 8,
-                "tipo": "Indicador",
-                "descripcion": "Volumen de operaciones de comercio exterior (USD y cantidad)."
-              },
-              {
-                "orden": 9,
-                "tipo": "Indicador",
-                "descripcion": "Tiempo medio de procesamiento por tipo de operación."
-              },
-              {
-                "orden": 10,
-                "tipo": "Indicador",
-                "descripcion": "Participación en financiamiento al comercio exterior (en el sistema)."
-              },
-              {
-                "orden": 11,
-                "tipo": "Indicador",
-                "descripcion": "Cobertura y uso de corresponsales activos."
-              },
-              {
-                "orden": 12,
-                "tipo": "Indicador",
-                "descripcion": "NPS de clientes empresas internacionales."
-              },
-              {
-                "orden": 13,
-                "tipo": "Indicador",
-                "descripcion": "Cumplimiento normativo (AML/CFT y BCRA)."
-              },
-              {
-                "orden": 14,
-                "tipo": "Indicador",
-                "descripcion": "Rentabilidad por oficina en el exterior."
               }
             ],
             "children": [
@@ -784,8 +726,9 @@
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Definir ofertas integradas de productos, servicios, beneficios y modelos de atención específicos para jóvenes, jubilados, asalariados, profesionales, clientes de renta alta o masiva.",
-                    "productoFinal": "Diseñar la propuesta de valor por subsegmento."
+                    "descripcion": "Definir ofertas integradas de productos, servicios, beneficios y modelos de atención específicos para jóvenes, jubilados, asalariados, profesionales, clientes de renta alta o masiva. Retroalimentarse de Insights y NPS.",
+                    "productoFinal": "Diseñar la propuesta de valor por subsegmento.",
+                    "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 2,
@@ -809,13 +752,14 @@
                     "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
-                    "productoFinal": "a una visión integral por subsegmento.",
+                    "productoFinal": "Desarrollar una visión integral por subsegmento.",
                     "versionAnterior": {
                       "orden": 5,
                       "tipo": "Genérica",
                       "descripcion": "Actuar como articulador estratégico para garantizar que todas las acciones del Banco hacia personas respondan a una visión integral por subsegmento.",
                       "productoFinal": "Producto concreto del área."
-                    }
+                    },
+                    "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 1,
@@ -864,7 +808,7 @@
                     "tipo": "Específica",
                     "descripcion": "Diseñar iniciativas para sectores clave: agroindustria, energía, industria, salud, tecnología, sector público, etc. Participar en la formulación de programas de inclusión financiera empresarial.",
                     "productoFinal": "Desarrollo de propuestas sectoriales o regionales.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
                     "orden": 8,
@@ -875,13 +819,6 @@
                   },
                   {
                     "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Tomar insights y propuestas de valor del mercado y de los clientes actuales.",
-                    "productoFinal": "Reporte de Insights y Benchmarking.",
-                    "porcentajeDedicacion": 5
-                  },
-                  {
-                    "orden": 10,
                     "tipo": "Específica",
                     "descripcion": "Brindar lineamientos y acompañamiento a la red, canales remotos y oficiales comerciales. Asegurar coherencia de discurso, atención y servicio por perfil de empresa.",
                     "productoFinal": "Interacción con áreas transversales y fuerza comercial.",
@@ -1010,35 +947,20 @@
                   {
                     "orden": 2,
                     "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de generación de reportes de inteligencia empresarial."
+                    "descripcion": "Número de oportunidades comerciales identificadas para empresas."
                   },
                   {
                     "orden": 3,
                     "tipo": "Indicador",
-                    "descripcion": "Número de oportunidades comerciales identificadas para empresas."
+                    "descripcion": "Porcentaje de adopción de dashboards por usuarios empresariales."
                   },
                   {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Porcentaje de adopción de dashboards por usuarios empresariales."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
-                    "descripcion": "Calidad de los insights generados para el segmento empresarial."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
                     "descripcion": "Tasa de éxito de las segmentaciones empresariales implementadas."
                   },
                   {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de alertas comerciales generadas para empresas y su precisión."
-                  },
-                  {
-                    "orden": 8,
+                    "orden": 5,
                     "tipo": "Indicador",
                     "descripcion": "ROI de las acciones basadas en inteligencia comercial empresarial."
                   }
@@ -1068,13 +990,14 @@
                     "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Generar contenido comercial, institucional o técnico para comunicar nuevos productos, beneficios, líneas de financiamiento o iniciativas sectoriales.",
-                    "productoFinal": "líneas de financiamiento o iniciativas sectoriales.",
+                    "productoFinal": "Comunicar líneas de financiamiento o iniciativas sectoriales.",
                     "versionAnterior": {
                       "orden": 3,
                       "tipo": "Genérica",
                       "descripcion": "Generar contenido comercial, institucional o técnico para comunicar nuevos productos, beneficios, líneas de financiamiento o iniciativas sectoriales.",
                       "productoFinal": "Producto concreto del área."
-                    }
+                    },
+                    "porcentajeDedicacion": ""
                   },
                   {
                     "orden": 4,
@@ -1152,16 +1075,6 @@
                     "orden": 6,
                     "tipo": "Indicador",
                     "descripcion": "ROI de las campañas de comunicación empresarial."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de materiales institucionales validados y ejecutados."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de cumplimiento de objetivos de eventos corporativos."
                   }
                 ],
                 "jerarquia": "SG",
@@ -1213,9 +1126,9 @@
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Coordinar paquetes integrados de productos financieros y no financieros (cuenta, financiación, cobranzas, seguros, adquirencia, comercio exterior). Ajustar condiciones y beneficios según perfil (ej: Agro = campaña estacional, Sector Público = convenio marco).",
-                    "productoFinal": "estacional, Sector Público = convenio marco).",
-                    "porcentajeDedicacion": 20,
+                    "descripcion": "Coordinar paquetes integrados de productos financieros y no financieros (cuenta, financiación, cobranzas, seguros, adquirencia, comercio exterior). Ajustar condiciones y beneficios según perfil.",
+                    "productoFinal": "Oferta de productos ajustada al segmento",
+                    "porcentajeDedicacion": "20",
                     "versionAnterior": {
                       "orden": 7,
                       "tipo": "Específica",
@@ -1258,128 +1171,12 @@
                   {
                     "orden": 3,
                     "tipo": "Indicador",
-                    "descripcion": "Número de acciones comerciales coordinadas exitosamente."
-                  },
-                  {
-                    "orden": 4,
-                    "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de respuesta a desvíos comerciales."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
                     "descripcion": "Satisfacción del cliente empresarial por subsegmento."
                   },
                   {
-                    "orden": 6,
-                    "tipo": "Indicador",
-                    "descripcion": "ROI de las acciones comerciales por subsegmento."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de tácticas correctivas implementadas."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de alineación táctica entre subsegmentos empresariales."
-                  }
-                ],
-                "jerarquia": "SG",
-                "nivelReporte": 4
-              },
-              {
-                "key": "Head De Segmentos Empresas|Segmento Empresas",
-                "nombre": "Head De Segmentos Empresas",
-                "reportaA": "Segmento Empresas",
-                "mision": "Liderar la estrategia y gestión del subsegmento [NOMBRE], desarrollando su propuesta de valor, impulsando la captación, profundización y retención de clientes, y articulando con productos, canales, marketing y fuerza comercial para posicionar al Banco como socio estratégico del sector.",
-                "funciones": [
-                  {
-                    "orden": 1,
-                    "tipo": "Genérica",
-                    "descripcion": "Proponer productos, condiciones, bundles, beneficios y esquemas de atención ajustados a las características del subsegmento.",
-                    "productoFinal": "Desarrollar y evolucionar la propuesta de valor del segmento."
-                  },
-                  {
-                    "orden": 2,
-                    "tipo": "Genérica",
-                    "descripcion": "Coordinar paquetes integrados de productos financieros y no financieros (cuenta, financiación, cobranzas, seguros, adquirencia, comercio exterior). Ajustar condiciones y beneficios según perfil (ej: Agro = campaña estacional, Sector Público = convenio marco).",
-                    "productoFinal": "estacional, Sector Público = convenio marco).",
-                    "versionAnterior": {
-                      "orden": 2,
-                      "tipo": "Genérica",
-                      "descripcion": "Coordinar paquetes integrados de productos financieros y no financieros (cuenta, financiación, cobranzas, seguros, adquirencia, comercio exterior). Ajustar condiciones y beneficios según perfil (ej: Agro = campaña estacional, Sector Público = convenio marco).",
-                      "productoFinal": "Producto concreto del área."
-                    }
-                  },
-                  {
-                    "orden": 1,
-                    "tipo": "Específica",
-                    "descripcion": "Establecer criterios de inclusión y monitorear su correcta aplicación (por facturación, actividad, riesgo, localización, forma jurídica, etc.). Construir y actualizar arquetipos de clientes del subgrupo.",
-                    "productoFinal": "Definición del perfil estratégico del subsegmento.",
-                    "porcentajeDedicacion": 25
-                  },
-                  {
-                    "orden": 2,
-                    "tipo": "Específica",
-                    "descripcion": "Proponer y ejecutar planes de inclusión financiera empresarial, sostenibilidad, exportación o transformación digital según sector. Participar en planes federales, sectoriales o regionales relevantes.",
-                    "productoFinal": "Liderazgo de programas o acciones diferenciales.",
-                    "porcentajeDedicacion": 25
-                  },
-                  {
-                    "orden": 3,
-                    "tipo": "Específica",
-                    "descripcion": "Articular con oficiales de empresas, gerencias zonales y canales remotos para asegurar foco y alineación táctica. Brindar soporte y acompañamiento en oportunidades estratégicas.",
-                    "productoFinal": "Interacción con la red comercial y áreas clave.",
-                    "porcentajeDedicacion": 25
-                  },
-                  {
-                    "orden": 4,
-                    "tipo": "Específica",
-                    "descripcion": "Analizar evolución de captación, profundidad, CLV, rentabilidad, riesgos y churn. Proponer ajustes al modelo de atención, a los productos o a las condiciones del subgrupo.",
-                    "productoFinal": "Evaluación de la performance y propuesta de mejoras.",
-                    "porcentajeDedicacion": 25
-                  },
-                  {
-                    "orden": 1,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de cumplimiento de objetivos comerciales por subsegmento empresarial."
-                  },
-                  {
-                    "orden": 2,
-                    "tipo": "Indicador",
-                    "descripcion": "Tasa de crecimiento de ventas por subsegmento empresarial."
-                  },
-                  {
-                    "orden": 3,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de acciones comerciales coordinadas exitosamente."
-                  },
-                  {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de respuesta a desvíos comerciales."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
-                    "descripcion": "Satisfacción del cliente empresarial por subsegmento."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
                     "descripcion": "ROI de las acciones comerciales por subsegmento."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de tácticas correctivas implementadas."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de alineación táctica entre subsegmentos empresariales."
                   }
                 ],
                 "jerarquia": "SG",
@@ -1393,301 +1190,92 @@
             "key": "Canales|SGP Clientes",
             "nombre": "Canales",
             "reportaA": "SGP Clientes",
-            "mision": "Liderar la ejecución de la estrategia comercial maximizando las productividades de los canales.",
+            "mision": "Liderar la ejecución de la estrategia comercial maximizando las productividades de los canales. Diseñar, desarrollar, coordinar y optimizar la estrategia multicanal del Banco, asegurando una cobertura eficiente, una experiencia homogénea y de calidad, y una operación integrada entre canales físicos y digitales. Liderar la evolución tecnológica, operativa y funcional de los canales de atención, distribución y vinculación con los clientes, con foco en eficiencia, accesibilidad y satisfacción.",
             "funciones": [
               {
                 "orden": 1,
                 "tipo": "Genérica",
-                "descripcion": "Definir y coordinar la estrategia multicanal del banco. Supervisar el desempeño de los canales físicos y digitales. Impulsar la innovación en la atención al cliente. Promover la integración entre canales y la mejora continua de procesos y servicios relacionados.",
-                "productoFinal": "Lineamientos Estratégicos Multicanal."
+                "descripcion": "Ejecutar la estrategia comercial del Banco. Establecer lineamientos y estrategias para maximizar los resultados comerciales y productividades de los canales físicos y digitales (sucursales, ATM's, banca digital, contact center, atención remota), garantizando altos niveles de servicio al Cliente.",
+                "productoFinal": "Ejecución de la estrategia comercial del Banco."
               },
               {
                 "orden": 2,
-                "tipo": "Genérica",
-                "descripcion": "Ejecutar la estrategia comercial del Banco. Establecer lineamientos y estrategias para maximizar los resultados comerciales y productividades de los canales físicos y digitales (sucursales, ATM's, banca digital, contact center, atención remota), garantizando altos niveles de servicio al Cliente.",
-                "productoFinal": "Estrategia comercial del Banco ejecutada."
-              },
-              {
-                "orden": 3,
                 "tipo": "Genérica",
                 "descripcion": "Diseñar y ejecutar la estrategia multicanal del Banco. Establecer lineamientos estratégicos para la evolución de los canales físicos y digitales (sucursales, ATM's, banca digital, contact center, atención remota), garantizando su coherencia y complementariedad.",
                 "productoFinal": "Estrategia multicanal del Banco diseñada y ejecutada."
               },
               {
-                "orden": 4,
+                "orden": 3,
                 "tipo": "Genérica",
                 "descripcion": "Monitorear el uso, la cobertura y la eficiencia de los canales. Supervisar el desempeño operativo, la utilización por segmento, el costo unitario y la productividad de cada canal, proponiendo ajustes de red, mejoras tecnológicas y acciones de optimización.",
                 "productoFinal": "Uso, cobertura y eficiencia de los canales monitoreados."
               },
               {
-                "orden": 5,
+                "orden": 4,
                 "tipo": "Genérica",
                 "descripcion": "Impulsar la transformación digital de la relación cliente-canal. Promover la migración hacia canales digitales, el autoservicio y la automatización de procesos clave, mejorando la experiencia cliente sin perder inclusión ni cobertura territorial.",
                 "productoFinal": "Transformación digital de la relación cliente-canal impulsada."
               },
               {
-                "orden": 6,
+                "orden": 5,
                 "tipo": "Genérica",
                 "descripcion": "Asegurar una experiencia cliente homogénea y centrada en el usuario. Diseñar e implementar journeys multicanal integrados, asegurar consistencia de atención, tiempos de respuesta, tono de comunicación y resolución efectiva en cada punto de contacto.",
-                "productoFinal": "Experiencia cliente homogénea y centrada en el usuario asegurada."
+                "productoFinal": "Experiencia cliente homogénea y centrada en el usuario."
               },
               {
-                "orden": 7,
+                "orden": 6,
                 "tipo": "Genérica",
                 "descripcion": "Coordinar el relacionamiento operativo con proveedores de canales y plataformas. Supervisar contratos, SLA, seguridad, mantenimiento y evolución tecnológica de plataformas asociadas a la operación de canales (home banking, app, ATM's, centrales telefónicas, etc.).",
-                "productoFinal": "Relacionamiento operativo con proveedores de canales y plataformas coordinado."
+                "productoFinal": "Relacionamiento operativo con proveedores coordinado."
               },
               {
                 "orden": 1,
                 "tipo": "Específica",
-                "descripcion": "Diseñar e implementar la estrategia de atención multicanal del banco.",
-                "productoFinal": "Estrategia Multicanal Ejecutada.",
-                "porcentajeDedicacion": 9,
-                "versionAnterior": {
-                  "orden": 1,
-                  "tipo": "Específica",
-                  "descripcion": "Diseñar e implementar la estrategia de atención multicanal del banco.",
-                  "productoFinal": "Estrategia Multicanal Ejecutada.",
-                  "porcentajeDedicacion": 9,
-                  "versionAnterior": {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Diseñar e implementar la estrategia de atención multicanal del banco.",
-                    "productoFinal": "Estrategia Multicanal Ejecutada.",
-                    "porcentajeDedicacion": 9
-                  }
-                }
+                "descripcion": "Ejecución del plan comercial. Liderar la ejecución del plan comercial maximizando la performance y productividades de los recursos apalancándose en una estrategia multicanal coordinada, con foco en la experiencia uniforme del Cliente.",
+                "productoFinal": "Ejecución del plan comercial implementada.",
+                "porcentajeDedicacion": 20
               },
               {
                 "orden": 2,
                 "tipo": "Específica",
-                "descripcion": "Ejecución del plan comercial. Liderar la ejecución del plan comercial maximizando la performance y productividades de los recursos apalancándose en una estrategia multicanal coordinada, con foco en la experiencia uniforme del Cliente.",
-                "productoFinal": "Ejecución del plan comercial implementada.",
-                "porcentajeDedicacion": 9,
-                "versionAnterior": {
-                  "orden": 2,
-                  "tipo": "Específica",
-                  "descripcion": "Ejecución del plan comercial. Liderar la ejecución del plan comercial maximizando la performance y productividades de los recursos apalancándose en una estrategia multicanal coordinada, con foco en la experiencia uniforme del Cliente.",
-                  "productoFinal": "Ejecución del plan comercial implementada.",
-                  "porcentajeDedicacion": 9,
-                  "versionAnterior": {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Ejecución del plan comercial. Liderar la ejecución del plan comercial maximizando la performance y productividades de los recursos apalancándose en una estrategia multicanal coordinada, con foco en la experiencia uniforme del Cliente.",
-                    "productoFinal": "Ejecución del plan comercial implementada.",
-                    "porcentajeDedicacion": 9
-                  }
-                }
+                "descripcion": "Planificación y evolución de la red de sucursales. Definir criterios de apertura, cierre, relocalización o reconversión de sucursales, en función de la demanda, la rentabilidad y la estrategia de cobertura. Supervisar layout, recursos humanos, flujos operativos y niveles de servicio por canal físico.",
+                "productoFinal": "Planificación y evolución de la red de sucursales implementada.",
+                "porcentajeDedicacion": 20
               },
               {
                 "orden": 3,
                 "tipo": "Específica",
-                "descripcion": "Planificación y evolución de la red de sucursales. Definir criterios de apertura, cierre, relocalización o reconversión de sucursales, en función de la demanda, la rentabilidad y la estrategia de cobertura. Supervisar layout, recursos humanos, flujos operativos y niveles de servicio por canal físico.",
-                "productoFinal": "Planificación y evolución de la red de sucursales implementada.",
-                "porcentajeDedicacion": 9,
-                "versionAnterior": {
-                  "orden": 3,
-                  "tipo": "Específica",
-                  "descripcion": "Planificación y evolución de la red de sucursales. Definir criterios de apertura, cierre, relocalización o reconversión de sucursales, en función de la demanda, la rentabilidad y la estrategia de cobertura. Supervisar layout, recursos humanos, flujos operativos y niveles de servicio por canal físico.",
-                  "productoFinal": "Planificación y evolución de la red de sucursales implementada.",
-                  "porcentajeDedicacion": 9,
-                  "versionAnterior": {
-                    "orden": 10,
-                    "tipo": "Específica",
-                    "descripcion": "Planificación y evolución de la red de sucursales. Definir criterios de apertura, cierre, relocalización o reconversión de sucursales, en función de la demanda, la rentabilidad y la estrategia de cobertura. Supervisar layout, recursos humanos, flujos operativos y niveles de servicio por canal físico.",
-                    "productoFinal": "Planificación y evolución de la red de sucursales implementada.",
-                    "porcentajeDedicacion": 9
-                  }
-                }
+                "descripcion": "Gestión de banca digital y autoservicio. Coordinar la evolución funcional del home banking, la app móvil, la banca empresas y los canales digitales de gestión no presencial. Priorizar funcionalidades, experiencias y soporte técnico al cliente. Aumentar la penetración digital y promover el uso activo de canales.",
+                "productoFinal": "Gestión de banca digital y autoservicio implementada.",
+                "porcentajeDedicacion": 20
               },
               {
                 "orden": 4,
                 "tipo": "Específica",
-                "descripcion": "Gestión de banca digital y autoservicio. Coordinar la evolución funcional del home banking, la app móvil, la banca empresas y los canales digitales de gestión no presencial. Priorizar funcionalidades, experiencias y soporte técnico al cliente. Aumentar la penetración digital y promover el uso activo de canales.",
-                "productoFinal": "Gestión de banca digital y autoservicio implementada.",
-                "porcentajeDedicacion": 9,
-                "versionAnterior": {
-                  "orden": 4,
-                  "tipo": "Específica",
-                  "descripcion": "Gestión de banca digital y autoservicio. Coordinar la evolución funcional del home banking, la app móvil, la banca empresas y los canales digitales de gestión no presencial. Priorizar funcionalidades, experiencias y soporte técnico al cliente. Aumentar la penetración digital y promover el uso activo de canales.",
-                  "productoFinal": "Gestión de banca digital y autoservicio implementada.",
-                  "porcentajeDedicacion": 9,
-                  "versionAnterior": {
-                    "orden": 11,
-                    "tipo": "Específica",
-                    "descripcion": "Gestión de banca digital y autoservicio. Coordinar la evolución funcional del home banking, la app móvil, la banca empresas y los canales digitales de gestión no presencial. Priorizar funcionalidades, experiencias y soporte técnico al cliente. Aumentar la penetración digital y promover el uso activo de canales.",
-                    "productoFinal": "Gestión de banca digital y autoservicio implementada.",
-                    "porcentajeDedicacion": 9
-                  }
-                }
+                "descripcion": "Gestión del contact center y atención remota. Supervisar la atención telefónica, chatbots, asistencia digital, redes sociales y atención remota humana. Establecer protocolos, tiempos de respuesta, resolución en primer contacto y métricas de satisfacción.",
+                "productoFinal": "Gestión del contact center y atención remota implementada.",
+                "porcentajeDedicacion": 20
               },
               {
                 "orden": 5,
                 "tipo": "Específica",
-                "descripcion": "Gestión del contact center y atención remota. Supervisar la atención telefónica, chatbots, asistencia digital, redes sociales y atención remota humana. Establecer protocolos, tiempos de respuesta, resolución en primer contacto y métricas de satisfacción.",
-                "productoFinal": "Gestión del contact center y atención remota implementada.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 5,
-                  "tipo": "Específica",
-                  "descripcion": "Gestión del contact center y atención remota. Supervisar la atención telefónica, chatbots, asistencia digital, redes sociales y atención remota humana. Establecer protocolos, tiempos de respuesta, resolución en primer contacto y métricas de satisfacción.",
-                  "productoFinal": "Gestión del contact center y atención remota implementada.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 12,
-                    "tipo": "Específica",
-                    "descripcion": "Gestión del contact center y atención remota. Supervisar la atención telefónica, chatbots, asistencia digital, redes sociales y atención remota humana. Establecer protocolos, tiempos de respuesta, resolución en primer contacto y métricas de satisfacción.",
-                    "productoFinal": "Gestión del contact center y atención remota implementada.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
+                "descripcion": "Diseño y mejora de journeys multicanal. Colaborar en el diseño de recorridos (onboarding, solicitud de productos, reclamos, recupero de claves, etc.) asegurando fluidez, facilidad y consistencia. Identificar puntos de fricción y liderar mejoras en coordinación con Tecnología, Productos y Segmentos.",
+                "productoFinal": "Diseño y mejora de journeys multicanal.",
+                "porcentajeDedicacion": 15
               },
               {
                 "orden": 6,
                 "tipo": "Específica",
-                "descripcion": "Diseño y mejora de journeys multicanal. Colaborar en el diseño de recorridos (onboarding, solicitud de productos, reclamos, recupero de claves, etc.) asegurando fluidez, facilidad y consistencia. Identificar puntos de fricción y liderar mejoras en coordinación con Tecnología, Productos y Segmentos.",
-                "productoFinal": "Diseño y mejora de journeys multicanal implementado.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 6,
-                  "tipo": "Específica",
-                  "descripcion": "Diseño y mejora de journeys multicanal. Colaborar en el diseño de recorridos (onboarding, solicitud de productos, reclamos, recupero de claves, etc.) asegurando fluidez, facilidad y consistencia. Identificar puntos de fricción y liderar mejoras en coordinación con Tecnología, Productos y Segmentos.",
-                  "productoFinal": "Diseño y mejora de journeys multicanal implementado.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 13,
-                    "tipo": "Específica",
-                    "descripcion": "Diseño y mejora de journeys multicanal. Colaborar en el diseño de recorridos (onboarding, solicitud de productos, reclamos, recupero de claves, etc.) asegurando fluidez, facilidad y consistencia. Identificar puntos de fricción y liderar mejoras en coordinación con Tecnología, Productos y Segmentos.",
-                    "productoFinal": "Diseño y mejora de journeys multicanal implementado.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
+                "descripcion": "Análisis de cobertura y eficiencia operativa. Monitorear distribución geográfica, disponibilidad de canales, relación costo/uso, tiempos de atención y satisfacción por canal. Implementar planes de mejora o migración de operaciones presenciales hacia canales más eficientes.",
+                "productoFinal": "Análisis de cobertura y eficiencia operativa.",
+                "porcentajeDedicacion": 5
               },
               {
                 "orden": 7,
                 "tipo": "Específica",
-                "descripcion": "Análisis de cobertura y eficiencia operativa. Monitorear distribución geográfica, disponibilidad de canales, relación costo/uso, tiempos de atención y satisfacción por canal. Implementar planes de mejora o migración de operaciones presenciales hacia canales más eficientes.",
-                "productoFinal": "Análisis de cobertura y eficiencia operativa implementado.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 7,
-                  "tipo": "Específica",
-                  "descripcion": "Análisis de cobertura y eficiencia operativa. Monitorear distribución geográfica, disponibilidad de canales, relación costo/uso, tiempos de atención y satisfacción por canal. Implementar planes de mejora o migración de operaciones presenciales hacia canales más eficientes.",
-                  "productoFinal": "Análisis de cobertura y eficiencia operativa implementado.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 14,
-                    "tipo": "Específica",
-                    "descripcion": "Análisis de cobertura y eficiencia operativa. Monitorear distribución geográfica, disponibilidad de canales, relación costo/uso, tiempos de atención y satisfacción por canal. Implementar planes de mejora o migración de operaciones presenciales hacia canales más eficientes.",
-                    "productoFinal": "Análisis de cobertura y eficiencia operativa implementado.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
-              },
-              {
-                "orden": 8,
-                "tipo": "Específica",
                 "descripcion": "Seguridad, accesibilidad y cumplimiento normativo. Garantizar que todos los canales cumplan con las regulaciones del BCRA, normas de accesibilidad digital y física, y estándares de ciberseguridad y privacidad.",
-                "productoFinal": "Seguridad, accesibilidad y cumplimiento normativo implementado.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 8,
-                  "tipo": "Específica",
-                  "descripcion": "Seguridad, accesibilidad y cumplimiento normativo. Garantizar que todos los canales cumplan con las regulaciones del BCRA, normas de accesibilidad digital y física, y estándares de ciberseguridad y privacidad.",
-                  "productoFinal": "Seguridad, accesibilidad y cumplimiento normativo implementado.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 15,
-                    "tipo": "Específica",
-                    "descripcion": "Seguridad, accesibilidad y cumplimiento normativo. Garantizar que todos los canales cumplan con las regulaciones del BCRA, normas de accesibilidad digital y física, y estándares de ciberseguridad y privacidad.",
-                    "productoFinal": "Seguridad, accesibilidad y cumplimiento normativo implementado.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
-              },
-              {
-                "orden": 9,
-                "tipo": "Específica",
-                "descripcion": "Supervisar la performance de los canales físicos y digitales.",
-                "productoFinal": "de los canales físicos y digitales.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 9,
-                  "tipo": "Específica",
-                  "descripcion": "Supervisar la performance de los canales físicos y digitales.",
-                  "productoFinal": "de los canales físicos y digitales.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 16,
-                    "tipo": "Específica",
-                    "descripcion": "Supervisar la performance de los canales físicos y digitales.",
-                    "productoFinal": "Informe de Performance de Canales.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
-              },
-              {
-                "orden": 10,
-                "tipo": "Específica",
-                "descripcion": "Impulsar la innovación tecnológica aplicada a los canales de atención.",
-                "productoFinal": "Iniciativas de Innovación en Canales.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 10,
-                  "tipo": "Específica",
-                  "descripcion": "Impulsar la innovación tecnológica aplicada a los canales de atención.",
-                  "productoFinal": "Iniciativas de Innovación en Canales.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 17,
-                    "tipo": "Específica",
-                    "descripcion": "Impulsar la innovación tecnológica aplicada a los canales de atención.",
-                    "productoFinal": "Iniciativas de Innovación en Canales.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
-              },
-              {
-                "orden": 11,
-                "tipo": "Específica",
-                "descripcion": "Promover mejoras continuas en los procesos de atención y experiencia del cliente.",
-                "productoFinal": "Propuestas de Mejora de Procesos de Atención.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 11,
-                  "tipo": "Específica",
-                  "descripcion": "Promover mejoras continuas en los procesos de atención y experiencia del cliente.",
-                  "productoFinal": "Propuestas de Mejora de Procesos de Atención.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 18,
-                    "tipo": "Específica",
-                    "descripcion": "Promover mejoras continuas en los procesos de atención y experiencia del cliente.",
-                    "productoFinal": "Propuestas de Mejora de Procesos de Atención.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
-              },
-              {
-                "orden": 12,
-                "tipo": "Específica",
-                "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                "productoFinal": "Modelo de Integración Multicanal.",
-                "porcentajeDedicacion": 8,
-                "versionAnterior": {
-                  "orden": 12,
-                  "tipo": "Específica",
-                  "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                  "productoFinal": "Modelo de Integración Multicanal.",
-                  "porcentajeDedicacion": 8,
-                  "versionAnterior": {
-                    "orden": 19,
-                    "tipo": "Específica",
-                    "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                    "productoFinal": "Modelo de Integración Multicanal.",
-                    "porcentajeDedicacion": 8
-                  }
-                }
+                "productoFinal": "Seguridad, accesibilidad y cumplimiento normativo.",
+                "porcentajeDedicacion": 5
               },
               {
                 "orden": 1,
@@ -1735,266 +1323,72 @@
                 "key": "Banca Digital|Canales",
                 "nombre": "Banca Digital",
                 "reportaA": "Canales",
-                "mision": "Desarrollar, administrar y optimizar los canales digitales del Banco (Home Banking, App Móvil, Banca Empresas, Banca Web, canales de atención digital), asegurando su disponibilidad, seguridad, evolución funcional y alineación con la experiencia deseada del cliente.",
+                "mision": "Desarrollar, administrar y optimizar los canales digitales del Banco (Home Banking, App Móvil, Banca Empresas, Banca Web, canales de atención digital), asegurando su disponibilidad, seguridad, evolución funcional y alineación con la experiencia deseada del cliente. Impulsar la digitalización de operaciones, la adopción por parte de los usuarios y la integración plena con el resto del ecosistema de atención.",
                 "funciones": [
                   {
                     "orden": 1,
-                    "tipo": "Genérica",
-                    "descripcion": "Coordinar evolución de Home Banking, App y otros canales digitales. Alinear con segmentos y productos.",
-                    "productoFinal": "Roadmap de Canales Digitales."
-                  },
-                  {
-                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Gestionar y evolucionar la infraestructura de canales digitales. Supervisar el funcionamiento, mantenimiento y desarrollo funcional de los canales digitales disponibles para clientes personas y empresas.",
                     "productoFinal": "Infraestructura de canales digitales optimizada."
                   },
                   {
-                    "orden": 3,
+                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Impulsar la adopción y uso de canales digitales. Diseñar e implementar estrategias para aumentar la cantidad y frecuencia de uso de Home Banking, App, Banca Web y servicios de autogestión, reduciendo la dependencia de canales presenciales.",
                     "productoFinal": "Estrategias de adopción digital implementadas."
                   },
                   {
-                    "orden": 4,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Coordinar con Tecnología, Seguridad y UX para la mejora continua. Priorizar funcionalidades, diseñar journeys digitales y coordinar releases de nuevas versiones, con foco en estabilidad, usabilidad y eficiencia.",
                     "productoFinal": "Coordinación técnica y UX optimizada."
                   },
                   {
-                    "orden": 5,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Monitorear la operación de los canales digitales y sus indicadores clave. Analizar el desempeño técnico, funcional y comercial de cada canal digital, detectando oportunidades de mejora, puntos de fricción o problemas de servicio.",
                     "productoFinal": "Monitoreo y análisis de performance digital."
                   },
                   {
-                    "orden": 6,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Asegurar la coherencia entre la experiencia digital y el modelo de atención integral del Banco. Integrar los canales digitales al modelo multicanal, promoviendo una experiencia homogénea, accesible y centrada en el cliente.",
                     "productoFinal": "Experiencia digital coherente e integrada."
                   },
                   {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Diseñar y mantener la estrategia de canales digitales. Supervisar la operación de plataformas online. Detectar oportunidades de mejora e innovación en la experiencia digital.",
-                    "productoFinal": "Estrategia de Banca Digital y Tablero de Evolución."
-                  },
-                  {
                     "orden": 1,
                     "tipo": "Específica",
-                    "descripcion": "Definir requerimientos y funcionalidades prioritarias para canales digitales.",
-                    "productoFinal": "Matriz de Requerimientos Priorizados.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Gestión funcional de canales digitales y performance comercial y de servicio al Cliente. Definir roadmap de mejoras, evolución funcional, integración con productos, UX/UI y seguridad. Coordinar backlog con Tecnología y priorizar iniciativas. Administrar catálogos, documentación técnica y mejoras. Ejecutar acciones comerciales y disponibilizar las capacidades necesarias para maximizar la productividad del Canal en ventas y servicio al Cliente.",
+                    "productoFinal": "Gestión funcional y comercial optimizada.",
+                    "porcentajeDedicacion": 30
                   },
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Monitorear performance técnica y uso de los canales digitales.",
-                    "productoFinal": "Dashboard de Performance Digital.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 2,
-                      "tipo": "Específica",
-                      "descripcion": "Monitorear performance técnica y uso de los canales digitales.",
-                      "productoFinal": "Dashboard de Performance Digital.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 9,
-                        "tipo": "Específica",
-                        "descripcion": "Monitorear performance técnica y uso de los canales digitales.",
-                        "productoFinal": "Dashboard de Performance Digital.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
+                    "descripcion": "Seguimiento y optimización de performance digital. Monitorear tiempos de respuesta, disponibilidad, errores, flujos incompletos, tasa de éxito por operación. Coordinar con Tecnología la resolución de incidentes.",
+                    "productoFinal": "Performance digital optimizada.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 3,
                     "tipo": "Específica",
-                    "descripcion": "Gestión funcional de canales digitales y performance comercial y de servicio al Cliente. Definir roadmap de mejoras, evolución funcional, integración con productos, UX/UI y seguridad. Coordinar backlog con Tecnología y priorizar iniciativas. Administrar catálogos, documentación técnica y mejoras. Ejecutar acciones comerciales y disponibilizar las capacidades necesarias para maximizar la productividad del Canal en ventas y servicio al Cliente.",
-                    "productoFinal": "Gestión funcional y comercial optimizada.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 3,
-                      "tipo": "Específica",
-                      "descripcion": "Gestión funcional de canales digitales y performance comercial y de servicio al Cliente. Definir roadmap de mejoras, evolución funcional, integración con productos, UX/UI y seguridad. Coordinar backlog con Tecnología y priorizar iniciativas. Administrar catálogos, documentación técnica y mejoras. Ejecutar acciones comerciales y disponibilizar las capacidades necesarias para maximizar la productividad del Canal en ventas y servicio al Cliente.",
-                      "productoFinal": "Gestión funcional y comercial optimizada.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 10,
-                        "tipo": "Específica",
-                        "descripcion": "Gestión funcional de canales digitales y performance comercial y de servicio al Cliente. Definir roadmap de mejoras, evolución funcional, integración con productos, UX/UI y seguridad. Coordinar backlog con Tecnología y priorizar iniciativas. Administrar catálogos, documentación técnica y mejoras. Ejecutar acciones comerciales y disponibilizar las capacidades necesarias para maximizar la productividad del Canal en ventas y servicio al Cliente.",
-                        "productoFinal": "Gestión funcional y comercial optimizada.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
+                    "descripcion": "Desarrollo de funcionalidades y journeys digitales. Diseñar flujos digitales para productos y operaciones: apertura de cuentas, préstamos, seguros, transferencias, pagos, cambios de datos, etc. Asegurar la lógica de self-service completa.",
+                    "productoFinal": "Funcionalidades y journeys digitales desarrollados.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 4,
                     "tipo": "Específica",
-                    "descripcion": "Seguimiento y optimización de performance digital. Monitorear tiempos de respuesta, disponibilidad, errores, flujos incompletos, tasa de éxito por operación. Coordinar con Tecnología la resolución de incidentes.",
-                    "productoFinal": "Performance digital optimizada.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 4,
-                      "tipo": "Específica",
-                      "descripcion": "Seguimiento y optimización de performance digital. Monitorear tiempos de respuesta, disponibilidad, errores, flujos incompletos, tasa de éxito por operación. Coordinar con Tecnología la resolución de incidentes.",
-                      "productoFinal": "Performance digital optimizada.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 11,
-                        "tipo": "Específica",
-                        "descripcion": "Seguimiento y optimización de performance digital. Monitorear tiempos de respuesta, disponibilidad, errores, flujos incompletos, tasa de éxito por operación. Coordinar con Tecnología la resolución de incidentes.",
-                        "productoFinal": "Performance digital optimizada.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
+                    "descripcion": "Fomento de adopción y capacitación en canales digitales. Coordinar campañas de difusión, activación y retención. Desarrollar tutoriales, micrositios, instructivos y materiales para usuarios y fuerza comercial. Participar en planes de educación financiera digital.",
+                    "productoFinal": "Adopción y capacitación digital fomentada.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 5,
                     "tipo": "Específica",
-                    "descripcion": "Desarrollo de funcionalidades y journeys digitales. Diseñar flujos digitales para productos y operaciones: apertura de cuentas, préstamos, seguros, transferencias, pagos, cambios de datos, etc. Asegurar la lógica de self-service completa.",
-                    "productoFinal": "Funcionalidades y journeys digitales desarrollados.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 5,
-                      "tipo": "Específica",
-                      "descripcion": "Desarrollo de funcionalidades y journeys digitales. Diseñar flujos digitales para productos y operaciones: apertura de cuentas, préstamos, seguros, transferencias, pagos, cambios de datos, etc. Asegurar la lógica de self-service completa.",
-                      "productoFinal": "Funcionalidades y journeys digitales desarrollados.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 12,
-                        "tipo": "Específica",
-                        "descripcion": "Desarrollo de funcionalidades y journeys digitales. Diseñar flujos digitales para productos y operaciones: apertura de cuentas, préstamos, seguros, transferencias, pagos, cambios de datos, etc. Asegurar la lógica de self-service completa.",
-                        "productoFinal": "Funcionalidades y journeys digitales desarrollados.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Específica",
-                    "descripcion": "Fomento de adopción y capacitación en canales digitales. Coordinar campañas de difusión, activación y retención. Desarrollar tutoriales, micrositios, instructivos y materiales para usuarios y fuerza comercial. Participar en planes de educación financiera digital.",
-                    "productoFinal": "Adopción y capacitación digital fomentada.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 6,
-                      "tipo": "Específica",
-                      "descripcion": "Fomento de adopción y capacitación en canales digitales. Coordinar campañas de difusión, activación y retención. Desarrollar tutoriales, micrositios, instructivos y materiales para usuarios y fuerza comercial. Participar en planes de educación financiera digital.",
-                      "productoFinal": "Adopción y capacitación digital fomentada.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 13,
-                        "tipo": "Específica",
-                        "descripcion": "Fomento de adopción y capacitación en canales digitales. Coordinar campañas de difusión, activación y retención. Desarrollar tutoriales, micrositios, instructivos y materiales para usuarios y fuerza comercial. Participar en planes de educación financiera digital.",
-                        "productoFinal": "Adopción y capacitación digital fomentada.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Específica",
                     "descripcion": "Integración con la estrategia multicanal del Banco. Asegurar que los canales digitales estén alineados con los protocolos, estándares y modelos de atención definidos para el resto del ecosistema. Proveer métricas e insights para la estrategia comercial y de producto.",
-                    "productoFinal": "Integración multicanal asegurada.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 7,
-                      "tipo": "Específica",
-                      "descripcion": "Integración con la estrategia multicanal del Banco. Asegurar que los canales digitales estén alineados con los protocolos, estándares y modelos de atención definidos para el resto del ecosistema. Proveer métricas e insights para la estrategia comercial y de producto.",
-                      "productoFinal": "Integración multicanal asegurada.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 14,
-                        "tipo": "Específica",
-                        "descripcion": "Integración con la estrategia multicanal del Banco. Asegurar que los canales digitales estén alineados con los protocolos, estándares y modelos de atención definidos para el resto del ecosistema. Proveer métricas e insights para la estrategia comercial y de producto.",
-                        "productoFinal": "Integración multicanal asegurada.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Coordinar con tecnología la evolución técnica de los canales.",
-                    "productoFinal": "Releases Aprobadas.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 8,
-                      "tipo": "Específica",
-                      "descripcion": "Coordinar con tecnología la evolución técnica de los canales.",
-                      "productoFinal": "Releases Aprobadas.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 15,
-                        "tipo": "Específica",
-                        "descripcion": "Coordinar con tecnología la evolución técnica de los canales.",
-                        "productoFinal": "Releases Aprobadas.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Diseñar e implementar mejoras continuas en la plataforma de banca digital.",
-                    "productoFinal": "Actualizaciones y Releases de Plataformas.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 9,
-                      "tipo": "Específica",
-                      "descripcion": "Diseñar e implementar mejoras continuas en la plataforma de banca digital.",
-                      "productoFinal": "Actualizaciones y Releases de Plataformas.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 16,
-                        "tipo": "Específica",
-                        "descripcion": "Diseñar e implementar mejoras continuas en la plataforma de banca digital.",
-                        "productoFinal": "Actualizaciones y Releases de Plataformas.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 10,
-                    "tipo": "Específica",
-                    "descripcion": "Supervisar la operación diaria de canales digitales y resolver incidencias.",
-                    "productoFinal": "Reporte de Operación Digital.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 10,
-                      "tipo": "Específica",
-                      "descripcion": "Supervisar la operación diaria de canales digitales y resolver incidencias.",
-                      "productoFinal": "Reporte de Operación Digital.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 17,
-                        "tipo": "Específica",
-                        "descripcion": "Supervisar la operación diaria de canales digitales y resolver incidencias.",
-                        "productoFinal": "Reporte de Operación Digital.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
-                  },
-                  {
-                    "orden": 11,
-                    "tipo": "Específica",
-                    "descripcion": "Identificar oportunidades de innovación y mejoras en la experiencia digital.",
-                    "productoFinal": "y mejoras en la experiencia digital.",
-                    "porcentajeDedicacion": 9,
-                    "versionAnterior": {
-                      "orden": 11,
-                      "tipo": "Específica",
-                      "descripcion": "Identificar oportunidades de innovación y mejoras en la experiencia digital.",
-                      "productoFinal": "y mejoras en la experiencia digital.",
-                      "porcentajeDedicacion": 9,
-                      "versionAnterior": {
-                        "orden": 18,
-                        "tipo": "Específica",
-                        "descripcion": "Identificar oportunidades de innovación y mejoras en la experiencia digital.",
-                        "productoFinal": "Informe de Oportunidades de Mejora.",
-                        "porcentajeDedicacion": 9
-                      }
-                    }
+                    "productoFinal": "Integración multicanal implementada.",
+                    "porcentajeDedicacion": 10
                   },
                   {
                     "orden": 1,
@@ -2015,21 +1409,6 @@
                     "orden": 4,
                     "tipo": "Indicador",
                     "descripcion": "Tasa de abandono y errores funcionales / técnicos."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de resolución de incidentes digitales."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
-                    "descripcion": "NPS digital / índice de satisfacción por canal."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Nº de funcionalidades lanzadas o mejoradas por trimestre."
                   }
                 ],
                 "jerarquia": "SG",
@@ -2039,136 +1418,82 @@
                 "key": "Experiencia Del Cliente Y Modelo De Atención|Canales",
                 "nombre": "Experiencia Del Cliente Y Modelo De Atención",
                 "reportaA": "Canales",
-                "mision": "Diseñar, implementar y monitorear el modelo integral de atención al cliente en todos los canales del Banco, asegurando una experiencia homogénea, empática, eficiente y centrada en el usuario.",
+                "mision": "Diseñar, implementar y monitorear el modelo integral de atención al cliente en todos los canales del Banco, asegurando una experiencia homogénea, empática, eficiente y centrada en el usuario. Promover la mejora continua de los procesos de contacto, el desarrollo de journeys multicanal y la implementación de estándares de calidad y experiencia cliente.",
                 "funciones": [
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Definir lineamientos y protocolos de atención en todos los canales. Evaluar experiencia y proponer mejoras.",
-                    "productoFinal": "Modelo Integral de Atención al Cliente."
+                    "descripcion": "Diseñar y actualizar el Modelo de Atención del Banco. Definir principios, protocolos, estándares y arquetipos de atención para todos los canales (sucursales, canales digitales, atención remota, contact center), segmentando por tipo de cliente y operación.",
+                    "productoFinal": "Modelo integral de atención del cliente."
                   },
                   {
                     "orden": 2,
-                    "tipo": "Genérica",
-                    "descripcion": "Diseñar y actualizar el Modelo de Atención del Banco. Definir principios, protocolos, estándares y arquetipos de atención para todos los canales (sucursales, canales digitales, atención remota, contact center), segmentando por tipo de cliente y operación.",
-                    "productoFinal": "Modelo de Atención del Banco diseñado y actualizado."
-                  },
-                  {
-                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Desarrollar y monitorear journeys críticos multicanal. Mapear, diseñar y mejorar procesos claves desde la perspectiva del cliente (onboarding, reclamos, activación de productos, recuperación de claves, cancelación, etc.), asegurando fluidez y consistencia.",
                     "productoFinal": "Journeys críticos multicanal desarrollados y monitoreados."
                   },
                   {
-                    "orden": 4,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Promover estándares de experiencia cliente en toda la red. Establecer políticas de servicio, indicadores de calidad, tiempos máximos de atención/resolución y criterios de seguimiento en todos los canales.",
                     "productoFinal": "Estándares de experiencia cliente promovidos en toda la red."
                   },
                   {
-                    "orden": 5,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Escuchar activamente la voz del cliente y coordinar su sistematización. Analizar NPS, encuestas de satisfacción, reclamos, comentarios en redes y otros mecanismos de feedback, para identificar oportunidades de mejora y coordinar respuestas y revisión y soluciones de las causas raíz.",
                     "productoFinal": "Voz del cliente escuchada y sistematizada."
                   },
                   {
-                    "orden": 6,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Capacitar y acompañar a los equipos de atención. Desarrollar materiales, talleres y procesos de entrenamiento sobre experiencia cliente, lenguaje claro, atención inclusiva y herramientas de relacionamiento.",
                     "productoFinal": "Equipos de atención capacitados y acompañados."
                   },
                   {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Establecer lineamientos del modelo de atención multicanal. Identificar fricciones en la experiencia de los clientes. Diseñar iniciativas de mejora y transformación. Coordinar con canales físicos y digitales.",
-                    "productoFinal": "Modelo de Atención Multicanal y Reportes de Experiencia."
-                  },
-                  {
                     "orden": 1,
                     "tipo": "Específica",
-                    "descripcion": "Desarrollar protocolos de atención omnicanal basados en necesidades del cliente.",
-                    "productoFinal": "Protocolos de Atención Documentados.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Diseño del Modelo de Atención integral. Establecer protocolos unificados de atención por canal, nivel de cliente, tipo de requerimiento. Definir niveles de servicio, criterios de derivación, modalidad presencial vs. remota. Establecer procesos de atención híbrida y multicanal coordinada.",
+                    "productoFinal": "Diseño del Modelo de Atención integral implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Diseño del Modelo de Atención integral. Establecer protocolos unificados de atención por canal, nivel de cliente, tipo de requerimiento. Definir niveles de servicio, criterios de derivación, modalidad presencial vs. remota. Establecer procesos de atención híbrida y multicanal coordinada.",
-                    "productoFinal": "Diseño del Modelo de Atención integral implementado.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Diseño y mejora de journeys prioritarios. Mapeo y rediseño de los procesos críticos desde el punto de vista del cliente. Identificación de puntos de fricción, rediseño con enfoque UX/CX, validación por segmento. Monitoreo permanente del journey y actualización continua.",
+                    "productoFinal": "Diseño y mejora de journeys prioritarios implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 3,
                     "tipo": "Específica",
-                    "descripcion": "Diseño y mejora de journeys prioritarios. Mapeo y rediseño de los procesos críticos desde el punto de vista del cliente. Identificación de puntos de fricción, rediseño con enfoque UX/CX, validación por segmento. Monitoreo permanente del journey y actualización continua.",
-                    "productoFinal": "Diseño y mejora de journeys prioritarios implementado.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Seguimiento y mejora de indicadores de experiencia. NPS (Net Promoter Score), TMO (tiempo medio de operación), tasa de resolución en primer contacto, tasa de reclamos, encuestas post interacción. Desarrollo de tableros y alertas operativas por canal.",
+                    "productoFinal": "Seguimiento y mejora de indicadores de experiencia implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 4,
                     "tipo": "Específica",
-                    "descripcion": "Seguimiento y mejora de indicadores de experiencia. NPS (Net Promoter Score), TMO (tiempo medio de operación), tasa de resolución en primer contacto, tasa de reclamos, encuestas post interacción. Desarrollo de tableros y alertas operativas por canal.",
-                    "productoFinal": "Seguimiento y mejora de indicadores de experiencia implementado.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Estrategia de gestión de la voz del cliente (VoC). Consolidación de insights desde múltiples fuentes: encuestas, redes sociales, CRM, reclamos, comentarios. Integración de resultados en la toma de decisiones operativas y estratégicas.",
+                    "productoFinal": "Estrategia de gestión de la voz del cliente implementada.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 5,
                     "tipo": "Específica",
-                    "descripcion": "Estrategia de gestión de la voz del cliente (VoC). Consolidación de insights desde múltiples fuentes: encuestas, redes sociales, CRM, reclamos, comentarios. Integración de resultados en la toma de decisiones operativas y estratégicas.",
-                    "productoFinal": "Estrategia de gestión de la voz del cliente implementada.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Específica",
                     "descripcion": "Capacitación y acompañamiento a la red. Creación de manuales y capacitaciones sobre el Modelo de Atención. Programas de formación en experiencia cliente, empatía, diversidad y trato diferencial por segmento. Supervisión de la correcta implementación en toda la red.",
                     "productoFinal": "Capacitación y acompañamiento a la red implementado.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Específica",
-                    "descripcion": "Evaluar satisfacción del cliente e identificar oportunidades de mejora.",
-                    "productoFinal": "cliente e identificar oportunidades de mejora.",
-                    "porcentajeDedicacion": 10,
-                    "versionAnterior": {
-                      "orden": 14,
-                      "tipo": "Específica",
-                      "descripcion": "Evaluar satisfacción del cliente e identificar oportunidades de mejora.",
-                      "productoFinal": "Informe de Resultados y Recomendaciones.",
-                      "porcentajeDedicacion": 10
-                    }
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Diseñar e implementar el modelo de atención alineado con los distintos canales.",
-                    "productoFinal": "Modelo de Atención Documentado.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Identificar fricciones en la experiencia de atención y proponer soluciones.",
-                    "productoFinal": "Mapa de Fricciones y Planes de Mejora.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 10,
-                    "tipo": "Específica",
-                    "descripcion": "Monitorear indicadores de experiencia del cliente y proponer mejoras.",
-                    "productoFinal": "Reporte de Indicadores de Experiencia.",
-                    "porcentajeDedicacion": 10
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 1,
                     "tipo": "Indicador",
-                    "descripcion": "NPS (Net Promoter Score) general del banco."
+                    "descripcion": "Tasa de satisfacción del cliente por canal."
                   },
                   {
                     "orden": 2,
                     "tipo": "Indicador",
-                    "descripcion": "Tasa de satisfacción del cliente por canal."
+                    "descripcion": "NPS (Net Promoter Score) general del banco."
                   },
                   {
                     "orden": 3,
@@ -2189,16 +1514,6 @@
                     "orden": 6,
                     "tipo": "Indicador",
                     "descripcion": "Número de quejas y reclamos por mes."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de respuesta a consultas."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de cumplimiento de SLA de atención."
                   }
                 ],
                 "jerarquia": "SG",
@@ -2213,121 +1528,67 @@
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Supervisar la implementación de iniciativas comerciales en red de atención. Consolidar resultados.",
-                    "productoFinal": "Tablero de Ejecución Comercial."
-                  },
-                  {
-                    "orden": 2,
-                    "tipo": "Genérica",
                     "descripcion": "Asegurar la implementación del plan comercial. Operacionalizar los lineamientos estratégicos definidos por las áreas de Segmentos, Productos y Marketing, garantizando la ejecución uniforme y oportuna en todos los canales y en todas las zonas del país.",
                     "productoFinal": "Implementación del plan comercial asegurada."
                   },
                   {
-                    "orden": 3,
+                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Monitorear el desempeño comercial por canal, región y equipo. Controlar los indicadores clave de performance (KPI's) vinculados a ventas, captación, vinculación, cross-selling, cumplimiento de metas y evolución de campañas.",
                     "productoFinal": "Desempeño comercial por canal, región y equipo monitoreado."
                   },
                   {
-                    "orden": 4,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Acompañar a la red en la ejecución táctica y la gestión comercial diaria. Brindar soporte, herramientas y seguimiento a jefes zonales, regionales y responsables de atención comercial, para facilitar el cumplimiento de objetivos.",
                     "productoFinal": "Acompañamiento a la red en la ejecución táctica y gestión comercial diaria."
                   },
                   {
-                    "orden": 5,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Detectar oportunidades de mejora comercial desde la red. Canalizar oportunidades, demandas y ajustes necesarios a la estrategia, en base a los aprendizajes y feedback operativo desde las sucursales.",
                     "productoFinal": "Oportunidades de mejora comercial detectadas desde la red."
                   },
                   {
-                    "orden": 6,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Impulsar la profesionalización de la gestión comercial. Promover estándares, metodologías de venta consultiva, gestión por objetivos y formación continua de los equipos de atención y venta.",
                     "productoFinal": "Profesionalización de la gestión comercial impulsada."
                   },
                   {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Consolidar información de gestión comercial. Coordinar la ejecución de acciones con los canales físicos y digitales. Monitorear resultados y proponer ajustes para el cumplimiento de metas.",
-                    "productoFinal": "Reporte de Gestión Comercial de Canales."
-                  },
-                  {
                     "orden": 1,
                     "tipo": "Específica",
-                    "descripcion": "Alinear equipos comerciales con campañas activas, segmentación y foco estratégico.",
-                    "productoFinal": "campañas activas, segmentación y foco estratégico.",
-                    "porcentajeDedicacion": 35,
-                    "versionAnterior": {
-                      "orden": 8,
-                      "tipo": "Específica",
-                      "descripcion": "Alinear equipos comerciales con campañas activas, segmentación y foco estratégico.",
-                      "productoFinal": "Informe de Implementación.",
-                      "porcentajeDedicacion": 35
-                    }
+                    "descripcion": "Implementación operativa del plan comercial. Desplegar objetivos por canal / región / producto / segmento. Coordinar el lanzamiento local de bundles, campañas, promociones y productos nuevos. Verificar la correcta aplicación de condiciones comerciales.",
+                    "productoFinal": "Implementación operativa del plan comercial implementada.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Implementación operativa del plan comercial. Desplegar objetivos por canal / región / producto / segmento. Coordinar el lanzamiento local de bundles, campañas, promociones y productos nuevos. Verificar la correcta aplicación de condiciones comerciales.",
-                    "productoFinal": "Implementación operativa del plan comercial ejecutada.",
-                    "porcentajeDedicacion": 5
+                    "descripcion": "Monitoreo de KPI's y performance comercial. Seguimiento de indicadores como: captación, productos por cliente, tickets promedio, uso de productos claves, ingresos comerciales, activaciones. Análisis de brechas, desvíos y oportunidades.",
+                    "productoFinal": "Monitoreo de KPI's y performance comercial implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 3,
                     "tipo": "Específica",
-                    "descripcion": "Monitoreo de KPI's y performance comercial. Seguimiento de indicadores como: captación, productos por cliente, tickets promedio, uso de productos claves, ingresos comerciales, activaciones. Análisis de brechas, desvíos y oportunidades.",
-                    "productoFinal": "Monitoreo de KPI's y performance comercial implementado.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Soporte directo a regiones y sucursales. Canal único de contacto comercial para responsables zonales y regionales. Resolución de desvíos, aclaración de condiciones, acompañamiento en campañas.",
+                    "productoFinal": "Soporte directo a regiones y sucursales implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 4,
                     "tipo": "Específica",
-                    "descripcion": "Soporte directo a regiones y sucursales. Canal único de contacto comercial para responsables zonales y regionales. Resolución de desvíos, aclaración de condiciones, acompañamiento en campañas.",
-                    "productoFinal": "Soporte directo a regiones y sucursales implementado.",
-                    "porcentajeDedicacion": 10
+                    "descripcion": "Seguimiento y cierre de campañas. Supervisión del cumplimiento de metas por acción. Consolidación de resultados, comunicación de avances, buenas prácticas y lecciones aprendidas.",
+                    "productoFinal": "Seguimiento y cierre de campañas implementado.",
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 5,
                     "tipo": "Específica",
-                    "descripcion": "Seguimiento y cierre de campañas. Supervisión del cumplimiento de metas por acción. Consolidación de resultados, comunicación de avances, buenas prácticas y lecciones aprendidas.",
-                    "productoFinal": "Seguimiento y cierre de campañas implementado.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Específica",
                     "descripcion": "Gestión de capacidades y herramientas comerciales. Confección de kits comerciales, materiales de apoyo, simuladores, comparadores y manuales. Articulación con Formación para el desarrollo de talleres y entrenamientos.",
                     "productoFinal": "Gestión de capacidades y herramientas comerciales implementada.",
-                    "porcentajeDedicacion": 10
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Específica",
-                    "descripcion": "Proponer ajustes según feedback de red y resultados de las campañas.",
-                    "productoFinal": "Recomendaciones de Ajuste Comercial.",
-                    "porcentajeDedicacion": 5
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Consolidar y analizar indicadores de gestión comercial en todos los canales.",
-                    "productoFinal": "Dashboard de Resultados Comerciales.",
-                    "porcentajeDedicacion": 5
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Coordinar la ejecución de acciones comerciales y campañas en canales físicos y digitales.",
-                    "productoFinal": "Ejecución de Campañas Comerciales.",
-                    "porcentajeDedicacion": 5
-                  },
-                  {
-                    "orden": 10,
-                    "tipo": "Específica",
-                    "descripcion": "Proponer ajustes a la gestión y diseño de acciones comerciales en base al análisis de resultados.",
-                    "productoFinal": "Propuesta de Mejora Comercial.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 1,
@@ -2347,25 +1608,15 @@
                   {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Tiempo promedio de implementación de campañas."
+                    "descripcion": "Tasa de adopción de nuevas acciones comerciales."
                   },
                   {
                     "orden": 5,
                     "tipo": "Indicador",
-                    "descripcion": "Tasa de adopción de nuevas acciones comerciales."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
                     "descripcion": "Satisfacción del equipo comercial con las herramientas."
                   },
                   {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "Número de ajustes realizados a campañas por mes."
-                  },
-                  {
-                    "orden": 8,
+                    "orden": 6,
                     "tipo": "Indicador",
                     "descripcion": "Porcentaje de canales que cumplen metas comerciales."
                   }
@@ -2377,244 +1628,72 @@
                 "key": "Gestión Operativa De Sucursales|Canales",
                 "nombre": "Gestión Operativa De Sucursales",
                 "reportaA": "Canales",
-                "mision": "Supervisar y optimizar el funcionamiento operativo de la red de sucursales del Banco, garantizando el cumplimiento de los estándares de atención, eficiencia administrativa, seguridad operativa, calidad de servicio y adecuada ejecución de procesos críticos.",
+                "mision": "Supervisar y optimizar el funcionamiento operativo de la red de sucursales del Banco, garantizando el cumplimiento de los estándares de atención, eficiencia administrativa, seguridad operativa, calidad de servicio y adecuada ejecución de procesos críticos. Asegurar la correcta implementación de políticas, procedimientos y normativas transversales en toda la red física.",
                 "funciones": [
                   {
                     "orden": 1,
-                    "tipo": "Genérica",
-                    "descripcion": "Supervisar operación de sucursales, definir lineamientos operativos y articular con soporte.",
-                    "productoFinal": "Instructivos Operativos y Reportes de Gestión."
-                  },
-                  {
-                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Supervisar la operación diaria de las sucursales del Banco. Monitorear que los procesos operativos en las sucursales se ejecuten de forma segura, eficiente y en línea con las políticas institucionales.",
                     "productoFinal": "Operación diaria de las sucursales supervisada."
                   },
                   {
-                    "orden": 3,
+                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Asegurar la aplicación de normativas, protocolos y estándares operativos. Garantizar la implementación y cumplimiento de regulaciones del BCRA, normativa interna y controles de riesgo operativo en todas las sedes.",
                     "productoFinal": "Aplicación de normativas, protocolos y estándares operativos asegurada."
                   },
                   {
-                    "orden": 4,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Detectar desvíos operativos y coordinar acciones correctivas. Realizar seguimiento de indicadores operativos, alertas, auditorías o reclamos operativos, y coordinar las medidas necesarias con cada sucursal.",
                     "productoFinal": "Desvíos operativos detectados y acciones correctivas coordinadas."
                   },
                   {
-                    "orden": 5,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Contribuir a la mejora de procesos y la simplificación operativa. Identificar oportunidades de digitalización, automatización o rediseño de procedimientos para mejorar la eficiencia y experiencia cliente.",
                     "productoFinal": "Contribución a la mejora de procesos y simplificación operativa."
                   },
                   {
-                    "orden": 6,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Acompañar a los responsables operativos de cada zona y región. Brindar lineamientos, capacitación, seguimiento y resolución de consultas operativas complejas o estructurales.",
                     "productoFinal": "Acompañamiento a los responsables operativos de cada zona y región."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
-                    "productoFinal": "aseguren el cumplimiento de políticas internas.",
-                    "versionAnterior": {
-                      "orden": 7,
-                      "tipo": "Genérica",
-                      "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
-                      "productoFinal": "Producto concreto del área."
-                    }
                   },
                   {
                     "orden": 1,
                     "tipo": "Específica",
                     "descripcion": "Gestión del cumplimiento operativo. Supervisar el cumplimiento de los procedimientos definidos por Normativa Interna, Auditoría, Riesgos y Cumplimiento. Monitorear la ejecución adecuada de operaciones críticas (aperturas de cuenta, cajas de seguridad, operaciones de efectivo, control de documentación, etc.).",
                     "productoFinal": "Gestión del cumplimiento operativo implementada.",
-                    "porcentajeDedicacion": 12,
-                    "versionAnterior": {
-                      "orden": 1,
-                      "tipo": "Específica",
-                      "descripcion": "Gestión del cumplimiento operativo. Supervisar el cumplimiento de los procedimientos definidos por Normativa Interna, Auditoría, Riesgos y Cumplimiento. Monitorear la ejecución adecuada de operaciones críticas (aperturas de cuenta, cajas de seguridad, operaciones de efectivo, control de documentación, etc.).",
-                      "productoFinal": "Gestión del cumplimiento operativo implementada.",
-                      "porcentajeDedicacion": 12,
-                      "versionAnterior": {
-                        "orden": 8,
-                        "tipo": "Específica",
-                        "descripcion": "Gestión del cumplimiento operativo. Supervisar el cumplimiento de los procedimientos definidos por Normativa Interna, Auditoría, Riesgos y Cumplimiento. Monitorear la ejecución adecuada de operaciones críticas (aperturas de cuenta, cajas de seguridad, operaciones de efectivo, control de documentación, etc.).",
-                        "productoFinal": "Gestión del cumplimiento operativo implementada.",
-                        "porcentajeDedicacion": 12
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 2,
                     "tipo": "Específica",
                     "descripcion": "Coordinación de procesos y circuitos administrativos. Verificar flujos correctos de documentación, trazabilidad de procesos, archivo y digitalización. Coordinar la actualización y validación de instructivos con las áreas centrales.",
                     "productoFinal": "Coordinación de procesos y circuitos administrativos implementada.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 2,
-                      "tipo": "Específica",
-                      "descripcion": "Coordinación de procesos y circuitos administrativos. Verificar flujos correctos de documentación, trazabilidad de procesos, archivo y digitalización. Coordinar la actualización y validación de instructivos con las áreas centrales.",
-                      "productoFinal": "Coordinación de procesos y circuitos administrativos implementada.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 9,
-                        "tipo": "Específica",
-                        "descripcion": "Coordinación de procesos y circuitos administrativos. Verificar flujos correctos de documentación, trazabilidad de procesos, archivo y digitalización. Coordinar la actualización y validación de instructivos con las áreas centrales.",
-                        "productoFinal": "Coordinación de procesos y circuitos administrativos implementada.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 3,
                     "tipo": "Específica",
                     "descripcion": "Seguimiento de indicadores y control de gestión operativa. Tiempos medios de operación, errores operativos, reclamos, cumplimiento de SLA, uso de sistemas. Alertas tempranas y desvíos frente a normativa.",
                     "productoFinal": "Seguimiento de indicadores y control de gestión operativa implementado.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 3,
-                      "tipo": "Específica",
-                      "descripcion": "Seguimiento de indicadores y control de gestión operativa. Tiempos medios de operación, errores operativos, reclamos, cumplimiento de SLA, uso de sistemas. Alertas tempranas y desvíos frente a normativa.",
-                      "productoFinal": "Seguimiento de indicadores y control de gestión operativa implementado.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 10,
-                        "tipo": "Específica",
-                        "descripcion": "Seguimiento de indicadores y control de gestión operativa. Tiempos medios de operación, errores operativos, reclamos, cumplimiento de SLA, uso de sistemas. Alertas tempranas y desvíos frente a normativa.",
-                        "productoFinal": "Seguimiento de indicadores y control de gestión operativa implementado.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 4,
                     "tipo": "Específica",
                     "descripcion": "Gestión del recurso operativo y de infraestructura. Colaborar en la planificación operativa, dimensionamiento y asignación de tareas del personal en sucursales. Detectar necesidades de adecuación edilicia, equipamiento, conectividad u otros recursos materiales.",
                     "productoFinal": "Gestión del recurso operativo y de infraestructura implementada.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 4,
-                      "tipo": "Específica",
-                      "descripcion": "Gestión del recurso operativo y de infraestructura. Colaborar en la planificación operativa, dimensionamiento y asignación de tareas del personal en sucursales. Detectar necesidades de adecuación edilicia, equipamiento, conectividad u otros recursos materiales.",
-                      "productoFinal": "Gestión del recurso operativo y de infraestructura implementada.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 11,
-                        "tipo": "Específica",
-                        "descripcion": "Gestión del recurso operativo y de infraestructura. Colaborar en la planificación operativa, dimensionamiento y asignación de tareas del personal en sucursales. Detectar necesidades de adecuación edilicia, equipamiento, conectividad u otros recursos materiales.",
-                        "productoFinal": "Gestión del recurso operativo y de infraestructura implementada.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 5,
                     "tipo": "Específica",
                     "descripcion": "Capacitación y soporte técnico a la red. Elaborar y distribuir materiales operativos. Coordinar capacitaciones con las áreas de Formación y Procesos para mantener actualizados a los responsables operativos.",
                     "productoFinal": "Capacitación y soporte técnico a la red implementado.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 5,
-                      "tipo": "Específica",
-                      "descripcion": "Capacitación y soporte técnico a la red. Elaborar y distribuir materiales operativos. Coordinar capacitaciones con las áreas de Formación y Procesos para mantener actualizados a los responsables operativos.",
-                      "productoFinal": "Capacitación y soporte técnico a la red implementado.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 12,
-                        "tipo": "Específica",
-                        "descripcion": "Capacitación y soporte técnico a la red. Elaborar y distribuir materiales operativos. Coordinar capacitaciones con las áreas de Formación y Procesos para mantener actualizados a los responsables operativos.",
-                        "productoFinal": "Capacitación y soporte técnico a la red implementado.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Específica",
-                    "descripcion": "Consolidar indicadores operativos y proponer ajustes de procesos.",
-                    "productoFinal": "KPIs de Sucursales y Acciones Correctivas.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 6,
-                      "tipo": "Específica",
-                      "descripcion": "Consolidar indicadores operativos y proponer ajustes de procesos.",
-                      "productoFinal": "KPIs de Sucursales y Acciones Correctivas.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 13,
-                        "tipo": "Específica",
-                        "descripcion": "Consolidar indicadores operativos y proponer ajustes de procesos.",
-                        "productoFinal": "KPIs de Sucursales y Acciones Correctivas.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Específica",
-                    "descripcion": "Supervisar la implementación operativa de procesos y servicios en las sucursales.",
-                    "productoFinal": "Cumplimiento Operativo de Estándares.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 7,
-                      "tipo": "Específica",
-                      "descripcion": "Supervisar la implementación operativa de procesos y servicios en las sucursales.",
-                      "productoFinal": "Cumplimiento Operativo de Estándares.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 14,
-                        "tipo": "Específica",
-                        "descripcion": "Supervisar la implementación operativa de procesos y servicios en las sucursales.",
-                        "productoFinal": "Cumplimiento Operativo de Estándares.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Monitorear el funcionamiento general de las sucursales y canalizar incidencias.",
-                    "productoFinal": "Reporte de Incidencias y Correctivos.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 8,
-                      "tipo": "Específica",
-                      "descripcion": "Monitorear el funcionamiento general de las sucursales y canalizar incidencias.",
-                      "productoFinal": "Reporte de Incidencias y Correctivos.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 15,
-                        "tipo": "Específica",
-                        "descripcion": "Monitorear el funcionamiento general de las sucursales y canalizar incidencias.",
-                        "productoFinal": "Reporte de Incidencias y Correctivos.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Coordinar con áreas de soporte para garantizar el funcionamiento operativo de las sucursales.",
-                    "productoFinal": "Planes de Contingencia y Gestión de Apoyo.",
-                    "porcentajeDedicacion": 11,
-                    "versionAnterior": {
-                      "orden": 9,
-                      "tipo": "Específica",
-                      "descripcion": "Coordinar con áreas de soporte para garantizar el funcionamiento operativo de las sucursales.",
-                      "productoFinal": "Planes de Contingencia y Gestión de Apoyo.",
-                      "porcentajeDedicacion": 11,
-                      "versionAnterior": {
-                        "orden": 16,
-                        "tipo": "Específica",
-                        "descripcion": "Coordinar con áreas de soporte para garantizar el funcionamiento operativo de las sucursales.",
-                        "productoFinal": "Planes de Contingencia y Gestión de Apoyo.",
-                        "porcentajeDedicacion": 11
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 1,
@@ -2629,30 +1708,15 @@
                   {
                     "orden": 3,
                     "tipo": "Indicador",
-                    "descripcion": "Número de sucursales operativas vs. planificadas."
+                    "descripcion": "Porcentaje de cumplimiento de estándares de calidad operativa."
                   },
                   {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Tasa de adopción de herramientas operativas por sucursal."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
-                    "descripcion": "Satisfacción del personal de sucursales con los procesos."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
-                    "descripcion": "Porcentaje de cumplimiento de estándares de calidad operativa."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
                     "descripcion": "Tiempo promedio de implementación de mejoras operativas."
                   },
                   {
-                    "orden": 8,
+                    "orden": 5,
                     "tipo": "Indicador",
                     "descripcion": "Número de incidencias críticas resueltas por mes."
                   }
@@ -2669,47 +1733,35 @@
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                    "productoFinal": "con los objetivos estratégicos del Banco.",
-                    "versionAnterior": {
-                      "orden": 1,
-                      "tipo": "Genérica",
-                      "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                      "productoFinal": "Producto concreto del área."
-                    }
-                  },
-                  {
-                    "orden": 2,
-                    "tipo": "Genérica",
                     "descripcion": "Ejecutar el gobierno operativo y comercial de la red en su región. Asegurar el cumplimiento de objetivos estratégicos y operativos a través de la gestión directa sobre las zonas y sucursales bajo su jurisdicción. Define, gestiona y planifica los objetivos comerciales de cada Zona de la Región en conjunto con Coordinación Comercial y de Atención de la Red Propone acciones de marketing y de desarrollo comercial de su geografía.",
                     "productoFinal": "Gobierno operativo y comercial de la red en su región ejecutado."
                   },
                   {
-                    "orden": 3,
+                    "orden": 2,
                     "tipo": "Genérica",
                     "descripcion": "Asegurar la implementación del modelo de atención y gestión del cliente. Supervisar que la red actúe conforme a los estándares definidos, en experiencia, protocolos de servicio y cumplimiento normativo.",
                     "productoFinal": "Implementación del modelo de atención y gestión del cliente asegurada."
                   },
                   {
-                    "orden": 4,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Definir y monitorear objetivos comerciales regionales. Establecer metas y prioridades comerciales junto a las jefaturas zonales, en coordinación con Gestión Comercial y Segmentos.",
                     "productoFinal": "Objetivos comerciales regionales definidos y monitoreados."
                   },
                   {
-                    "orden": 5,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Desarrollar la red física y su cobertura territorial. Evaluar necesidades de apertura, cierre, traslado o reconversión de sucursales según análisis de demanda, eficiencia y perfil poblacional.",
                     "productoFinal": "Red física y su cobertura territorial desarrollada."
                   },
                   {
-                    "orden": 6,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Gestionar el relacionamiento institucional territorial. Representar al Banco frente a actores públicos, privados y comunitarios en su región, apoyando alianzas, acuerdos y posicionamiento institucional.",
                     "productoFinal": "Relacionamiento institucional territorial gestionado."
                   },
                   {
-                    "orden": 7,
+                    "orden": 6,
                     "tipo": "Genérica",
                     "descripcion": "Supervisar e implementar mecanismos de control y seguimiento que aseguren el cumplimiento de políticas internas.",
                     "productoFinal": "aseguren el cumplimiento de políticas internas.",
@@ -2721,107 +1773,107 @@
                     }
                   },
                   {
-                    "orden": 1,
+                    "orden": 7,
                     "tipo": "Específica",
                     "descripcion": "Hacer seguimiento al desempeño comercial, operativo y de cumplimiento en sucursales.",
                     "productoFinal": "Tablero de Desempeño Regional.",
-                    "porcentajeDedicacion": 35
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 2,
+                    "orden": 8,
                     "tipo": "Específica",
                     "descripcion": "Supervisión de la gestión zonal y de sucursales. Coordinar reuniones periódicas con jefes zonales. Brindar lineamientos, seguimiento de performance, resolución de incidentes. Asegurar consistencia operativa y comercial en toda la región.",
                     "productoFinal": "Supervisión de la gestión zonal y de sucursales implementada.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 3,
+                    "orden": 9,
                     "tipo": "Específica",
                     "descripcion": "Despliegue y seguimiento de campañas y acciones comerciales. Coordinar la bajada de campañas comerciales nacionales a cada zona. Asegurar acompañamiento en activaciones locales y monitoreo de resultados.",
                     "productoFinal": "Despliegue y seguimiento de campañas y acciones comerciales implementado.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 4,
+                    "orden": 10,
                     "tipo": "Específica",
                     "descripcion": "Análisis de cobertura y estructura de red. Monitorear demanda, capacidad instalada y productividad por sucursal. Elevar propuestas de optimización (reconfiguración, ampliación, integración con canales digitales).",
                     "productoFinal": "Análisis de cobertura y estructura de red implementado.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 5,
+                    "orden": 11,
                     "tipo": "Específica",
                     "descripcion": "Gestión de desempeño y clima organizacional. Participar en la evaluación de desempeño de responsables zonales y gerentes de sucursales. Acompañar la gestión de personas, la formación y el desarrollo del talento territorial.",
                     "productoFinal": "Gestión de desempeño y clima organizacional implementada.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 6,
+                    "orden": 12,
                     "tipo": "Específica",
                     "descripcion": "Gestión de riesgos operativos y cumplimiento normativo. Supervisar cumplimiento operativo y acciones correctivas. Monitorear hallazgos de auditoría o reclamos críticos.",
                     "productoFinal": "Gestión de riesgos operativos y cumplimiento normativo implementada.",
                     "porcentajeDedicacion": 10
                   },
                   {
-                    "orden": 7,
+                    "orden": 13,
                     "tipo": "Específica",
                     "descripcion": "Relevar particularidades zonales y elevar propuestas de mejora a nivel central.",
                     "productoFinal": "Propuestas Regionales de Mejora.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 8,
+                    "orden": 14,
                     "tipo": "Específica",
                     "descripcion": "Supervisar la operativa diaria de las sucursales bajo su región.",
                     "productoFinal": "Seguimiento Operativo Diario.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 9,
+                    "orden": 15,
                     "tipo": "Específica",
                     "descripcion": "Canalizar necesidades de las sucursales hacia áreas centrales y dar seguimiento.",
                     "productoFinal": "Requerimientos Coordinados con Soporte.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 10,
+                    "orden": 16,
                     "tipo": "Específica",
                     "descripcion": "Impulsar acciones comerciales y de posicionamiento a nivel regional.",
                     "productoFinal": "Campañas Comerciales Locales.",
-                    "porcentajeDedicacion": 5
+                    "porcentajeDedicacion": "10"
                   },
                   {
-                    "orden": 1,
+                    "orden": 17,
                     "tipo": "Indicador",
                     "descripcion": "% cumplimiento de objetivos comerciales regionales."
                   },
                   {
-                    "orden": 2,
+                    "orden": 18,
                     "tipo": "Indicador",
                     "descripcion": "Productos promedio por cliente / rentabilidad por región."
                   },
                   {
-                    "orden": 3,
+                    "orden": 19,
                     "tipo": "Indicador",
                     "descripcion": "Tasa de digitalización / migración de operaciones."
                   },
                   {
-                    "orden": 4,
+                    "orden": 20,
                     "tipo": "Indicador",
                     "descripcion": "Participación del canal sucursal en captación y ventas."
                   },
                   {
-                    "orden": 5,
+                    "orden": 21,
                     "tipo": "Indicador",
                     "descripcion": "NPS por región / tasa de reclamos."
                   },
                   {
-                    "orden": 6,
+                    "orden": 22,
                     "tipo": "Indicador",
                     "descripcion": "Cobertura territorial vs. demanda estimada."
                   },
                   {
-                    "orden": 7,
+                    "orden": 23,
                     "tipo": "Indicador",
                     "descripcion": "Cumplimiento de SLA y hallazgos operativos por sucursal."
                   }
@@ -2832,366 +1884,74 @@
               {
                 "key": "CAC|Canales",
                 "nombre": "CAC",
-                "mision": "Asegurar atención telefónica ágil, empática y segura, operando como punto de entrada relacional para los clientes.",
+                "mision": "Operar y evolucionar el Centro de Atención Telefónica (CAC) del Banco, asegurando una atención ágil, empática, eficiente y segura para resolver consultas, canalizar gestiones, brindar soporte técnico y operar como punto de entrada relacional para los distintos segmentos de clientes. Garantizar altos estándares de calidad, cumplimiento normativo, productividad y experiencia cliente.",
                 "jerarquia": "SG",
                 "nivelReporte": 4,
                 "funciones": [
                   {
                     "orden": 1,
                     "tipo": "Genérica",
-                    "descripcion": "Operación diaria.",
-                    "productoFinal": "Operación diaria.",
-                    "versionAnterior": {
-                      "orden": 1,
-                      "tipo": "Genérica",
-                      "descripcion": "Operación diaria.",
-                      "productoFinal": "Producto concreto del área."
-                    }
+                    "descripcion": "Administrar la operación diaria del centro de atención y evolucionar sus capacidades. Supervisar la gestión de llamadas entrantes y salientes, tiempos de respuesta, derivaciones, calidad de atención y resolución efectiva. Generar capacidades comerciales y ejecutar el plan comercial para el Canal. Liderar el desarrollo de capacidades automatizadas de procesamiento de transacciones y requerimientos de los Clientes.",
+                    "productoFinal": "Operación diaria del CAC optimizada."
                   },
                   {
                     "orden": 2,
-                    "tipo": "Genérica",
-                    "descripcion": "Protocolos de atención.",
-                    "productoFinal": "Manual de protocolos actualizado."
-                  },
-                  {
-                    "orden": 3,
-                    "tipo": "Genérica",
-                    "descripcion": "Monitoreo de performance.",
-                    "productoFinal": "Monitoreo de performance.",
-                    "versionAnterior": {
-                      "orden": 3,
-                      "tipo": "Genérica",
-                      "descripcion": "Monitoreo de performance.",
-                      "productoFinal": "Producto concreto del área."
-                    }
-                  },
-                  {
-                    "orden": 4,
-                    "tipo": "Genérica",
-                    "descripcion": "Desarrollo de agentes.",
-                    "productoFinal": "Desarrollo de agentes.",
-                    "versionAnterior": {
-                      "orden": 4,
-                      "tipo": "Genérica",
-                      "descripcion": "Desarrollo de agentes.",
-                      "productoFinal": "Producto concreto del área."
-                    }
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Genérica",
-                    "descripcion": "Mejora digital.",
-                    "productoFinal": "Reporte de iniciativas de mejora."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Genérica",
-                    "descripcion": "Atender consultas e inquietudes de clientes. Derivar casos a áreas correspondientes. Monitorear niveles de atención y calidad. Proponer mejoras al servicio ofrecido.",
-                    "productoFinal": "Reporte de iniciativas de mejora."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Genérica",
-                    "descripcion": "Administrar la operación diaria del centro de atención y evolucionar sus capacidades. Supervisar la gestión de llamadas entrantes y salientes, tiempos de respuesta, derivaciones, calidad de atención y resolución efectiva. Generar capacidades comerciales y ejecutar el plan comercial para el Canal. Liderar el desarrollo de capacidades automatizadas de procesamiento de transacciones y requerimientos de los Clientes.",
-                    "productoFinal": "Operación optimizada del CAC."
-                  },
-                  {
-                    "orden": 8,
                     "tipo": "Genérica",
                     "descripcion": "Definir y actualizar protocolos de atención y scripts. Asegurar que los agentes cuenten con información precisa, lenguaje claro y procedimientos homogéneos para cada tipo de interacción.",
                     "productoFinal": "Protocolos de atención actualizados."
                   },
                   {
-                    "orden": 9,
+                    "orden": 3,
                     "tipo": "Genérica",
                     "descripcion": "Monitorear performance operativa y calidad de atención. Analizar KPI's como TMO (tiempo medio de operación), tasa de abandono, nivel de servicio, tasa de resolución en primer contacto y satisfacción post-llamada.",
-                    "productoFinal": "Reportes de performance operativa."
+                    "productoFinal": "Dashboard de performance operativa."
                   },
                   {
-                    "orden": 10,
+                    "orden": 4,
                     "tipo": "Genérica",
                     "descripcion": "Desarrollar al equipo de agentes y supervisores. Implementar programas de capacitación, coaching y evaluación continua para asegurar desempeño profesional y excelencia en la atención.",
-                    "productoFinal": "Equipo capacitado y desarrollado."
+                    "productoFinal": "Equipo capacitado y evaluado."
                   },
                   {
-                    "orden": 11,
+                    "orden": 5,
                     "tipo": "Genérica",
                     "descripcion": "Colaborar en la mejora de procesos y digitalización. Identificar oportunidades de autoservicio, migración de llamadas a canales digitales y mejora de procesos que disminuyan el volumen innecesario.",
-                    "productoFinal": "Procesos mejorados y digitalizados."
+                    "productoFinal": "Iniciativas de mejora y digitalización."
                   },
                   {
                     "orden": 1,
                     "tipo": "Específica",
-                    "descripcion": "Gestión operativa y comercial del servicio.",
+                    "descripcion": "Gestión comercial y operativa del CAC. Ejecutar el plan comercial del Canal. Planificación de turnos, monitoreo en tiempo real, asignación de recursos. Seguimiento de SLA, congestión, gestión de picos de demanda.",
                     "productoFinal": "Operación CAC funcionando.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 1,
-                      "tipo": "Específica",
-                      "descripcion": "Gestión operativa y comercial del servicio.",
-                      "productoFinal": "Operación CAC funcionando.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 12,
-                        "tipo": "Específica",
-                        "descripcion": "Gestión operativa y comercial del servicio.",
-                        "productoFinal": "Operación CAC funcionando.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
+                    "porcentajeDedicacion": 35
                   },
                   {
                     "orden": 2,
                     "tipo": "Específica",
-                    "descripcion": "Definir y actualizar protocolos y flujos.",
+                    "descripcion": "Diseño de protocolos y herramientas de atención. Scripts, bases de conocimiento, manuales rápidos y workflows de resolución. Integración con CRM y sistemas transaccionales para trazabilidad.",
                     "productoFinal": "Manual de atención.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 2,
-                      "tipo": "Específica",
-                      "descripcion": "Definir y actualizar protocolos y flujos.",
-                      "productoFinal": "Manual de atención.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 13,
-                        "tipo": "Específica",
-                        "descripcion": "Definir y actualizar protocolos y flujos.",
-                        "productoFinal": "Manual de atención.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
+                    "porcentajeDedicacion": 20
                   },
                   {
                     "orden": 3,
                     "tipo": "Específica",
-                    "descripcion": "Monitorear y analizar indicadores de experiencia.",
-                    "productoFinal": "Dashboard CAC.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 3,
-                      "tipo": "Específica",
-                      "descripcion": "Monitorear y analizar indicadores de experiencia.",
-                      "productoFinal": "Dashboard CAC.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 14,
-                        "tipo": "Específica",
-                        "descripcion": "Monitorear y analizar indicadores de experiencia.",
-                        "productoFinal": "Dashboard CAC.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
+                    "descripcion": "Análisis de la voz del cliente y mejora continua. Análisis de llamadas, motivos de contacto, reclamos frecuentes. Elevación de hallazgos a Canales, Productos, Tecnología y Atención.",
+                    "productoFinal": "Reporte de insights.",
+                    "porcentajeDedicacion": 15
                   },
                   {
                     "orden": 4,
                     "tipo": "Específica",
-                    "descripcion": "Implementar mejoras a partir de voz del cliente.",
-                    "productoFinal": "Reporte de insights.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 4,
-                      "tipo": "Específica",
-                      "descripcion": "Implementar mejoras a partir de voz del cliente.",
-                      "productoFinal": "Reporte de insights.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 15,
-                        "tipo": "Específica",
-                        "descripcion": "Implementar mejoras a partir de voz del cliente.",
-                        "productoFinal": "Reporte de insights.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
+                    "descripcion": "Supervisión de calidad de atención. Escucha de llamadas, scoring de interacciones, evaluaciones periódicas. Implementación de encuestas post-atención y NPS del canal.",
+                    "productoFinal": "Dashboard CAC.",
+                    "porcentajeDedicacion": 15
                   },
                   {
                     "orden": 5,
                     "tipo": "Específica",
-                    "descripcion": "Coordinar con áreas de sistemas, productos y canales.",
-                    "productoFinal": "Requerimientos y seguimiento.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 5,
-                      "tipo": "Específica",
-                      "descripcion": "Coordinar con áreas de sistemas, productos y canales.",
-                      "productoFinal": "Requerimientos y seguimiento.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 16,
-                        "tipo": "Específica",
-                        "descripcion": "Coordinar con áreas de sistemas, productos y canales.",
-                        "productoFinal": "Requerimientos y seguimiento.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Específica",
-                    "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
+                    "descripcion": "Interacción con otras áreas operativas y comerciales. Resolución de casos complejos, derivación a canales especializados, retroalimentación de procesos.",
                     "productoFinal": "Contactos Atendidos y Derivados.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 6,
-                      "tipo": "Específica",
-                      "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                      "productoFinal": "Contactos Atendidos y Derivados.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 17,
-                        "tipo": "Específica",
-                        "descripcion": "Coordinar y gestionar procesos críticos del área, alineando esfuerzos con los objetivos estratégicos del Banco.",
-                        "productoFinal": "Contactos Atendidos y Derivados.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Específica",
-                    "descripcion": "Monitorear indicadores de servicio, respuesta y satisfacción.",
-                    "productoFinal": "Reporte de Indicadores del CAC.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 7,
-                      "tipo": "Específica",
-                      "descripcion": "Monitorear indicadores de servicio, respuesta y satisfacción.",
-                      "productoFinal": "Reporte de Indicadores del CAC.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 18,
-                        "tipo": "Específica",
-                        "descripcion": "Monitorear indicadores de servicio, respuesta y satisfacción.",
-                        "productoFinal": "Reporte de Indicadores del CAC.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Específica",
-                    "descripcion": "Detectar oportunidades de mejora en la atención y proponer soluciones.",
-                    "productoFinal": "Planes de Mejora del Servicio.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 8,
-                      "tipo": "Específica",
-                      "descripcion": "Detectar oportunidades de mejora en la atención y proponer soluciones.",
-                      "productoFinal": "Planes de Mejora del Servicio.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 19,
-                        "tipo": "Específica",
-                        "descripcion": "Detectar oportunidades de mejora en la atención y proponer soluciones.",
-                        "productoFinal": "Planes de Mejora del Servicio.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Específica",
-                    "descripcion": "Gestión comercial y operativa del CAC. Ejecutar el plan comercial del Canal. Planificación de turnos, monitoreo en tiempo real, asignación de recursos. Seguimiento de SLA, congestión, gestión de picos de demanda.",
-                    "productoFinal": "Gestión comercial y operativa optimizada.",
-                    "porcentajeDedicacion": 8,
-                    "versionAnterior": {
-                      "orden": 9,
-                      "tipo": "Específica",
-                      "descripcion": "Gestión comercial y operativa del CAC. Ejecutar el plan comercial del Canal. Planificación de turnos, monitoreo en tiempo real, asignación de recursos. Seguimiento de SLA, congestión, gestión de picos de demanda.",
-                      "productoFinal": "Gestión comercial y operativa optimizada.",
-                      "porcentajeDedicacion": 8,
-                      "versionAnterior": {
-                        "orden": 20,
-                        "tipo": "Específica",
-                        "descripcion": "Gestión comercial y operativa del CAC. Ejecutar el plan comercial del Canal. Planificación de turnos, monitoreo en tiempo real, asignación de recursos. Seguimiento de SLA, congestión, gestión de picos de demanda.",
-                        "productoFinal": "Gestión comercial y operativa optimizada.",
-                        "porcentajeDedicacion": 8
-                      }
-                    }
-                  },
-                  {
-                    "orden": 10,
-                    "tipo": "Específica",
-                    "descripcion": "Diseño de protocolos y herramientas de atención Scripts, bases de conocimiento, manuales rápidos y workflows de resolución. Integración con CRM y sistemas transaccionales para trazabilidad.",
-                    "productoFinal": "Kits y Herramientas Comerciales.",
-                    "porcentajeDedicacion": 7,
-                    "versionAnterior": {
-                      "orden": 10,
-                      "tipo": "Específica",
-                      "descripcion": "Diseño de protocolos y herramientas de atención Scripts, bases de conocimiento, manuales rápidos y workflows de resolución. Integración con CRM y sistemas transaccionales para trazabilidad.",
-                      "productoFinal": "Kits y Herramientas Comerciales.",
-                      "porcentajeDedicacion": 7,
-                      "versionAnterior": {
-                        "orden": 21,
-                        "tipo": "Específica",
-                        "descripcion": "Diseño de protocolos y herramientas de atención Scripts, bases de conocimiento, manuales rápidos y workflows de resolución. Integración con CRM y sistemas transaccionales para trazabilidad.",
-                        "productoFinal": "Kits y Herramientas Comerciales.",
-                        "porcentajeDedicacion": 7
-                      }
-                    }
-                  },
-                  {
-                    "orden": 11,
-                    "tipo": "Específica",
-                    "descripcion": "Análisis de la voz del cliente y mejora continua Análisis de llamadas, motivos de contacto, reclamos frecuentes. Elevación de hallazgos a Canales, Productos, Tecnología y Atención.",
-                    "productoFinal": "Análisis y Estudios Especializados.",
-                    "porcentajeDedicacion": 7,
-                    "versionAnterior": {
-                      "orden": 11,
-                      "tipo": "Específica",
-                      "descripcion": "Análisis de la voz del cliente y mejora continua Análisis de llamadas, motivos de contacto, reclamos frecuentes. Elevación de hallazgos a Canales, Productos, Tecnología y Atención.",
-                      "productoFinal": "Análisis y Estudios Especializados.",
-                      "porcentajeDedicacion": 7,
-                      "versionAnterior": {
-                        "orden": 22,
-                        "tipo": "Específica",
-                        "descripcion": "Análisis de la voz del cliente y mejora continua Análisis de llamadas, motivos de contacto, reclamos frecuentes. Elevación de hallazgos a Canales, Productos, Tecnología y Atención.",
-                        "productoFinal": "Análisis y Estudios Especializados.",
-                        "porcentajeDedicacion": 7
-                      }
-                    }
-                  },
-                  {
-                    "orden": 12,
-                    "tipo": "Específica",
-                    "descripcion": "Supervisión de calidad de atención Escucha de llamadas, scoring de interacciones, evaluaciones periódicas. Implementación de encuestas post-atención y NPS del canal.",
-                    "productoFinal": "Implementación de Proyectos.",
-                    "porcentajeDedicacion": 7,
-                    "versionAnterior": {
-                      "orden": 12,
-                      "tipo": "Específica",
-                      "descripcion": "Supervisión de calidad de atención Escucha de llamadas, scoring de interacciones, evaluaciones periódicas. Implementación de encuestas post-atención y NPS del canal.",
-                      "productoFinal": "Implementación de Proyectos.",
-                      "porcentajeDedicacion": 7,
-                      "versionAnterior": {
-                        "orden": 23,
-                        "tipo": "Específica",
-                        "descripcion": "Supervisión de calidad de atención Escucha de llamadas, scoring de interacciones, evaluaciones periódicas. Implementación de encuestas post-atención y NPS del canal.",
-                        "productoFinal": "Implementación de Proyectos.",
-                        "porcentajeDedicacion": 7
-                      }
-                    }
-                  },
-                  {
-                    "orden": 13,
-                    "tipo": "Específica",
-                    "descripcion": "Interacción con otras áreas operativas y comerciales Resolución de casos complejos, derivación a canales especializados, retroalimentación de procesos.",
-                    "productoFinal": "a canales especializados, retroalimentación de procesos.",
-                    "porcentajeDedicacion": 7,
-                    "versionAnterior": {
-                      "orden": 13,
-                      "tipo": "Específica",
-                      "descripcion": "Interacción con otras áreas operativas y comerciales Resolución de casos complejos, derivación a canales especializados, retroalimentación de procesos.",
-                      "productoFinal": "a canales especializados, retroalimentación de procesos.",
-                      "porcentajeDedicacion": 7,
-                      "versionAnterior": {
-                        "orden": 24,
-                        "tipo": "Específica",
-                        "descripcion": "Interacción con otras áreas operativas y comerciales Resolución de casos complejos, derivación a canales especializados, retroalimentación de procesos.",
-                        "productoFinal": "Producto Especializado del Área.",
-                        "porcentajeDedicacion": 7
-                      }
-                    }
+                    "porcentajeDedicacion": 15
                   },
                   {
                     "orden": 1,
@@ -3206,37 +1966,12 @@
                   {
                     "orden": 3,
                     "tipo": "Indicador",
-                    "descripcion": "Resolución en primer contacto."
+                    "descripcion": "Nivel de servicio (NS): % llamadas atendidas en tiempo objetivo."
                   },
                   {
                     "orden": 4,
                     "tipo": "Indicador",
-                    "descripcion": "Nivel de servicio (NS): % llamadas atendidas en tiempo objetivo."
-                  },
-                  {
-                    "orden": 5,
-                    "tipo": "Indicador",
-                    "descripcion": "TMO (Tiempo Medio de Operación) y TME (Tiempo Medio de Espera)."
-                  },
-                  {
-                    "orden": 6,
-                    "tipo": "Indicador",
-                    "descripcion": "Tasa de abandono de llamadas."
-                  },
-                  {
-                    "orden": 7,
-                    "tipo": "Indicador",
-                    "descripcion": "NPS o satisfacción post-llamada."
-                  },
-                  {
-                    "orden": 8,
-                    "tipo": "Indicador",
-                    "descripcion": "Productividad por agente y por hora."
-                  },
-                  {
-                    "orden": 9,
-                    "tipo": "Indicador",
-                    "descripcion": "% llamadas derivadas vs. resueltas en CAC."
+                    "descripcion": "Satisfacción post-llamada."
                   }
                 ],
                 "reportaA": "Canales"
